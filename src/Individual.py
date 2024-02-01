@@ -1,10 +1,10 @@
 class Individual:
     def __init__(self, id) -> None:
         self.id = id
-        self.b = 0      # belive
+        self.b = 0.9      # belive
         self.d = 0      # disbelive
-        self.u = 1      # updates
-        self.a = 0.6
+        self.u = 0.1      # updates
+        self.a = 0.5
 
     def get_reputation_value(self):
         return self.b + self.u * self.a

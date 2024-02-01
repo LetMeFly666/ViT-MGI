@@ -136,7 +136,7 @@ class FL_Torch:
         self.scale_target = 0
 
         # 主观逻辑模型
-        self.slot = 2  # 主观逻辑模型更新的时隙
+        self.slot = 4  # 主观逻辑模型更新的时隙
         self.subject_logic = None
 
         self.ph_batch_num = (
@@ -498,21 +498,27 @@ class FL_Torch:
                     matrix = np.array(clients_status)
                     diff = np.diff(matrix, axis=0)  # 计算每一列的相邻元素之间的差异
                     jump_counts = np.sum(np.abs(diff) == 1, axis=0)  # 计算每列的跳变次数
-                    ones_count = np.sum(matrix == 1, axis=0)  # 统计每列中1出现的次数，即被视为良性参与者的次数
+                    ones_count = np.sum(matrix == 1, axis=0)  # 统计每列中1出现的次数
+                    zeros_count = np.sum(matrix == 0, axis=0)  # 统计每列中0出现的次数
                     print(f"jump counts: {jump_counts}")
                     print(f"ones counts: {ones_count}")
                     for i in range(participant_num):  # 更新参与者的信誉，没有参与的参与者继承之前的信誉值
-                        new_u = jump_counts[i] / (self.slot - 1)  # uncertainty
-                        new_b = (1 - new_u) * (ones_count[i] / self.slot)  # belive
-                        new_d = (1 - new_u) * (
-                            1 - ones_count[i] / self.slot
+                        new_b = (1 - 0.1) * (
+                            0.4
+                            * ones_count[i]
+                            / (0.4 * ones_count[i] + 0.6 * zeros_count[i])
+                        )  # belive
+                        new_d = (1 - 0.1) * (
+                            0.6
+                            * zeros_count[i]
+                            / (0.4 * ones_count[i] + 0.6 * zeros_count[i])
                         )  # disbelive
                         assert (
                             self.subject_logic[self.peeked_client[i]].id
                             == self.peeked_client[i]
                         )
                         self.subject_logic[self.peeked_client[i]].update_param(
-                            new_b, new_d, new_u
+                            new_b, new_d, 0.1
                         )
                     sorted_clients = sorted(
                         self.subject_logic[:],
@@ -551,7 +557,7 @@ class FL_Torch:
             print(f"normalized_similarity_score: {normalized_similarity_score}")
             # 基于最大距离的层次聚类算法
             Z = linkage(
-                normalized_similarity_score.numpy().reshape(-1, 1), method="complete"
+                normalized_similarity_score.numpy().reshape(-1, 1), method="average"
             )
             clusters = fcluster(Z, 0.01, criterion="distance")
             print(clusters)
