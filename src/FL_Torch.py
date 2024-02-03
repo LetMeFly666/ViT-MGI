@@ -8,6 +8,7 @@ from scipy.cluster.hierarchy import linkage, fcluster
 import numpy as np
 from collections import Counter
 
+
 ATTACK_MODES = ["scale", "grad_ascent", "mislead", "label_flip"]
 
 
@@ -71,6 +72,9 @@ class FL_Torch:
         testloader_batch_num,
         start_attack,
         attack_mode,
+        defend_mode,
+        slot,
+        distance,
         p_kernel,
         k_nearest,
         layers_to_look=[],
@@ -124,7 +128,7 @@ class FL_Torch:
 
         self.out_class = torch.tensor([len(self.classes)])
         self.global_model = ModelViT(
-            "vit_base_patch16_224", False, self.out_class, "cpu"
+            "vit_base_patch16_224", False, self.out_class, "cuda:0"
         )
         self.participants = []
         self.loss = torch.nn.CrossEntropyLoss()
@@ -133,10 +137,12 @@ class FL_Torch:
         self.malicious_client = None
         self.malicious_attack = None
         self.attack_mode = attack_mode  # 攻击模式
+        self.defend_mode = defend_mode
         self.scale_target = 0
 
         # 主观逻辑模型
-        self.slot = 4  # 主观逻辑模型更新的时隙
+        self.slot = slot  # 主观逻辑模型更新的时隙
+        self.distance = distance
         self.subject_logic = None
 
         self.ph_batch_num = (
@@ -155,7 +161,7 @@ class FL_Torch:
         print("federated init......")
         param = self.global_model.get_flatten_parameters()  # 执行完就多了17G
         for i in range(self.Ph):
-            model = ModelViT("vit_base_patch16_224", False, self.out_class, f"cpu")
+            model = ModelViT("vit_base_patch16_224", False, self.out_class, f"cuda:{i%2}")
             model.load_parameters(param)
             self.participants.append(model)
         # 恶意参与者
@@ -172,7 +178,6 @@ class FL_Torch:
 
         # self.malicious_client = torch.zeros(self.Ph, dtype=torch.bool)
         # self.malicious_client.bernoulli_(self.malicious_factor)  # 伯努利采样
-        print(f"malicious_participant: {self.malicious_client}")
 
     def print_config(self):
         print(f"num_iter: {self.num_iter}")
@@ -180,8 +185,10 @@ class FL_Torch:
 
         print(f"Ph: {self.Ph}")
 
-        print(f"malicious_factor: {self.malicious_factor}")
         print(f"participant_factor: {self.participant_factor}")
+
+        print(f"malicious_factor: {self.malicious_factor}")
+        print(f"malicious_participant: {[i for i, malicous in enumerate(self.malicious_client)  if malicous]}")
 
         print(f"out_class_size: {self.out_class.item()}")
 
@@ -215,7 +222,7 @@ class FL_Torch:
         print("reset global updates......")
         if self.collected_updates is None:
             length = self.global_model.get_flatten_parameters().size(0)
-            self.collected_updates = torch.zeros(self.Ph, length).to("cpu")
+            self.collected_updates = torch.zeros(self.Ph, length)
         else:
             self.collected_updates.zero_()
 
@@ -248,12 +255,12 @@ class FL_Torch:
             X, y = data
             # print(X.shape, y.shape)
             acc, loss, updates = model.train(
-                X.to(f"cpu"), y.to(f"cpu"), self.batch_size, self.local_epoch
+                X.to(f"cuda:{client_id%2}"), y.to(f"cuda:{client_id%2}"), self.batch_size, self.local_epoch
             )
             print(
                 f"normal participant {client_id} train on data {i}: acc: {acc}, loss: {loss}"
             )
-            updates = updates.to("cpu")
+            # updates = updates.to("cpu")
             self.collect_updates(client_id, updates)
             sum_acc += acc
             sum_loss += loss
@@ -280,12 +287,12 @@ class FL_Torch:
                     i * (X.size(0)) : (i + 1) * (X.size(0))
                 ]  # 置换标签
                 acc, loss, updates = model.train(
-                    X.to(f"cpu"), y.to(f"cpu"), self.batch_size, self.local_epoch
+                    X.to(f"cuda:{client_id%2}"), y.to(f"cuda:{client_id%2}"), self.batch_size, self.local_epoch
                 )
                 print(
                     f"malicious participant {client_id} launch {self.malicious_attack[client_id]} attack"
                 )
-                updates = updates.to("cpu")
+                # updates = updates.to("cpu")
                 if self.malicious_attack[client_id] == "label_flip":
                     mal_update = updates
                 else:
@@ -301,12 +308,12 @@ class FL_Torch:
                 # Conduct T-scal attack from [1]
                 X, y = targeted_flip(X, self.scale_target)
                 acc, loss, updates = model.train(
-                    X.to(f"cpu"), y.to(f"cpu"), self.batch_size, self.local_epoch
+                    X.to(f"cuda:{client_id%2}"), y.to(f"cuda:{client_id%2}"), self.batch_size, self.local_epoch
                 )
                 print(
                     f"malicious participant {client_id} launch {self.malicious_attack[client_id]} attack"
                 )
-                updates = updates.to("cpu")
+                # updates = updates.to("cpu")
                 local = self.collected_updates[client_id]
                 mal_updates = local + updates / self.malicious_factor
                 self.collect_updates(client_id, mal_updates)
@@ -340,7 +347,7 @@ class FL_Torch:
         """
         param = self.global_model.get_flatten_parameters()
         for i in range(self.Ph):
-            self.participants[i].load_parameters(param)
+            self.participants[i].load_parameters(param.to(f"cuda:{i%2}"))
 
     def apply_updates(self, updates: torch.tensor):
         """
@@ -430,10 +437,9 @@ class FL_Torch:
         """
         total_loss = 0
         total_acc = 0
-        for data in self.test_loader:
-            test_x, test_y = data  # 测试数据
-            test_x = test_x.to("cpu")
-            test_y = test_y.to("cpu")
+        for test_x, test_y in self.test_loader:
+            test_x = test_x.to("cuda:0")
+            test_y = test_y.to("cuda:0")
             model = self.global_model
             with torch.no_grad():
                 out = model.forward(test_x)  # 预测输出
@@ -452,8 +458,8 @@ class FL_Torch:
         total_img_num = 0  # 测试集除去标签等于scale_target后的总数
         model = self.global_model
         for test_x, test_y in self.test_loader:
-            test_x = test_x.to("cpu")
-            test_y = test_y.to("cpu")
+            test_x = test_x.to("cuda:0")
+            test_y = test_y.to("cuda:0")
             mal_test_x, mal_test_y = targeted_flip(
                 test_x, self.scale_target
             )  # 得到标记后的图像以及相应标签
@@ -486,9 +492,9 @@ class FL_Torch:
             self.reset_collected_updates()
             if epoch % self.slot == 0:
                 # 更新主观逻辑模型
-                if epoch == 0:
+                if epoch == 0 or self.defend_mode == 0:
                     self.subject_logic = [Individual(i) for i in range(self.Ph)]
-                    #  初始，随机选择本轮的参与者
+                    #  初始或者不采取防御，随机选择本轮的参与者
                     self.peeked_client = sorted(
                         random.sample(range(self.Ph), participant_num)
                     )
@@ -497,18 +503,19 @@ class FL_Torch:
                     # 更新主观逻辑模型，选择信誉高的参与者
                     matrix = np.array(clients_status)
                     diff = np.diff(matrix, axis=0)  # 计算每一列的相邻元素之间的差异
-                    jump_counts = np.sum(np.abs(diff) == 1, axis=0)  # 计算每列的跳变次数
+                    # jump_counts = np.sum(np.abs(diff) == 1, axis=0)  # 计算每列的跳变次数
                     ones_count = np.sum(matrix == 1, axis=0)  # 统计每列中1出现的次数
                     zeros_count = np.sum(matrix == 0, axis=0)  # 统计每列中0出现的次数
-                    print(f"jump counts: {jump_counts}")
+                    # print(f"jump counts: {jump_counts}")
                     print(f"ones counts: {ones_count}")
                     for i in range(participant_num):  # 更新参与者的信誉，没有参与的参与者继承之前的信誉值
-                        new_b = (1 - 0.1) * (
+                        new_u = 0.1
+                        new_b = (1 - new_u) * (
                             0.4
                             * ones_count[i]
                             / (0.4 * ones_count[i] + 0.6 * zeros_count[i])
                         )  # belive
-                        new_d = (1 - 0.1) * (
+                        new_d = (1 - new_u) * (
                             0.6
                             * zeros_count[i]
                             / (0.4 * ones_count[i] + 0.6 * zeros_count[i])
@@ -518,8 +525,15 @@ class FL_Torch:
                             == self.peeked_client[i]
                         )
                         self.subject_logic[self.peeked_client[i]].update_param(
-                            new_b, new_d, 0.1
+                            new_b, new_d, new_u
                         )
+                    
+                    # 对于未参与本轮训练的参与者，将一部分disbelive转换为uncertainty
+                    for i in range(self.Ph):
+                        if i not in self.peeked_client:
+                            self.subject_logic[i].grow_uncertainty()
+
+                    # 依照信誉值对参与者进行排序，选择信誉高的参与者
                     sorted_clients = sorted(
                         self.subject_logic[:],
                         key=lambda individual: individual.get_reputation_value(),
@@ -530,110 +544,115 @@ class FL_Torch:
                             individual.id
                             for individual in sorted_clients[:participant_num]
                         ]
-                    )  # 选择信誉高的参与者
+                    )
                 print("subjective logic:")
                 for individual in self.subject_logic:
                     print(individual)
                 clients_status = []  # 清空记录
 
-            # self.is_peeked[self.peeked_client] = True
             print(f"peeked participants: {self.peeked_client}")
-            if epoch == self.start_attack:
+
+            if self.attack_mode != "none" and epoch == self.start_attack:
                 attacking = True
                 print(f"Start attacking at epoch {epoch}")
             acc, loss = self.back_prop(attacking)
 
-            # 1. 计算不提取相应层时的准确度
-            print("Not extract but Pooled")
-            peeked_updates = self.collected_updates[self.peeked_client].clone()
-            pooled_updates = self.normal_pooling(peeked_updates, self.p_kernel)
-            cosin_matirx = self.cosine_distance_torch(pooled_updates)
-            print(f"cosin_matirx:\n{cosin_matirx}")
-            similarity_score = self.malicious_filter(cosin_matirx)  # 根据matirx计算相似分数
-            print(f"similarity_score: {similarity_score}")
-            normalized_similarity_score = torch.nn.functional.softmax(
-                similarity_score, dim=0
-            )  # 利用softmax进行标准化
-            print(f"normalized_similarity_score: {normalized_similarity_score}")
-            # 基于最大距离的层次聚类算法
-            Z = linkage(
-                normalized_similarity_score.numpy().reshape(-1, 1), method="average"
-            )
-            clusters = fcluster(Z, 0.01, criterion="distance")
-            print(clusters)
+            if self.defend_mode == 1:
+                # 1. 计算不提取相应层时的准确度
+                print("Not extract but Pooled")
+                peeked_updates = self.collected_updates[self.peeked_client].clone()
+                pooled_updates = self.normal_pooling(peeked_updates, self.p_kernel)
+                cosin_matirx = self.cosine_distance_torch(pooled_updates)
+                print(f"cosin_matirx:\n{cosin_matirx}")
+                similarity_score = self.malicious_filter(cosin_matirx)  # 根据matirx计算相似分数
+                print(f"similarity_score: {similarity_score}")
+                normalized_similarity_score = torch.nn.functional.softmax(
+                    similarity_score, dim=0
+                )  # 利用softmax进行标准化
+                print(f"normalized_similarity_score: {normalized_similarity_score}")
+                # 基于最大距离的层次聚类算法
+                Z = linkage(
+                    normalized_similarity_score.numpy().reshape(-1, 1), method="average"
+                )
+                clusters = fcluster(Z, self.distance, criterion="distance")
+                print(clusters)
+            elif self.defend_mode == 2:
+                # 2. 计算不提取相应层且不池化的准确度
+                print("Not extract and Not Pooled")
+                peeked_updates = self.collected_updates[self.peeked_client].clone()
+                cosin_matirx = self.cosine_distance_torch(peeked_updates)
+                print(f"cosin_matirx:\n{cosin_matirx}")
+                similarity_score = self.malicious_filter(cosin_matirx)  # 根据matirx计算相似分数
+                print(f"similarity_score: {similarity_score}")
+                normalized_similarity_score = torch.nn.functional.softmax(
+                    similarity_score, dim=0
+                )  # 利用softmax进行标准化
+                print(f"normalized_similarity_score: {normalized_similarity_score}")
+                # 基于最大距离的层次聚类算法
+                Z = linkage(
+                    normalized_similarity_score.numpy().reshape(-1, 1), method="complete"
+                )
+                clusters = fcluster(Z, self.distance, criterion="distance")
+                print(clusters)
+            elif self.defend_mode == 3:
+                # 3. 计算提取相应层但不池化的准确度
+                print("Extracted but Not Pooled")
+                extracted_updates = self.extract_param_by_layers()
+                cosin_matirx = self.cosine_distance_torch(extracted_updates)
+                print(f"cosin_matirx:\n{cosin_matirx}")
+                similarity_score = self.malicious_filter(cosin_matirx)  # 根据matirx计算相似分数
+                print(f"similarity_score: {similarity_score}")
+                normalized_similarity_score = torch.nn.functional.softmax(
+                    similarity_score, dim=0
+                )  # 利用softmax进行标准化
+                print(f"normalized_similarity_score: {normalized_similarity_score}")
+                # 基于最大距离的层次聚类算法
+                Z = linkage(
+                    normalized_similarity_score.numpy().reshape(-1, 1), method="complete"
+                )
+                clusters = fcluster(Z, self.distance, criterion="distance")
+                print(clusters)
+            elif self.defend_mode == 4:
+                # 4. 计算提取相应层且池化的准确度
+                print("Extracted and Pooled")
+                extracted_updates = self.extract_param_by_layers()
+                pooled_updates = self.normal_pooling(extracted_updates, self.p_kernel)
+                cosin_matirx = self.cosine_distance_torch(pooled_updates)
+                print(f"cosin_matirx:\n{cosin_matirx}")
+                similarity_score = self.malicious_filter(cosin_matirx)  # 根据matirx计算相似分数
+                print(f"similarity_score: {similarity_score}")
+                normalized_similarity_score = torch.nn.functional.softmax(
+                    similarity_score, dim=0
+                )  # 利用softmax进行标准化
+                print(f"normalized_similarity_score: {normalized_similarity_score}")
+                # 基于最大距离的层次聚类算法
+                Z = linkage(
+                    normalized_similarity_score.numpy().reshape(-1, 1), method="complete"
+                )
+                clusters = fcluster(Z, self.distance, criterion="distance")
+                print(clusters)
+            
+            final_updates = self.collected_updates[self.peeked_client]
 
-            # 2. 计算不提取相应层且不池化的准确度
-            print("Not extract and Not Pooled")
-            peeked_updates = self.collected_updates[self.peeked_client].clone()
-            cosin_matirx = self.cosine_distance_torch(peeked_updates)
-            print(f"cosin_matirx:\n{cosin_matirx}")
-            similarity_score = self.malicious_filter(cosin_matirx)  # 根据matirx计算相似分数
-            print(f"similarity_score: {similarity_score}")
-            normalized_similarity_score = torch.nn.functional.softmax(
-                similarity_score, dim=0
-            )  # 利用softmax进行标准化
-            print(f"normalized_similarity_score: {normalized_similarity_score}")
-            # 基于最大距离的层次聚类算法
-            Z = linkage(
-                normalized_similarity_score.numpy().reshape(-1, 1), method="complete"
-            )
-            clusters = fcluster(Z, 0.01, criterion="distance")
-            print(clusters)
+            if self.defend_mode != 0:
+                cluster_counts = Counter(clusters)  # 统计每个聚类的数量
+                max_cluster = cluster_counts.most_common(1)[0][0]  # 找到数量最多的聚类
+                max_cluster_indices = np.where(clusters == max_cluster)[
+                    0
+                ]  # 获取属于最大聚类的数据点的下标
+                final_updates = self.collected_updates[max_cluster_indices].clone()
 
-            # 3. 计算提取相应层但不池化的准确度
-            print("Extracted but Not Pooled")
-            extracted_updates = self.extract_param_by_layers()
-            cosin_matirx = self.cosine_distance_torch(extracted_updates)
-            print(f"cosin_matirx:\n{cosin_matirx}")
-            similarity_score = self.malicious_filter(cosin_matirx)  # 根据matirx计算相似分数
-            print(f"similarity_score: {similarity_score}")
-            normalized_similarity_score = torch.nn.functional.softmax(
-                similarity_score, dim=0
-            )  # 利用softmax进行标准化
-            print(f"normalized_similarity_score: {normalized_similarity_score}")
-            # 基于最大距离的层次聚类算法
-            Z = linkage(
-                normalized_similarity_score.numpy().reshape(-1, 1), method="complete"
-            )
-            clusters = fcluster(Z, 0.01, criterion="distance")
-            print(clusters)
-
-            # 4. 计算提取相应层且池化的准确度
-            print("Extracted and Pooled")
-            extracted_updates = self.extract_param_by_layers()
-            pooled_updates = self.normal_pooling(extracted_updates, self.p_kernel)
-            cosin_matirx = self.cosine_distance_torch(pooled_updates)
-            print(f"cosin_matirx:\n{cosin_matirx}")
-            similarity_score = self.malicious_filter(cosin_matirx)  # 根据matirx计算相似分数
-            print(f"similarity_score: {similarity_score}")
-            normalized_similarity_score = torch.nn.functional.softmax(
-                similarity_score, dim=0
-            )  # 利用softmax进行标准化
-            print(f"normalized_similarity_score: {normalized_similarity_score}")
-            # 基于最大距离的层次聚类算法
-            Z = linkage(
-                normalized_similarity_score.numpy().reshape(-1, 1), method="complete"
-            )
-            clusters = fcluster(Z, 0.01, criterion="distance")
-            print(clusters)
-
-            cluster_counts = Counter(clusters)  # 统计每个聚类的数量
-            max_cluster = cluster_counts.most_common(1)[0][0]  # 找到数量最多的聚类
-            max_cluster_indices = np.where(clusters == max_cluster)[
-                0
-            ]  # 获取属于最大聚类的数据点的下标
-            final_updates = self.collected_updates[max_cluster_indices].clone()
+                # 记录当前状态
+                status = [
+                    1 if i in max_cluster_indices else 0
+                    for i in range(int(self.Ph * self.participant_factor))
+                ]
+                malicious_participants = [self.peeked_client[i] for i, malicious in enumerate(status) if malicious==0]
+                print(f"malicous participants: {malicious_participants}")
+                clients_status.append(status)
+                
             self.apply_updates(final_updates)  # 聚合更新并应用到全局模型中
 
-            # 记录当次状态
-            status = [
-                1 if i in max_cluster_indices else 0
-                for i in range(int(self.Ph * self.participant_factor))
-            ]
-            print(f"benign participant: {status}")
-
-            # 更新主观逻辑模型
-            clients_status.append(status)
             # Print the training progress every 'stride' rounds
             if (epoch + 1) % self.stride == 0:
                 if attacking and self.attack_mode == "scale":
@@ -648,11 +667,12 @@ class FL_Torch:
                         f"Epoch {epoch+1} - test acc {test_acc:6.4f}, test loss: {test_loss:6.4f}, train acc {acc:6.4f}"
                         f", train loss {loss:6.4f}"
                     )
-                epoch_col.append(epoch)
+                epoch_col.append(epoch + 1)
                 test_acc_col.append(test_acc)
                 test_loss_col.append(test_loss)
                 train_acc_col.append(acc)
                 train_loss_col.append(loss)
+
         recorder = pd.DataFrame(
             {
                 "epoch": epoch_col,
@@ -664,7 +684,8 @@ class FL_Torch:
         )
         recorder.to_csv(
             self.output_path
-            + f"{self.dataset_name}_Ph_{self.Ph}_MF_{self.malicious_factor}_K_{self.p_kernel}"
-            + f"_attack_{self.attack_mode}_start_{self.start_attack}"
+            + f"{self.dataset_name}_Ph_{self.Ph}_MF_{int(self.malicious_factor * self.Ph)}_K_{self.p_kernel}"
+            + f"_defend_{self.defend_mode}"
+            + f"_attack_{self.attack_mode}"
             + ".csv"
         )

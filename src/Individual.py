@@ -2,7 +2,7 @@ class Individual:
     def __init__(self, id) -> None:
         self.id = id
         self.b = 0.9      # belive
-        self.d = 0      # disbelive
+        self.d = 0        # disbelive
         self.u = 0.1      # updates
         self.a = 0.5
 
@@ -13,9 +13,15 @@ class Individual:
         self.b = new_b
         self.d = new_d
         self.u = new_u
+
+    def grow_uncertainty(self):
+        if self.d > self.u:
+            self.d = self.d - self.u
+            self.u += self.u / 2
+            self.a += self.u / 2
         
     def __repr__(self) -> str:
-        return f"Individual(id: {self.id}, b: {self.b}, d: {self.d}, u: {self.u})"
+        return f"Individual(id: {self.id:>2d}, b: {self.b:4.2f}, d: {self.d:4.2f}, u: {self.u:4.2f}, a: {self.a:4.2f})"
 
 
     

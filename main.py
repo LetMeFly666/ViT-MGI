@@ -5,14 +5,26 @@ import argparse
 
 # 创建解析器
 parser = argparse.ArgumentParser()
+
 # 添加 'dataset_name' 参数
 parser.add_argument(
-    "-d",
+    "-D",
     "--dataset_name",
     default="mnist",
     type=str,
     help='Name of the dataset: "mnist", "cifar10", "organamnist"',
 )
+
+# 添加 'defend_mode' 参数
+parser.add_argument(
+    "-d",
+    "--defend_mode",
+    default="4",
+    type=int,
+    help='Mode of defend during training: 0, 1, 2, 3, 4',
+)
+
+# 添加 'attack_mode' 参数
 parser.add_argument(
     "-a",
     "--attack_mode",
@@ -22,34 +34,36 @@ parser.add_argument(
 )
 
 # 解析参数
-# 解析参数
 args = parser.parse_args()
 
 # 基础配置
 dataset_name = args.dataset_name
-Ph = 10  # 客户端数量
-num_iter = 10  # 总epoch数
+Ph = 20  # 客户端数量
+num_iter = 50   # 总epoch数
 local_epoch = 2  # 每个客户端的local_epoch
 participant_factor = 0.7  # 每轮训练的参与者所占比例
-loader_batch_size = 500  # 数据加载器的batch_size（一次从loader中会获得多少数据）
+loader_batch_size = 500   # 数据加载器的batch_size（一次从loader中会获得多少数据）
 
 # 攻击相关配置
-targeted_att = args.attack_mode
+attack_mode = args.attack_mode
 malicious_factor = 0.3  # 恶意客户端的所占比例
 scale_target = 0
-start_attack = 0
+start_attack = 20
 
 
 # 防御相关的配置
-layers_to_look = ["patch_embed", "attn", "head"]
-kernel = 50
+defend_mode = args.defend_mode
+layers_to_look = ["patch_embed", "attn", "mlp"] # ['patch_embed', 'mlp']
+kernel = 40
 k_nearest = int(Ph * participant_factor) // 2 + 1
 accs_mean_list = []
 accs_std_list = []
+slot = 4
+distance = 0.02
 
 # 加载数据
 data_factory = Data_Factory(dataset_name, loader_batch_size, True)
-trainloader, testloader = data_factory.get_loader(subset_img_num=10000)
+trainloader, testloader = data_factory.get_loader()
 train_img_num = data_factory.train_img_num
 test_img_num = data_factory.test_img_num
 trainloader_batch_num = data_factory.trainloader_batch_num
@@ -115,15 +129,18 @@ fl = FL_Torch(
     trainloader_batch_num=trainloader_batch_num,
     testloader_batch_num=testloader_batch_num,
     start_attack=start_attack,
-    attack_mode=targeted_att,
+    attack_mode=attack_mode,
+    defend_mode=defend_mode,
+    slot=slot,
+    distance=distance,
     k_nearest=k_nearest,
     p_kernel=kernel,
     layers_to_look=layers_to_look,
     local_epoch=local_epoch,
 )
 
-fl.print_config()
 fl.federated_init()
+fl.print_config()
 fl.process()
 # accs_mean, accs_std = fl.evaluate_all()  # 对所有模型进行测试
 # print(f"ignored layers: {layers} acc_mean: {accs_mean} acc_std: {accs_std}")
@@ -139,10 +156,3 @@ torch.cuda.empty_cache()
 # recorder.to_csv(
 #     "output/ignoredlayers_mean_std_2.csv"
 # )
-
-
-
-"""
-方案1：聚类 怎么聚类？
-
-"""
