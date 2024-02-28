@@ -21,7 +21,7 @@ parser.add_argument(
     "--defend_mode",
     default="4",
     type=int,
-    help='Mode of defend during training: 0, 1, 2, 3, 4',
+    help='Mode of defend during training: 0, 1, 2, 3, 4\n0-不防御 | 1-不extra有pool | 2-不extra不pool | 3-有extra不pool | 4-有extra有pool'
 )
 
 # 添加 'attack_mode' 参数
