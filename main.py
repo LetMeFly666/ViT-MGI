@@ -59,11 +59,11 @@ k_nearest = int(Ph * participant_factor) // 2 + 1
 accs_mean_list = []
 accs_std_list = []
 slot = 4
-distance = 0.02
+distance = 0.01
 
 # 加载数据
 data_factory = Data_Factory(dataset_name, loader_batch_size, True)
-trainloader, testloader = data_factory.get_loader()
+trainloader, testloader = data_factory.get_loader(subset_img_num=20000)
 train_img_num = data_factory.train_img_num
 test_img_num = data_factory.test_img_num
 trainloader_batch_num = data_factory.trainloader_batch_num

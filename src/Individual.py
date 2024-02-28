@@ -3,7 +3,7 @@ class Individual:
         self.id = id
         self.b = 0.9      # belive
         self.d = 0        # disbelive
-        self.u = 0.1      # updates
+        self.u = 0.1      # uncerntainty
         self.a = 0.5
 
     def get_reputation_value(self):
@@ -18,7 +18,7 @@ class Individual:
         if self.d > self.u:
             self.d = self.d - self.u
             self.u += self.u / 2
-            self.a += self.u / 2
+            self.b += self.u / 2
         
     def __repr__(self) -> str:
         return f"Individual(id: {self.id:>2d}, b: {self.b:4.2f}, d: {self.d:4.2f}, u: {self.u:4.2f}, a: {self.a:4.2f})"

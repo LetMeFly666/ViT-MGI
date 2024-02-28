@@ -356,13 +356,21 @@ class FL_Torch:
         """
         print("apply updates......")
         model = self.global_model
-        avg_update = torch.mean(updates)
-        param = model.get_flatten_parameters()
-        param = param + avg_update
-        model.load_parameters(param)
+        # avg_update = torch.mean(updates) # 对所有元素求取平均值
+        avg_update = torch.mean(updates, dim=0) # 对每列元素求取平均值
+        old_param = model.get_flatten_parameters()
+
+        new_param = old_param + avg_update
+        model.load_parameters(new_param)
+        p = model.get_flatten_parameters()
+
+        print(f"updates size: {updates.shape}")
+        print(f"average update size: {avg_update.shape}, {(avg_update == 0).sum().item()}")
+        print(f"old param size: {old_param.shape}, size(old_param == p): {(old_param == p).sum().item()}")
+        print(f"new param size: {new_param.shape}, size(new_param == p): {(new_param == p).sum().item()}")
 
     def extract_param_by_layers(
-        self,
+        self
     ):
         # 对客户端上传的更新提取出相应层的参数，拼接为一个向量
         peeked_updates = self.collected_updates[self.peeked_client]
@@ -502,7 +510,7 @@ class FL_Torch:
                     assert len(clients_status) == self.slot
                     # 更新主观逻辑模型，选择信誉高的参与者
                     matrix = np.array(clients_status)
-                    diff = np.diff(matrix, axis=0)  # 计算每一列的相邻元素之间的差异
+                    # diff = np.diff(matrix, axis=0)  # 计算每一列的相邻元素之间的差异
                     # jump_counts = np.sum(np.abs(diff) == 1, axis=0)  # 计算每列的跳变次数
                     ones_count = np.sum(matrix == 1, axis=0)  # 统计每列中1出现的次数
                     zeros_count = np.sum(matrix == 0, axis=0)  # 统计每列中0出现的次数
@@ -640,7 +648,7 @@ class FL_Torch:
                 max_cluster_indices = np.where(clusters == max_cluster)[
                     0
                 ]  # 获取属于最大聚类的数据点的下标
-                final_updates = self.collected_updates[max_cluster_indices].clone()
+                final_updates = self.collected_updates[max_cluster_indices]
 
                 # 记录当前状态
                 status = [
@@ -673,19 +681,19 @@ class FL_Torch:
                 train_acc_col.append(acc)
                 train_loss_col.append(loss)
 
-        recorder = pd.DataFrame(
-            {
-                "epoch": epoch_col,
-                "test_acc": test_acc_col,
-                "test_loss": test_loss_col,
-                "train_acc": train_acc_col,
-                "train_loss": train_loss_col,
-            }
-        )
-        recorder.to_csv(
-            self.output_path
-            + f"{self.dataset_name}_Ph_{self.Ph}_MF_{int(self.malicious_factor * self.Ph)}_K_{self.p_kernel}"
-            + f"_defend_{self.defend_mode}"
-            + f"_attack_{self.attack_mode}"
-            + ".csv"
-        )
+                recorder = pd.DataFrame(
+                    {
+                        "epoch": epoch_col,
+                        "test_acc": test_acc_col,
+                        "test_loss": test_loss_col,
+                        "train_acc": train_acc_col,
+                        "train_loss": train_loss_col,
+                    }
+                )
+                recorder.to_csv(
+                    self.output_path
+                    + f"{self.dataset_name}_Ph_{self.Ph}_MF_{int(self.malicious_factor * self.Ph)}_K_{self.p_kernel}"
+                    + f"_defend_{self.defend_mode}"
+                    + f"_attack_{self.attack_mode}"
+                    + ".csv"
+                )
