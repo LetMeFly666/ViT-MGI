@@ -536,10 +536,10 @@ class FL_Torch:
                             new_b, new_d, new_u
                         )
                     
-                    # 对于未参与本轮训练的参与者，将一部分disbelive转换为uncertainty
-                    for i in range(self.Ph):
-                        if i not in self.peeked_client:
-                            self.subject_logic[i].grow_uncertainty()
+                    # # 对于未参与本轮训练的参与者，将一部分disbelive转换为uncertainty
+                    # for i in range(self.Ph):
+                    #     if i not in self.peeked_client:
+                    #         self.subject_logic[i].grow_uncertainty()
 
                     # 依照信誉值对参与者进行排序，选择信誉高的参与者
                     sorted_clients = sorted(
