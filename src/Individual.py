@@ -12,7 +12,7 @@ class Individual:
         ret = self.z * (self.b + self.u * self.a)
         sum = self.z
         Y = len(self.T)  # 加上历史信誉的影响
-        for idx, repu in enumerate(self.z):  # BUMP!
+        for idx, repu in enumerate(self.T):  # BUMP!
             ret += self.z ** (Y - (idx + 1)) * repu
             sum += self.z ** (Y - (idx + 1))
         return ret / sum
@@ -25,8 +25,3 @@ class Individual:
         
     def __repr__(self) -> str:
         return f"Individual(id: {self.id:>2d}, b: {self.b:4.2f}, d: {self.d:4.2f}, u: {self.u:4.2f}, a: {self.a:4.2f})"
-
-
-    
-
-
