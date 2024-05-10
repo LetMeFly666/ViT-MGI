@@ -13,21 +13,21 @@ ATTACK_MODES = ["scale", "grad_ascent", "mislead", "label_flip"]
 
 
 # 使用 malicious_updates + lamda * deviation
-def min_max(benign_updates, model_re):
+def min_max(bengin_updates, model_re):
     """
     S&H attack from [4] (see Reference in readme.md), the code is authored by Virat Shejwalkar and Amir Houmansadr.
     """
-    deviation = torch.std(benign_updates, 0)  # 计算良性更新沿着维度0的标准差
+    deviation = torch.std(bengin_updates, 0)  # 计算良性更新沿着维度0的标准差
     lamda = torch.Tensor([10.0]).float()  # 初始值
     threshold_diff = 1e-5
     lamda_fail = lamda
     lamda_succ = 0
-    distance = torch.cdist(benign_updates, benign_updates)
+    distance = torch.cdist(bengin_updates, bengin_updates)
     max_distance = torch.max(distance)  # 计算出良性更新之间的最大距离
     del distance
     while torch.abs(lamda_succ - lamda) > threshold_diff:
         mal_update = model_re - lamda * deviation
-        distance = torch.norm((benign_updates - mal_update), dim=1) ** 2
+        distance = torch.norm((bengin_updates - mal_update), dim=1) ** 2
         max_d = torch.max(distance)
         if max_d <= max_distance:
             lamda_succ = lamda
@@ -168,7 +168,7 @@ class FL_Torch:
         sample = sorted(
             random.sample(range(self.Ph), int(self.Ph * self.malicious_factor))
         )
-        self.malicious_client = [True if i in sample else False for i in range(self.Ph)]
+        self.malicious_client = [i in sample for i in range(self.Ph)]  # 之前的“True if i in sample else False”有点像“True if True else False”
 
         # 根据攻击模式为攻击者分配不同的攻击方式
         if self.attack_mode != "mix":
@@ -214,19 +214,20 @@ class FL_Torch:
         print(f"ph_batch_num: {self.ph_batch_num}")
         print(f"batch_size_of_participant: {self.batch_size}")
 
-    def reset_collected_updates(self):
+    def __reset_collected_updates(self):
         """
         Reset the globally collected gradients
         :return:
         """
         print("reset global updates......")
         if self.collected_updates is None:
-            length = self.global_model.get_flatten_parameters().size(0)
+            # length = self.global_model.get_flatten_parameters().size(0)
+            length = self.global_model.get_flatten_parameters_only_length()  # 小优化，仅获取一个length似乎没必要真的拼接所有参数
             self.collected_updates = torch.zeros(self.Ph, length)
         else:
             self.collected_updates.zero_()
 
-    def collect_updates(self, idx: int, local_update: torch.tensor):
+    def __collect_updates(self, idx: int, local_update: torch.tensor):
         """
         AGR collect gradients from the participants
         :param idx: The index of the participant
@@ -235,7 +236,7 @@ class FL_Torch:
         """
         self.collected_updates[idx] = local_update
 
-    def back_prop(self, attack=False):
+    def __back_prop(self, attack=False):
         """
         Conduct back propagation of one specific participant
         :param attack: if the attacker starts attacking
@@ -244,9 +245,9 @@ class FL_Torch:
         sum_acc = 0
         sum_loss = 0
         peeked_list = [
-            True if i in self.peeked_client else False for i in range(self.Ph)
+            i in self.peeked_client for i in range(self.Ph)
         ]
-        for i, data in enumerate(self.train_loader):
+        for i, data in enumerate(self.train_loader):  # TODO: 可小优化：根据选择的客户端来直接枚举data
             # 根据i计算出相应客户端
             client_id = i // self.ph_batch_num  # 计算出data_i属于的参与者
             if not peeked_list[client_id]:
@@ -261,7 +262,7 @@ class FL_Torch:
                 f"normal participant {client_id} train on data {i}: acc: {acc}, loss: {loss}"
             )
             # updates = updates.to("cpu")
-            self.collect_updates(client_id, updates)
+            self.__collect_updates(client_id, updates)
             sum_acc += acc
             sum_loss += loss
 
@@ -276,7 +277,7 @@ class FL_Torch:
                 )
                 local = self.collected_updates[client_id]  # 客户端对应的正常更新
                 mal_update = -local
-                self.collect_updates(client_id, mal_update)
+                self.__collect_updates(client_id, mal_update)
 
             if (
                 attack
@@ -298,7 +299,7 @@ class FL_Torch:
                 else:
                     local = self.collected_updates[client_id]
                     mal_update = updates - local
-                self.collect_updates(client_id, mal_update)
+                self.__collect_updates(client_id, mal_update)
 
             if (
                 attack
@@ -316,7 +317,7 @@ class FL_Torch:
                 # updates = updates.to("cpu")
                 local = self.collected_updates[client_id]
                 mal_updates = local + updates / self.malicious_factor
-                self.collect_updates(client_id, mal_updates)
+                self.__collect_updates(client_id, mal_updates)
 
         if attack and self.attack_mode == "min_max":
             # Call the code snip from [4] to conduct S&H attack
@@ -334,12 +335,12 @@ class FL_Torch:
                     continue
                 local = self.collected_updates[i]
                 mal_grad = min_max(benign_updates, local)
-                self.collect_updates(i, mal_grad)
+                self.__collect_updates(i, mal_grad)
         return (sum_acc / int(self.Ph * self.participant_factor) / self.ph_batch_num), (
             sum_loss / int(self.Ph * self.participant_factor) / self.ph_batch_num
         )
 
-    def send_param(self):
+    def __send_param(self):
         """
         Participants collect the parameters from the global model
         :param sparsify: Not used, if apply sparsify update
@@ -349,7 +350,7 @@ class FL_Torch:
         for i in range(self.Ph):
             self.participants[i].load_parameters(param.to(f"cuda:{i%2}"))
 
-    def apply_updates(self, updates: torch.tensor):
+    def __apply_updates(self, updates: torch.tensor):
         """
         Apply the collected gradients to the global model
         :return: None
@@ -369,7 +370,7 @@ class FL_Torch:
         print(f"old param size: {old_param.shape}, size(old_param == p): {(old_param == p).sum().item()}")
         print(f"new param size: {new_param.shape}, size(new_param == p): {(new_param == p).sum().item()}")
 
-    def extract_param_by_layers(
+    def __extract_param_by_layers(
         self
     ):
         # 对客户端上传的更新提取出相应层的参数，拼接为一个向量
@@ -395,21 +396,21 @@ class FL_Torch:
         )  # torch.stack() 创建的是一个新的张量，并不与 self.collected_updates 中的数据共享内存
 
     # 对参数进行池化操作(一维池化)
-    def normal_pooling(self, updates: torch.Tensor, kernel_size=3):
+    def __normal_pooling(self, updates: torch.Tensor, kernel_size=3):
         updates = updates.unsqueeze(1)
         stride = kernel_size
         pooled = F.max_pool1d(updates, kernel_size=kernel_size, stride=stride)
         return pooled.squeeze(1)
 
     # 计算cosin相似度
-    def cosine_distance_torch(self, updates: torch.Tensor, eps=1e-8):
+    def __cosine_distance_torch(self, updates: torch.Tensor, eps=1e-8):
         w = updates.norm(p=2, dim=1, keepdim=True)  # norm of each row of x1
         return torch.mm(updates, updates.T) / (w * w.T).clamp(
             min=eps
         )  # cosine similarity
 
     # 计算k_nearest
-    def malicious_filter(self, cosin_matrix: torch.Tensor):
+    def __malicious_filter(self, cosin_matrix: torch.Tensor):
         k_nearest = torch.topk(cosin_matrix, k=self.k, dim=1)
         neighbour_dist = torch.zeros(cosin_matrix.size(0))
         for i in range(cosin_matrix.size(0)):
@@ -418,7 +419,7 @@ class FL_Torch:
             neighbour_dist[i] = neighbour.sum()
         return neighbour_dist
 
-    # def evaluate_all(self):
+    # def __evaluate_all(self):
     #     # 利用测试数据对所有模型进行评估，计算出所有模型准确性的均值和标准差
     #     # 只评价参与训练过的模型
     #     cnt = self.is_peeked.sum().item()
@@ -435,10 +436,10 @@ class FL_Torch:
     #                 pred_y = torch.max(out, dim=1).indices
     #                 accs[index] += torch.sum(pred_y == test_y).item()
     #         accs[index] /= self.test_img_num
-    #     accs[cnt], _ = self.evaluate_global()
+    #     accs[cnt], _ = self.__evaluate_global()
     #     return torch.mean(accs), torch.std(accs)
 
-    def evaluate_global(self):
+    def __evaluate_global(self):
         """
         Evaluate the global model accuracy and loss value
         :return: accuracy and loss value
@@ -456,7 +457,7 @@ class FL_Torch:
                 total_acc += torch.sum(pred_y == test_y).item()
         return total_acc / self.test_img_num, total_loss / self.testloader_batch_num
 
-    def evaluate_target(self):
+    def __evaluate_target(self):
         """
         Evaluate loss value and accuracy of the targeted label
         :return: accuracy and loss value
@@ -496,8 +497,8 @@ class FL_Torch:
         participant_num = int(self.Ph * self.participant_factor)
         for epoch in range(self.num_iter):
             print(f"Main epoch{epoch + 1}: start to send params")
-            self.send_param()  # 将全局模型的参数应用到每个参与者
-            self.reset_collected_updates()
+            self.__send_param()  # 将全局模型的参数应用到每个参与者
+            self.__reset_collected_updates()
             if epoch % self.slot == 0:
                 # 更新主观逻辑模型
                 if epoch == 0 or self.defend_mode == 0:
@@ -563,16 +564,16 @@ class FL_Torch:
             if self.attack_mode != "none" and epoch == self.start_attack:
                 attacking = True
                 print(f"Start attacking at epoch {epoch}")
-            acc, loss = self.back_prop(attacking)
+            acc, loss = self.__back_prop(attacking)
 
             if self.defend_mode == 1:
                 # 1. 计算不提取相应层时的准确度
                 print("Not extract but Pooled")
                 peeked_updates = self.collected_updates[self.peeked_client].clone()
-                pooled_updates = self.normal_pooling(peeked_updates, self.p_kernel)
-                cosin_matirx = self.cosine_distance_torch(pooled_updates)
+                pooled_updates = self.__normal_pooling(peeked_updates, self.p_kernel)
+                cosin_matirx = self.__cosine_distance_torch(pooled_updates)
                 print(f"cosin_matirx:\n{cosin_matirx}")
-                similarity_score = self.malicious_filter(cosin_matirx)  # 根据matirx计算相似分数
+                similarity_score = self.__malicious_filter(cosin_matirx)  # 根据matirx计算相似分数
                 print(f"similarity_score: {similarity_score}")
                 normalized_similarity_score = torch.nn.functional.softmax(
                     similarity_score, dim=0
@@ -588,9 +589,9 @@ class FL_Torch:
                 # 2. 计算不提取相应层且不池化的准确度
                 print("Not extract and Not Pooled")
                 peeked_updates = self.collected_updates[self.peeked_client].clone()
-                cosin_matirx = self.cosine_distance_torch(peeked_updates)
+                cosin_matirx = self.__cosine_distance_torch(peeked_updates)
                 print(f"cosin_matirx:\n{cosin_matirx}")
-                similarity_score = self.malicious_filter(cosin_matirx)  # 根据matirx计算相似分数
+                similarity_score = self.__malicious_filter(cosin_matirx)  # 根据matirx计算相似分数
                 print(f"similarity_score: {similarity_score}")
                 normalized_similarity_score = torch.nn.functional.softmax(
                     similarity_score, dim=0
@@ -605,10 +606,10 @@ class FL_Torch:
             elif self.defend_mode == 3:
                 # 3. 计算提取相应层但不池化的准确度
                 print("Extracted but Not Pooled")
-                extracted_updates = self.extract_param_by_layers()
-                cosin_matirx = self.cosine_distance_torch(extracted_updates)
+                extracted_updates = self.__extract_param_by_layers()
+                cosin_matirx = self.__cosine_distance_torch(extracted_updates)
                 print(f"cosin_matirx:\n{cosin_matirx}")
-                similarity_score = self.malicious_filter(cosin_matirx)  # 根据matirx计算相似分数
+                similarity_score = self.__malicious_filter(cosin_matirx)  # 根据matirx计算相似分数
                 print(f"similarity_score: {similarity_score}")
                 normalized_similarity_score = torch.nn.functional.softmax(
                     similarity_score, dim=0
@@ -623,11 +624,11 @@ class FL_Torch:
             elif self.defend_mode == 4:
                 # 4. 计算提取相应层且池化的准确度
                 print("Extracted and Pooled")
-                extracted_updates = self.extract_param_by_layers()
-                pooled_updates = self.normal_pooling(extracted_updates, self.p_kernel)
-                cosin_matirx = self.cosine_distance_torch(pooled_updates)
+                extracted_updates = self.__extract_param_by_layers()
+                pooled_updates = self.__normal_pooling(extracted_updates, self.p_kernel)
+                cosin_matirx = self.__cosine_distance_torch(pooled_updates)
                 print(f"cosin_matirx:\n{cosin_matirx}")
-                similarity_score = self.malicious_filter(cosin_matirx)  # 根据matirx计算相似分数
+                similarity_score = self.__malicious_filter(cosin_matirx)  # 根据matirx计算相似分数
                 print(f"similarity_score: {similarity_score}")
                 normalized_similarity_score = torch.nn.functional.softmax(
                     similarity_score, dim=0
@@ -659,18 +660,18 @@ class FL_Torch:
                 print(f"malicous participants: {malicious_participants}")
                 clients_status.append(status)
                 
-            self.apply_updates(final_updates)  # 聚合更新并应用到全局模型中
+            self.__apply_updates(final_updates)  # 聚合更新并应用到全局模型中
 
             # Print the training progress every 'stride' rounds
             if (epoch + 1) % self.stride == 0:
                 if attacking and self.attack_mode == "scale":
-                    test_acc, test_loss = self.evaluate_target()
+                    test_acc, test_loss = self.__evaluate_target()
                     print(
                         f"Epoch {epoch+1} - attack acc {test_acc:6.4f}, test loss: {test_loss:6.4f}, train acc {acc:6.4f}"
                         f", train loss {loss:6.4f}"
                     )
                 else:
-                    test_acc, test_loss = self.evaluate_global()
+                    test_acc, test_loss = self.__evaluate_global()
                     print(
                         f"Epoch {epoch+1} - test acc {test_acc:6.4f}, test loss: {test_loss:6.4f}, train acc {acc:6.4f}"
                         f", train loss {loss:6.4f}"

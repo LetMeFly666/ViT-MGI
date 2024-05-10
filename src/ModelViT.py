@@ -55,6 +55,13 @@ class ModelViT():
         return out
     
 
+    def get_flatten_parameters_only_length(self) -> int:
+        """
+        相比于get_flatten_parameters函数，这个函数不真正地将参数展开，而是只返回其总参数个数
+        """
+        return sum(p.numel() for p in self.model.parameters())
+    
+
     def load_parameters(self, parameters: torch.Tensor, layers_to_ignore=[]):
         """
         Load parameters to the current model using the given flatten parameters

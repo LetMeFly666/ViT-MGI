@@ -38,7 +38,7 @@ args = parser.parse_args()
 
 # 基础配置
 dataset_name = args.dataset_name
-Ph = 20  # 客户端数量
+Ph = 15  # 客户端数量
 num_iter = 50   # 总epoch数
 local_epoch = 2  # 每个客户端的local_epoch
 participant_factor = 0.7  # 每轮训练的参与者所占比例
