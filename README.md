@@ -62,6 +62,10 @@ distance = 0.01
 + 是否与选层```layers_to_look```有关。
 + 准确率贼低（百分之二三十）。
 
+## Archive
+
+准确率太低了且不稳定，准备先Archive这种方法，转而寻找一篇开源的“FL ViT Backdoor”的文章，在此基础上进行更改。
+
 ## End
 
 ### 参考文献
