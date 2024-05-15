@@ -74,6 +74,6 @@ class ModelViT():
             with torch.no_grad():
                 length = len(param.flatten())
                 to_load = parameters[start_index: start_index + length].reshape(param.size())
-                if not any(layer in name for layer in layers_to_ignore):
+                if not any(layer in name for layer in layers_to_ignore):  # 全都不在ignore范围内
                     param.copy_(to_load.to(self.device))
             start_index += length
