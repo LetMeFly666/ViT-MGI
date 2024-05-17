@@ -1,0 +1,28 @@
+ATTACK_NAME="SAGA"
+PELTA="True"
+
+# Either VIT, CNN or BOTH
+SHIELDED='BOTH'
+DATASET='CIFAR10'
+
+# if SAGA:
+MODEL_VIT="ViT-L_16"
+MODEL_VIT_DIR='Models/ViT-L_16,cifar10,run0_15K_checkpoint.bin'
+MODEL_CNN='BiT-M-R101x3'
+MODEL_CNN_DIR='Models/BiT-M-R101x3-Run0.tar'
+
+# if single model attack:
+MODEL="ViT-L_16"
+NUM_CLASSES='10'
+IMG_SIZE='224'
+BATCH_SIZE='8'
+NUM_STEPS=10
+
+# (higher disfavors BiT)
+SECOND_COEFF='2.0e-4'
+
+# max 7 for ImageNet
+ATTACK_SAMPLES_NUM='1000'
+
+# We load this number of elements to try and find clean and correctly eval samples
+ATTACK_SAMPLE_POOL_SIZE='3000'
