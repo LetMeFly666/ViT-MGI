@@ -1,5 +1,5 @@
-import os, sys
-import DefaultMethods
+import os
+from src import DefaultMethods
 os.environ["CUDA_VISIBLE_DEVICES"]="0"
 
 #Main method to do one of the CIFAR-10 experiments 

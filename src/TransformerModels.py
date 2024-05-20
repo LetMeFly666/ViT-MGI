@@ -21,16 +21,16 @@ from torch.nn import CrossEntropyLoss, Dropout, Softmax, Linear, Conv2d, LayerNo
 from torch.nn.modules.utils import _pair
 from scipy import ndimage
 
-import TransformerConfigs as configs
+import src.TransformerConfigs as configs
 
-from TransformerResNet import ResNetV2
+from src.TransformerResNet import ResNetV2
 
 
 logger = logging.getLogger(__name__)
 
 device = torch.device("cuda")
 
-load_dotenv('../env')
+load_dotenv('env')
 
 MODEL_VIT_DIR= os.getenv('MODEL_VIT_DIR')
 checkptdict = np.load(MODEL_VIT_DIR) if 'npz' in MODEL_VIT_DIR else torch.load(MODEL_VIT_DIR)
@@ -196,7 +196,7 @@ class Embeddings(nn.Module):
 
         if self.hybrid:
             x = self.hybrid_model(x)
-        if os.getenv("PELTA")=="True" and os.getenv("SHIELDED") in ("VIT", "BOTH"):
+        if os.getenv("PELTA")=="True" and os.getenv("SHIELDED") in ("ViT", "BOTH"):
             patch = STEFunction.apply(x) 
         else:
             patch = self.patch_embeddings(x)

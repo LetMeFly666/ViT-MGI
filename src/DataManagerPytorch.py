@@ -3,12 +3,12 @@ import torchvision.transforms as transforms
 import torchvision.datasets as datasets
 import math 
 import random 
-from ImageNetKaggle import ImageNetKaggle
+from src.ImageNetKaggle import ImageNetKaggle
 from tqdm import tqdm
 from dotenv import load_dotenv
 import os
 
-load_dotenv('/content/pelta_extended/ExtendedPelta/env')
+load_dotenv('env')
 
 #Class to help with converting between dataloader and pytorch tensor 
 class MyDataSet(torch.utils.data.Dataset):

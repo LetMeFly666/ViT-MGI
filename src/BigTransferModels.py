@@ -29,7 +29,7 @@ import numpy as np
 import os
 from dotenv import load_dotenv
 
-load_dotenv('/content/pelta_extended/ExtendedPelta/env')
+load_dotenv('env')
 
 device = torch.device("cuda")
 

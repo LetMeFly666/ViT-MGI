@@ -2,7 +2,7 @@
 #It wraps a Pytorch model, string name, and transforms together 
 import torch 
 import torchvision
-import DataManagerPytorch as DMP
+from src import DataManagerPytorch as DMP
 from tqdm import tqdm
 
 class ModelPlus():

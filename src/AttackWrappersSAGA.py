@@ -1,15 +1,11 @@
 import torch 
-import DataManagerPytorch as DMP
+from src import DataManagerPytorch as DMP
 import torchvision
-import torch.nn.functional as F
 import numpy as np
 import cv2
 from matplotlib import pyplot as plt
 import os
-import time
-import copy
 import random
-from TransformerModels import VisionTransformer, CONFIGS
 
 # Set to true if random attack should be performed instead of FGSM/SAGA
 RANDOM_ADVERSARIAL = False

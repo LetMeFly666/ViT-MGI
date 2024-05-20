@@ -1,15 +1,16 @@
 ATTACK_NAME="SAGA"
 PELTA="True"
 
-# Either VIT, CNN or BOTH
-SHIELDED='BOTH'
+# Either ViT, CNN or BOTH
+# SHIELDED='BOTH'
+SHIELDED='ViT'
 DATASET='CIFAR10'
 
 # if SAGA:
 MODEL_VIT="ViT-L_16"
-MODEL_VIT_DIR='Models/ViT-L_16,cifar10,run0_15K_checkpoint.bin'
+MODEL_VIT_DIR='models/ViT-L_16cifar10run0_15K_checkpoint.bin'
 MODEL_CNN='BiT-M-R101x3'
-MODEL_CNN_DIR='Models/BiT-M-R101x3-Run0.tar'
+MODEL_CNN_DIR='models/BiT-M-R101x3-Run0.tar'
 
 # if single model attack:
 MODEL="ViT-L_16"

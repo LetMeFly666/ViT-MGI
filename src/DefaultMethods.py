@@ -2,13 +2,13 @@
 import torch
 import numpy as np
 import os
-import ShuffleDefense
-from ModelPlus import ModelPlus
-import DataManagerPytorch as DMP
-import AttackWrappersSAGA
-from ExperimentConfig import ExperimentConfig
-from TransformerModels import VisionTransformer, CONFIGS
-import BigTransferModels, ResNetPytorch, LocalInference
+from src import ShuffleDefense
+from src.ModelPlus import ModelPlus
+from src import DataManagerPytorch as DMP
+from src import AttackWrappersSAGA
+from src.ExperimentConfig import ExperimentConfig
+from src.TransformerModels import VisionTransformer, CONFIGS
+from src import BigTransferModels, ResNetPytorch, LocalInference
 import collections
 from collections import OrderedDict
 import json
@@ -17,7 +17,7 @@ import random
 from dotenv import load_dotenv
 from tempfile import NamedTemporaryFile
 
-load_dotenv('/content/pelta_extended/ExtendedPelta/env')
+load_dotenv('env')
 
 
 # From model name creates model, loads checkpoint, pours into model then creates

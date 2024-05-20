@@ -2,7 +2,7 @@
 #This class takes in a list of models that have already been wrapped in the ModelPlus class
 #At run time one model is randomly selected to predict each example 
 import torch
-import DataManagerPytorch as DMP
+from src import DataManagerPytorch as DMP
 import numpy
 
 class ShuffleDefense():
