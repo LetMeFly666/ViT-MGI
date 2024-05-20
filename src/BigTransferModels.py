@@ -34,7 +34,7 @@ load_dotenv('env')
 device = torch.device("cuda")
 
 global STEF_weight 
-STEF_weight = torch.from_numpy(np.load(f'rootWeights{os.getenv("DATASET")}.npy', allow_pickle=True)).to(device)
+STEF_weight = torch.from_numpy(np.load(f'data/rootWeights{os.getenv("DATASET")}.npy', allow_pickle=True)).to(device)
 
 # -----------
 

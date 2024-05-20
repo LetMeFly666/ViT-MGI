@@ -25,7 +25,7 @@ def SelfAttentionGradientAttack(device, epsMax, numSteps, modelListPlus,
     epsStep = epsMax/numSteps
     dataLoaderCurrent = dataLoader
 
-    os.makedirs("Pictures", exist_ok = True)
+    # os.makedirs("Pictures", exist_ok = True)
 
     for i in range(0, numSteps):
         xGradientCumulative = torch.zeros(numSamples, xShape[0], xShape[1], xShape[2])
