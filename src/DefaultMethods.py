@@ -17,7 +17,7 @@ import random
 from dotenv import load_dotenv
 from tempfile import NamedTemporaryFile
 
-load_dotenv('env')
+load_dotenv('.env')
 
 
 # From model name creates model, loads checkpoint, pours into model then creates

@@ -8,7 +8,7 @@ from tqdm import tqdm
 from dotenv import load_dotenv
 import os
 
-load_dotenv('env')
+load_dotenv('.env')
 
 #Class to help with converting between dataloader and pytorch tensor 
 class MyDataSet(torch.utils.data.Dataset):

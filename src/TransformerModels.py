@@ -30,7 +30,7 @@ logger = logging.getLogger(__name__)
 
 device = torch.device("cuda")
 
-load_dotenv('env')
+load_dotenv('.env')
 
 MODEL_VIT_DIR= os.getenv('MODEL_VIT_DIR')
 checkptdict = np.load(MODEL_VIT_DIR) if 'npz' in MODEL_VIT_DIR else torch.load(MODEL_VIT_DIR)

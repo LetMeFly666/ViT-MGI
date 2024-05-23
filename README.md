@@ -48,6 +48,14 @@ All our defenses were run on one 40GB A100 GPU and system RAM were of 16GB.
 
 确认文章[^1]。下载其[代码](https://github.com/queyrusi/Pelta)与[数据集](https://www.kaggle.com/datasets/reyacardov/ensemblemodels)尝试开始运行。
 
+### Log003 - 2024.5.19-2024.5.23
+
+1. 修改代码文件结构成功跑通
+2. 重命名```env```文件为更加通用（标准）的```.env```
+3. 实现了自定义的```print```函数，在调用```initPrint```函数后，以后的所有```print```都会在原来的基础上同时往initPrint时的文件中输出一份。
+
+但是此时调用的一些库的Warning不是调用print函数显示到终端的，就无法同时悄悄地写入到文件中一份。
+
 ## End
 
 ### 参考文献
