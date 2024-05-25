@@ -62,7 +62,7 @@ def SAGA_model_plus(model_name, device, numClasses, imgSize, batchSize, vis=Fals
                     if name != "resnet/root_block/standardized_conv2d/kernel":
                         new_state_dict[name] = v
                     else:
-                        np.save(f'rootWeights{os.getenv("DATASET")}.npy', v)
+                        np.save(f'data/rootWeights{os.getenv("DATASET")}.npy', v)
                 checkptdict = new_state_dict
                 #Load the dictionary
                 model.load_from(checkptdict)
@@ -86,7 +86,7 @@ def SAGA_model_plus(model_name, device, numClasses, imgSize, batchSize, vis=Fals
                 if name != "root.conv.weight":
                     new_state_dict[name] = v
                 else:
-                    np.save(f'rootWeights{os.getenv("DATASET")}.npy', v.cpu().detach().numpy())
+                    np.save(f'data/rootWeights{os.getenv("DATASET")}.npy', v.cpu().detach().numpy())
             checkptdict = new_state_dict
             #Load the dictionary
             model.load_state_dict(checkptdict)
@@ -135,7 +135,7 @@ def SAGA_model_plus(model_name, device, numClasses, imgSize, batchSize, vis=Fals
                 # if name != "root.conv.weight":
                 #     new_state_dict[name] = v
                 # else:
-                #     np.save('rootWeights.npy', v.cpu().detach().numpy())
+                #     np.save('data/rootWeights.npy', v.cpu().detach().numpy())
             checkptdict = new_state_dict
             #Load the dictionary
             model.load_state_dict(checkptdict)
@@ -155,7 +155,7 @@ def SAGA_model_plus(model_name, device, numClasses, imgSize, batchSize, vis=Fals
         modelBig101Plus = ModelPlus("BiT-M-R152x4", model, device,
                                     imgSizeH=imgSize, imgSizeW=imgSize, batchSize=batchSize)
         return modelBig101Plus
-        return modelBig101Plus
+
     if model_name == "ResNet-164":
         #Load the ResNet-164
         dirR = "Models/ModelResNet164-Run0.th"
