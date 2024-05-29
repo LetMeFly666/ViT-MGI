@@ -7,16 +7,16 @@ os.environ["CUDA_VISIBLE_DEVICES"]="0"
 #The attack can be run on either ViT-L-16 or a defense made up of ViT-L-16 and BiT-M-R101x3 
 def main():
     #Uncomment next line to do the RayS attack on the Vision Transformer, ViT-L-16
-    #DefaultMethods.RaySAttackVisionTransformer()
+    # DefaultMethods.RaySAttackVisionTransformer()
 
     #Uncomment next line to do the RayS attack on the Shuffle Defense (ViT-L-16 and BiT-M-R101x3)
-    #DefaultMethods.RaySAttackShuffleDefense()
+    # DefaultMethods.RaySAttackShuffleDefense()
 
     #Uncomment next line to do the Adaptive attack on the Vision Transformer, ViT-L-16
-    #DefaultMethods.AdaptiveAttackVisionTransformer()
+    # DefaultMethods.AdaptiveAttackVisionTransformer()
 
     #Uncomment next line to do the Adaptive attack on the Shuffle Defense (ViT-L-16 and BiT-M-R101x3)
-    #DefaultMethods.AdaptiveAttackShuffleDefense()
+    # DefaultMethods.AdaptiveAttackShuffleDefense()
 
     #Uncomment next line to do the self-attention gradient on the Shuffle Defense
     DefaultMethods.SelfAttentionGradientAttackCIFAR10()
