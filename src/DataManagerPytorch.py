@@ -4,11 +4,9 @@ import torchvision.datasets as datasets
 import math 
 import random 
 from src.ImageNetKaggle import ImageNetKaggle
-from tqdm import tqdm
-from dotenv import load_dotenv
+from typing import List, Tuple
 import os
 
-load_dotenv('.env')
 
 #Class to help with converting between dataloader and pytorch tensor 
 class MyDataSet(torch.utils.data.Dataset):
@@ -27,7 +25,7 @@ class MyDataSet(torch.utils.data.Dataset):
         return len(self.x)
 
 #Validate using a dataloader 
-def validateD(valLoader, model, device=None):
+def validateD(valLoader, model, device=None) -> Tuple[float, List[str]]:
     #switch to evaluate mode
     model.eval()
     acc = 0 
@@ -157,7 +155,7 @@ def TensorToDataLoader(xData, yData, transforms= None, batchSize=None, randomize
         dataLoader = torch.utils.data.DataLoader(dataset=dataset,  batch_size=batchSize, sampler=train_sampler, shuffle=False)
     return dataLoader
 
-#Convert a dataloader into x and y tensors 
+# Convert a dataloader into x and y tensors 
 def DataLoaderToTensor(dataLoader):
     #First check how many samples in the dataset
     numSamples = len(dataLoader.dataset) 
@@ -175,15 +173,15 @@ def DataLoaderToTensor(dataLoader):
             sampleIndex = sampleIndex + 1 #increment the sample index 
     return xData, yData 
 
-#Get the output shape from the dataloader
+# Get the output shape from the dataloader
 def GetOutputShape(dataLoader):
     for i, (input, target) in enumerate(dataLoader):
         return input[0].shape
 
-#This method randomly creates fake labels for the attack 
-#The fake target is guaranteed to not be the same as the original class label 
+# This method randomly creates fake labels for the attack 
+# The fake target is guaranteed to not be the same as the original class label 
 def GenerateTargetsLabelRandomly(yData, numClasses):
-    fTargetLabels=torch.zeros(len(yData))
+    fTargetLabels = torch.zeros(len(yData))
     for i in range(0, len(yData)):
         targetLabel=random.randint(0,numClasses-1)
         while targetLabel==yData[i]:#Target and true label should not be the same 
@@ -223,7 +221,7 @@ def GetFirstCorrectlyIdentifiedExamples(device, dataLoader, model, numSamples):
     return cleanLoader
 
 #This data is in the range 0 to 1
-def GetCIFAR10Validation(imgSize = 32, batchSize=128):
+def GetCIFAR10Validation(imgSize = 32, batchSize=128) -> torch.utils.data.DataLoader:
     transformTest = transforms.Compose([
         transforms.Resize((imgSize, imgSize)),
         transforms.ToTensor()
@@ -244,7 +242,7 @@ def GetCIFAR10Training(imgSize = 32, batchSize=128):
     return trainLoader
 
 # Fonction copiée de GetCIFAR10Validation
-def GetCIFAR100Validation(imgSize = 32, batchSize=128):
+def GetCIFAR100Validation(imgSize = 32, batchSize=128) -> torch.utils.data.DataLoader:
     transformTest = transforms.Compose([
         transforms.Resize((imgSize, imgSize)),
         transforms.ToTensor()
@@ -256,7 +254,7 @@ def GetCIFAR100Validation(imgSize = 32, batchSize=128):
     return valLoader
 
 # Fonction copiée de GetCIFAR10Training
-def GetCIFAR100Training(imgSize = 32, batchSize=128):
+def GetCIFAR100Training(imgSize = 32, batchSize=128) -> torch.utils.data.DataLoader:
     toTensorTransform = transforms.Compose([
         transforms.Resize((imgSize, imgSize)),
         transforms.ToTensor()

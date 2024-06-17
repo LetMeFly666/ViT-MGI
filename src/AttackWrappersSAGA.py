@@ -1,4 +1,4 @@
-import torch 
+import torch
 from src import DataManagerPytorch as DMP
 import torchvision
 import numpy as np
@@ -6,6 +6,8 @@ import cv2
 from matplotlib import pyplot as plt
 import os
 import random
+from typing import Tuple
+from src.ModelPlus import ModelPlus
 
 # Set to true if random attack should be performed instead of FGSM/SAGA
 RANDOM_ADVERSARIAL = False
@@ -53,7 +55,6 @@ def SelfAttentionGradientAttack(device, epsMax, numSteps, modelListPlus,
         #Do the clipping 
         xAdv = torch.clamp(xAdv, clipMin, clipMax)
         
-
         # Plot comparison
         comparisonArray = np.concatenate((xClean[[0],:],
                                           260 * (xClean[[0],:]-xAdv[[0],:]),
@@ -99,7 +100,7 @@ def FGSMNativeGradient(device, dataLoader, modelPlus):
     batchSize = 0 #just do dummy initalization, will be filled in later
     #Go through each sample 
     tracker = 0
-
+    
     for xData, yData in sizeCorrectedLoader:
         batchSize = xData.shape[0] #Get the batch size so we know indexing for saving later
         tracker = tracker + batchSize
@@ -133,9 +134,9 @@ def FGSMNativeGradient(device, dataLoader, modelPlus):
     torch.cuda.empty_cache() 
     return xGradient
 
-#Do the computation from scratch to get the correctly identified overlapping examples  
-#Note these samples will be the same size as the input size required by the 0th model 
-def GetFirstCorrectlyOverlappingSamplesBalanced(device, sampleNum, numClasses, dataLoader, modelPlusList):
+# Do the computation from scratch to get the correctly identified overlapping examples  
+# Note these samples will be the same size as the input size required by the 0th model 
+def GetFirstCorrectlyOverlappingSamplesBalanced(sampleNum: int, numClasses: int, dataLoader: torch.utils.data.DataLoader, modelPlusList: Tuple[ModelPlus, ModelPlus]):
     numModels = len(modelPlusList)
     totalSampleNum = len(dataLoader.dataset)
     #First check if modelA needs resize
@@ -168,7 +169,7 @@ def GetFirstCorrectlyOverlappingSamplesBalanced(device, sampleNum, numClasses, d
     i = 0
     while i < int(os.getenv('ATTACK_SAMPLE_POOL_SIZE')) and sampleIndexer < int(os.getenv('ATTACK_SAMPLES_NUM')):
         currentClass = int(yTest[i])
-        if currentClass>=numClasses:
+        if currentClass >= numClasses:
             pass
         if accArrayCumulative[i] == numModels:
             xClean[sampleIndexer] = xTest[i]
@@ -176,14 +177,14 @@ def GetFirstCorrectlyOverlappingSamplesBalanced(device, sampleNum, numClasses, d
             sampleIndexer = sampleIndexer +1 #update the indexer 
             samplePerClassCount[currentClass] = samplePerClassCount[currentClass] + 1 #Update the number of samples for this class
         i+=1
-
+    
     #Check the over all number of samples as well
     if sampleIndexer != sampleNum:
         print("Not enough clean samples found.")
     #All error checking done, return the clean balanced loader 
     #Conver the solution into a dataloader
     cleanDataLoader = DMP.TensorToDataLoader(xClean, yClean, transforms = None, batchSize = modelPlusList[0].batchSize, randomizer = None)
-
+    
     #Do one last check to make sure all samples identify the clean loader correctly 
     for i in range(0, numModels):
         cleanAcc = modelPlusList[i].validateD(cleanDataLoader)
@@ -192,6 +193,7 @@ def GetFirstCorrectlyOverlappingSamplesBalanced(device, sampleNum, numClasses, d
         else:
             print("Clean Acc "+ modelPlusList[i].modelName+":", cleanAcc[0])
     return cleanDataLoader
+
 
 def get_attention_map(model, xbatch, batch_size, img_size=int(os.getenv("IMG_SIZE"))):
     attentionMaps = torch.zeros(batch_size,img_size, img_size,3)
@@ -203,24 +205,24 @@ def get_attention_map(model, xbatch, batch_size, img_size=int(os.getenv("IMG_SIZ
         res, att_mat = model.forward2(ximg)  
         # model should return attention_list for all attention_heads
         # each element in the list contains attention for each layer
-       
+        
         att_mat = torch.stack(att_mat).squeeze(1)
         # Average the attention weights across all heads.
         att_mat = torch.mean(att_mat, dim=1)
-
+        
         # To account for residual connections, we add an identity matrix to the
         # attention matrix and re-normalize the weights.
         residual_att = torch.eye(att_mat.size(1))
         aug_att_mat = att_mat.cpu().detach() + residual_att
         aug_att_mat = aug_att_mat / aug_att_mat.sum(dim=-1).unsqueeze(-1)
-
+        
         # Recursively multiply the weight matrices
         joint_attentions = torch.zeros(aug_att_mat.size())
         joint_attentions[0] = aug_att_mat[0]
-
+        
         for n in range(1, aug_att_mat.size(0)):
             joint_attentions[n] = torch.matmul(aug_att_mat[n], joint_attentions[n-1])
-    
+        
         # Attention from the output token to the input space.
         v = joint_attentions[-1]
         grid_size = int(np.sqrt(aug_att_mat.size(-1)))
@@ -238,5 +240,5 @@ def visualize_imgs(imgs, labels=None, name="default", row=1, cols=3,):
     for i in range(imgs.shape[0]):
         ax = fig.add_subplot(row, cols, i+1, xticks=[], yticks=[])
         ax.imshow(imgs[i])
-        #ax.set_title(labels[i].item())
+        # ax.set_title(labels[i].item())
     plt.savefig(name)

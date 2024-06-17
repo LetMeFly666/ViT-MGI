@@ -4,10 +4,11 @@ import torch
 import torchvision
 from src import DataManagerPytorch as DMP
 from tqdm import tqdm
+from typing import List, Tuple
 
 class ModelPlus():
     #Constuctor arguements are self explanatory 
-    def __init__(self, modelName, model, device, imgSizeH, imgSizeW, batchSize):
+    def __init__(self, modelName, model, device, imgSizeH, imgSizeW, batchSize: int):
         self.modelName = modelName
         self.model = model
         self.imgSizeH = imgSizeH 
@@ -17,7 +18,7 @@ class ModelPlus():
         self.device = device
 
     #Validate a dataset, makes sure that the dataset is the right size before processing
-    def validateD(self, dataLoader):
+    def validateD(self, dataLoader) -> Tuple[float, List[str]]:
         #Put the images in the right size if they are not already
         dataLoaderFinal = self.formatDataLoader(dataLoader)
         #Make a copy of the model and put it on the GPU

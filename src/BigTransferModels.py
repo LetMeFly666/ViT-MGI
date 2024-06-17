@@ -27,9 +27,7 @@ import torch.nn.functional as F
 from torch.nn import Conv2d
 import numpy as np
 import os
-from dotenv import load_dotenv
 
-load_dotenv('.env')
 
 device = torch.device("cuda")
 
@@ -167,7 +165,7 @@ class ResNetV2(nn.Module):
     # pylint: disable=line-too-long
     if os.getenv("PELTA")=="True" and os.getenv("SHIELDED") in ("CNN", "BOTH"):
         self.root = nn.Sequential(OrderedDict([
-            ('conv', StraightThroughEstimator()), # this is Pelta
+            ('conv', StraightThroughEstimator()), # this is Pelta（本文的方法在这里）
             ('pad', nn.ConstantPad2d(1, 0)),
             ('pool', nn.MaxPool2d(kernel_size=3, stride=2, padding=0)),
         ]))

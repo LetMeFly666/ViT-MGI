@@ -3,9 +3,6 @@ from torch.utils.data import Dataset
 from PIL import Image
 import tarfile
 import json
-from dotenv import load_dotenv
-
-load_dotenv('/content/pelta_extended/ExtendedPelta/env')
 
 
 class ImageNetKaggle(Dataset):

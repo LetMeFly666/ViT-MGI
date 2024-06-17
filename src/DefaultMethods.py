@@ -6,18 +6,13 @@ from src import ShuffleDefense
 from src.ModelPlus import ModelPlus
 from src import DataManagerPytorch as DMP
 from src import AttackWrappersSAGA
-from src.ExperimentConfig import ExperimentConfig
 from src.TransformerModels import VisionTransformer, CONFIGS
 from src import BigTransferModels, ResNetPytorch, LocalInference
 import collections
 from collections import OrderedDict
-import json
 import time
 import random
-from dotenv import load_dotenv
-from tempfile import NamedTemporaryFile
-
-load_dotenv('.env')
+from typing import Tuple
 
 
 # From model name creates model, loads checkpoint, pours into model then creates
@@ -210,7 +205,7 @@ def validateBoth(valLoader, modelPlusList, device=None):
 #Load the shuffle defense containing ViT-L-16 and BiT-M-R101x3
 #For all attacks except SAGA, vis should be false (makes the Vision tranformer
 #return the attention weights if true)
-def LoadShuffleDefenseAndCIFAR10(vis=False):
+def LoadShuffleDefenseAndCIFAR10(vis=False) -> Tuple[torch.utils.data.DataLoader, ShuffleDefense.ShuffleDefense]:
     #Basic variable and data setup
     device = torch.device("cuda")
 
@@ -246,7 +241,7 @@ def LoadShuffleDefenseAndCIFAR10(vis=False):
     return valLoader, defense
 
 
-#Run the Self-Attention Gradient Attack (SAGA) on ViT-L and BiT-M-R101x3
+# Run the Self-Attention Gradient Attack (SAGA) on ViT-L and BiT-M-R101x3
 def SelfAttentionGradientAttackCIFAR10(): # TODO separate attack class for C100?@
     start = time.time()
     assert(torch.cuda.is_available())
@@ -256,25 +251,25 @@ def SelfAttentionGradientAttackCIFAR10(): # TODO separate attack class for C100?
     attackSampleNum = int(os.getenv("ATTACK_SAMPLES_NUM"))
     numClasses = int(os.getenv("NUM_CLASSES"))
     coefficientArray = torch.zeros(2)
-    secondcoeff = float(os.getenv("SECOND_COEFF"))
+    secondcoeff = float(os.getenv("SECOND_COEFF"))  # Coeff应该是coefficient(系数)的缩写
     coefficientArray[0] = 1.0 - secondcoeff
     coefficientArray[1] = secondcoeff
     device = torch.device("cuda")
-    epsMax = 0.031
+    epsMax = float(os.getenv("EPS_MAX"))
     clipMin = 0.0
     clipMax = 1.0
     numSteps = int(os.getenv("NUM_STEPS"))
     #Load the models and the dataset
     #Note it is important to set vis to true so the transformer's model output returns the attention weights 
     valLoader, defense = LoadShuffleDefenseAndCIFAR10(vis=True)
-    modelPlusList = defense.modelPlusList
+    modelPlusList: Tuple[ModelPlus, ModelPlus] = defense.modelPlusList
     #Note that the batch size will effect how the gradient is computed in PyTorch
     #Here we use batch size 8 for ViT-L and batch size 2 for BiT-M.
     #Other batch sizes are possible but they will not generate the same result
     modelPlusList[0].batchSize = 8
     modelPlusList[1].batchSize = 2
     #Get the clean examples 
-    cleanLoader =AttackWrappersSAGA.GetFirstCorrectlyOverlappingSamplesBalanced(device, attackSampleNum,
+    cleanLoader = AttackWrappersSAGA.GetFirstCorrectlyOverlappingSamplesBalanced(attackSampleNum,
      numClasses, valLoader, modelPlusList)
     #Do the attack
     advLoader = AttackWrappersSAGA.SelfAttentionGradientAttack(device, epsMax, numSteps,
@@ -283,7 +278,7 @@ def SelfAttentionGradientAttackCIFAR10(): # TODO separate attack class for C100?
     predictionOfBothModels = {}
     for i in range(0, len(modelPlusList)):
         acc, prediction_list = modelPlusList[i].validateD(advLoader)
-        predictionOfBothModels[modelPlusList[i].modelName]=prediction_list
+        predictionOfBothModels[modelPlusList[i].modelName] = prediction_list
         print(f"{modelPlusList[i].modelName} robust Acc: {acc}")
 
     adv_ex = 0
@@ -293,13 +288,13 @@ def SelfAttentionGradientAttackCIFAR10(): # TODO separate attack class for C100?
     cnnList = predictionOfBothModels[os.getenv("MODEL_CNN")]
     vitList = predictionOfBothModels[os.getenv("MODEL_VIT")]
     for i, pred in enumerate(cnnList):
-        if pred=='incorrect' and vitList[i]=='incorrect':
+        if pred == 'incorrect' and vitList[i] == 'incorrect':
             adv_ex+=1
-        elif pred=='incorrect' and vitList[i]=='correct !':
+        elif pred == 'incorrect' and vitList[i] == 'correct !':
             misclass+=1
-        elif pred=='correct !' and vitList[i]=='incorrect':
+        elif pred == 'correct !' and vitList[i] == 'incorrect':
             misclass+=1
-        elif pred=='correct !' and vitList[i]=='correct !':
+        elif pred == 'correct !' and vitList[i] == 'correct !':
             correct_pred+=1
         else:
             pass
@@ -307,9 +302,9 @@ def SelfAttentionGradientAttackCIFAR10(): # TODO separate attack class for C100?
 
     blend_acc = .0
     for i, pred in enumerate(cnnList):
-        if random.choice([vitList[i], pred])=='correct !':
-            blend_acc+=1
-    blend_acc/=len(cnnList)
+        if random.choice([vitList[i], pred]) == 'correct !':
+            blend_acc += 1
+    blend_acc /= len(cnnList)
     print("blend robust acc: ", blend_acc)
     modelPlusList[0].clearModel()
     modelPlusList[1].clearModel()

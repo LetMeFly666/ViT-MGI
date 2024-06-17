@@ -1,3 +1,9 @@
+<!--
+ * @Author: LetMeFly
+ * @Date: 2024-05-15 17:45:43
+ * @LastEditors: LetMeFly
+ * @LastEditTime: 2024-06-17 10:58:14
+-->
 # FLDefinder
 
 联邦学习 ViT Backdoor防御的研究。
@@ -8,6 +14,7 @@
 ## Readme in Pelta
 
 # Mitigating Adversarial Attacks in Federated Learning with Trusted Execution Environments
+
 Code base for the **Mitigating Adversarial Attacks in Federated Learning with Trusted Execution Environments** paper (Queyrut, Schiavoni & Felber) accepted at ICDCS'23 (open access version soon available).
 
 Code is provided for applying the Pelta defense scheme to an ensemble of Vision Transformer (ViT-L-16) and and Big Transfer Model (BiT-M-R101x3) against the Self-Attention Gradient Attack (original attack code from authors, [paper here](https://openaccess.thecvf.com/content/ICCV2021/html/Mahmood_On_the_Robustness_of_Vision_Transformers_to_Adversarial_Examples_ICCV_2021_paper.html)). The defense provided here works for CIFAR-10 and was coded entirely on PyTorch.
