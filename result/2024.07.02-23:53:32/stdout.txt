@@ -1,0 +1,28 @@
++- main_server.py:17 -+
+| 2024.07.02-23:53:32 |
++---------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/server.py:41 -+
+| begin to create model vit_base_patch16_224               |
++----------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/server.py:43 -+
+| create model vit_base_patch16_224 successfully           |
++----------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/data.py:20 -+
+| begin to verify or download CIFAR10 dataset                  |
++--------------------------------------------------------------+
+
++- /home/lzy/.conda/envs/ltf/lib/python3.8/site-packages/torchvision/datasets/cifar.py:141 -+
+| Tisfy: Files already downloaded and verified.                                             |
++-------------------------------------------------------------------------------------------+
+
++- /home/lzy/.conda/envs/ltf/lib/python3.8/site-packages/torchvision/datasets/cifar.py:141 -+
+| Tisfy: Files already downloaded and verified.                                             |
++-------------------------------------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/data.py:23 -+
+| verify or download CIFAR10 dataset successfully              |
++--------------------------------------------------------------+
+

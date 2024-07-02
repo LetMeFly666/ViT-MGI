@@ -2,7 +2,7 @@
  * @Author: LetMeFly
  * @Date: 2024-05-15 17:45:43
  * @LastEditors: LetMeFly
- * @LastEditTime: 2024-07-02 17:23:52
+ * @LastEditTime: 2024-07-02 20:39:56
 -->
 # FLDefinder
 
@@ -39,6 +39,4 @@
 
 ## End
 
-### 参考文献
-
-[^1]: Queyrut S, Schiavoni V, Felber P. Mitigating Adversarial Attacks in Federated Learning with Trusted Execution Environments[C]//2023 IEEE 43rd International Conference on Distributed Computing Systems (ICDCS). IEEE, 2023: 626-637.
+The End.
