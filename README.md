@@ -2,7 +2,7 @@
  * @Author: LetMeFly
  * @Date: 2024-05-15 17:45:43
  * @LastEditors: LetMeFly
- * @LastEditTime: 2024-07-02 17:15:50
+ * @LastEditTime: 2024-07-02 17:23:52
 -->
 # FLDefinder
 
@@ -11,39 +11,6 @@
 + 进度地址：[人工智能 - 联邦学习(安全性) - 自用(ProjectDoing)](https://blog.letmefly.xyz/2024/01/06/Other-AI-FL-FederatedLearning-ProjectWritingIn1month/)
 + 分支[try0_poolAndExtra](https://github.com/LetMeFly666/FLDefinder/tree/try0_poolAndExtra)：因准确率太低，研究一半而Archive的分支
 + 分支[try1_changeFromPelta](https://github.com/LetMeFly666/FLDefinder/tree/try1_changeFromPelta)：在[Pelta](https://github.com/queyrusi/Pelta)的代码上修改，但其代码中似乎无FL相关部分，研究一半而Archive的分支
-
-## Readme in Pelta
-
-# Mitigating Adversarial Attacks in Federated Learning with Trusted Execution Environments
-
-Code base for the **Mitigating Adversarial Attacks in Federated Learning with Trusted Execution Environments** paper (Queyrut, Schiavoni & Felber) accepted at ICDCS'23 (open access version soon available).
-
-Code is provided for applying the Pelta defense scheme to an ensemble of Vision Transformer (ViT-L-16) and and Big Transfer Model (BiT-M-R101x3) against the Self-Attention Gradient Attack (original attack code from authors, [paper here](https://openaccess.thecvf.com/content/ICCV2021/html/Mahmood_On_the_Robustness_of_Vision_Transformers_to_Adversarial_Examples_ICCV_2021_paper.html)). The defense provided here works for CIFAR-10 and was coded entirely on PyTorch.
-Parameters of the defense can be changed in the `env` file through the `PELTA` and `SHIELDED`parameters (set to `True` and `BOTH` by default).
-
-# Step by Step Guide
-
-<ol>
-  <li>Install the packages listed in the Software Installation Section (see below).</li>
-  <li>Download the models from this Kaggle <a href="www.kaggle.com/reyacardov/ensemblemodels">dataset link</a>
-  <li>Move both models into the ".\ExtendedPelta\Models" folder</li>
-  <li>Run the main in the Python IDE of your choice</li>
-</ol>
-
-# Software Installation 
-
-We use the following software packages: 
-<ul>
-  <li>pytorch==1.7.1</li>
-  <li>torchvision==0.8.2</li>
-  <li>numpy==1.19.2</li>
-  <li>opencv-python==4.5.1.48</li>
-  <li>python-dotenv==0.21.1</li>
-</ul>
-
-# System Requirements 
-
-All our defenses were run on one 40GB A100 GPU and system RAM were of 16GB.
 
 ## Log
 
@@ -63,6 +30,12 @@ All our defenses were run on one 40GB A100 GPU and system RAM were of 16GB.
 3. 实现了自定义的```print```函数，在调用```initPrint```函数后，以后的所有```print```都会在原来的基础上同时往initPrint时的文件中输出一份。
 
 但是此时调用的一些库的Warning不是调用print函数显示到终端的，就无法同时悄悄地写入到文件中一份。
+
+### Log004 - 2024.7.2_17:00-2024.7.2_23:50
+
+1. 先将“FL”、“ViT”的代码跑通，首先拥有一个能在半小时内训练出大约90%多准确率的ViT联邦学习框架。
+
+先支持大约5个客户端即可。
 
 ## End
 
