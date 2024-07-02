@@ -1,0 +1,48 @@
++----- main.py:19 -----+
+| 2024.06.17-17:54:43  |
++----------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/src/DefaultMethods.py:248 -+
+| NVIDIA GeForce RTX 3090                                    |
++------------------------------------------------------------+
+
++----------- /home/lzy/ltf/Codes/FLDefinder/src/DefaultMethods.py:249 -----------+
+| Running Self-Attention Gradient Attack on a blend of ViT-L-16 and BiT-M-R101x3 |
++--------------------------------------------------------------------------------+
+
++- /home/lzy/.conda/envs/ltf/lib/python3.8/site-packages/torchvision/datasets/cifar.py:141 -+
+| Tisfy: Files already downloaded and verified.                                             |
++-------------------------------------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/src/AttackWrappersSAGA.py:194 -+
+| Clean Acc ViT-L_16: 1.0                                        |
++----------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/src/AttackWrappersSAGA.py:194 -+
+| Clean Acc BiT-M-R101x3: 1.0                                    |
++----------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/src/DefaultMethods.py:282 -+
+| ViT-L_16 robust Acc: 0.841                                 |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/src/DefaultMethods.py:282 -+
+| BiT-M-R101x3 robust Acc: 0.527                             |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/src/DefaultMethods.py:308 -+
+| blend robust acc:  0.684                                   |
++------------------------------------------------------------+
+
++----------- /home/lzy/ltf/Codes/FLDefinder/src/ModelPlus.py:119 -----------+
+| Warning, model ViT-L_16 is being deleted and should not be called again!  |
++---------------------------------------------------------------------------+
+
++------------- /home/lzy/ltf/Codes/FLDefinder/src/ModelPlus.py:119 -------------+
+| Warning, model BiT-M-R101x3 is being deleted and should not be called again!  |
++-------------------------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/src/DefaultMethods.py:312 -+
+| Elapsed time:  1221.200341463089                           |
++------------------------------------------------------------+
+
