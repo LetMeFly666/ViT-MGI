@@ -2,7 +2,7 @@
 Author: LetMeFly
 Date: 2024-07-03 10:37:25
 LastEditors: LetMeFly
-LastEditTime: 2024-07-03 15:14:28
+LastEditTime: 2024-07-03 15:45:18
 '''
 import datetime
 getNow = lambda: datetime.datetime.now().strftime('%Y.%m.%d-%H:%M:%S')
@@ -28,6 +28,7 @@ import torchvision.datasets as datasets
 from transformers import ViTForImageClassification, ViTConfig
 import numpy as np
 import random
+import copy
 
 
 # 定义ViT模型
@@ -63,6 +64,7 @@ class Client:
             outputs = self.model(images)
             loss = criterion(outputs, labels)
             loss.backward()
+            torch.nn.utils.clip_grad_norm_(self.model.parameters(), max_norm=1.0)
             total_loss += loss.item()
         
         grads = []
@@ -93,7 +95,7 @@ class Server:
     
     def distribute_model(self, clients: List[Client]):
         for client in clients:
-            client.set_model(self.global_model)
+            client.set_model(copy.deepcopy(self.global_model))
     
     def aggregate_gradients(self, grads_list):
         avg_grads = []
@@ -102,9 +104,10 @@ class Server:
         return avg_grads
     
     def update_model(self, grads):
-        for param, grad in zip(self.global_model.parameters(), grads):
-            param.grad = grad.to(self.device)
         optimizer = optim.SGD(self.global_model.parameters(), lr=0.01, momentum=0.9)
+        optimizer.zero_grad()  # 记得清空梯度
+        for param, grad in zip(self.global_model.parameters(), grads):
+            param.grad = grad.to(param.dtype).to(self.device)
         optimizer.step()
 
 def get_data_loaders(num_clients, batch_size) -> Tuple[List[Client], DataLoader]:
@@ -137,8 +140,8 @@ def get_data_loaders(num_clients, batch_size) -> Tuple[List[Client], DataLoader]
 # 参数
 num_clients = 5
 batch_size = 32
-num_rounds = 10
-device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+num_rounds = 5
+device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
 # 获取数据加载器
 clients, val_loader = get_data_loaders(num_clients, batch_size)
@@ -176,7 +179,14 @@ for round_num in range(num_rounds):
     
     # 计算在验证集上的准确率
     timeRecorder.addRecord('Begin to evaluate...')
-    accuracy = client.evaluate(val_loader, device)
+    total_accuracy = 0.0
+    for th, client in enumerate(clients):
+        print(f'Client {th} is evaluating... | {getNow()}')
+        accuracy = client.evaluate(val_loader, device)
+        total_accuracy += accuracy
+    avg_accuracy = total_accuracy / len(clients)
+    print(f"Validation accuracy: {avg_accuracy*100:.2f}%")
+
     timeRecorder.addRecord(f"Validation accuracy: {accuracy*100:.2f}%")
 
 print("Federated learning completed.")
