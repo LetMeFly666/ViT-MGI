@@ -1,0 +1,16 @@
+2024-07-03 10:00:30.376571: I tensorflow/core/util/port.cc:110] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2024-07-03 10:00:30.423045: I tensorflow/core/platform/cpu_feature_guard.cc:182] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 AVX512F AVX512_VNNI FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2024-07-03 10:00:31.068662: W tensorflow/compiler/tf2tensorrt/utils/py_utils.cc:38] TF-TRT Warning: Could not find TensorRT
+begin to verify or download CIFAR10 dataset
+Tisfy: Files already downloaded and verified.
+Tisfy: Files already downloaded and verified.
+verify or download CIFAR10 dataset successfully
+Some weights of ViTForImageClassification were not initialized from the model checkpoint at data/vit_base_patch16_224/pytorch_model.bin and are newly initialized because the shapes did not match:
+- classifier.weight: found shape torch.Size([1000, 768]) in the checkpoint and torch.Size([10, 768]) in the model instantiated
+- classifier.bias: found shape torch.Size([1000]) in the checkpoint and torch.Size([10]) in the model instantiated
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+INFO :      
+INFO :      Received: train message 5651a018-da4b-42e9-9d63-3135a4e31358
+INFO :      Sent reply
+^CINFO :      Disconnect and shut down

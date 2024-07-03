@@ -1,0 +1,65 @@
+2024-07-03 09:52:23.830952: I tensorflow/core/util/port.cc:110] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2024-07-03 09:52:23.877512: I tensorflow/core/platform/cpu_feature_guard.cc:182] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 AVX512F AVX512_VNNI FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2024-07-03 09:52:24.487613: W tensorflow/compiler/tf2tensorrt/utils/py_utils.cc:38] TF-TRT Warning: Could not find TensorRT
++- main_server.py:17 -+
+| 2024.07.03-09:52:22 |
++---------------------+
+
+Some weights of ViTForImageClassification were not initialized from the model checkpoint at data/vit_base_patch16_224/pytorch_model.bin and are newly initialized because the shapes did not match:
+- classifier.weight: found shape torch.Size([1000, 768]) in the checkpoint and torch.Size([10, 768]) in the model instantiated
+- classifier.bias: found shape torch.Size([1000]) in the checkpoint and torch.Size([10]) in the model instantiated
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/data.py:20 -+
+| begin to verify or download CIFAR10 dataset                  |
++--------------------------------------------------------------+
+
++- /home/lzy/.conda/envs/ltf/lib/python3.8/site-packages/torchvision/datasets/cifar.py:141 -+
+| Tisfy: Files already downloaded and verified.                                             |
++-------------------------------------------------------------------------------------------+
+
++- /home/lzy/.conda/envs/ltf/lib/python3.8/site-packages/torchvision/datasets/cifar.py:141 -+
+| Tisfy: Files already downloaded and verified.                                             |
++-------------------------------------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/data.py:23 -+
+| verify or download CIFAR10 dataset successfully              |
++--------------------------------------------------------------+
+
+INFO :      Starting Flower server, config: num_rounds=3, no round_timeout
+INFO :      Flower ECE: gRPC server running (3 rounds), SSL is disabled
+INFO :      [INIT]
+INFO :      Requesting initial parameters from one random client
+INFO :      Received initial parameters from one random client
+INFO :      Evaluating initial global parameters
+INFO :      initial parameters (loss, other metrics): 2.4102034918062247, {'accuracy': 11.93}
+INFO :      
+INFO :      [ROUND 1]
+INFO :      configure_fit: strategy sampled 2 clients (out of 2)
+INFO :      aggregate_fit: received 1 results and 1 failures
+WARNING :   No fit_metrics_aggregation_fn provided
+INFO :      fit progress: (1, 1.4849081570935097, {'accuracy': 45.73}, 708.3403503159061)
+^CTraceback (most recent call last):
+  File "main_server.py", line 18, in <module>
+    server.main()
+  File "/home/lzy/ltf/Codes/FLDefinder/master/src/server.py", line 51, in main
+    if __name__ == "__main__":
+  File "/home/lzy/.conda/envs/ltf/lib/python3.8/site-packages/flwr/server/app.py", line 180, in start_server
+    hist = run_fl(
+  File "/home/lzy/.conda/envs/ltf/lib/python3.8/site-packages/flwr/server/server.py", line 490, in run_fl
+    hist, elapsed_time = server.fit(
+  File "/home/lzy/.conda/envs/ltf/lib/python3.8/site-packages/flwr/server/server.py", line 143, in fit
+    res_fed = self.evaluate_round(server_round=current_round, timeout=timeout)
+  File "/home/lzy/.conda/envs/ltf/lib/python3.8/site-packages/flwr/server/server.py", line 168, in evaluate_round
+    client_instructions = self.strategy.configure_evaluate(
+  File "/home/lzy/.conda/envs/ltf/lib/python3.8/site-packages/flwr/server/strategy/fedavg.py", line 213, in configure_evaluate
+    clients = client_manager.sample(
+  File "/home/lzy/.conda/envs/ltf/lib/python3.8/site-packages/flwr/server/client_manager.py", line 187, in sample
+    self.wait_for(min_num_clients)
+  File "/home/lzy/.conda/envs/ltf/lib/python3.8/site-packages/flwr/server/client_manager.py", line 132, in wait_for
+    return self._cv.wait_for(
+  File "/home/lzy/.conda/envs/ltf/lib/python3.8/threading.py", line 337, in wait_for
+    self.wait(waittime)
+  File "/home/lzy/.conda/envs/ltf/lib/python3.8/threading.py", line 306, in wait
+    gotit = waiter.acquire(True, timeout)
+KeyboardInterrupt
