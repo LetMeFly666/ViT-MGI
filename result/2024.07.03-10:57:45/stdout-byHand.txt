@@ -1,0 +1,106 @@
++----- main.py:14 -----+
+| 2024.07.03-10:57:45  |
++----------------------+
+
++- /home/lzy/.conda/envs/ltf/lib/python3.8/site-packages/torchvision/datasets/cifar.py:141 -+
+| Tisfy: Files already downloaded and verified.                                             |
++-------------------------------------------------------------------------------------------+
+
++-- main.py:31 --+
+| ViTModel init  |
++----------------+
+
+Traceback (most recent call last):
+  File "/home/lzy/.conda/envs/ltf/lib/python3.8/site-packages/urllib3/connection.py", line 203, in _new_conn
+    sock = connection.create_connection(
+  File "/home/lzy/.conda/envs/ltf/lib/python3.8/site-packages/urllib3/util/connection.py", line 85, in create_connection
+    raise err
+  File "/home/lzy/.conda/envs/ltf/lib/python3.8/site-packages/urllib3/util/connection.py", line 73, in create_connection
+    sock.connect(sa)
+socket.timeout: timed out
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/lzy/.conda/envs/ltf/lib/python3.8/site-packages/urllib3/connectionpool.py", line 790, in urlopen
+    response = self._make_request(
+  File "/home/lzy/.conda/envs/ltf/lib/python3.8/site-packages/urllib3/connectionpool.py", line 491, in _make_request
+    raise new_e
+  File "/home/lzy/.conda/envs/ltf/lib/python3.8/site-packages/urllib3/connectionpool.py", line 467, in _make_request
+    self._validate_conn(conn)
+  File "/home/lzy/.conda/envs/ltf/lib/python3.8/site-packages/urllib3/connectionpool.py", line 1096, in _validate_conn
+    conn.connect()
+  File "/home/lzy/.conda/envs/ltf/lib/python3.8/site-packages/urllib3/connection.py", line 611, in connect
+    self.sock = sock = self._new_conn()
+  File "/home/lzy/.conda/envs/ltf/lib/python3.8/site-packages/urllib3/connection.py", line 212, in _new_conn
+    raise ConnectTimeoutError(
+urllib3.exceptions.ConnectTimeoutError: (<urllib3.connection.HTTPSConnection object at 0x7fa782596a30>, 'Connection to huggingface.co timed out. (connect timeout=10)')
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/lzy/.conda/envs/ltf/lib/python3.8/site-packages/requests/adapters.py", line 486, in send
+    resp = conn.urlopen(
+  File "/home/lzy/.conda/envs/ltf/lib/python3.8/site-packages/urllib3/connectionpool.py", line 844, in urlopen
+    retries = retries.increment(
+  File "/home/lzy/.conda/envs/ltf/lib/python3.8/site-packages/urllib3/util/retry.py", line 515, in increment
+    raise MaxRetryError(_pool, url, reason) from reason  # type: ignore[arg-type]
+urllib3.exceptions.MaxRetryError: HTTPSConnectionPool(host='huggingface.co', port=443): Max retries exceeded with url: /google/vit-base-patch16-224/resolve/main/config.json (Caused by ConnectTimeoutError(<urllib3.connection.HTTPSConnection object at 0x7fa782596a30>, 'Connection to huggingface.co timed out. (connect timeout=10)'))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/lzy/.conda/envs/ltf/lib/python3.8/site-packages/huggingface_hub/file_download.py", line 1722, in _get_metadata_or_catch_error
+    metadata = get_hf_file_metadata(url=url, proxies=proxies, timeout=etag_timeout, headers=headers)
+  File "/home/lzy/.conda/envs/ltf/lib/python3.8/site-packages/huggingface_hub/utils/_validators.py", line 114, in _inner_fn
+    return fn(*args, **kwargs)
+  File "/home/lzy/.conda/envs/ltf/lib/python3.8/site-packages/huggingface_hub/file_download.py", line 1645, in get_hf_file_metadata
+    r = _request_wrapper(
+  File "/home/lzy/.conda/envs/ltf/lib/python3.8/site-packages/huggingface_hub/file_download.py", line 372, in _request_wrapper
+    response = _request_wrapper(
+  File "/home/lzy/.conda/envs/ltf/lib/python3.8/site-packages/huggingface_hub/file_download.py", line 395, in _request_wrapper
+    response = get_session().request(method=method, url=url, **params)
+  File "/home/lzy/.conda/envs/ltf/lib/python3.8/site-packages/requests/sessions.py", line 589, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/home/lzy/.conda/envs/ltf/lib/python3.8/site-packages/requests/sessions.py", line 703, in send
+    r = adapter.send(request, **kwargs)
+  File "/home/lzy/.conda/envs/ltf/lib/python3.8/site-packages/huggingface_hub/utils/_http.py", line 66, in send
+    return super().send(request, *args, **kwargs)
+  File "/home/lzy/.conda/envs/ltf/lib/python3.8/site-packages/requests/adapters.py", line 507, in send
+    raise ConnectTimeout(e, request=request)
+requests.exceptions.ConnectTimeout: (MaxRetryError("HTTPSConnectionPool(host='huggingface.co', port=443): Max retries exceeded with url: /google/vit-base-patch16-224/resolve/main/config.json (Caused by ConnectTimeoutError(<urllib3.connection.HTTPSConnection object at 0x7fa782596a30>, 'Connection to huggingface.co timed out. (connect timeout=10)'))"), '(Request ID: 46584ce8-88d2-4ae7-a004-de7062a50305)')
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/lzy/.conda/envs/ltf/lib/python3.8/site-packages/transformers/utils/hub.py", line 402, in cached_file
+    resolved_file = hf_hub_download(
+  File "/home/lzy/.conda/envs/ltf/lib/python3.8/site-packages/huggingface_hub/utils/_validators.py", line 114, in _inner_fn
+    return fn(*args, **kwargs)
+  File "/home/lzy/.conda/envs/ltf/lib/python3.8/site-packages/huggingface_hub/file_download.py", line 1221, in hf_hub_download
+    return _hf_hub_download_to_cache_dir(
+  File "/home/lzy/.conda/envs/ltf/lib/python3.8/site-packages/huggingface_hub/file_download.py", line 1325, in _hf_hub_download_to_cache_dir
+    _raise_on_head_call_error(head_call_error, force_download, local_files_only)
+  File "/home/lzy/.conda/envs/ltf/lib/python3.8/site-packages/huggingface_hub/file_download.py", line 1826, in _raise_on_head_call_error
+    raise LocalEntryNotFoundError(
+huggingface_hub.utils._errors.LocalEntryNotFoundError: An error happened while trying to locate the file on the Hub and we cannot find the requested files in the local cache. Please check your connection and try again or make sure your Internet connection is on.
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "main.py", line 122, in <module>
+    global_model = ViTModel()
+  File "main.py", line 32, in __init__
+    self.model = ViTForImageClassification.from_pretrained('google/vit-base-patch16-224', num_labels=num_classes)
+  File "/home/lzy/.conda/envs/ltf/lib/python3.8/site-packages/transformers/modeling_utils.py", line 3235, in from_pretrained
+    config, model_kwargs = cls.config_class.from_pretrained(
+  File "/home/lzy/.conda/envs/ltf/lib/python3.8/site-packages/transformers/configuration_utils.py", line 603, in from_pretrained
+    config_dict, kwargs = cls.get_config_dict(pretrained_model_name_or_path, **kwargs)
+  File "/home/lzy/.conda/envs/ltf/lib/python3.8/site-packages/transformers/configuration_utils.py", line 632, in get_config_dict
+    config_dict, kwargs = cls._get_config_dict(pretrained_model_name_or_path, **kwargs)
+  File "/home/lzy/.conda/envs/ltf/lib/python3.8/site-packages/transformers/configuration_utils.py", line 689, in _get_config_dict
+    resolved_config_file = cached_file(
+  File "/home/lzy/.conda/envs/ltf/lib/python3.8/site-packages/transformers/utils/hub.py", line 445, in cached_file
+    raise EnvironmentError(
+OSError: We couldn't connect to 'https://huggingface.co' to load this file, couldn't find it in the cached files and it looks like google/vit-base-patch16-224 is not the path to a directory containing a file named config.json.
+Checkout your internet connection or see how to run the library in offline mode at 'https://huggingface.co/docs/transformers/installation#offline-mode'.
