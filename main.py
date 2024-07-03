@@ -2,7 +2,7 @@
 Author: LetMeFly
 Date: 2024-07-03 10:37:25
 LastEditors: LetMeFly
-LastEditTime: 2024-07-03 16:40:12
+LastEditTime: 2024-07-03 17:05:56
 '''
 import datetime
 getNow = lambda: datetime.datetime.now().strftime('%Y.%m.%d-%H:%M:%S')
@@ -31,14 +31,21 @@ import random
 import copy
 
 
+# 参数
+num_clients = 5
+batch_size = 32
+num_rounds = 5
+device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+
 # 定义ViT模型
 class ViTModel(nn.Module):
-    def __init__(self, num_classes=10):
+    def __init__(self, num_classes=10, device: str=device):
         super(ViTModel, self).__init__()
         model_path = './data/vit_base_patch16_224'
         config = ViTConfig.from_pretrained(model_path)
         self.model = ViTForImageClassification.from_pretrained(model_path, config=config)
         self.model.classifier = nn.Linear(self.model.config.hidden_size, num_classes)
+        self.model.to(device)  # 移动模型到设备
     
     def forward(self, x):
         return self.model(x).logits
@@ -140,17 +147,11 @@ def get_data_loaders(num_clients, batch_size) -> Tuple[List[Client], DataLoader]
     
     return clients, val_loader
 
-# 参数
-num_clients = 5
-batch_size = 32
-num_rounds = 5
-device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
-
 # 获取数据加载器
 clients, val_loader = get_data_loaders(num_clients, batch_size)
 
 # 初始化服务器
-global_model = ViTModel()
+global_model = ViTModel(device=device)
 server = Server(global_model, device)
 
 # 联邦学习过程
@@ -158,7 +159,7 @@ criterion = nn.CrossEntropyLoss()
 
 for round_num in range(num_rounds):
     
-    timeRecorder.addRecord(f'Round {round_num+1} of {num_rounds}')
+    timeRecorder.addRecord(f'Round {round_num + 1} of {num_rounds}')
     
     # 分发当前的全局模型给所有客户端
     server.distribute_model(clients)
@@ -167,9 +168,9 @@ for round_num in range(num_rounds):
     grads_list = []
     total_loss = 0.0
     for th, client in enumerate(clients):
-        timeRecorder.addRecord(f'Round {round_num}/{num_rounds} client {th}/{num_clients} is computing gradients...')
+        timeRecorder.addRecord(f'Round {round_num + 1}/{num_rounds} client {th}/{num_clients} is computing gradients...')
         grads, loss = client.compute_gradient(criterion, device)
-        timeRecorder.addRecord(f'Client {th} has computed gradients.')
+        timeRecorder.addRecord(f'Client {th + 1} has computed gradients.')
         grads_list.append(grads)
         total_loss += loss
     
@@ -189,6 +190,7 @@ for round_num in range(num_rounds):
         print(f'Client {th}\'s accuracy: {accuracy} | {getNow()}')
         total_accuracy += accuracy
     avg_accuracy = total_accuracy / len(clients)
-    timeRecorder.addRecord(f"Validation accuracy: {accuracy*100:.2f}%")
+    timeRecorder.addRecord(f"Validation accuracy: {avg_accuracy*100:.2f}%")
 
 print("Federated learning completed.")
+timeRecorder.printAll()

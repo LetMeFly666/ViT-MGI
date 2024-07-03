@@ -1,0 +1,264 @@
++----- main.py:15 -----+
+| 2024.07.03-16:47:53  |
++----------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:35 -+
+| Start | 2024.07.03-16:47:53                                     |
++-----------------------------------------------------------------+
+
++- /home/lzy/.conda/envs/ltf/lib/python3.8/site-packages/torchvision/datasets/cifar.py:141 -+
+| Tisfy: Files already downloaded and verified.                                             |
++-------------------------------------------------------------------------------------------+
+
++- /home/lzy/.conda/envs/ltf/lib/python3.8/site-packages/torchvision/datasets/cifar.py:141 -+
+| Tisfy: Files already downloaded and verified.                                             |
++-------------------------------------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:35 -+
+| Round 1 of 5 | 2024.07.03-16:47:59                              |
++-----------------------------------------------------------------+
+
++---- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:35 ----+
+| Round 0/5 client 0/5 is computing gradients... | 2024.07.03-16:47:59  |
++-----------------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:35 -+
+| Client 0 has computed gradients. | 2024.07.03-16:49:01          |
++-----------------------------------------------------------------+
+
++---- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:35 ----+
+| Round 0/5 client 1/5 is computing gradients... | 2024.07.03-16:49:01  |
++-----------------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:35 -+
+| Client 1 has computed gradients. | 2024.07.03-16:50:05          |
++-----------------------------------------------------------------+
+
++---- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:35 ----+
+| Round 0/5 client 2/5 is computing gradients... | 2024.07.03-16:50:05  |
++-----------------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:35 -+
+| Client 2 has computed gradients. | 2024.07.03-16:51:18          |
++-----------------------------------------------------------------+
+
++---- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:35 ----+
+| Round 0/5 client 3/5 is computing gradients... | 2024.07.03-16:51:18  |
++-----------------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:35 -+
+| Client 3 has computed gradients. | 2024.07.03-16:52:25          |
++-----------------------------------------------------------------+
+
++---- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:35 ----+
+| Round 0/5 client 4/5 is computing gradients... | 2024.07.03-16:52:25  |
++-----------------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:35 -+
+| Client 4 has computed gradients. | 2024.07.03-16:53:29          |
++-----------------------------------------------------------------+
+
++---------------------- main.py:178 ----------------------+
+| Average loss: 2.4497472094270747 | 2024.07.03-16:53:29  |
++---------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:35 -+
+| Begin to evaluate... | 2024.07.03-16:53:29                      |
++-----------------------------------------------------------------+
+
++------------------ main.py:188 ------------------+
+| Client 0 is evaluating... | 2024.07.03-16:53:29 |
++-------------------------------------------------+
+
++------------------- main.py:190 -------------------+
+| Client 0's accuracy: 0.0993 | 2024.07.03-16:53:57 |
++---------------------------------------------------+
+
++------------------ main.py:188 ------------------+
+| Client 1 is evaluating... | 2024.07.03-16:53:57 |
++-------------------------------------------------+
+
++------------------- main.py:190 -------------------+
+| Client 1's accuracy: 0.0993 | 2024.07.03-16:54:25 |
++---------------------------------------------------+
+
++------------------ main.py:188 ------------------+
+| Client 2 is evaluating... | 2024.07.03-16:54:25 |
++-------------------------------------------------+
+
++------------------- main.py:190 -------------------+
+| Client 2's accuracy: 0.0993 | 2024.07.03-16:54:53 |
++---------------------------------------------------+
+
++------------------ main.py:188 ------------------+
+| Client 3 is evaluating... | 2024.07.03-16:54:53 |
++-------------------------------------------------+
+
++------------------- main.py:190 -------------------+
+| Client 3's accuracy: 0.0993 | 2024.07.03-16:55:20 |
++---------------------------------------------------+
+
++------------------ main.py:188 ------------------+
+| Client 4 is evaluating... | 2024.07.03-16:55:20 |
++-------------------------------------------------+
+
++------------------- main.py:190 -------------------+
+| Client 4's accuracy: 0.0993 | 2024.07.03-16:55:48 |
++---------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:35 -+
+| Validation accuracy: 9.93% | 2024.07.03-16:55:48                |
++-----------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:35 -+
+| Round 2 of 5 | 2024.07.03-16:55:48                              |
++-----------------------------------------------------------------+
+
++---- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:35 ----+
+| Round 1/5 client 0/5 is computing gradients... | 2024.07.03-16:55:48  |
++-----------------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:35 -+
+| Client 0 has computed gradients. | 2024.07.03-16:56:50          |
++-----------------------------------------------------------------+
+
++---- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:35 ----+
+| Round 1/5 client 1/5 is computing gradients... | 2024.07.03-16:56:50  |
++-----------------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:35 -+
+| Client 1 has computed gradients. | 2024.07.03-16:57:53          |
++-----------------------------------------------------------------+
+
++---- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:35 ----+
+| Round 1/5 client 2/5 is computing gradients... | 2024.07.03-16:57:53  |
++-----------------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:35 -+
+| Client 2 has computed gradients. | 2024.07.03-16:58:55          |
++-----------------------------------------------------------------+
+
++---- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:35 ----+
+| Round 1/5 client 3/5 is computing gradients... | 2024.07.03-16:58:55  |
++-----------------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:35 -+
+| Client 3 has computed gradients. | 2024.07.03-16:59:58          |
++-----------------------------------------------------------------+
+
++---- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:35 ----+
+| Round 1/5 client 4/5 is computing gradients... | 2024.07.03-16:59:58  |
++-----------------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:35 -+
+| Client 4 has computed gradients. | 2024.07.03-17:01:41          |
++-----------------------------------------------------------------+
+
++---------------------- main.py:178 ----------------------+
+| Average loss: 18.357736366320722 | 2024.07.03-17:01:41  |
++---------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:35 -+
+| Begin to evaluate... | 2024.07.03-17:01:41                      |
++-----------------------------------------------------------------+
+
++------------------ main.py:188 ------------------+
+| Client 0 is evaluating... | 2024.07.03-17:01:41 |
++-------------------------------------------------+
+
++------------------- main.py:190 -------------------+
+| Client 0's accuracy: 0.1427 | 2024.07.03-17:02:29 |
++---------------------------------------------------+
+
++------------------ main.py:188 ------------------+
+| Client 1 is evaluating... | 2024.07.03-17:02:29 |
++-------------------------------------------------+
+
++------------------- main.py:190 -------------------+
+| Client 1's accuracy: 0.1427 | 2024.07.03-17:03:18 |
++---------------------------------------------------+
+
++------------------ main.py:188 ------------------+
+| Client 2 is evaluating... | 2024.07.03-17:03:18 |
++-------------------------------------------------+
+
++------------------- main.py:190 -------------------+
+| Client 2's accuracy: 0.1427 | 2024.07.03-17:04:02 |
++---------------------------------------------------+
+
++------------------ main.py:188 ------------------+
+| Client 3 is evaluating... | 2024.07.03-17:04:02 |
++-------------------------------------------------+
+
++------------------- main.py:190 -------------------+
+| Client 3's accuracy: 0.1427 | 2024.07.03-17:04:30 |
++---------------------------------------------------+
+
++------------------ main.py:188 ------------------+
+| Client 4 is evaluating... | 2024.07.03-17:04:30 |
++-------------------------------------------------+
+
++------------------- main.py:190 -------------------+
+| Client 4's accuracy: 0.1427 | 2024.07.03-17:04:57 |
++---------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:35 -+
+| Validation accuracy: 14.27% | 2024.07.03-17:04:57               |
++-----------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:35 -+
+| Round 3 of 5 | 2024.07.03-17:04:57                              |
++-----------------------------------------------------------------+
+
++---- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:35 ----+
+| Round 2/5 client 0/5 is computing gradients... | 2024.07.03-17:04:58  |
++-----------------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:35 -+
+| Client 0 has computed gradients. | 2024.07.03-17:06:00          |
++-----------------------------------------------------------------+
+
++---- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:35 ----+
+| Round 2/5 client 1/5 is computing gradients... | 2024.07.03-17:06:00  |
++-----------------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:35 -+
+| Client 1 has computed gradients. | 2024.07.03-17:07:03          |
++-----------------------------------------------------------------+
+
++---- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:35 ----+
+| Round 2/5 client 2/5 is computing gradients... | 2024.07.03-17:07:03  |
++-----------------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:35 -+
+| Client 2 has computed gradients. | 2024.07.03-17:08:07          |
++-----------------------------------------------------------------+
+
++---- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:35 ----+
+| Round 2/5 client 3/5 is computing gradients... | 2024.07.03-17:08:07  |
++-----------------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:35 -+
+| Client 3 has computed gradients. | 2024.07.03-17:09:20          |
++-----------------------------------------------------------------+
+
++---- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:35 ----+
+| Round 2/5 client 4/5 is computing gradients... | 2024.07.03-17:09:20  |
++-----------------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:35 -+
+| Client 4 has computed gradients. | 2024.07.03-17:10:27          |
++-----------------------------------------------------------------+
+
++---------------------- main.py:178 ----------------------+
+| Average loss: 30.343867611504216 | 2024.07.03-17:10:27  |
++---------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:35 -+
+| Begin to evaluate... | 2024.07.03-17:10:27                      |
++-----------------------------------------------------------------+
+
++------------------ main.py:188 ------------------+
+| Client 0 is evaluating... | 2024.07.03-17:10:27 |
++-------------------------------------------------+
+
