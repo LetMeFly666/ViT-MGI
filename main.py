@@ -2,7 +2,7 @@
 Author: LetMeFly
 Date: 2024-07-03 10:37:25
 LastEditors: LetMeFly
-LastEditTime: 2024-07-03 15:45:18
+LastEditTime: 2024-07-03 16:40:12
 '''
 import datetime
 getNow = lambda: datetime.datetime.now().strftime('%Y.%m.%d-%H:%M:%S')
@@ -49,8 +49,9 @@ class Client:
         self.data_loader = data_loader
         self.model: Optional[ViTModel] = None
     
-    def set_model(self, model):
+    def set_model(self, model, device: str):
         self.model = model
+        self.model.to(device)
     
     def compute_gradient(self, criterion: nn.CrossEntropyLoss, device: str):
         self.model.to(device)
@@ -64,7 +65,7 @@ class Client:
             outputs = self.model(images)
             loss = criterion(outputs, labels)
             loss.backward()
-            torch.nn.utils.clip_grad_norm_(self.model.parameters(), max_norm=1.0)
+            # torch.nn.utils.clip_grad_norm_(self.model.parameters(), max_norm=1.0)
             total_loss += loss.item()
         
         grads = []
@@ -91,11 +92,12 @@ class Client:
 class Server:
     def __init__(self, model: ViTModel, device: str):
         self.global_model = model
+        self.global_model.to(device)
         self.device = device
     
     def distribute_model(self, clients: List[Client]):
         for client in clients:
-            client.set_model(copy.deepcopy(self.global_model))
+            client.set_model(copy.deepcopy(self.global_model), device=self.device)
     
     def aggregate_gradients(self, grads_list):
         avg_grads = []
@@ -107,7 +109,8 @@ class Server:
         optimizer = optim.SGD(self.global_model.parameters(), lr=0.01, momentum=0.9)
         optimizer.zero_grad()  # 记得清空梯度
         for param, grad in zip(self.global_model.parameters(), grads):
-            param.grad = grad.to(param.dtype).to(self.device)
+            # print(f"Parameter dtype: {param.dtype}, Gradient dtype: {grad.dtype}")
+            param.grad = grad.to(self.device)
         optimizer.step()
 
 def get_data_loaders(num_clients, batch_size) -> Tuple[List[Client], DataLoader]:
@@ -164,7 +167,7 @@ for round_num in range(num_rounds):
     grads_list = []
     total_loss = 0.0
     for th, client in enumerate(clients):
-        timeRecorder.addRecord(f'Client {th} is computing gradients...')
+        timeRecorder.addRecord(f'Round {round_num}/{num_rounds} client {th}/{num_clients} is computing gradients...')
         grads, loss = client.compute_gradient(criterion, device)
         timeRecorder.addRecord(f'Client {th} has computed gradients.')
         grads_list.append(grads)
@@ -183,10 +186,9 @@ for round_num in range(num_rounds):
     for th, client in enumerate(clients):
         print(f'Client {th} is evaluating... | {getNow()}')
         accuracy = client.evaluate(val_loader, device)
+        print(f'Client {th}\'s accuracy: {accuracy} | {getNow()}')
         total_accuracy += accuracy
     avg_accuracy = total_accuracy / len(clients)
-    print(f"Validation accuracy: {avg_accuracy*100:.2f}%")
-
     timeRecorder.addRecord(f"Validation accuracy: {accuracy*100:.2f}%")
 
 print("Federated learning completed.")

@@ -1,0 +1,36 @@
++----- main.py:15 -----+
+| 2024.07.03-15:57:22  |
++----------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:35 -+
+| Start | 2024.07.03-15:57:22                                     |
++-----------------------------------------------------------------+
+
++- /home/lzy/.conda/envs/ltf/lib/python3.8/site-packages/torchvision/datasets/cifar.py:141 -+
+| Tisfy: Files already downloaded and verified.                                             |
++-------------------------------------------------------------------------------------------+
+
++- /home/lzy/.conda/envs/ltf/lib/python3.8/site-packages/torchvision/datasets/cifar.py:141 -+
+| Tisfy: Files already downloaded and verified.                                             |
++-------------------------------------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:35 -+
+| Round 1 of 5 | 2024.07.03-15:57:25                              |
++-----------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:35 -+
+| Client 0 is computing gradients... | 2024.07.03-15:57:25        |
++-----------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:35 -+
+| Client 0 has computed gradients. | 2024.07.03-16:02:33          |
++-----------------------------------------------------------------+
+
++--------------------- main.py:175 ---------------------+
+| Average loss: 2.442399355057944 | 2024.07.03-16:02:33 |
++-------------------------------------------------------+
+
++------------------------- main.py:110 -------------------------+
+| Parameter dtype: torch.float32, Gradient dtype: torch.float32 |
++---------------------------------------------------------------+
+
