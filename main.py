@@ -2,7 +2,7 @@
 Author: LetMeFly
 Date: 2024-07-03 10:37:25
 LastEditors: LetMeFly
-LastEditTime: 2024-07-04 15:51:19
+LastEditTime: 2024-07-04 15:59:30
 '''
 import datetime
 getNow = lambda: datetime.datetime.now().strftime('%Y.%m.%d-%H:%M:%S')
@@ -157,27 +157,28 @@ def get_data_loaders(num_clients: int, batch_size: int, datasize_perclient: int,
     train_dataset = datasets.CIFAR10(root='./data', train=True, download=True, transform=transform)
     test_dataset = datasets.CIFAR10(root='./data', train=False, download=True, transform=transform)
     
-    # 将数据集划分给多个客户端
+    # 确保训练集和验证集不相交
     dataset_size = len(train_dataset)
-    assert(num_clients * datasize_perclient <= dataset_size)
-    print(f'Train dataset size: {dataset_size}')
+    assert(num_clients * datasize_perclient + datasize_valide <= dataset_size)
+    print(f'Dataset size: {dataset_size}')
     indices = list(range(dataset_size))
     random.shuffle(indices)
     
+    # 划分验证集
+    val_indices = indices[:datasize_valide]
+    train_indices = indices[datasize_valide:]
     clients = []
     start_idx = 0
     for _ in range(num_clients):
-        split_indices = indices[start_idx:start_idx + datasize_perclient]
+        split_indices = train_indices[start_idx:start_idx + datasize_perclient]
         subset = Subset(train_dataset, split_indices)
         data_loader = DataLoader(subset, batch_size=batch_size, shuffle=True)
         clients.append(Client(data_loader))
         start_idx += datasize_perclient
 
-    # 从验证集创建一个子集用于验证
-    val_indices = list(range(len(test_dataset)))
-    random.shuffle(val_indices)
-    val_subset = Subset(test_dataset, val_indices[:datasize_valide])
-    val_loader = DataLoader(val_subset, batch_size=batch_size, shuffle=False)
+    # 为验证集创建数据加载器
+    val_subset = Subset(train_dataset, val_indices)
+    val_loader = DataLoader(val_subset, batch_size=batch_size, shuffle=False)   
     return clients, val_loader
 
 # 获取数据加载器
@@ -206,7 +207,7 @@ for round_num in range(num_rounds):
     for th, client in enumerate(clients):
         timeRecorder.addRecord(f'Round {round_num + 1}/{num_rounds} client {th}/{num_clients} is computing gradients...')
         grads, loss = client.compute_gradient(criterion, device)
-        print(f'Client {th + 1} has computed gradients. | {getNow()}')
+        # print(f'Client {th + 1} has computed gradients. | {getNow()}')
         grads_list.append(grads)
         total_loss += loss
     avg_loss = total_loss / num_clients
