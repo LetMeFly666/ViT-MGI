@@ -2,7 +2,7 @@
 Author: LetMeFly
 Date: 2024-07-03 10:37:25
 LastEditors: LetMeFly
-LastEditTime: 2024-07-04 16:25:47
+LastEditTime: 2024-07-04 17:58:25
 '''
 import datetime
 getNow = lambda: datetime.datetime.now().strftime('%Y.%m.%d-%H:%M:%S')
@@ -34,7 +34,7 @@ import copy
 # 参数
 num_clients = 10          # 客户端数量
 batch_size = 32           # 每批次多少张图片
-num_rounds = 20           # 总轮次
+num_rounds = 60           # 总轮次
 datasize_perclient = 640  # 每个客户端的数据量
 datasize_valide = 3000    # 测试集大小
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
@@ -61,6 +61,45 @@ class CustomViTModel(nn.Module):
     
     def getName(self) -> str:
         return self.name
+
+# 数据管理类
+class DataManager:
+    def __init__(self, num_clients: int, batch_size: int, datasize_perclient: int, datasize_valide: int):
+        self.num_clients = num_clients
+        self.batch_size = batch_size
+        self.datasize_perclient = datasize_perclient
+        self.datasize_valide = datasize_valide
+        self.transform = transforms.Compose([
+            transforms.Resize(224),
+            transforms.ToTensor(),
+            transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))
+        ])
+        self.train_dataset = datasets.CIFAR10(root='./data', train=True, download=True, transform=self.transform)
+        self.test_dataset = datasets.CIFAR10(root='./data', train=False, download=True, transform=self.transform)
+        
+    def get_clients_data_loaders(self) -> List[DataLoader]:
+        dataset_size = len(self.train_dataset)
+        indices = list(range(dataset_size))
+        random.shuffle(indices)
+        
+        clients_data_loaders = []
+        start_idx = 0
+        for _ in range(self.num_clients):
+            split_indices = indices[start_idx:start_idx + self.datasize_perclient]
+            subset = Subset(self.train_dataset, split_indices)
+            data_loader = DataLoader(subset, batch_size=self.batch_size, shuffle=True)
+            clients_data_loaders.append(data_loader)
+            start_idx += self.datasize_perclient
+        
+        return clients_data_loaders
+
+    def get_val_loader(self) -> DataLoader:
+        test_indices = list(range(len(self.test_dataset)))
+        random.shuffle(test_indices)
+        val_indices = test_indices[:self.datasize_valide]
+        val_subset = Subset(self.test_dataset, val_indices)
+        val_loader = DataLoader(val_subset, batch_size=self.batch_size, shuffle=False)
+        return val_loader
 
 # 客户端类
 class Client:
@@ -143,42 +182,8 @@ class Server:
                 correct += (predicted == labels).sum().item()
         return correct / total
 
-def get_data_loaders(num_clients: int, batch_size: int, datasize_perclient: int, datasize_valide: int) -> Tuple[List[Client], DataLoader]:
-    transform = transforms.Compose([
-        transforms.Resize(224),
-        transforms.ToTensor(),
-        transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))
-    ])
-    
-    train_dataset = datasets.CIFAR10(root='./data', train=True, download=True, transform=transform)
-    test_dataset = datasets.CIFAR10(root='./data', train=False, download=True, transform=transform)
-    
-    # 确保训练集和验证集不相交
-    dataset_size = len(train_dataset)
-    assert(num_clients * datasize_perclient + datasize_valide <= dataset_size)
-    print(f'Dataset size: {dataset_size}')
-    indices = list(range(dataset_size))
-    random.shuffle(indices)
-    
-    # 划分验证集
-    val_indices = indices[:datasize_valide]
-    train_indices = indices[datasize_valide:]
-    clients = []
-    start_idx = 0
-    for _ in range(num_clients):
-        split_indices = train_indices[start_idx:start_idx + datasize_perclient]
-        subset = Subset(train_dataset, split_indices)
-        data_loader = DataLoader(subset, batch_size=batch_size, shuffle=True)
-        clients.append(Client(data_loader))
-        start_idx += datasize_perclient
-
-    # 为验证集创建数据加载器
-    val_subset = Subset(train_dataset, val_indices)
-    val_loader = DataLoader(val_subset, batch_size=batch_size, shuffle=False)   
-    return clients, val_loader
-
-# 获取数据加载器
-clients, val_loader = get_data_loaders(num_clients, batch_size, datasize_perclient, datasize_valide)
+# 初始化数据管理器
+data_manager = DataManager(num_clients, batch_size, datasize_perclient, datasize_valide)
 
 # 初始化服务器
 global_model = CustomViTModel(device=device, name='GlobalModel')
@@ -188,13 +193,18 @@ server = Server(global_model, device)
 criterion = nn.CrossEntropyLoss()
 
 ploter = Ploter(x='batch', y=['loss', 'accuracy'], title='loss and accuracy', filename=f'./result/{now}/lossAndAccuracy.svg')
-accuracy = server.evaluate(val_loader, device)
+accuracy = server.evaluate(data_manager.get_val_loader(), device)
 timeRecorder.addRecord(f'init accuracy: {accuracy*100:.2f}%')
 import math  # TODO: 计算真正的loss
 ploter.addData(x=0, y={'loss': math.nan, 'accuracy': accuracy})
 
 for round_num in range(num_rounds):
     timeRecorder.addRecord(f'Round {round_num + 1} of {num_rounds}')
+    
+    # 获取当前轮次的客户端数据加载器
+    clients_data_loaders = data_manager.get_clients_data_loaders()
+    clients = [Client(data_loader) for data_loader in clients_data_loaders]
+
     # 分发当前的全局模型给所有客户端
     server.distribute_model(clients)
     # 每个客户端计算梯度
@@ -212,7 +222,8 @@ for round_num in range(num_rounds):
     avg_grads = server.aggregate_gradients(grads_list)
     server.update_model(avg_grads)
     
-    # 计算在验证集上的准确率
+    # 每轮训练后从测试集中随机挑选数据进行验证
+    val_loader = data_manager.get_val_loader()
     print(f'Begin to evaluate accuracy... | {getNow()}')
     accuracy = server.evaluate(val_loader, device)
     timeRecorder.addRecord(f"Round {round_num + 1}\'s accuracy: {accuracy*100:.2f}%")

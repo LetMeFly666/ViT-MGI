@@ -1,3 +1,232 @@
 在模拟联邦学习的过程中，我当前客户端的数据方法是：提前给每个客户端分配好数据，数据互补相交。
 但是我发现这样的话，不论训练多少轮，所使用到的数据集始终是不变的。
 我应该怎么模拟比较好？是不是每个轮次客户端的数据应该重新选择？
+
+以下是我当前的代码。能否不每次都重新调用`get_data_loaders`函数？因为每次都重新加载会很慢。
+
+也许你可以重构一下，例如将其抽象成一个类，数据只加载或验证一次，并且保证不论客户端怎么随机选择数据，都不会选择到测试集的数据。
+
+```
+'''
+Author: LetMeFly
+Date: 2024-07-03 10:37:25
+LastEditors: LetMeFly
+LastEditTime: 2024-07-04 16:25:47
+'''
+import datetime
+getNow = lambda: datetime.datetime.now().strftime('%Y.%m.%d-%H:%M:%S')
+now = getNow()
+# del datetime
+from src.utils import initPrint, TimeRecorder, Ploter
+from typing import List, Optional, Tuple
+
+initPrint(now)
+print(now)
+
+timeRecorder = TimeRecorder()
+timeRecorder.addRecord('Start', getNow())
+
+
+    
+import torch
+import torch.nn as nn
+import torch.optim as optim
+from torch.utils.data import DataLoader, Subset, random_split
+import torchvision.transforms as transforms
+import torchvision.datasets as datasets
+from transformers import ViTModel, ViTConfig
+import numpy as np
+import random
+import copy
+
+
+# 参数
+num_clients = 10          # 客户端数量
+batch_size = 32           # 每批次多少张图片
+num_rounds = 20           # 总轮次
+datasize_perclient = 640  # 每个客户端的数据量
+datasize_valide = 3000    # 测试集大小
+device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+with open(f'./result/{now}/config.env', 'w') as f:
+    f.write(f'num_clients = {num_clients}\nbatch_size = {batch_size}\nnum_rounds = {num_rounds}\ndatasize_perclient = {datasize_perclient}\ndevice = {device}\ndatasize_valide = {datasize_valide}\n')
+
+# 定义ViT模型
+class CustomViTModel(nn.Module):
+    def __init__(self, num_classes=10, device: str=device, name: str=None):
+        super(CustomViTModel, self).__init__()
+        config = ViTConfig()
+        self.model = ViTModel(config)
+        self.classifier = nn.Linear(config.hidden_size, num_classes)
+        self.to(device)  # 移动模型到设备
+        self.name = 'defaultName'
+    
+    def forward(self, x):
+        outputs = self.model(x)
+        logits = self.classifier(outputs.last_hidden_state[:, 0])
+        return logits
+
+    def setName(self, name: str) -> None:
+        self.name = name
+    
+    def getName(self) -> str:
+        return self.name
+
+# 客户端类
+class Client:
+    def __init__(self, data_loader: DataLoader):
+        self.data_loader = data_loader
+        self.model: Optional[CustomViTModel] = None
+    
+    def set_model(self, model: CustomViTModel, device: str, name: str=None):
+        self.model = model
+        self.model.to(device)
+        self.model.setName(name)
+        self.initial_state_dict = copy.deepcopy(self.model.state_dict())
+    
+    def compute_gradient(self, criterion: nn.CrossEntropyLoss, device: str):
+        self.model.to(device)
+        self.model.train()
+        optimizer = optim.SGD(self.model.parameters(), lr=0.01, momentum=0.9)
+        
+        total_loss = 0.0
+        for images, labels in self.data_loader:
+            optimizer.zero_grad()  # 每个批次前清零梯度
+            images, labels = images.to(device), labels.to(device)
+            outputs = self.model(images)
+            loss = criterion(outputs, labels)
+            loss.backward()  # 计算当前批次的梯度
+            total_loss += loss.item()
+            optimizer.step()
+        
+        # 计算梯度变化
+        final_state_dict = self.model.state_dict()
+        gradient_changes = {}
+        for key in self.initial_state_dict:
+            gradient_changes[key] = final_state_dict[key] - self.initial_state_dict[key]
+        return gradient_changes, total_loss / len(self.data_loader)
+
+    def getName(self) -> str:
+        return self.model.getName()
+
+# 服务器类
+class Server:
+    def __init__(self, model: CustomViTModel, device: str):
+        self.global_model = model
+        self.global_model.to(device)
+        self.device = device
+    
+    def distribute_model(self, clients: List[Client]):
+        for th, client in enumerate(clients):
+            client.set_model(copy.deepcopy(self.global_model), device=self.device, name=f'Client{th + 1}')
+    
+    def aggregate_gradients(self, grads_list):
+        avg_grads = {}
+        for grads in grads_list:
+            for key in grads:
+                if key not in avg_grads:
+                    avg_grads[key] = grads[key].clone() / len(grads_list)
+                else:
+                    avg_grads[key] += grads[key] / len(grads_list)
+        return avg_grads
+    
+    def update_model(self, gradient_changes):
+        # 获取全局模型的状态字典
+        global_state_dict = self.global_model.state_dict()
+        # 更新全局模型的参数
+        for key in global_state_dict:
+            global_state_dict[key] += gradient_changes[key]
+        # 将更新后的状态字典加载回全局模型
+        self.global_model.load_state_dict(global_state_dict)
+
+    def evaluate(self, data_loader, device: str):
+        self.global_model.to(device)
+        self.global_model.eval()
+        correct = 0
+        total = 0
+        with torch.no_grad():
+            for images, labels in data_loader:
+                images, labels = images.to(device), labels.to(device)
+                outputs = self.global_model(images)
+                _, predicted = torch.max(outputs.data, 1)
+                total += labels.size(0)
+                correct += (predicted == labels).sum().item()
+        return correct / total
+
+def get_data_loaders(num_clients: int, batch_size: int, datasize_perclient: int, datasize_valide: int) -> Tuple[List[Client], DataLoader]:
+    transform = transforms.Compose([
+        transforms.Resize(224),
+        transforms.ToTensor(),
+        transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))
+    ])
+    
+    train_dataset = datasets.CIFAR10(root='./data', train=True, download=True, transform=transform)
+    test_dataset = datasets.CIFAR10(root='./data', train=False, download=True, transform=transform)
+    
+    # 确保训练集和验证集不相交
+    dataset_size = len(train_dataset)
+    assert(num_clients * datasize_perclient + datasize_valide <= dataset_size)
+    print(f'Dataset size: {dataset_size}')
+    indices = list(range(dataset_size))
+    random.shuffle(indices)
+    
+    # 划分验证集
+    val_indices = indices[:datasize_valide]
+    train_indices = indices[datasize_valide:]
+    clients = []
+    start_idx = 0
+    for _ in range(num_clients):
+        split_indices = train_indices[start_idx:start_idx + datasize_perclient]
+        subset = Subset(train_dataset, split_indices)
+        data_loader = DataLoader(subset, batch_size=batch_size, shuffle=True)
+        clients.append(Client(data_loader))
+        start_idx += datasize_perclient
+
+    # 为验证集创建数据加载器
+    val_subset = Subset(train_dataset, val_indices)
+    val_loader = DataLoader(val_subset, batch_size=batch_size, shuffle=False)   
+    return clients, val_loader
+
+# 获取数据加载器
+clients, val_loader = get_data_loaders(num_clients, batch_size, datasize_perclient, datasize_valide)
+
+# 初始化服务器
+global_model = CustomViTModel(device=device, name='GlobalModel')
+server = Server(global_model, device)
+
+# 联邦学习过程
+criterion = nn.CrossEntropyLoss()
+
+ploter = Ploter(x='batch', y=['loss', 'accuracy'], title='loss and accuracy', filename=f'./result/{now}/lossAndAccuracy.svg')
+accuracy = server.evaluate(val_loader, device)
+timeRecorder.addRecord(f'init accuracy: {accuracy*100:.2f}%')
+import math  # TODO: 计算真正的loss
+ploter.addData(x=0, y={'loss': math.nan, 'accuracy': accuracy})
+
+for round_num in range(num_rounds):
+    timeRecorder.addRecord(f'Round {round_num + 1} of {num_rounds}')
+    # 分发当前的全局模型给所有客户端
+    server.distribute_model(clients)
+    # 每个客户端计算梯度
+    grads_list = []
+    total_loss = 0.0
+    for th, client in enumerate(clients):
+        timeRecorder.addRecord(f'Round {round_num + 1}/{num_rounds} client {th + 1}/{num_clients} is computing gradients...')
+        grads, loss = client.compute_gradient(criterion, device)
+        grads_list.append(grads)
+        total_loss += loss
+    avg_loss = total_loss / num_clients
+    print(f"Average loss: {avg_loss} | {getNow()}")
+    
+    # 服务器聚合梯度并更新全局模型
+    avg_grads = server.aggregate_gradients(grads_list)
+    server.update_model(avg_grads)
+    
+    # 计算在验证集上的准确率
+    print(f'Begin to evaluate accuracy... | {getNow()}')
+    accuracy = server.evaluate(val_loader, device)
+    timeRecorder.addRecord(f"Round {round_num + 1}\'s accuracy: {accuracy*100:.2f}%")
+    ploter.addData(x=round_num + 1, y={'loss': avg_loss, 'accuracy': accuracy})
+
+print("Federated learning completed.")
+timeRecorder.printAll()
+```
