@@ -2,13 +2,13 @@
 Author: LetMeFly
 Date: 2024-07-03 10:37:25
 LastEditors: LetMeFly
-LastEditTime: 2024-07-04 09:38:14
+LastEditTime: 2024-07-04 11:07:37
 '''
 import datetime
 getNow = lambda: datetime.datetime.now().strftime('%Y.%m.%d-%H:%M:%S')
 now = getNow()
 # del datetime
-from src.utils import initPrint, TimeRecorder
+from src.utils import initPrint, TimeRecorder, Ploter
 from typing import List, Optional, Tuple
 
 initPrint(now)
@@ -32,10 +32,12 @@ import copy
 
 
 # 参数
-num_clients = 10
+num_clients = 5
 batch_size = 32
-num_rounds = 50
+num_rounds = 5
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+with open(f'./result/{now}/.env', 'w') as f:
+    f.write(f'num_clients = {num_clients}\nbatch_size = {batch_size}\nnum_rounds = {num_rounds}\ndevice = {device}\n')
 
 # 定义ViT模型
 class ViTModel(nn.Module):
@@ -180,23 +182,24 @@ server = Server(global_model, device)
 # 联邦学习过程
 criterion = nn.CrossEntropyLoss()
 
+ploter = Ploter('batch', ['loss', 'accuracy'], 'loss and accuracy')
+accuracy = server.evaluate(val_loader, device)
+import math  # TODO: 计算真正的loss
+ploter.addData(x=0, y={'loss': math.nan, 'accuracy': accuracy})
+
 for round_num in range(num_rounds):
-    
     timeRecorder.addRecord(f'Round {round_num + 1} of {num_rounds}')
-    
     # 分发当前的全局模型给所有客户端
     server.distribute_model(clients)
-    
     # 每个客户端计算梯度
     grads_list = []
     total_loss = 0.0
     for th, client in enumerate(clients):
         timeRecorder.addRecord(f'Round {round_num + 1}/{num_rounds} client {th}/{num_clients} is computing gradients...')
         grads, loss = client.compute_gradient(criterion, device)
-        timeRecorder.addRecord(f'Client {th + 1} has computed gradients.')
+        print(f'Client {th + 1} has computed gradients. | {getNow()}')
         grads_list.append(grads)
         total_loss += loss
-    
     avg_loss = total_loss / num_clients
     print(f"Average loss: {avg_loss} | {getNow()}")
     
@@ -208,8 +211,9 @@ for round_num in range(num_rounds):
     print(f'Begin to evaluate accuracy... | {getNow()}')
     total_accuracy = 0.0
     accuracy = server.evaluate(val_loader, device)
-    print(f'Client {th}\'s accuracy: {accuracy} | {getNow()}')
     timeRecorder.addRecord(f"Client {th}\'s accuracy: {accuracy*100:.2f}%")
+    ploter.addData(x=round_num + 1, y={'loss': avg_loss, 'accuracy': accuracy})
 
 print("Federated learning completed.")
+ploter.plot(f'./result/{now}/lossAndAccuracy.svg')
 timeRecorder.printAll()
