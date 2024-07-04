@@ -2,7 +2,7 @@
 Author: LetMeFly
 Date: 2024-07-03 10:37:25
 LastEditors: LetMeFly
-LastEditTime: 2024-07-04 11:07:37
+LastEditTime: 2024-07-04 11:20:11
 '''
 import datetime
 getNow = lambda: datetime.datetime.now().strftime('%Y.%m.%d-%H:%M:%S')
@@ -182,8 +182,9 @@ server = Server(global_model, device)
 # 联邦学习过程
 criterion = nn.CrossEntropyLoss()
 
-ploter = Ploter('batch', ['loss', 'accuracy'], 'loss and accuracy')
+ploter = Ploter(x='batch', y=['loss', 'accuracy'], title='loss and accuracy', filename=f'./result/{now}/lossAndAccuracy.svg')
 accuracy = server.evaluate(val_loader, device)
+timeRecorder.addRecord(f'init accuracy: {accuracy*100:.2f}%')
 import math  # TODO: 计算真正的loss
 ploter.addData(x=0, y={'loss': math.nan, 'accuracy': accuracy})
 
@@ -215,5 +216,4 @@ for round_num in range(num_rounds):
     ploter.addData(x=round_num + 1, y={'loss': avg_loss, 'accuracy': accuracy})
 
 print("Federated learning completed.")
-ploter.plot(f'./result/{now}/lossAndAccuracy.svg')
 timeRecorder.printAll()

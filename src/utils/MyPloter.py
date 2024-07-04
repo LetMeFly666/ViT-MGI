@@ -2,34 +2,47 @@
 Author: LetMeFly
 Date: 2024-07-04 10:32:48
 LastEditors: LetMeFly
-LastEditTime: 2024-07-04 10:54:55
+LastEditTime: 2024-07-04 11:14:51
 '''
 import matplotlib.pyplot as plt
-from typing import List, Union, Dict
+from typing import List, Union, Dict, Optional
 
 class Ploter:
-    def __init__(self, x: str, y: List[str], title: str):
+    """
+    若init时设置filename，则每增加一个数据就会绘图一次
+    否则，需要最终调用plot函数才能绘图
+    """
+    def __init__(self, x: str, y: List[str], title: str, filename: Optional[str]=None):
         self.x_label = x
         self.y_labels = y
         self.title = title
         self.data = {label: [] for label in y}
         self.x_data = []
+        self.filename = filename
 
     def addData(self, x: Union[int, float], y: Dict[str, Union[int, float]]) -> None:
         self.x_data.append(x)
         for label in self.y_labels:
             self.data[label].append(y[label])
+        if self.filename:
+            self.plot()
 
-    def plot(self, filename: str) -> None:  # save to file
+    """
+    save to file
+    若init时filename为None，则此filename必填
+    否则，此filename参数无效
+    """
+    def plot(self, filename: Optional[str]=None) -> None:
+        if not self.filename:
+            self.filename = filename
         plt.figure(figsize=(10, 5))
         for label in self.y_labels:
             plt.plot(self.x_data, self.data[label], label=label)
-        
         plt.xlabel(self.x_label)
         plt.ylabel(", ".join(self.y_labels))
         plt.title(self.title)
         plt.legend()
-        plt.savefig(filename)
+        plt.savefig(self.filename)
         plt.close()
 
 
