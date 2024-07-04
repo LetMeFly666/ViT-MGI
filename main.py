@@ -2,7 +2,7 @@
 Author: LetMeFly
 Date: 2024-07-03 10:37:25
 LastEditors: LetMeFly
-LastEditTime: 2024-07-03 17:05:56
+LastEditTime: 2024-07-04 09:38:14
 '''
 import datetime
 getNow = lambda: datetime.datetime.now().strftime('%Y.%m.%d-%H:%M:%S')
@@ -32,68 +32,72 @@ import copy
 
 
 # 参数
-num_clients = 5
+num_clients = 10
 batch_size = 32
-num_rounds = 5
+num_rounds = 50
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
 # 定义ViT模型
 class ViTModel(nn.Module):
-    def __init__(self, num_classes=10, device: str=device):
+    def __init__(self, num_classes=10, device: str=device, name: str=None):
         super(ViTModel, self).__init__()
         model_path = './data/vit_base_patch16_224'
         config = ViTConfig.from_pretrained(model_path)
         self.model = ViTForImageClassification.from_pretrained(model_path, config=config)
         self.model.classifier = nn.Linear(self.model.config.hidden_size, num_classes)
         self.model.to(device)  # 移动模型到设备
+        self.name = 'defaultName'
     
     def forward(self, x):
         return self.model(x).logits
+
+    def setName(self, name: str) -> None:
+        self.name = name
+    
+    def getName(self) -> str:
+        return self.name
 
 # 客户端类
 class Client:
     def __init__(self, data_loader: DataLoader):
         self.data_loader = data_loader
         self.model: Optional[ViTModel] = None
+        # self.global_model: Optional[ViTModel] = None
     
-    def set_model(self, model, device: str):
+    def set_model(self, model: ViTModel, device: str, name: str=None):
         self.model = model
         self.model.to(device)
+        self.model.setName(name)
+        # self.global_model = copy.deepcopy(self.global_model)
+        self.initial_state_dict = copy.deepcopy(self.model.state_dict())
     
     def compute_gradient(self, criterion: nn.CrossEntropyLoss, device: str):
         self.model.to(device)
         self.model.train()
         optimizer = optim.SGD(self.model.parameters(), lr=0.01, momentum=0.9)
-        optimizer.zero_grad()
         
         total_loss = 0.0
+        batchNum = 0
         for images, labels in self.data_loader:
+            batchNum += 1
+            optimizer.zero_grad()  # 每个批次前清零梯度
             images, labels = images.to(device), labels.to(device)
             outputs = self.model(images)
             loss = criterion(outputs, labels)
-            loss.backward()
-            # torch.nn.utils.clip_grad_norm_(self.model.parameters(), max_norm=1.0)
-            total_loss += loss.item()
-        
-        grads = []
-        for param in self.model.parameters():
-            grads.append(param.grad.clone().cpu())
-        
-        return grads, total_loss / len(self.data_loader)
-    
-    def evaluate(self, data_loader, device: str):
-        self.model.to(device)
-        self.model.eval()
-        correct = 0
-        total = 0
-        with torch.no_grad():
-            for images, labels in data_loader:
-                images, labels = images.to(device), labels.to(device)
-                outputs = self.model(images)
-                _, predicted = torch.max(outputs.data, 1)
-                total += labels.size(0)
-                correct += (predicted == labels).sum().item()
-        return correct / total
+            loss.backward()  # 计算当前批次的梯度
+            thisLoss = loss.item()
+            total_loss += thisLoss
+            optimizer.step()
+            # print(f'{self.getName()} batch{batchNum} loss: {thisLoss}')
+        # 计算梯度变化
+        final_state_dict = self.model.state_dict()
+        gradient_changes = {}
+        for key in self.initial_state_dict:
+            gradient_changes[key] = final_state_dict[key] - self.initial_state_dict[key]
+        return gradient_changes, total_loss / len(self.data_loader)
+
+    def getName(self) -> str:
+        return self.model.getName()
 
 # 服务器类
 class Server:
@@ -103,22 +107,41 @@ class Server:
         self.device = device
     
     def distribute_model(self, clients: List[Client]):
-        for client in clients:
-            client.set_model(copy.deepcopy(self.global_model), device=self.device)
+        for th, client in enumerate(clients):
+            client.set_model(copy.deepcopy(self.global_model), device=self.device, name=f'Client{th + 1}')
     
     def aggregate_gradients(self, grads_list):
-        avg_grads = []
-        for grads in zip(*grads_list):
-            avg_grads.append(sum(grads) / len(grads))
+        avg_grads = {}
+        for grads in grads_list:
+            for key in grads:
+                if key not in avg_grads:
+                    avg_grads[key] = grads[key].clone() / len(grads_list)
+                else:
+                    avg_grads[key] += grads[key] / len(grads_list)
         return avg_grads
     
-    def update_model(self, grads):
-        optimizer = optim.SGD(self.global_model.parameters(), lr=0.01, momentum=0.9)
-        optimizer.zero_grad()  # 记得清空梯度
-        for param, grad in zip(self.global_model.parameters(), grads):
-            # print(f"Parameter dtype: {param.dtype}, Gradient dtype: {grad.dtype}")
-            param.grad = grad.to(self.device)
-        optimizer.step()
+    def update_model(self, gradient_changes):
+        # 获取全局模型的状态字典
+        global_state_dict = self.global_model.state_dict()
+        # 更新全局模型的参数
+        for key in global_state_dict:
+            global_state_dict[key] += gradient_changes[key]
+        # 将更新后的状态字典加载回全局模型
+        self.global_model.load_state_dict(global_state_dict)
+
+    def evaluate(self, data_loader, device: str):
+        self.global_model.to(device)
+        self.global_model.eval()
+        correct = 0
+        total = 0
+        with torch.no_grad():
+            for images, labels in data_loader:
+                images, labels = images.to(device), labels.to(device)
+                outputs = self.global_model(images)
+                _, predicted = torch.max(outputs.data, 1)
+                total += labels.size(0)
+                correct += (predicted == labels).sum().item()
+        return correct / total
 
 def get_data_loaders(num_clients, batch_size) -> Tuple[List[Client], DataLoader]:
     transform = transforms.Compose([
@@ -151,7 +174,7 @@ def get_data_loaders(num_clients, batch_size) -> Tuple[List[Client], DataLoader]
 clients, val_loader = get_data_loaders(num_clients, batch_size)
 
 # 初始化服务器
-global_model = ViTModel(device=device)
+global_model = ViTModel(device=device, name='GlobalModel')
 server = Server(global_model, device)
 
 # 联邦学习过程
@@ -182,15 +205,11 @@ for round_num in range(num_rounds):
     server.update_model(avg_grads)
     
     # 计算在验证集上的准确率
-    timeRecorder.addRecord('Begin to evaluate...')
+    print(f'Begin to evaluate accuracy... | {getNow()}')
     total_accuracy = 0.0
-    for th, client in enumerate(clients):
-        print(f'Client {th} is evaluating... | {getNow()}')
-        accuracy = client.evaluate(val_loader, device)
-        print(f'Client {th}\'s accuracy: {accuracy} | {getNow()}')
-        total_accuracy += accuracy
-    avg_accuracy = total_accuracy / len(clients)
-    timeRecorder.addRecord(f"Validation accuracy: {avg_accuracy*100:.2f}%")
+    accuracy = server.evaluate(val_loader, device)
+    print(f'Client {th}\'s accuracy: {accuracy} | {getNow()}')
+    timeRecorder.addRecord(f"Client {th}\'s accuracy: {accuracy*100:.2f}%")
 
 print("Federated learning completed.")
 timeRecorder.printAll()
