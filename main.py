@@ -2,7 +2,7 @@
 Author: LetMeFly
 Date: 2024-07-03 10:37:25
 LastEditors: LetMeFly
-LastEditTime: 2024-07-04 16:07:13
+LastEditTime: 2024-07-04 16:25:47
 '''
 import datetime
 getNow = lambda: datetime.datetime.now().strftime('%Y.%m.%d-%H:%M:%S')
@@ -25,35 +25,36 @@ import torch.optim as optim
 from torch.utils.data import DataLoader, Subset, random_split
 import torchvision.transforms as transforms
 import torchvision.datasets as datasets
-from transformers import ViTForImageClassification, ViTConfig
+from transformers import ViTModel, ViTConfig
 import numpy as np
 import random
 import copy
 
 
 # 参数
-num_clients = 10
-batch_size = 32
-num_rounds = 10
-datasize_perclient = 200  # 每个客户端的数据量
-datasize_valide = 3000  # 用于验证的数据量
+num_clients = 10          # 客户端数量
+batch_size = 32           # 每批次多少张图片
+num_rounds = 20           # 总轮次
+datasize_perclient = 640  # 每个客户端的数据量
+datasize_valide = 3000    # 测试集大小
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 with open(f'./result/{now}/config.env', 'w') as f:
     f.write(f'num_clients = {num_clients}\nbatch_size = {batch_size}\nnum_rounds = {num_rounds}\ndatasize_perclient = {datasize_perclient}\ndevice = {device}\ndatasize_valide = {datasize_valide}\n')
 
 # 定义ViT模型
-class ViTModel(nn.Module):
+class CustomViTModel(nn.Module):
     def __init__(self, num_classes=10, device: str=device, name: str=None):
-        super(ViTModel, self).__init__()
-        model_path = './data/vit_base_patch16_224'
-        config = ViTConfig.from_pretrained(model_path)
-        self.model = ViTForImageClassification.from_pretrained(model_path, config=config)
-        self.model.classifier = nn.Linear(self.model.config.hidden_size, num_classes)
-        self.model.to(device)  # 移动模型到设备
+        super(CustomViTModel, self).__init__()
+        config = ViTConfig()
+        self.model = ViTModel(config)
+        self.classifier = nn.Linear(config.hidden_size, num_classes)
+        self.to(device)  # 移动模型到设备
         self.name = 'defaultName'
     
     def forward(self, x):
-        return self.model(x).logits
+        outputs = self.model(x)
+        logits = self.classifier(outputs.last_hidden_state[:, 0])
+        return logits
 
     def setName(self, name: str) -> None:
         self.name = name
@@ -65,14 +66,12 @@ class ViTModel(nn.Module):
 class Client:
     def __init__(self, data_loader: DataLoader):
         self.data_loader = data_loader
-        self.model: Optional[ViTModel] = None
-        # self.global_model: Optional[ViTModel] = None
+        self.model: Optional[CustomViTModel] = None
     
-    def set_model(self, model: ViTModel, device: str, name: str=None):
+    def set_model(self, model: CustomViTModel, device: str, name: str=None):
         self.model = model
         self.model.to(device)
         self.model.setName(name)
-        # self.global_model = copy.deepcopy(self.global_model)
         self.initial_state_dict = copy.deepcopy(self.model.state_dict())
     
     def compute_gradient(self, criterion: nn.CrossEntropyLoss, device: str):
@@ -81,18 +80,15 @@ class Client:
         optimizer = optim.SGD(self.model.parameters(), lr=0.01, momentum=0.9)
         
         total_loss = 0.0
-        batchNum = 0
         for images, labels in self.data_loader:
-            batchNum += 1
             optimizer.zero_grad()  # 每个批次前清零梯度
             images, labels = images.to(device), labels.to(device)
             outputs = self.model(images)
             loss = criterion(outputs, labels)
             loss.backward()  # 计算当前批次的梯度
-            thisLoss = loss.item()
-            total_loss += thisLoss
+            total_loss += loss.item()
             optimizer.step()
-            # print(f'{self.getName()} batch{batchNum} loss: {thisLoss}')
+        
         # 计算梯度变化
         final_state_dict = self.model.state_dict()
         gradient_changes = {}
@@ -105,7 +101,7 @@ class Client:
 
 # 服务器类
 class Server:
-    def __init__(self, model: ViTModel, device: str):
+    def __init__(self, model: CustomViTModel, device: str):
         self.global_model = model
         self.global_model.to(device)
         self.device = device
@@ -185,7 +181,7 @@ def get_data_loaders(num_clients: int, batch_size: int, datasize_perclient: int,
 clients, val_loader = get_data_loaders(num_clients, batch_size, datasize_perclient, datasize_valide)
 
 # 初始化服务器
-global_model = ViTModel(device=device, name='GlobalModel')
+global_model = CustomViTModel(device=device, name='GlobalModel')
 server = Server(global_model, device)
 
 # 联邦学习过程
@@ -205,9 +201,8 @@ for round_num in range(num_rounds):
     grads_list = []
     total_loss = 0.0
     for th, client in enumerate(clients):
-        timeRecorder.addRecord(f'Round {round_num + 1}/{num_rounds} client {th}/{num_clients} is computing gradients...')
+        timeRecorder.addRecord(f'Round {round_num + 1}/{num_rounds} client {th + 1}/{num_clients} is computing gradients...')
         grads, loss = client.compute_gradient(criterion, device)
-        # print(f'Client {th + 1} has computed gradients. | {getNow()}')
         grads_list.append(grads)
         total_loss += loss
     avg_loss = total_loss / num_clients
@@ -219,7 +214,6 @@ for round_num in range(num_rounds):
     
     # 计算在验证集上的准确率
     print(f'Begin to evaluate accuracy... | {getNow()}')
-    total_accuracy = 0.0
     accuracy = server.evaluate(val_loader, device)
     timeRecorder.addRecord(f"Round {round_num + 1}\'s accuracy: {accuracy*100:.2f}%")
     ploter.addData(x=round_num + 1, y={'loss': avg_loss, 'accuracy': accuracy})
