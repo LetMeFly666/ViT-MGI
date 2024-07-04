@@ -2,7 +2,7 @@
 Author: LetMeFly
 Date: 2024-07-03 10:37:25
 LastEditors: LetMeFly
-LastEditTime: 2024-07-04 17:58:25
+LastEditTime: 2024-07-04 20:14:32
 '''
 import datetime
 getNow = lambda: datetime.datetime.now().strftime('%Y.%m.%d-%H:%M:%S')
@@ -34,12 +34,14 @@ import copy
 # 参数
 num_clients = 10          # 客户端数量
 batch_size = 32           # 每批次多少张图片
-num_rounds = 60           # 总轮次
+num_rounds = 10            # 总轮次
+epoch_client = 3          # 每个客户端的轮次
 datasize_perclient = 640  # 每个客户端的数据量
 datasize_valide = 3000    # 测试集大小
+learning_rate = 0.001    # 步长
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 with open(f'./result/{now}/config.env', 'w') as f:
-    f.write(f'num_clients = {num_clients}\nbatch_size = {batch_size}\nnum_rounds = {num_rounds}\ndatasize_perclient = {datasize_perclient}\ndevice = {device}\ndatasize_valide = {datasize_valide}\n')
+    f.write(f'num_clients = {num_clients}\nbatch_size = {batch_size}\nnum_rounds = {num_rounds}\ndatasize_perclient = {datasize_perclient}\ndevice = {device}\ndatasize_valide = {datasize_valide}\nepoch_client = {epoch_client}\nlearning_rate = {learning_rate}\n')
 
 # 定义ViT模型
 class CustomViTModel(nn.Module):
@@ -113,27 +115,28 @@ class Client:
         self.model.setName(name)
         self.initial_state_dict = copy.deepcopy(self.model.state_dict())
     
-    def compute_gradient(self, criterion: nn.CrossEntropyLoss, device: str):
+    def compute_gradient(self, criterion: nn.CrossEntropyLoss, device: str, num_epochs: int):
         self.model.to(device)
         self.model.train()
-        optimizer = optim.SGD(self.model.parameters(), lr=0.01, momentum=0.9)
+        optimizer = optim.SGD(self.model.parameters(), lr=learning_rate, momentum=0.9)
         
         total_loss = 0.0
-        for images, labels in self.data_loader:
-            optimizer.zero_grad()  # 每个批次前清零梯度
-            images, labels = images.to(device), labels.to(device)
-            outputs = self.model(images)
-            loss = criterion(outputs, labels)
-            loss.backward()  # 计算当前批次的梯度
-            total_loss += loss.item()
-            optimizer.step()
+        for epoch in range(num_epochs):
+            for images, labels in self.data_loader:
+                optimizer.zero_grad()  # 每个批次前清零梯度
+                images, labels = images.to(device), labels.to(device)
+                outputs = self.model(images)
+                loss = criterion(outputs, labels)
+                loss.backward()  # 计算当前批次的梯度
+                total_loss += loss.item()
+                optimizer.step()
         
         # 计算梯度变化
         final_state_dict = self.model.state_dict()
         gradient_changes = {}
         for key in self.initial_state_dict:
             gradient_changes[key] = final_state_dict[key] - self.initial_state_dict[key]
-        return gradient_changes, total_loss / len(self.data_loader)
+        return gradient_changes, total_loss / (len(self.data_loader) * num_epochs)
 
     def getName(self) -> str:
         return self.model.getName()
@@ -212,7 +215,7 @@ for round_num in range(num_rounds):
     total_loss = 0.0
     for th, client in enumerate(clients):
         timeRecorder.addRecord(f'Round {round_num + 1}/{num_rounds} client {th + 1}/{num_clients} is computing gradients...')
-        grads, loss = client.compute_gradient(criterion, device)
+        grads, loss = client.compute_gradient(criterion, device, epoch_client)
         grads_list.append(grads)
         total_loss += loss
     avg_loss = total_loss / num_clients
