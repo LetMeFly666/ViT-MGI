@@ -254,3 +254,112 @@
 | Round 5/5 client 1/5 is computing gradients... | 2024.07.04-11:29:01  |
 +-----------------------------------------------------------------------+
 
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -+
+| Client 2 has computed gradients. | 2024.07.04-11:30:11          |
++-----------------------------------------------------------------+
+
++---- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 ----+
+| Round 5/5 client 2/5 is computing gradients... | 2024.07.04-11:30:11  |
++-----------------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -+
+| Client 3 has computed gradients. | 2024.07.04-11:31:19          |
++-----------------------------------------------------------------+
+
++---- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 ----+
+| Round 5/5 client 3/5 is computing gradients... | 2024.07.04-11:31:19  |
++-----------------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -+
+| Client 4 has computed gradients. | 2024.07.04-11:32:28          |
++-----------------------------------------------------------------+
+
++---- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 ----+
+| Round 5/5 client 4/5 is computing gradients... | 2024.07.04-11:32:28  |
++-----------------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -+
+| Client 5 has computed gradients. | 2024.07.04-11:33:37          |
++-----------------------------------------------------------------+
+
++----------------------- main.py:204 -----------------------+
+| Average loss: 0.010581560207444569 | 2024.07.04-11:33:37  |
++-----------------------------------------------------------+
+
++-------------------- main.py:211 --------------------+
+| Begin to evaluate accuracy... | 2024.07.04-11:33:37 |
++-----------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -+
+| Client 4's accuracy: 98.76% | 2024.07.04-11:34:05               |
++-----------------------------------------------------------------+
+
++--------- main.py:217 ---------+
+| Federated learning completed. |
++-------------------------------+
+
++------ /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:30 ------+
+| TimeList:                                                                 |
+| 00: Start | 2024.07.04-11:04:20                                           |
+| 01: Round 1 of 5 | 2024.07.04-11:04:52                                    |
+| 02: Round 1/5 client 0/5 is computing gradients... | 2024.07.04-11:04:52  |
+| 03: Client 1 has computed gradients. | 2024.07.04-11:05:54                |
+| 04: Round 1/5 client 1/5 is computing gradients... | 2024.07.04-11:05:54  |
+| 05: Client 2 has computed gradients. | 2024.07.04-11:06:56                |
+| 06: Round 1/5 client 2/5 is computing gradients... | 2024.07.04-11:06:56  |
+| 07: Client 3 has computed gradients. | 2024.07.04-11:07:58                |
+| 08: Round 1/5 client 3/5 is computing gradients... | 2024.07.04-11:07:58  |
+| 09: Client 4 has computed gradients. | 2024.07.04-11:08:59                |
+| 10: Round 1/5 client 4/5 is computing gradients... | 2024.07.04-11:08:59  |
+| 11: Client 5 has computed gradients. | 2024.07.04-11:10:01                |
+| 12: Client 4's accuracy: 98.07% | 2024.07.04-11:10:28                     |
+| 13: Round 2 of 5 | 2024.07.04-11:10:28                                    |
+| 14: Round 2/5 client 0/5 is computing gradients... | 2024.07.04-11:10:29  |
+| 15: Client 1 has computed gradients. | 2024.07.04-11:11:31                |
+| 16: Round 2/5 client 1/5 is computing gradients... | 2024.07.04-11:11:31  |
+| 17: Client 2 has computed gradients. | 2024.07.04-11:12:33                |
+| 18: Round 2/5 client 2/5 is computing gradients... | 2024.07.04-11:12:33  |
+| 19: Client 3 has computed gradients. | 2024.07.04-11:13:36                |
+| 20: Round 2/5 client 3/5 is computing gradients... | 2024.07.04-11:13:36  |
+| 21: Client 4 has computed gradients. | 2024.07.04-11:14:38                |
+| 22: Round 2/5 client 4/5 is computing gradients... | 2024.07.04-11:14:38  |
+| 23: Client 5 has computed gradients. | 2024.07.04-11:15:41                |
+| 24: Client 4's accuracy: 98.43% | 2024.07.04-11:16:08                     |
+| 25: Round 3 of 5 | 2024.07.04-11:16:08                                    |
+| 26: Round 3/5 client 0/5 is computing gradients... | 2024.07.04-11:16:08  |
+| 27: Client 1 has computed gradients. | 2024.07.04-11:17:10                |
+| 28: Round 3/5 client 1/5 is computing gradients... | 2024.07.04-11:17:10  |
+| 29: Client 2 has computed gradients. | 2024.07.04-11:18:14                |
+| 30: Round 3/5 client 2/5 is computing gradients... | 2024.07.04-11:18:14  |
+| 31: Client 3 has computed gradients. | 2024.07.04-11:19:17                |
+| 32: Round 3/5 client 3/5 is computing gradients... | 2024.07.04-11:19:17  |
+| 33: Client 4 has computed gradients. | 2024.07.04-11:20:19                |
+| 34: Round 3/5 client 4/5 is computing gradients... | 2024.07.04-11:20:19  |
+| 35: Client 5 has computed gradients. | 2024.07.04-11:21:23                |
+| 36: Client 4's accuracy: 98.74% | 2024.07.04-11:21:53                     |
+| 37: Round 4 of 5 | 2024.07.04-11:21:53                                    |
+| 38: Round 4/5 client 0/5 is computing gradients... | 2024.07.04-11:21:53  |
+| 39: Client 1 has computed gradients. | 2024.07.04-11:22:57                |
+| 40: Round 4/5 client 1/5 is computing gradients... | 2024.07.04-11:22:57  |
+| 41: Client 2 has computed gradients. | 2024.07.04-11:24:03                |
+| 42: Round 4/5 client 2/5 is computing gradients... | 2024.07.04-11:24:03  |
+| 43: Client 3 has computed gradients. | 2024.07.04-11:25:12                |
+| 44: Round 4/5 client 3/5 is computing gradients... | 2024.07.04-11:25:12  |
+| 45: Client 4 has computed gradients. | 2024.07.04-11:26:20                |
+| 46: Round 4/5 client 4/5 is computing gradients... | 2024.07.04-11:26:20  |
+| 47: Client 5 has computed gradients. | 2024.07.04-11:27:26                |
+| 48: Client 4's accuracy: 98.71% | 2024.07.04-11:27:56                     |
+| 49: Round 5 of 5 | 2024.07.04-11:27:56                                    |
+| 50: Round 5/5 client 0/5 is computing gradients... | 2024.07.04-11:27:56  |
+| 51: Client 1 has computed gradients. | 2024.07.04-11:29:01                |
+| 52: Round 5/5 client 1/5 is computing gradients... | 2024.07.04-11:29:01  |
+| 53: Client 2 has computed gradients. | 2024.07.04-11:30:11                |
+| 54: Round 5/5 client 2/5 is computing gradients... | 2024.07.04-11:30:11  |
+| 55: Client 3 has computed gradients. | 2024.07.04-11:31:19                |
+| 56: Round 5/5 client 3/5 is computing gradients... | 2024.07.04-11:31:19  |
+| 57: Client 4 has computed gradients. | 2024.07.04-11:32:28                |
+| 58: Round 5/5 client 4/5 is computing gradients... | 2024.07.04-11:32:28  |
+| 59: Client 5 has computed gradients. | 2024.07.04-11:33:37                |
+| 60: Client 4's accuracy: 98.76% | 2024.07.04-11:34:05                     |
++---------------------------------------------------------------------------+
+

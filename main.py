@@ -2,7 +2,7 @@
 Author: LetMeFly
 Date: 2024-07-03 10:37:25
 LastEditors: LetMeFly
-LastEditTime: 2024-07-04 11:20:11
+LastEditTime: 2024-07-04 15:51:19
 '''
 import datetime
 getNow = lambda: datetime.datetime.now().strftime('%Y.%m.%d-%H:%M:%S')
@@ -32,12 +32,14 @@ import copy
 
 
 # 参数
-num_clients = 5
+num_clients = 10
 batch_size = 32
 num_rounds = 5
+datasize_perclient = 100  # 每个客户端的数据量
+datasize_valide = 1000  # 用于验证的数据量
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
-with open(f'./result/{now}/.env', 'w') as f:
-    f.write(f'num_clients = {num_clients}\nbatch_size = {batch_size}\nnum_rounds = {num_rounds}\ndevice = {device}\n')
+with open(f'./result/{now}/config.env', 'w') as f:
+    f.write(f'num_clients = {num_clients}\nbatch_size = {batch_size}\nnum_rounds = {num_rounds}\ndatasize_perclient = {datasize_perclient}\ndevice = {device}\ndatasize_valide = {datasize_valide}\n')
 
 # 定义ViT模型
 class ViTModel(nn.Module):
@@ -145,7 +147,7 @@ class Server:
                 correct += (predicted == labels).sum().item()
         return correct / total
 
-def get_data_loaders(num_clients, batch_size) -> Tuple[List[Client], DataLoader]:
+def get_data_loaders(num_clients: int, batch_size: int, datasize_perclient: int, datasize_valide: int) -> Tuple[List[Client], DataLoader]:
     transform = transforms.Compose([
         transforms.Resize(224),
         transforms.ToTensor(),
@@ -157,23 +159,29 @@ def get_data_loaders(num_clients, batch_size) -> Tuple[List[Client], DataLoader]
     
     # 将数据集划分给多个客户端
     dataset_size = len(train_dataset)
+    assert(num_clients * datasize_perclient <= dataset_size)
+    print(f'Train dataset size: {dataset_size}')
     indices = list(range(dataset_size))
     random.shuffle(indices)
-    split_indices = np.array_split(indices, num_clients)
     
     clients = []
-    for split in split_indices:
-        subset = Subset(train_dataset, split)
+    start_idx = 0
+    for _ in range(num_clients):
+        split_indices = indices[start_idx:start_idx + datasize_perclient]
+        subset = Subset(train_dataset, split_indices)
         data_loader = DataLoader(subset, batch_size=batch_size, shuffle=True)
         clients.append(Client(data_loader))
-    
-    # 为验证集创建数据加载器
-    val_loader = DataLoader(test_dataset, batch_size=batch_size, shuffle=False)
-    
+        start_idx += datasize_perclient
+
+    # 从验证集创建一个子集用于验证
+    val_indices = list(range(len(test_dataset)))
+    random.shuffle(val_indices)
+    val_subset = Subset(test_dataset, val_indices[:datasize_valide])
+    val_loader = DataLoader(val_subset, batch_size=batch_size, shuffle=False)
     return clients, val_loader
 
 # 获取数据加载器
-clients, val_loader = get_data_loaders(num_clients, batch_size)
+clients, val_loader = get_data_loaders(num_clients, batch_size, datasize_perclient, datasize_valide)
 
 # 初始化服务器
 global_model = ViTModel(device=device, name='GlobalModel')
@@ -212,7 +220,7 @@ for round_num in range(num_rounds):
     print(f'Begin to evaluate accuracy... | {getNow()}')
     total_accuracy = 0.0
     accuracy = server.evaluate(val_loader, device)
-    timeRecorder.addRecord(f"Client {th}\'s accuracy: {accuracy*100:.2f}%")
+    timeRecorder.addRecord(f"Round {round_num + 1}\'s accuracy: {accuracy*100:.2f}%")
     ploter.addData(x=round_num + 1, y={'loss': avg_loss, 'accuracy': accuracy})
 
 print("Federated learning completed.")
