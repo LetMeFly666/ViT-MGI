@@ -2,7 +2,7 @@
 Author: LetMeFly
 Date: 2024-07-04 10:32:48
 LastEditors: LetMeFly
-LastEditTime: 2024-07-04 11:14:51
+LastEditTime: 2024-07-04 16:03:20
 '''
 import matplotlib.pyplot as plt
 from typing import List, Union, Dict, Optional
@@ -36,12 +36,26 @@ class Ploter:
         if not self.filename:
             self.filename = filename
         plt.figure(figsize=(10, 5))
-        for label in self.y_labels:
-            plt.plot(self.x_data, self.data[label], label=label)
-        plt.xlabel(self.x_label)
-        plt.ylabel(", ".join(self.y_labels))
+        ax1 = plt.gca()
+
+        if len(self.y_labels) == 2:
+            ax2 = ax1.twinx()
+            ax1.set_ylabel(self.y_labels[0])
+            ax2.set_ylabel(self.y_labels[1])
+            
+            ax1.plot(self.x_data, self.data[self.y_labels[0]], label=self.y_labels[0], color='tab:blue')
+            ax2.plot(self.x_data, self.data[self.y_labels[1]], label=self.y_labels[1], color='tab:orange')
+
+            ax1.legend(loc='upper left')
+            ax2.legend(loc='upper right')
+        else:
+            for label in self.y_labels:
+                ax1.plot(self.x_data, self.data[label], label=label)
+            ax1.set_ylabel(", ".join(self.y_labels))
+            ax1.legend(loc='best')
+        
+        ax1.set_xlabel(self.x_label)
         plt.title(self.title)
-        plt.legend()
         plt.savefig(self.filename)
         plt.close()
 

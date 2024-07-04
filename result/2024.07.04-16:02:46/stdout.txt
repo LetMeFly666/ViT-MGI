@@ -1,0 +1,714 @@
++----- main.py:15 -----+
+| 2024.07.04-16:02:46  |
++----------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -+
+| Start | 2024.07.04-16:02:46                                     |
++-----------------------------------------------------------------+
+
++- /home/lzy/.conda/envs/ltf/lib/python3.8/site-packages/torchvision/datasets/cifar.py:141 -+
+| Tisfy: Files already downloaded and verified.                                             |
++-------------------------------------------------------------------------------------------+
+
++- /home/lzy/.conda/envs/ltf/lib/python3.8/site-packages/torchvision/datasets/cifar.py:141 -+
+| Tisfy: Files already downloaded and verified.                                             |
++-------------------------------------------------------------------------------------------+
+
++---- main.py:163 ----+
+| Dataset size: 50000 |
++---------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -+
+| init accuracy: 12.10% | 2024.07.04-16:03:00                     |
++-----------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -+
+| Round 1 of 10 | 2024.07.04-16:03:00                             |
++-----------------------------------------------------------------+
+
++----- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -----+
+| Round 1/10 client 0/10 is computing gradients... | 2024.07.04-16:03:00  |
++-------------------------------------------------------------------------+
+
++----- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -----+
+| Round 1/10 client 1/10 is computing gradients... | 2024.07.04-16:03:01  |
++-------------------------------------------------------------------------+
+
++----- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -----+
+| Round 1/10 client 2/10 is computing gradients... | 2024.07.04-16:03:03  |
++-------------------------------------------------------------------------+
+
++----- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -----+
+| Round 1/10 client 3/10 is computing gradients... | 2024.07.04-16:03:04  |
++-------------------------------------------------------------------------+
+
++----- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -----+
+| Round 1/10 client 4/10 is computing gradients... | 2024.07.04-16:03:05  |
++-------------------------------------------------------------------------+
+
++----- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -----+
+| Round 1/10 client 5/10 is computing gradients... | 2024.07.04-16:03:06  |
++-------------------------------------------------------------------------+
+
++----- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -----+
+| Round 1/10 client 6/10 is computing gradients... | 2024.07.04-16:03:08  |
++-------------------------------------------------------------------------+
+
++----- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -----+
+| Round 1/10 client 7/10 is computing gradients... | 2024.07.04-16:03:09  |
++-------------------------------------------------------------------------+
+
++----- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -----+
+| Round 1/10 client 8/10 is computing gradients... | 2024.07.04-16:03:10  |
++-------------------------------------------------------------------------+
+
++----- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -----+
+| Round 1/10 client 9/10 is computing gradients... | 2024.07.04-16:03:11  |
++-------------------------------------------------------------------------+
+
++---------------------- main.py:214 ----------------------+
+| Average loss: 1.5278795851128444 | 2024.07.04-16:03:13  |
++---------------------------------------------------------+
+
++-------------------- main.py:221 --------------------+
+| Begin to evaluate accuracy... | 2024.07.04-16:03:13 |
++-----------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -+
+| Round 1's accuracy: 93.33% | 2024.07.04-16:03:21                |
++-----------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -+
+| Round 2 of 10 | 2024.07.04-16:03:21                             |
++-----------------------------------------------------------------+
+
++----- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -----+
+| Round 2/10 client 0/10 is computing gradients... | 2024.07.04-16:03:21  |
++-------------------------------------------------------------------------+
+
++----- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -----+
+| Round 2/10 client 1/10 is computing gradients... | 2024.07.04-16:03:22  |
++-------------------------------------------------------------------------+
+
++----- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -----+
+| Round 2/10 client 2/10 is computing gradients... | 2024.07.04-16:03:24  |
++-------------------------------------------------------------------------+
+
++----- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -----+
+| Round 2/10 client 3/10 is computing gradients... | 2024.07.04-16:03:25  |
++-------------------------------------------------------------------------+
+
++----- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -----+
+| Round 2/10 client 4/10 is computing gradients... | 2024.07.04-16:03:26  |
++-------------------------------------------------------------------------+
+
++----- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -----+
+| Round 2/10 client 5/10 is computing gradients... | 2024.07.04-16:03:27  |
++-------------------------------------------------------------------------+
+
++----- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -----+
+| Round 2/10 client 6/10 is computing gradients... | 2024.07.04-16:03:29  |
++-------------------------------------------------------------------------+
+
++----- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -----+
+| Round 2/10 client 7/10 is computing gradients... | 2024.07.04-16:03:30  |
++-------------------------------------------------------------------------+
+
++----- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -----+
+| Round 2/10 client 8/10 is computing gradients... | 2024.07.04-16:03:31  |
++-------------------------------------------------------------------------+
+
++----- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -----+
+| Round 2/10 client 9/10 is computing gradients... | 2024.07.04-16:03:32  |
++-------------------------------------------------------------------------+
+
++---------------------- main.py:214 ----------------------+
+| Average loss: 0.3122189714440278 | 2024.07.04-16:03:33  |
++---------------------------------------------------------+
+
++-------------------- main.py:221 --------------------+
+| Begin to evaluate accuracy... | 2024.07.04-16:03:33 |
++-----------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -+
+| Round 2's accuracy: 96.33% | 2024.07.04-16:03:42                |
++-----------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -+
+| Round 3 of 10 | 2024.07.04-16:03:42                             |
++-----------------------------------------------------------------+
+
++----- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -----+
+| Round 3/10 client 0/10 is computing gradients... | 2024.07.04-16:03:42  |
++-------------------------------------------------------------------------+
+
++----- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -----+
+| Round 3/10 client 1/10 is computing gradients... | 2024.07.04-16:03:43  |
++-------------------------------------------------------------------------+
+
++----- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -----+
+| Round 3/10 client 2/10 is computing gradients... | 2024.07.04-16:03:44  |
++-------------------------------------------------------------------------+
+
++----- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -----+
+| Round 3/10 client 3/10 is computing gradients... | 2024.07.04-16:03:46  |
++-------------------------------------------------------------------------+
+
++----- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -----+
+| Round 3/10 client 4/10 is computing gradients... | 2024.07.04-16:03:47  |
++-------------------------------------------------------------------------+
+
++----- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -----+
+| Round 3/10 client 5/10 is computing gradients... | 2024.07.04-16:03:48  |
++-------------------------------------------------------------------------+
+
++----- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -----+
+| Round 3/10 client 6/10 is computing gradients... | 2024.07.04-16:03:49  |
++-------------------------------------------------------------------------+
+
++----- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -----+
+| Round 3/10 client 7/10 is computing gradients... | 2024.07.04-16:03:51  |
++-------------------------------------------------------------------------+
+
++----- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -----+
+| Round 3/10 client 8/10 is computing gradients... | 2024.07.04-16:03:52  |
++-------------------------------------------------------------------------+
+
++----- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -----+
+| Round 3/10 client 9/10 is computing gradients... | 2024.07.04-16:03:53  |
++-------------------------------------------------------------------------+
+
++---------------------- main.py:214 ----------------------+
+| Average loss: 0.1533874713948795 | 2024.07.04-16:03:54  |
++---------------------------------------------------------+
+
++-------------------- main.py:221 --------------------+
+| Begin to evaluate accuracy... | 2024.07.04-16:03:54 |
++-----------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -+
+| Round 3's accuracy: 96.77% | 2024.07.04-16:04:03                |
++-----------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -+
+| Round 4 of 10 | 2024.07.04-16:04:03                             |
++-----------------------------------------------------------------+
+
++----- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -----+
+| Round 4/10 client 0/10 is computing gradients... | 2024.07.04-16:04:03  |
++-------------------------------------------------------------------------+
+
++----- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -----+
+| Round 4/10 client 1/10 is computing gradients... | 2024.07.04-16:04:04  |
++-------------------------------------------------------------------------+
+
++----- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -----+
+| Round 4/10 client 2/10 is computing gradients... | 2024.07.04-16:04:05  |
++-------------------------------------------------------------------------+
+
++----- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -----+
+| Round 4/10 client 3/10 is computing gradients... | 2024.07.04-16:04:07  |
++-------------------------------------------------------------------------+
+
++----- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -----+
+| Round 4/10 client 4/10 is computing gradients... | 2024.07.04-16:04:08  |
++-------------------------------------------------------------------------+
+
++----- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -----+
+| Round 4/10 client 5/10 is computing gradients... | 2024.07.04-16:04:09  |
++-------------------------------------------------------------------------+
+
++----- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -----+
+| Round 4/10 client 6/10 is computing gradients... | 2024.07.04-16:04:11  |
++-------------------------------------------------------------------------+
+
++----- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -----+
+| Round 4/10 client 7/10 is computing gradients... | 2024.07.04-16:04:12  |
++-------------------------------------------------------------------------+
+
++----- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -----+
+| Round 4/10 client 8/10 is computing gradients... | 2024.07.04-16:04:13  |
++-------------------------------------------------------------------------+
+
++----- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -----+
+| Round 4/10 client 9/10 is computing gradients... | 2024.07.04-16:04:14  |
++-------------------------------------------------------------------------+
+
++---------------------- main.py:214 ----------------------+
+| Average loss: 0.10782347305544786 | 2024.07.04-16:04:15 |
++---------------------------------------------------------+
+
++-------------------- main.py:221 --------------------+
+| Begin to evaluate accuracy... | 2024.07.04-16:04:16 |
++-----------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -+
+| Round 4's accuracy: 97.13% | 2024.07.04-16:04:23                |
++-----------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -+
+| Round 5 of 10 | 2024.07.04-16:04:24                             |
++-----------------------------------------------------------------+
+
++----- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -----+
+| Round 5/10 client 0/10 is computing gradients... | 2024.07.04-16:04:24  |
++-------------------------------------------------------------------------+
+
++----- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -----+
+| Round 5/10 client 1/10 is computing gradients... | 2024.07.04-16:04:25  |
++-------------------------------------------------------------------------+
+
++----- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -----+
+| Round 5/10 client 2/10 is computing gradients... | 2024.07.04-16:04:26  |
++-------------------------------------------------------------------------+
+
++----- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -----+
+| Round 5/10 client 3/10 is computing gradients... | 2024.07.04-16:04:28  |
++-------------------------------------------------------------------------+
+
++----- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -----+
+| Round 5/10 client 4/10 is computing gradients... | 2024.07.04-16:04:29  |
++-------------------------------------------------------------------------+
+
++----- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -----+
+| Round 5/10 client 5/10 is computing gradients... | 2024.07.04-16:04:30  |
++-------------------------------------------------------------------------+
+
++----- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -----+
+| Round 5/10 client 6/10 is computing gradients... | 2024.07.04-16:04:31  |
++-------------------------------------------------------------------------+
+
++----- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -----+
+| Round 5/10 client 7/10 is computing gradients... | 2024.07.04-16:04:33  |
++-------------------------------------------------------------------------+
+
++----- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -----+
+| Round 5/10 client 8/10 is computing gradients... | 2024.07.04-16:04:34  |
++-------------------------------------------------------------------------+
+
++----- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -----+
+| Round 5/10 client 9/10 is computing gradients... | 2024.07.04-16:04:35  |
++-------------------------------------------------------------------------+
+
++---------------------- main.py:214 ----------------------+
+| Average loss: 0.0734171642788819 | 2024.07.04-16:04:36  |
++---------------------------------------------------------+
+
++-------------------- main.py:221 --------------------+
+| Begin to evaluate accuracy... | 2024.07.04-16:04:36 |
++-----------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -+
+| Round 5's accuracy: 97.37% | 2024.07.04-16:04:45                |
++-----------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -+
+| Round 6 of 10 | 2024.07.04-16:04:45                             |
++-----------------------------------------------------------------+
+
++----- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -----+
+| Round 6/10 client 0/10 is computing gradients... | 2024.07.04-16:04:45  |
++-------------------------------------------------------------------------+
+
++----- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -----+
+| Round 6/10 client 1/10 is computing gradients... | 2024.07.04-16:04:46  |
++-------------------------------------------------------------------------+
+
++----- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -----+
+| Round 6/10 client 2/10 is computing gradients... | 2024.07.04-16:04:48  |
++-------------------------------------------------------------------------+
+
++----- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -----+
+| Round 6/10 client 3/10 is computing gradients... | 2024.07.04-16:04:49  |
++-------------------------------------------------------------------------+
+
++----- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -----+
+| Round 6/10 client 4/10 is computing gradients... | 2024.07.04-16:04:50  |
++-------------------------------------------------------------------------+
+
++----- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -----+
+| Round 6/10 client 5/10 is computing gradients... | 2024.07.04-16:04:51  |
++-------------------------------------------------------------------------+
+
++----- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -----+
+| Round 6/10 client 6/10 is computing gradients... | 2024.07.04-16:04:53  |
++-------------------------------------------------------------------------+
+
++----- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -----+
+| Round 6/10 client 7/10 is computing gradients... | 2024.07.04-16:04:54  |
++-------------------------------------------------------------------------+
+
++----- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -----+
+| Round 6/10 client 8/10 is computing gradients... | 2024.07.04-16:04:55  |
++-------------------------------------------------------------------------+
+
++----- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -----+
+| Round 6/10 client 9/10 is computing gradients... | 2024.07.04-16:04:56  |
++-------------------------------------------------------------------------+
+
++---------------------- main.py:214 ----------------------+
+| Average loss: 0.05838537639273065 | 2024.07.04-16:04:58 |
++---------------------------------------------------------+
+
++-------------------- main.py:221 --------------------+
+| Begin to evaluate accuracy... | 2024.07.04-16:04:58 |
++-----------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -+
+| Round 6's accuracy: 97.50% | 2024.07.04-16:05:06                |
++-----------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -+
+| Round 7 of 10 | 2024.07.04-16:05:06                             |
++-----------------------------------------------------------------+
+
++----- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -----+
+| Round 7/10 client 0/10 is computing gradients... | 2024.07.04-16:05:06  |
++-------------------------------------------------------------------------+
+
++----- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -----+
+| Round 7/10 client 1/10 is computing gradients... | 2024.07.04-16:05:08  |
++-------------------------------------------------------------------------+
+
++----- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -----+
+| Round 7/10 client 2/10 is computing gradients... | 2024.07.04-16:05:09  |
++-------------------------------------------------------------------------+
+
++----- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -----+
+| Round 7/10 client 3/10 is computing gradients... | 2024.07.04-16:05:10  |
++-------------------------------------------------------------------------+
+
++----- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -----+
+| Round 7/10 client 4/10 is computing gradients... | 2024.07.04-16:05:11  |
++-------------------------------------------------------------------------+
+
++----- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -----+
+| Round 7/10 client 5/10 is computing gradients... | 2024.07.04-16:05:13  |
++-------------------------------------------------------------------------+
+
++----- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -----+
+| Round 7/10 client 6/10 is computing gradients... | 2024.07.04-16:05:14  |
++-------------------------------------------------------------------------+
+
++----- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -----+
+| Round 7/10 client 7/10 is computing gradients... | 2024.07.04-16:05:15  |
++-------------------------------------------------------------------------+
+
++----- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -----+
+| Round 7/10 client 8/10 is computing gradients... | 2024.07.04-16:05:16  |
++-------------------------------------------------------------------------+
+
++----- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -----+
+| Round 7/10 client 9/10 is computing gradients... | 2024.07.04-16:05:18  |
++-------------------------------------------------------------------------+
+
++----------------------- main.py:214 -----------------------+
+| Average loss: 0.045518777679119785 | 2024.07.04-16:05:19  |
++-----------------------------------------------------------+
+
++-------------------- main.py:221 --------------------+
+| Begin to evaluate accuracy... | 2024.07.04-16:05:19 |
++-----------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -+
+| Round 7's accuracy: 97.53% | 2024.07.04-16:05:27                |
++-----------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -+
+| Round 8 of 10 | 2024.07.04-16:05:27                             |
++-----------------------------------------------------------------+
+
++----- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -----+
+| Round 8/10 client 0/10 is computing gradients... | 2024.07.04-16:05:27  |
++-------------------------------------------------------------------------+
+
++----- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -----+
+| Round 8/10 client 1/10 is computing gradients... | 2024.07.04-16:05:29  |
++-------------------------------------------------------------------------+
+
++----- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -----+
+| Round 8/10 client 2/10 is computing gradients... | 2024.07.04-16:05:30  |
++-------------------------------------------------------------------------+
+
++----- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -----+
+| Round 8/10 client 3/10 is computing gradients... | 2024.07.04-16:05:31  |
++-------------------------------------------------------------------------+
+
++----- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -----+
+| Round 8/10 client 4/10 is computing gradients... | 2024.07.04-16:05:32  |
++-------------------------------------------------------------------------+
+
++----- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -----+
+| Round 8/10 client 5/10 is computing gradients... | 2024.07.04-16:05:34  |
++-------------------------------------------------------------------------+
+
++----- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -----+
+| Round 8/10 client 6/10 is computing gradients... | 2024.07.04-16:05:35  |
++-------------------------------------------------------------------------+
+
++----- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -----+
+| Round 8/10 client 7/10 is computing gradients... | 2024.07.04-16:05:36  |
++-------------------------------------------------------------------------+
+
++----- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -----+
+| Round 8/10 client 8/10 is computing gradients... | 2024.07.04-16:05:37  |
++-------------------------------------------------------------------------+
+
++----- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -----+
+| Round 8/10 client 9/10 is computing gradients... | 2024.07.04-16:05:39  |
++-------------------------------------------------------------------------+
+
++----------------------- main.py:214 -----------------------+
+| Average loss: 0.037954354978033476 | 2024.07.04-16:05:40  |
++-----------------------------------------------------------+
+
++-------------------- main.py:221 --------------------+
+| Begin to evaluate accuracy... | 2024.07.04-16:05:40 |
++-----------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -+
+| Round 8's accuracy: 97.53% | 2024.07.04-16:05:48                |
++-----------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -+
+| Round 9 of 10 | 2024.07.04-16:05:49                             |
++-----------------------------------------------------------------+
+
++----- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -----+
+| Round 9/10 client 0/10 is computing gradients... | 2024.07.04-16:05:49  |
++-------------------------------------------------------------------------+
+
++----- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -----+
+| Round 9/10 client 1/10 is computing gradients... | 2024.07.04-16:05:50  |
++-------------------------------------------------------------------------+
+
++----- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -----+
+| Round 9/10 client 2/10 is computing gradients... | 2024.07.04-16:05:51  |
++-------------------------------------------------------------------------+
+
++----- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -----+
+| Round 9/10 client 3/10 is computing gradients... | 2024.07.04-16:05:53  |
++-------------------------------------------------------------------------+
+
++----- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -----+
+| Round 9/10 client 4/10 is computing gradients... | 2024.07.04-16:05:54  |
++-------------------------------------------------------------------------+
+
++----- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -----+
+| Round 9/10 client 5/10 is computing gradients... | 2024.07.04-16:05:55  |
++-------------------------------------------------------------------------+
+
++----- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -----+
+| Round 9/10 client 6/10 is computing gradients... | 2024.07.04-16:05:56  |
++-------------------------------------------------------------------------+
+
++----- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -----+
+| Round 9/10 client 7/10 is computing gradients... | 2024.07.04-16:05:58  |
++-------------------------------------------------------------------------+
+
++----- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -----+
+| Round 9/10 client 8/10 is computing gradients... | 2024.07.04-16:05:59  |
++-------------------------------------------------------------------------+
+
++----- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -----+
+| Round 9/10 client 9/10 is computing gradients... | 2024.07.04-16:06:00  |
++-------------------------------------------------------------------------+
+
++---------------------- main.py:214 ----------------------+
+| Average loss: 0.03273010213992426 | 2024.07.04-16:06:02 |
++---------------------------------------------------------+
+
++-------------------- main.py:221 --------------------+
+| Begin to evaluate accuracy... | 2024.07.04-16:06:02 |
++-----------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -+
+| Round 9's accuracy: 97.60% | 2024.07.04-16:06:11                |
++-----------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -+
+| Round 10 of 10 | 2024.07.04-16:06:11                            |
++-----------------------------------------------------------------+
+
++----- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -----+
+| Round 10/10 client 0/10 is computing gradients... | 2024.07.04-16:06:11 |
++-------------------------------------------------------------------------+
+
++----- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -----+
+| Round 10/10 client 1/10 is computing gradients... | 2024.07.04-16:06:13 |
++-------------------------------------------------------------------------+
+
++----- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -----+
+| Round 10/10 client 2/10 is computing gradients... | 2024.07.04-16:06:14 |
++-------------------------------------------------------------------------+
+
++----- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -----+
+| Round 10/10 client 3/10 is computing gradients... | 2024.07.04-16:06:15 |
++-------------------------------------------------------------------------+
+
++----- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -----+
+| Round 10/10 client 4/10 is computing gradients... | 2024.07.04-16:06:16 |
++-------------------------------------------------------------------------+
+
++----- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -----+
+| Round 10/10 client 5/10 is computing gradients... | 2024.07.04-16:06:18 |
++-------------------------------------------------------------------------+
+
++----- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -----+
+| Round 10/10 client 6/10 is computing gradients... | 2024.07.04-16:06:19 |
++-------------------------------------------------------------------------+
+
++----- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -----+
+| Round 10/10 client 7/10 is computing gradients... | 2024.07.04-16:06:20 |
++-------------------------------------------------------------------------+
+
++----- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -----+
+| Round 10/10 client 8/10 is computing gradients... | 2024.07.04-16:06:21 |
++-------------------------------------------------------------------------+
+
++----- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -----+
+| Round 10/10 client 9/10 is computing gradients... | 2024.07.04-16:06:23 |
++-------------------------------------------------------------------------+
+
++----------------------- main.py:214 -----------------------+
+| Average loss: 0.028221339193571893 | 2024.07.04-16:06:24  |
++-----------------------------------------------------------+
+
++-------------------- main.py:221 --------------------+
+| Begin to evaluate accuracy... | 2024.07.04-16:06:24 |
++-----------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -+
+| Round 10's accuracy: 97.67% | 2024.07.04-16:06:33               |
++-----------------------------------------------------------------+
+
++--------- main.py:227 ---------+
+| Federated learning completed. |
++-------------------------------+
+
++-------- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:30 --------+
+| TimeList:                                                                     |
+| 00: Start | 2024.07.04-16:02:46                                               |
+| 01: init accuracy: 12.10% | 2024.07.04-16:03:00                               |
+| 02: Round 1 of 10 | 2024.07.04-16:03:00                                       |
+| 03: Round 1/10 client 0/10 is computing gradients... | 2024.07.04-16:03:00    |
+| 04: Round 1/10 client 1/10 is computing gradients... | 2024.07.04-16:03:01    |
+| 05: Round 1/10 client 2/10 is computing gradients... | 2024.07.04-16:03:03    |
+| 06: Round 1/10 client 3/10 is computing gradients... | 2024.07.04-16:03:04    |
+| 07: Round 1/10 client 4/10 is computing gradients... | 2024.07.04-16:03:05    |
+| 08: Round 1/10 client 5/10 is computing gradients... | 2024.07.04-16:03:06    |
+| 09: Round 1/10 client 6/10 is computing gradients... | 2024.07.04-16:03:08    |
+| 10: Round 1/10 client 7/10 is computing gradients... | 2024.07.04-16:03:09    |
+| 11: Round 1/10 client 8/10 is computing gradients... | 2024.07.04-16:03:10    |
+| 12: Round 1/10 client 9/10 is computing gradients... | 2024.07.04-16:03:11    |
+| 13: Round 1's accuracy: 93.33% | 2024.07.04-16:03:21                          |
+| 14: Round 2 of 10 | 2024.07.04-16:03:21                                       |
+| 15: Round 2/10 client 0/10 is computing gradients... | 2024.07.04-16:03:21    |
+| 16: Round 2/10 client 1/10 is computing gradients... | 2024.07.04-16:03:22    |
+| 17: Round 2/10 client 2/10 is computing gradients... | 2024.07.04-16:03:24    |
+| 18: Round 2/10 client 3/10 is computing gradients... | 2024.07.04-16:03:25    |
+| 19: Round 2/10 client 4/10 is computing gradients... | 2024.07.04-16:03:26    |
+| 20: Round 2/10 client 5/10 is computing gradients... | 2024.07.04-16:03:27    |
+| 21: Round 2/10 client 6/10 is computing gradients... | 2024.07.04-16:03:29    |
+| 22: Round 2/10 client 7/10 is computing gradients... | 2024.07.04-16:03:30    |
+| 23: Round 2/10 client 8/10 is computing gradients... | 2024.07.04-16:03:31    |
+| 24: Round 2/10 client 9/10 is computing gradients... | 2024.07.04-16:03:32    |
+| 25: Round 2's accuracy: 96.33% | 2024.07.04-16:03:42                          |
+| 26: Round 3 of 10 | 2024.07.04-16:03:42                                       |
+| 27: Round 3/10 client 0/10 is computing gradients... | 2024.07.04-16:03:42    |
+| 28: Round 3/10 client 1/10 is computing gradients... | 2024.07.04-16:03:43    |
+| 29: Round 3/10 client 2/10 is computing gradients... | 2024.07.04-16:03:44    |
+| 30: Round 3/10 client 3/10 is computing gradients... | 2024.07.04-16:03:46    |
+| 31: Round 3/10 client 4/10 is computing gradients... | 2024.07.04-16:03:47    |
+| 32: Round 3/10 client 5/10 is computing gradients... | 2024.07.04-16:03:48    |
+| 33: Round 3/10 client 6/10 is computing gradients... | 2024.07.04-16:03:49    |
+| 34: Round 3/10 client 7/10 is computing gradients... | 2024.07.04-16:03:51    |
+| 35: Round 3/10 client 8/10 is computing gradients... | 2024.07.04-16:03:52    |
+| 36: Round 3/10 client 9/10 is computing gradients... | 2024.07.04-16:03:53    |
+| 37: Round 3's accuracy: 96.77% | 2024.07.04-16:04:03                          |
+| 38: Round 4 of 10 | 2024.07.04-16:04:03                                       |
+| 39: Round 4/10 client 0/10 is computing gradients... | 2024.07.04-16:04:03    |
+| 40: Round 4/10 client 1/10 is computing gradients... | 2024.07.04-16:04:04    |
+| 41: Round 4/10 client 2/10 is computing gradients... | 2024.07.04-16:04:05    |
+| 42: Round 4/10 client 3/10 is computing gradients... | 2024.07.04-16:04:07    |
+| 43: Round 4/10 client 4/10 is computing gradients... | 2024.07.04-16:04:08    |
+| 44: Round 4/10 client 5/10 is computing gradients... | 2024.07.04-16:04:09    |
+| 45: Round 4/10 client 6/10 is computing gradients... | 2024.07.04-16:04:11    |
+| 46: Round 4/10 client 7/10 is computing gradients... | 2024.07.04-16:04:12    |
+| 47: Round 4/10 client 8/10 is computing gradients... | 2024.07.04-16:04:13    |
+| 48: Round 4/10 client 9/10 is computing gradients... | 2024.07.04-16:04:14    |
+| 49: Round 4's accuracy: 97.13% | 2024.07.04-16:04:23                          |
+| 50: Round 5 of 10 | 2024.07.04-16:04:24                                       |
+| 51: Round 5/10 client 0/10 is computing gradients... | 2024.07.04-16:04:24    |
+| 52: Round 5/10 client 1/10 is computing gradients... | 2024.07.04-16:04:25    |
+| 53: Round 5/10 client 2/10 is computing gradients... | 2024.07.04-16:04:26    |
+| 54: Round 5/10 client 3/10 is computing gradients... | 2024.07.04-16:04:28    |
+| 55: Round 5/10 client 4/10 is computing gradients... | 2024.07.04-16:04:29    |
+| 56: Round 5/10 client 5/10 is computing gradients... | 2024.07.04-16:04:30    |
+| 57: Round 5/10 client 6/10 is computing gradients... | 2024.07.04-16:04:31    |
+| 58: Round 5/10 client 7/10 is computing gradients... | 2024.07.04-16:04:33    |
+| 59: Round 5/10 client 8/10 is computing gradients... | 2024.07.04-16:04:34    |
+| 60: Round 5/10 client 9/10 is computing gradients... | 2024.07.04-16:04:35    |
+| 61: Round 5's accuracy: 97.37% | 2024.07.04-16:04:45                          |
+| 62: Round 6 of 10 | 2024.07.04-16:04:45                                       |
+| 63: Round 6/10 client 0/10 is computing gradients... | 2024.07.04-16:04:45    |
+| 64: Round 6/10 client 1/10 is computing gradients... | 2024.07.04-16:04:46    |
+| 65: Round 6/10 client 2/10 is computing gradients... | 2024.07.04-16:04:48    |
+| 66: Round 6/10 client 3/10 is computing gradients... | 2024.07.04-16:04:49    |
+| 67: Round 6/10 client 4/10 is computing gradients... | 2024.07.04-16:04:50    |
+| 68: Round 6/10 client 5/10 is computing gradients... | 2024.07.04-16:04:51    |
+| 69: Round 6/10 client 6/10 is computing gradients... | 2024.07.04-16:04:53    |
+| 70: Round 6/10 client 7/10 is computing gradients... | 2024.07.04-16:04:54    |
+| 71: Round 6/10 client 8/10 is computing gradients... | 2024.07.04-16:04:55    |
+| 72: Round 6/10 client 9/10 is computing gradients... | 2024.07.04-16:04:56    |
+| 73: Round 6's accuracy: 97.50% | 2024.07.04-16:05:06                          |
+| 74: Round 7 of 10 | 2024.07.04-16:05:06                                       |
+| 75: Round 7/10 client 0/10 is computing gradients... | 2024.07.04-16:05:06    |
+| 76: Round 7/10 client 1/10 is computing gradients... | 2024.07.04-16:05:08    |
+| 77: Round 7/10 client 2/10 is computing gradients... | 2024.07.04-16:05:09    |
+| 78: Round 7/10 client 3/10 is computing gradients... | 2024.07.04-16:05:10    |
+| 79: Round 7/10 client 4/10 is computing gradients... | 2024.07.04-16:05:11    |
+| 80: Round 7/10 client 5/10 is computing gradients... | 2024.07.04-16:05:13    |
+| 81: Round 7/10 client 6/10 is computing gradients... | 2024.07.04-16:05:14    |
+| 82: Round 7/10 client 7/10 is computing gradients... | 2024.07.04-16:05:15    |
+| 83: Round 7/10 client 8/10 is computing gradients... | 2024.07.04-16:05:16    |
+| 84: Round 7/10 client 9/10 is computing gradients... | 2024.07.04-16:05:18    |
+| 85: Round 7's accuracy: 97.53% | 2024.07.04-16:05:27                          |
+| 86: Round 8 of 10 | 2024.07.04-16:05:27                                       |
+| 87: Round 8/10 client 0/10 is computing gradients... | 2024.07.04-16:05:27    |
+| 88: Round 8/10 client 1/10 is computing gradients... | 2024.07.04-16:05:29    |
+| 89: Round 8/10 client 2/10 is computing gradients... | 2024.07.04-16:05:30    |
+| 90: Round 8/10 client 3/10 is computing gradients... | 2024.07.04-16:05:31    |
+| 91: Round 8/10 client 4/10 is computing gradients... | 2024.07.04-16:05:32    |
+| 92: Round 8/10 client 5/10 is computing gradients... | 2024.07.04-16:05:34    |
+| 93: Round 8/10 client 6/10 is computing gradients... | 2024.07.04-16:05:35    |
+| 94: Round 8/10 client 7/10 is computing gradients... | 2024.07.04-16:05:36    |
+| 95: Round 8/10 client 8/10 is computing gradients... | 2024.07.04-16:05:37    |
+| 96: Round 8/10 client 9/10 is computing gradients... | 2024.07.04-16:05:39    |
+| 97: Round 8's accuracy: 97.53% | 2024.07.04-16:05:48                          |
+| 98: Round 9 of 10 | 2024.07.04-16:05:49                                       |
+| 99: Round 9/10 client 0/10 is computing gradients... | 2024.07.04-16:05:49    |
+| 100: Round 9/10 client 1/10 is computing gradients... | 2024.07.04-16:05:50   |
+| 101: Round 9/10 client 2/10 is computing gradients... | 2024.07.04-16:05:51   |
+| 102: Round 9/10 client 3/10 is computing gradients... | 2024.07.04-16:05:53   |
+| 103: Round 9/10 client 4/10 is computing gradients... | 2024.07.04-16:05:54   |
+| 104: Round 9/10 client 5/10 is computing gradients... | 2024.07.04-16:05:55   |
+| 105: Round 9/10 client 6/10 is computing gradients... | 2024.07.04-16:05:56   |
+| 106: Round 9/10 client 7/10 is computing gradients... | 2024.07.04-16:05:58   |
+| 107: Round 9/10 client 8/10 is computing gradients... | 2024.07.04-16:05:59   |
+| 108: Round 9/10 client 9/10 is computing gradients... | 2024.07.04-16:06:00   |
+| 109: Round 9's accuracy: 97.60% | 2024.07.04-16:06:11                         |
+| 110: Round 10 of 10 | 2024.07.04-16:06:11                                     |
+| 111: Round 10/10 client 0/10 is computing gradients... | 2024.07.04-16:06:11  |
+| 112: Round 10/10 client 1/10 is computing gradients... | 2024.07.04-16:06:13  |
+| 113: Round 10/10 client 2/10 is computing gradients... | 2024.07.04-16:06:14  |
+| 114: Round 10/10 client 3/10 is computing gradients... | 2024.07.04-16:06:15  |
+| 115: Round 10/10 client 4/10 is computing gradients... | 2024.07.04-16:06:16  |
+| 116: Round 10/10 client 5/10 is computing gradients... | 2024.07.04-16:06:18  |
+| 117: Round 10/10 client 6/10 is computing gradients... | 2024.07.04-16:06:19  |
+| 118: Round 10/10 client 7/10 is computing gradients... | 2024.07.04-16:06:20  |
+| 119: Round 10/10 client 8/10 is computing gradients... | 2024.07.04-16:06:21  |
+| 120: Round 10/10 client 9/10 is computing gradients... | 2024.07.04-16:06:23  |
+| 121: Round 10's accuracy: 97.67% | 2024.07.04-16:06:33                        |
++-------------------------------------------------------------------------------+
+

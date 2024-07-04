@@ -2,7 +2,7 @@
 Author: LetMeFly
 Date: 2024-07-03 10:37:25
 LastEditors: LetMeFly
-LastEditTime: 2024-07-04 15:59:30
+LastEditTime: 2024-07-04 16:07:13
 '''
 import datetime
 getNow = lambda: datetime.datetime.now().strftime('%Y.%m.%d-%H:%M:%S')
@@ -34,9 +34,9 @@ import copy
 # 参数
 num_clients = 10
 batch_size = 32
-num_rounds = 5
-datasize_perclient = 100  # 每个客户端的数据量
-datasize_valide = 1000  # 用于验证的数据量
+num_rounds = 10
+datasize_perclient = 200  # 每个客户端的数据量
+datasize_valide = 3000  # 用于验证的数据量
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 with open(f'./result/{now}/config.env', 'w') as f:
     f.write(f'num_clients = {num_clients}\nbatch_size = {batch_size}\nnum_rounds = {num_rounds}\ndatasize_perclient = {datasize_perclient}\ndevice = {device}\ndatasize_valide = {datasize_valide}\n')
