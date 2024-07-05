@@ -2,7 +2,7 @@
 Author: LetMeFly
 Date: 2024-07-03 10:37:25
 LastEditors: LetMeFly
-LastEditTime: 2024-07-05 17:20:16
+LastEditTime: 2024-07-05 21:26:09
 '''
 import datetime
 getNow = lambda: datetime.datetime.now().strftime('%Y.%m.%d-%H:%M:%S')
@@ -42,8 +42,8 @@ datasize_valide = 1000    # 测试集大小
 learning_rate = 0.001     # 步长
 ifPCA = True              # 是否启用PCA评价 
 ifCleanAnoma = True       # 是否清理PCA抓出的异常数据
-PCA_rate = 2              # PCA偏离倍数
-ifAttack = True           # 是否开启攻击
+PCA_rate = 1              # PCA偏离倍数
+attackList = [0, 1, 2]    # 恶意客户端下标
 attack_rate = 1           # 攻击强度
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 with open(f'./result/{now}/config.env', 'w') as f:
@@ -57,7 +57,7 @@ learning_rate = {learning_rate}
 ifPCA = {ifPCA}
 ifCleanAnoma = {ifCleanAnoma}
 PCA_rate = {PCA_rate}
-ifAttack = {ifAttack}
+attackList = {attackList}
 attack_rate = {attack_rate}
 device = {device}
 """)
@@ -299,8 +299,8 @@ for round_num in range(num_rounds):
     # 获取当前轮次的客户端数据加载器
     clients_data_loaders = data_manager.get_clients_data_loaders()
     clients = [Client(data_loader) for data_loader in clients_data_loaders]
-    if ifAttack:
-        clients[0] = Attack(clients_data_loaders[0])
+    for attackerIndex in attackList:
+        clients[attackerIndex] = Attack(clients_data_loaders[attackerIndex])
 
     # 分发当前的全局模型给所有客户端
     server.distribute_model(clients)
@@ -316,11 +316,11 @@ for round_num in range(num_rounds):
     print(f"Average loss: {avg_loss} | {getNow()}")
     
     # 服务器聚合梯度并更新全局模型
-    if ifAttack and ifPCA:
+    if attackList and ifPCA:
         gradentAnalyzer = GradientAnalyzer()
         # gradentAnalyzer.find_gradients(grads_dict)
         _, anomaList = gradentAnalyzer.find_useful_gradients(grads_dict)
-    if ifCleanAnoma and ifPCA and ifAttack:
+    if ifCleanAnoma and ifPCA and attackList:
         grads_dict = gradentAnalyzer.clean_grads(grads_dict, anomaList)
     
     avg_grads = server.aggregate_gradients(grads_dict)
