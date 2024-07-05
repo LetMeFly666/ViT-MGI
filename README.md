@@ -2,7 +2,7 @@
  * @Author: LetMeFly
  * @Date: 2024-05-15 17:45:43
  * @LastEditors: LetMeFly
- * @LastEditTime: 2024-07-04 20:27:50
+ * @LastEditTime: 2024-07-05 09:24:09
 -->
 # FLDefinder
 
@@ -46,10 +46,18 @@
 
 今晚走之前跑上两个长训练。
 
++ lr=0.001，epoch=50x3，maxAcc=57.37%
++ lr=0.005，epoch=50x3，maxAcc=54.03%
++ ~~lr=0.01，epoch=60x1，maxAcc=48.17%~~
++ lr=0.01，epoch=200x3，maxAcc=60.13%
++ lr=0.01，epoch=50x3，maxAcc=51.37%
++ lr=0.02，epoch=200x3，Adam+StepLR，maxAcc=29.60%（后面想起来每次下发模型优化器都会重置）
+
 ### TODO
 
 - [x] 每个客户端下次数据会发生变化
 - [x] 客户端本地训练多个（例如3）epoch
+- [ ] 了解一些攻防手段，例如主成分萃取/最大池化及其关系
 - [ ] 不上传客户端的diff，而是直接上传所有客户端的参数然后在服务端求平均
 - [ ] 损失函数求模型总的损失函数
 

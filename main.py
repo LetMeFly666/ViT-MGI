@@ -2,7 +2,7 @@
 Author: LetMeFly
 Date: 2024-07-03 10:37:25
 LastEditors: LetMeFly
-LastEditTime: 2024-07-04 20:14:32
+LastEditTime: 2024-07-05 09:20:40
 '''
 import datetime
 getNow = lambda: datetime.datetime.now().strftime('%Y.%m.%d-%H:%M:%S')
@@ -34,12 +34,12 @@ import copy
 # 参数
 num_clients = 10          # 客户端数量
 batch_size = 32           # 每批次多少张图片
-num_rounds = 10            # 总轮次
+num_rounds = 200          # 总轮次
 epoch_client = 3          # 每个客户端的轮次
 datasize_perclient = 640  # 每个客户端的数据量
 datasize_valide = 3000    # 测试集大小
-learning_rate = 0.001    # 步长
-device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+learning_rate = 0.02      # 步长
+device = torch.device("cuda:1" if torch.cuda.is_available() else "cpu")
 with open(f'./result/{now}/config.env', 'w') as f:
     f.write(f'num_clients = {num_clients}\nbatch_size = {batch_size}\nnum_rounds = {num_rounds}\ndatasize_perclient = {datasize_perclient}\ndevice = {device}\ndatasize_valide = {datasize_valide}\nepoch_client = {epoch_client}\nlearning_rate = {learning_rate}\n')
 
@@ -118,7 +118,8 @@ class Client:
     def compute_gradient(self, criterion: nn.CrossEntropyLoss, device: str, num_epochs: int):
         self.model.to(device)
         self.model.train()
-        optimizer = optim.SGD(self.model.parameters(), lr=learning_rate, momentum=0.9)
+        optimizer = optim.Adam(self.model.parameters(), lr=learning_rate)  # 使用Adam优化器
+        scheduler = optim.lr_scheduler.StepLR(optimizer, step_size=5, gamma=0.1)  # 学习率调度器
         
         total_loss = 0.0
         for epoch in range(num_epochs):
@@ -130,6 +131,7 @@ class Client:
                 loss.backward()  # 计算当前批次的梯度
                 total_loss += loss.item()
                 optimizer.step()
+            scheduler.step()  # 每个epoch结束后调整学习率
         
         # 计算梯度变化
         final_state_dict = self.model.state_dict()
@@ -162,6 +164,16 @@ class Server:
                     avg_grads[key] += grads[key] / len(grads_list)
         return avg_grads
     
+    def find_gradients(self, grads_list):
+        for i, grads in enumerate(grads_list):
+            print(f"Gradients from list {i}:")
+            for key in grads:
+                grad = grads[key]
+                print(f"Key: {key}, Gradient shape: {grad.shape}, Gradient dtype: {grad.dtype}, Gradient values: {grad}")
+                
+    def find_useful_gradients(self,grads_list):
+        pass
+        
     def update_model(self, gradient_changes):
         # 获取全局模型的状态字典
         global_state_dict = self.global_model.state_dict()
@@ -214,7 +226,7 @@ for round_num in range(num_rounds):
     grads_list = []
     total_loss = 0.0
     for th, client in enumerate(clients):
-        timeRecorder.addRecord(f'Round {round_num + 1}/{num_rounds} client {th + 1}/{num_clients} is computing gradients...')
+        # timeRecorder.addRecord(f'Round {round_num + 1}/{num_rounds} client {th + 1}/{num_clients} is computing gradients...')
         grads, loss = client.compute_gradient(criterion, device, epoch_client)
         grads_list.append(grads)
         total_loss += loss
@@ -222,6 +234,7 @@ for round_num in range(num_rounds):
     print(f"Average loss: {avg_loss} | {getNow()}")
     
     # 服务器聚合梯度并更新全局模型
+    # server.find_gradients(grads_list)
     avg_grads = server.aggregate_gradients(grads_list)
     server.update_model(avg_grads)
     
