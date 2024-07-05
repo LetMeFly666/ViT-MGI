@@ -2,7 +2,7 @@
  * @Author: LetMeFly
  * @Date: 2024-05-15 17:45:43
  * @LastEditors: LetMeFly
- * @LastEditTime: 2024-07-05 09:24:09
+ * @LastEditTime: 2024-07-05 11:31:45
 -->
 # FLDefinder
 
@@ -52,6 +52,22 @@
 + lr=0.01，epoch=200x3，maxAcc=60.13%
 + lr=0.01，epoch=50x3，maxAcc=51.37%
 + lr=0.02，epoch=200x3，Adam+StepLR，maxAcc=29.60%（后面想起来每次下发模型优化器都会重置）
+
+### Log006 - 2024.7.5_9:00-2024.7.5_11:00
+
+暂不使用非预训练模型，先使用预训练模型，将参数调整到一个不错的状态。
+
++ lr=0.001，epoch=30x1，dataPerEpoch=10x32，maxAcc=96.9%，timeConsume=165s
++ lr=0.0001，epoch=30x1，dataPerEpoch=10x32，maxAcc=95.8%，timeConsume=164s
++ lr=0.0001，epoch=60x1，dataPerEpoch=10x32，maxAcc=97.6%，timeConsume=319s
++ lr=0.0001，epoch=150x1，dataPerEpoch=10x32，maxAcc=98.8%，timeConsume=790s（116轮首次达到）
++ lr=0.001，epoch=150x1，dataPerEpoch=10x32，maxAcc=98.9%，timeConsume=808s（71轮首次达到）
+
+其中：
+
++ lr：步长（学习率）
++ epoch=30x1：服务器主持训练30轮，每轮每个客户端训练1轮
++ dataPerEpoch=10x32：10个客户端，每个客户端每次训练下发32个训练数据
 
 ### TODO
 
