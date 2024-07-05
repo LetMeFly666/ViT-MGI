@@ -1,6 +1,13 @@
+% !TEX root = main.tex
 \documentclass[conference]{IEEEtran}
 \IEEEoverridecommandlockouts
 % The preceding line is only needed to identify funding in the first footnote. If that is unneeded, please comment it out.
+% TODO: begin: 中文包，最终版本可删除
+% \usepackage{fontspec}  % 加载 fontspec 包
+\usepackage{xeCJK}     % 加载 xeCJK 包
+% \setCJKmainfont{WenQuanYi Zen Hei} % 设置中文主字体
+\setCJKmainfont[Path=fonts/, Extension=.ttc]{wqy-zenhei}
+% TODO: end: 中文包，最终版本可删除
 \usepackage{cite}
 \usepackage{amsmath,amssymb,amsfonts}
 \usepackage{algorithmic}
@@ -11,7 +18,8 @@
     T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
 \begin{document}
 
-\title{Conference Paper Title*\\
+% 标题
+\title{Conference Pa667per Title66*\\
 {\footnotesize \textsuperscript{*}Note: Sub-titles are not captured in Xplore and
 should not be used}
 \thanks{Identify applicable funding agency here. If none, delete this.}
@@ -56,10 +64,11 @@ email address or ORCID}
 
 \maketitle
 
+% 摘要
 \begin{abstract}
-This document is a model and instructions for \LaTeX.
-This and the IEEEtran.cls file define the components of your paper [title, text, heads, etc.]. *CRITICAL: Do Not Use Symbols, Special Characters, Footnotes, 
-or Math in Paper Title or Abstract.
+how to support chinese? 中文测试 665
+
+终于能正常显示中文了www，回去睡会儿，明天继续
 \end{abstract}
 
 \begin{IEEEkeywords}
@@ -228,11 +237,11 @@ copy& More table copy$^{\mathrm{a}}$& &  \\
 \end{center}
 \end{table}
 
-\begin{figure}[htbp]
-\centerline{\includegraphics{fig1.png}}
-\caption{Example of a figure caption.}
-\label{fig}
-\end{figure}
+% \begin{figure}[htbp]
+% \centerline{\includegraphics{fig1.png}}
+% \caption{Example of a figure caption.}
+% \label{fig}
+% \end{figure}
 
 Figure Labels: Use 8 point Times New Roman for Figure labels. Use words 
 rather than symbols or abbreviations when writing Figure axis labels to 
