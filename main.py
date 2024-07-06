@@ -2,14 +2,14 @@
 Author: LetMeFly
 Date: 2024-07-03 10:37:25
 LastEditors: LetMeFly
-LastEditTime: 2024-07-06 12:14:13
+LastEditTime: 2024-07-06 13:23:26
 '''
 import datetime
 getNow = lambda: datetime.datetime.now().strftime('%Y.%m.%d-%H:%M:%S')
 now = getNow()
 # del datetime
 from src.utils import initPrint, TimeRecorder, Ploter
-from typing import List, Optional, Tuple
+from typing import List, Optional, Tuple, Dict
 
 initPrint(now)
 print(now)
@@ -31,6 +31,7 @@ import random
 import copy
 from sklearn.decomposition import PCA
 import argparse
+from collections import defaultdict
 
 
 # 参数/配置
@@ -43,9 +44,10 @@ class Config:
         self.datasize_perclient = 32   # 每个客户端的数据量
         self.datasize_valide = 1000    # 测试集大小
         self.learning_rate = 0.001     # 步长
-        self.ifPCA = False             # 是否启用PCA评价 
+        self.ifPCA = True              # 是否启用PCA评价 
         self.ifCleanAnoma = True       # 是否清理PCA抓出的异常数据
         self.PCA_rate = 1              # PCA偏离倍数
+        self.PCA_nComponents = 2       # PCA降维后的主成分数目
         self.attackList = [0, 1, 2]    # 恶意客户端下标
         self.attack_rate = 1           # 攻击强度
         self.device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
@@ -241,10 +243,10 @@ class Server:
 
 #异常检测（梯度分析类）
 class GradientAnalyzer:
-    def __init__(self, n_components=2, use_gpu=True):
+    def __init__(self, n_components=2):
         self.n_components = n_components
-        self.use_gpu = use_gpu
         self.pca = PCA(n_components=self.n_components)
+        self.ban_history = []  # 封禁历史
     
     def find_gradients(self, grads_dict:dict):
         for i, grads in grads_dict.items():
@@ -266,7 +268,7 @@ class GradientAnalyzer:
         
         # Perform PCA on all gradients
         print(f"PCA Begin | {getNow()}")
-        reduced_grads = self.pca.fit_transform(all_grads)
+        reduced_grads = self.pca.fit_transform(all_grads)  # 两次fit_transform会使用不同的主成分，而一次fit_transform后调用transform会使用相同的主成分
         print(f"PCA End | {getNow()}")
         
         # Calculate distances of each gradient to the principal components in PCA space
@@ -282,6 +284,7 @@ class GradientAnalyzer:
             else:
                 useful_grads_list.append(i)     # 标记为有用的grad
         print(anomalous_grads_list)
+        self.ban_history.append(anomalous_grads_list)
         return useful_grads_list, anomalous_grads_list
     
     #清除anomalous_grads_list中的数据
@@ -291,10 +294,42 @@ class GradientAnalyzer:
         for name, grads in grads_dict.items():
             if current_index not in anomalous_grads_list:
                 cleaned_grads_dict[name] = grads
-            else: 
-                print(f'{name} is BANNED!')
             current_index += 1
         return cleaned_grads_dict
+    
+    def evalBanAcc(self, answer: List[int]) -> Dict[Tuple[int, int], int]:
+        result = defaultdict(int)
+        for banList in self.ban_history:
+            correct, error = 0, 0  # 正确的，错抓的
+            for thisClient in banList:
+                if thisClient in answer:
+                    correct += 1
+                else:
+                    error += 1
+            thisState = (correct, error)
+            result[thisState] += 1
+        toSay = '| 攻击者 | 攻击力度 | PCA的偏离倍数 | PCA降维后的主成分数目 | 表现 |\n'
+        toSay += '|---|---|---|---|---|\n'
+        toSay += f'| {len(answer)}/{config.num_clients} | {config.attack_rate} | {config.PCA_rate} | {config.PCA_nComponents} | {len(self.ban_history)}次中有：'
+        tempList = []
+        for key, value in result.items():
+            tempList.append((key, value))
+        tempList.sort(key=lambda x: (x[0][1], -x[0][0]))
+        for (correct, error), times in tempList:
+            toSay += f'{times}次'
+            if correct == len(answer) and not error:
+                toSay += '完全正确'
+            elif not error:
+                toSay += f'少抓{len(answer) - correct}个'
+            else:
+                if correct < len(answer):
+                    toSay += f'少抓{len(answer) - correct}个'
+                toSay += f'多抓{error}个'
+            toSay += '，'
+        toSay = toSay[:-1]
+        toSay += f' <br/>{tempList}|\n'
+        print(toSay)
+        return result
             
 # 初始化数据管理器
 data_manager = DataManager(config.num_clients, config.batch_size, config.datasize_perclient, config.datasize_valide)
@@ -305,6 +340,9 @@ server = Server(global_model, config.device)
 
 # 联邦学习过程
 criterion = nn.CrossEntropyLoss()
+
+# 共计检测
+gradentAnalyzer = GradientAnalyzer(n_components=config.PCA_nComponents)
 
 ploter = Ploter(x='batch', y=['loss', 'accuracy'], title='loss and accuracy', filename=f'./result/{now}/lossAndAccuracy.svg')
 accuracy = server.evaluate(data_manager.get_val_loader(), config.device)
@@ -336,7 +374,6 @@ for round_num in range(config.num_rounds):
     
     # 服务器聚合梯度并更新全局模型
     if config.attackList and config.ifPCA:
-        gradentAnalyzer = GradientAnalyzer()
         # gradentAnalyzer.find_gradients(grads_dict)
         _, anomaList = gradentAnalyzer.find_useful_gradients(grads_dict)
     if config.ifCleanAnoma and config.ifPCA and config.attackList:
@@ -354,3 +391,4 @@ for round_num in range(config.num_rounds):
 
 print("Federated learning completed.")
 timeRecorder.printAll()
+gradentAnalyzer.evalBanAcc(config.attackList)
