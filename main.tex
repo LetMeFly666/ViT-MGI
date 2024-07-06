@@ -3,11 +3,12 @@
 \IEEEoverridecommandlockouts
 % The preceding line is only needed to identify funding in the first footnote. If that is unneeded, please comment it out.
 % TODO: begin: 中文包，最终版本可删除
-% \usepackage{fontspec}  % 加载 fontspec 包
-\usepackage{xeCJK}     % 加载 xeCJK 包
-% \setCJKmainfont{WenQuanYi Zen Hei} % 设置中文主字体
+% \usepackage{fontspec}               % 加载 fontspec 包
+\usepackage{xeCJK}                    % 加载 xeCJK 包
+% \setCJKmainfont{WenQuanYi Zen Hei}  % 设置中文主字体
 \setCJKmainfont[Path=fonts/, Extension=.ttc]{wqy-zenhei}
 % TODO: end: 中文包，最终版本可删除
+\usepackage{ulem}  % 加载 ulem 包，用于添加删除线
 \usepackage{cite}
 \usepackage{amsmath,amssymb,amsfonts}
 \usepackage{algorithmic}
@@ -68,7 +69,9 @@ email address or ORCID}
 \begin{abstract}
 how to support chinese? 中文测试 665
 
-终于能正常显示中文了www，回去睡会儿，明天继续
+终于能正常显示中文了www，\sout{回去睡一觉，明天继续}
+
+おはよう，日文也能正常显示（并没有特别配置日文）
 \end{abstract}
 
 \begin{IEEEkeywords}
