@@ -1,1 +1,10 @@
-python main.py --PCA_nComponents=0.8
+python main.py --PCA_nComponents=0.95 --PCA_rate=1 --attackList="[0, 1, 2]"
+python main.py --PCA_nComponents=0.8 --PCA_rate=1 --attackList="[0, 1, 2]"
+python main.py --PCA_nComponents=0.6 --PCA_rate=1 --attackList="[0, 1, 2]"
+python main.py --PCA_nComponents=0.4 --PCA_rate=1 --attackList="[0, 1, 2]"
+python main.py --PCA_nComponents=0.2 --PCA_rate=1 --attackList="[0, 1, 2]"
+python main.py --PCA_nComponents=1 --PCA_rate=1 --attackList="[0, 1, 2]"
+python main.py --PCA_nComponents=2 --PCA_rate=1 --attackList="[0, 1, 2]"
+python main.py --PCA_nComponents=3 --PCA_rate=1 --attackList="[0, 1, 2]"
+python main.py --PCA_nComponents=4 --PCA_rate=1 --attackList="[0, 1, 2]"
+python main.py --PCA_nComponents=10 --PCA_rate=1 --attackList="[0, 1, 2]"

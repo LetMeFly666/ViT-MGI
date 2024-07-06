@@ -2,7 +2,7 @@
 Author: LetMeFly
 Date: 2024-07-03 10:37:25
 LastEditors: LetMeFly
-LastEditTime: 2024-07-06 13:23:26
+LastEditTime: 2024-07-06 13:31:58
 '''
 import datetime
 getNow = lambda: datetime.datetime.now().strftime('%Y.%m.%d-%H:%M:%S')
@@ -74,7 +74,6 @@ class Config:
         toWrite = ''
         for key, value in self.__dict__.items():
             toWrite += f"{key} = {value}\n"
-            print(f'{key}: {type(value)}')
         with open(f'./result/{now}/config.env', 'w') as f:
             f.write(toWrite)
     
