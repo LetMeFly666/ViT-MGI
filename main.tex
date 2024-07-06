@@ -8,8 +8,9 @@
 % \setCJKmainfont{WenQuanYi Zen Hei}  % 设置中文主字体
 \setCJKmainfont[Path=fonts/, Extension=.ttc]{wqy-zenhei}
 % TODO: end: 中文包，最终版本可删除
-\usepackage{ulem}  % 加载 ulem 包，用于添加删除线
-\usepackage{cite}
+\usepackage{ulem}      % 删除线
+\usepackage{hyperref}  % 超链接
+% \usepackage{cite}
 \usepackage{amsmath,amssymb,amsfonts}
 \usepackage{algorithmic}
 \usepackage{graphicx}
@@ -17,6 +18,19 @@
 \usepackage{xcolor}
 \def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
     T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+
+\usepackage[style=ieee,backend=biber]{biblatex}
+\addbibresource{references.bib}
+% 替换下划线字符
+\DeclareSourcemap{
+  \maps[datatype=bibtex]{
+    \map{
+      \step[fieldsource=url,
+            match=\regexp{\_},
+            replace=\regexp{\%5f}]
+    }
+  }
+}
 \begin{document}
 
 % 标题
@@ -67,20 +81,17 @@ email address or ORCID}
 
 % 摘要
 \begin{abstract}
-how to support chinese? 中文测试 665
+联邦学习可以在数据不离开客户端的前提下进行模型训练，保护了用户的隐私且减小了中央服务器的压力。然而，在联邦学习的过程中，经常会有恶意客户端的存在。当然，恶意用户的数量一般会占据较小的部分。本文对联邦学习过程中用户上传上来的梯度变化进行分析，首先利用最大池化技术提取主要特征的同时降低，利用主成分分析(PCA)算法\textcolor{red}{（这里还有待添加更多的算法）}对恶意用户进行识别。单次被识别为恶意用户可能是由于误判，因此本文使用主观逻辑模型来对用户的信用等级进行评估，并依据用户的可信度来调整模型聚合时的权重。
 
-终于能正常显示中文了www，\sout{回去睡一觉，明天继续}
-
-おはよう，日文也能正常显示（并没有特别配置日文）
+结果表明，当前方法对于恶意用户的识别率、恶意用户的识别效率，以及程序自身的鲁棒性都有所提升。我们将其命名为FLDefinder\textcolor{red}{（名字待定）}并发布了其源代码，以方便该领域的未来研究：\href{https://github.com/LetMeFly666/FLDefinder}{https://github.com/LetMeFly666/FLDefinder}\textcolor{red}{（论文投稿前此仓库为Private状态不可访问）}。
 \end{abstract}
 
 \begin{IEEEkeywords}
-component, formatting, style, styling, insert
+Federated Learning, Gradient Analysis, Malicious User Detection, Subjective Logic Model\textcolor{red}{（关键词待定）}
 \end{IEEEkeywords}
 
 \section{Introduction}
-This document is a model and instructions for \LaTeX.
-Please observe the conference page limits. 
+联邦学习(FL)使参与者能够联合训练一个全局模型，而不需要共享他们的数据集。
 
 \section{Ease of Use}
 
@@ -284,15 +295,16 @@ element symbols.
 For papers published in translation journals, please give the English 
 citation first, followed by the original foreign-language citation \cite{b6}.
 
-\begin{thebibliography}{00}
-\bibitem{b1} G. Eason, B. Noble, and I. N. Sneddon, ``On certain integrals of Lipschitz-Hankel type involving products of Bessel functions,'' Phil. Trans. Roy. Soc. London, vol. A247, pp. 529--551, April 1955.
-\bibitem{b2} J. Clerk Maxwell, A Treatise on Electricity and Magnetism, 3rd ed., vol. 2. Oxford: Clarendon, 1892, pp.68--73.
-\bibitem{b3} I. S. Jacobs and C. P. Bean, ``Fine particles, thin films and exchange anisotropy,'' in Magnetism, vol. III, G. T. Rado and H. Suhl, Eds. New York: Academic, 1963, pp. 271--350.
-\bibitem{b4} K. Elissa, ``Title of paper if known,'' unpublished.
-\bibitem{b5} R. Nicole, ``Title of paper with only first word capitalized,'' J. Name Stand. Abbrev., in press.
-\bibitem{b6} Y. Yorozu, M. Hirano, K. Oka, and Y. Tagawa, ``Electron spectroscopy studies on magneto-optical media and plastic substrate interface,'' IEEE Transl. J. Magn. Japan, vol. 2, pp. 740--741, August 1987 [Digests 9th Annual Conf. Magnetics Japan, p. 301, 1982].
-\bibitem{b7} M. Young, The Technical Writer's Handbook. Mill Valley, CA: University Science, 1989.
-\end{thebibliography}
+% \begin{thebibliography}{00}  % 花括号中的 00 决定了在文献编号中所需要的宽度
+% \bibitem{b1} G. Eason, B. Noble, and I. N. Sneddon, ``On certain integrals of Lipschitz-Hankel type involving products of Bessel functions,'' Phil. Trans. Roy. Soc. London, vol. A247, pp. 529--551, April 1955.
+% \bibitem{b2} J. Clerk Maxwell, A Treatise on Electricity and Magnetism, 3rd ed., vol. 2. Oxford: Clarendon, 1892, pp.68--73.
+% \bibitem{b3} I. S. Jacobs and C. P. Bean, ``Fine particles, thin films and exchange anisotropy,'' in Magnetism, vol. III, G. T. Rado and H. Suhl, Eds. New York: Academic, 1963, pp. 271--350.
+% \bibitem{b4} K. Elissa, ``Title of paper if known,'' unpublished.
+% \bibitem{b5} R. Nicole, ``Title of paper with only first word capitalized,'' J. Name Stand. Abbrev., in press.
+% \bibitem{b6} Y. Yorozu, M. Hirano, K. Oka, and Y. Tagawa, ``Electron spectroscopy studies on magneto-optical media and plastic substrate interface,'' IEEE Transl. J. Magn. Japan, vol. 2, pp. 740--741, August 1987 [Digests 9th Annual Conf. Magnetics Japan, p. 301, 1982].
+% \bibitem{b7} M. Young, The Technical Writer's Handbook. Mill Valley, CA: University Science, 1989.
+% \end{thebibliography}
+\printbibliography % 打印参考文献
 \vspace{12pt}
 \color{red}
 IEEE conference templates contain guidance text for composing and formatting conference papers. Please ensure that all template text is removed from your conference paper prior to submission to the conference. Failure to remove the template text from your paper may result in your paper not being published.
