@@ -1,154 +1,45 @@
-将下面markdown列表转换成markdown表格
+我使用的是Linux系统。我这个用户makefile生成临时文件main.log后，另一个用户尝试写内容到main.log失败了。
+
+这是因为权限的问题。有什么比较好的解决方式？
 
 ```
-+ lr=0.001，epoch=30x1，dataPerEpoch=10x32，maxAcc=96.9%，timeConsume=165s
-+ lr=0.0001，epoch=30x1，dataPerEpoch=10x32，maxAcc=95.8%，timeConsume=164s
-+ lr=0.0001，epoch=60x1，dataPerEpoch=10x32，maxAcc=97.6%，timeConsume=319s
-+ lr=0.0001，epoch=150x1，dataPerEpoch=10x32，maxAcc=98.8%，timeConsume=790s（116轮首次达到）
-+ lr=0.001，epoch=150x1，dataPerEpoch=10x32，maxAcc=98.9%，timeConsume=808s（71轮首次达到）
-+ lr=0.001，epoch=1300x1，dataPerEpoch=10x32，maxAcc=99.5%，timeConsume=7099s（1141轮首次达到）
-+ lr=0.02，epoch=1300x1，dataPerEpoch=10x32，maxAcc=99.7%，timeConsume=7433s（570轮首次达到）
-```
-
-你只需要发给我转换后的结果。
-
-
-
-
-
-
-
-PCA大概能检测出多大比例的异常？如果异常比例达到30%PCA还能胜任吗？如果不能，那么使用什么方法比较好？
-
-
-
-
-
-
-将下面的文字转换为markdown表格
-
-```
-攻击者    攻击力度   PCA的偏离倍数   表现
-2/10       1           2           基本上在瞎输出
-2/10       2           2           基本上每次能在两个里面抓到一个
-2/10       2           1           32次中有31次完全正确，另外一次多抓了一个
-```
-
-
-
-
-
-Git可以在现有仓库的基础上，添加一个空的分支吗？
-
-
-
-
-
-
-
-刚把恶意客户端设置成[0, 1, 2]，攻击力度是2，PCA偏离倍数是1，训练了4轮。
-
-其中前3轮完全正确[破涕为笑]，第4轮少抓了一个。比想象中的厉害诶
-
-
-
-
-
-将这个PDF翻译成中文。
-
-
-
-
-
-
-我的git仓库什么都没有改，但是却显示所有文件都更改了。
-这是因为权限问题吗？
-
-
-
-
-
-VsCode Latex拓展在编译tex文件时报错
-
-```
-[21:01:05.970][Commander] BUILD command invoked.
-[21:01:05.971][Build] The document of the active editor: output:extension-output-James-Yu.latex-workshop-%231-LaTeX Workshop
-[21:01:05.971][Build] The languageId of the document: Log
-[21:01:05.972][Build] Cannot find LaTeX root file. See https://github.com/James-Yu/LaTeX-Workshop/wiki/Compile#the-root-file
-```
-
-
-
-
-文件中包含`\documentclass[conference]{IEEEtran}`，但是点击绿色的`构建Latex项目`的时候，还是会这样输出。
-
-
-
-
-
-
-我使用的安装命令是`sudo aptitude install texlive-full`
-
-
-
-
-
-find太慢了，能否下载好可执行文件并添加到环境变量中？
-
-
-
-
-
-
-我安装好了xelatex：
-
-```
-which xelatex
-/usr/local/texlive/2024/bin/x86_64-linux/xelatex
-```
-
-但是当我点击Latex插件的绿色的运行按钮的时候，还是会报错
-
-```
-[22:46:48.085][Event] STRUCTURE_UPDATED
-[22:47:28.755][Event] STRUCTURE_UPDATED
-[22:47:30.444][Commander] BUILD command invoked.
-[22:47:30.444][Build] The document of the active editor: file://%WS1%/Codes/FLDefinder/paper/main.tex
-[22:47:30.445][Build] The languageId of the document: latex
-[22:47:30.445][Root] Current workspace folders: ["file://%WS1%"]
-[22:47:30.447][Root] Found root file from active editor: %WS1%/Codes/FLDefinder/paper/main.tex
-[22:47:30.448][Root] Keep using the same root file: %WS1%/Codes/FLDefinder/paper/main.tex
-[22:47:30.448][Event] ROOT_FILE_SEARCHED
-[22:47:30.449][Event] STRUCTURE_UPDATED
-[22:47:30.449][Build] Building root file: %WS1%/Codes/FLDefinder/paper/main.tex
-[22:47:30.450][Build][Recipe] Build root file %WS1%/Codes/FLDefinder/paper/main.tex
-[22:47:30.943][Build][Recipe] Preparing to run recipe: latexmk 🔃.
-[22:47:30.944][Build][Recipe] Prepared 1 tools.
-[22:47:30.959][Build][Recipe] Cannot run `pdflatex` to determine if we are using MiKTeX.
-[22:47:30.961][Build][Recipe] outDir: %WS1%/Codes/FLDefinder/paper .
-[22:47:30.963][Build] Recipe step 1 The command is xelatex:["-synctex=1","-interaction=nonstopmode","-file-line-error","%WS1%/Codes/FLDefinder/paper/main"].
-[22:47:30.964][Build] env: undefined
-[22:47:30.964][Build] root: %WS1%/Codes/FLDefinder/paper/main.tex
-[22:47:30.965][Build] cwd: %WS1%/Codes/FLDefinder/paper
-[22:47:30.975][Build] LaTeX build process spawned with PID undefined.
-[22:47:30.977][Build] LaTeX fatal error on PID undefined. Error: spawn xelatex ENOENT
-[22:47:30.978]Error: spawn xelatex ENOENT
-    at Process.ChildProcess._handle.onexit (node:internal/child_process:286:19)
-    at onErrorNT (node:internal/child_process:484:16)
-    at processTicksAndRejections (node:internal/process/task_queues:82:21)
-[22:47:30.978][Build] Does the executable exist? $PATH: /home/lzy/.vscode-server/bin/611f9bfce64f25108829dd295f54a6894e87339d/bin/remote-cli:/home/lzy/.local/bin:/home/lzy/.cargo/bin:/usr/local/cuda-11/bin:/anaconda3/bin:/anaconda3/bin:/anaconda3/condabin:/anaconda3/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/home/lzy/gurobi1003/linux64/bin:~/gurobi1003/linux64/bin, $Path: undefined, $SHELL: /bin/bash
-[22:47:30.979][Build] 
+# Makefile for compiling main.tex with xelatex
+# and cleaning auxiliary files
+
+# Variables
+TEX = main.tex
+CLS = IEEEtran.cls
+PDF = main.pdf
+AUX = main.aux
+DVI = main.dvi
+LOG = main.log
+LOG2 = missfont.log
+
+# Default target
+all: $(PDF)
+
+# Compile target
+$(PDF): $(TEX) $(CLS)
+	/usr/local/texlive/2024/bin/x86_64-linux/xelatex $(TEX)
+
+# Clean target
+clean:
+	rm -f $(AUX) $(DVI) $(LOG) $(PDF) $(LOG2)
+
+# Clean shortcut target
+c: clean
+
+# Phony targets
+.PHONY: all clean c
 ```
 
 
 
 
 
+Compile里的`$(AUX) $(DVI) $(LOG) $(PDF) $(LOG2)`和clean target里的`$(AUX) $(DVI) $(LOG) $(PDF) $(LOG2)`有点重复了
 
-解释一下VsCode的%WS1%
-
-
-
+有没有什么更优雅的办法只用写一遍？
 
 
 
@@ -156,7 +47,7 @@ which xelatex
 
 
 
-Linux可以设置环境变量，令`%WS1%`为一个具体的路径吗
+latex速成
 
 
 
@@ -165,157 +56,68 @@ Linux可以设置环境变量，令`%WS1%`为一个具体的路径吗
 
 
 
-Linux的shell中`%`代表什么
-
-
-
-
-
-
-
-
-帮我写一个Makefile，有两个功能：
-
-1. make命令，当main.tex或IEEEtran.cls发生变化时，执行命令```xelatex main.tex```
-2. make clean命令，执行命令```rm main.aux main.dvi main.log main.pdf```
-
-
-
-
-
-
-添加命令 make c的时候 执行 make clean
-
-
-
-
-
-
-
-
-
-VsCode能否实现当我保存latex文件时，执行make命令
-
-
-
-
-
-
-
-
-好的，Latex插件的问题已经解决了，现在我要解决latex无法正常渲染中文的问题。请问我应该怎么解决？
-
-
-
-
-
-
-这是我系统上所有的中文字体，请你帮我选一个好看的出来
+我现在有一个异常检测类
 
 ```
-/usr/share/fonts/truetype/arphic/uming.ttc: AR PL UMing TW MBE:style=Light
-/usr/share/fonts/X11/misc/18x18ja.pcf.gz: Fixed:style=ja
-/usr/share/fonts/opentype/noto/NotoSerifCJK-Bold.ttc: Noto Serif CJK SC:style=Bold
-/usr/share/fonts/opentype/noto/NotoSerifCJK-Bold.ttc: Noto Serif CJK TC:style=Bold
-/usr/share/fonts/truetype/arphic/ukai.ttc: AR PL UKai CN:style=Book
-/usr/share/fonts/opentype/noto/NotoSansCJK-Black.ttc: Noto Sans CJK HK,Noto Sans CJK HK Black:style=Black,Regular
-/usr/share/fonts/truetype/arphic/ukai.ttc: AR PL UKai HK:style=Book
-/usr/share/fonts/opentype/noto/NotoSerifCJK-Bold.ttc: Noto Serif CJK JP:style=Bold
-/usr/share/fonts/opentype/noto/NotoSerifCJK-Bold.ttc: Noto Serif CJK KR:style=Bold
-/usr/share/fonts/truetype/arphic/ukai.ttc: AR PL UKai TW:style=Book
-/usr/share/fonts/opentype/noto/NotoSansCJK-Regular.ttc: Noto Sans CJK JP:style=Regular
-/usr/share/fonts/opentype/noto/NotoSansCJK-Regular.ttc: Noto Sans CJK HK:style=Regular
-/usr/share/fonts/opentype/noto/NotoSansCJK-Regular.ttc: Noto Sans CJK KR:style=Regular
-/usr/share/fonts/opentype/noto/NotoSansCJK-Black.ttc: Noto Sans CJK TC,Noto Sans CJK TC Black:style=Black,Regular
-/usr/share/fonts/opentype/noto/NotoSerifCJK-Medium.ttc: Noto Serif CJK KR,Noto Serif CJK KR Medium:style=Medium,Regular
-/usr/share/fonts/opentype/noto/NotoSansCJK-Black.ttc: Noto Sans CJK KR,Noto Sans CJK KR Black:style=Black,Regular
-/usr/share/fonts/truetype/wqy/wqy-microhei.ttc: 文泉驿微米黑,WenQuanYi Micro Hei,文泉驛微米黑:style=Regular
-/usr/share/fonts/opentype/noto/NotoSansCJK-Regular.ttc: Noto Sans CJK SC:style=Regular
-/usr/share/fonts/opentype/noto/NotoSerifCJK-SemiBold.ttc: Noto Serif CJK SC,Noto Serif CJK SC SemiBold:style=SemiBold,Regular
-/usr/share/fonts/opentype/noto/NotoSansCJK-Regular.ttc: Noto Sans CJK TC:style=Regular
-/usr/share/fonts/opentype/noto/NotoSansCJK-Medium.ttc: Noto Sans CJK JP,Noto Sans CJK JP Medium:style=Medium,Regular
-/usr/share/fonts/opentype/noto/NotoSerifCJK-Black.ttc: Noto Serif CJK JP,Noto Serif CJK JP Black:style=Black,Regular
-/usr/share/fonts/opentype/noto/NotoSansCJK-Light.ttc: Noto Sans CJK KR,Noto Sans CJK KR Light:style=Light,Regular
-/usr/share/fonts/X11/misc/wenquanyi_13px.pcf: WenQuanYi Bitmap Song:style=Regular
-/usr/share/fonts/truetype/wqy/wqy-zenhei.ttc: 文泉驿正黑,WenQuanYi Zen Hei,文泉驛正黑:style=Regular
-/usr/share/fonts/X11/misc/wenquanyi_12pt.pcf: WenQuanYi Bitmap Song:style=Regular
-/usr/share/fonts/truetype/wqy/wqy-zenhei.ttc: 文泉驿点阵正黑,WenQuanYi Zen Hei Sharp,文泉驛點陣正黑:style=Regular
-/usr/share/fonts/opentype/noto/NotoSansCJK-Light.ttc: Noto Sans CJK HK,Noto Sans CJK HK Light:style=Light,Regular
-/usr/share/fonts/opentype/noto/NotoSansCJK-Black.ttc: Noto Sans CJK SC,Noto Sans CJK SC Black:style=Black,Regular
-/usr/share/fonts/opentype/noto/NotoSerifCJK-Regular.ttc: Noto Serif CJK SC:style=Regular
-/usr/share/fonts/opentype/noto/NotoSerifCJK-Regular.ttc: Noto Serif CJK TC:style=Regular
-/usr/share/fonts/opentype/noto/NotoSansCJK-Light.ttc: Noto Sans CJK SC,Noto Sans CJK SC Light:style=Light,Regular
-/usr/share/fonts/opentype/noto/NotoSerifCJK-Light.ttc: Noto Serif CJK JP,Noto Serif CJK JP Light:style=Light,Regular
-/usr/share/fonts/opentype/noto/NotoSerifCJK-Regular.ttc: Noto Serif CJK JP:style=Regular
-/usr/share/fonts/opentype/noto/NotoSerifCJK-Regular.ttc: Noto Serif CJK KR:style=Regular
-/usr/share/fonts/X11/misc/wenquanyi_10pt.pcf: WenQuanYi Bitmap Song:style=Regular
-/usr/share/fonts/opentype/noto/NotoSerifCJK-ExtraLight.ttc: Noto Serif CJK SC,Noto Serif CJK SC ExtraLight:style=ExtraLight,Regular
-/usr/share/fonts/opentype/noto/NotoSansCJK-Medium.ttc: Noto Sans CJK KR,Noto Sans CJK KR Medium:style=Medium,Regular
-/usr/share/fonts/X11/misc/wenquanyi_9pt.pcf: WenQuanYi Bitmap Song:style=Regular
-/usr/share/fonts/truetype/droid/DroidSansFallbackFull.ttf: Droid Sans Fallback:style=Regular
-/usr/share/fonts/X11/misc/wenquanyi_11pt.pcf: WenQuanYi Bitmap Song:style=Regular
-/usr/share/fonts/opentype/noto/NotoSansCJK-DemiLight.ttc: Noto Sans CJK JP,Noto Sans CJK JP DemiLight:style=DemiLight,Regular
-/usr/share/fonts/opentype/noto/NotoSansCJK-Thin.ttc: Noto Sans CJK JP,Noto Sans CJK JP Thin:style=Thin,Regular
-/usr/share/fonts/opentype/noto/NotoSansCJK-Light.ttc: Noto Sans CJK JP,Noto Sans CJK JP Light:style=Light,Regular
-/usr/share/fonts/opentype/noto/NotoSerifCJK-Light.ttc: Noto Serif CJK SC,Noto Serif CJK SC Light:style=Light,Regular
-/usr/share/fonts/opentype/noto/NotoSerifCJK-ExtraLight.ttc: Noto Serif CJK TC,Noto Serif CJK TC ExtraLight:style=ExtraLight,Regular
-/usr/share/fonts/opentype/noto/NotoSansCJK-Thin.ttc: Noto Sans CJK KR,Noto Sans CJK KR Thin:style=Thin,Regular
-/usr/share/fonts/opentype/noto/NotoSerifCJK-ExtraLight.ttc: Noto Serif CJK KR,Noto Serif CJK KR ExtraLight:style=ExtraLight,Regular
-/usr/share/fonts/opentype/noto/NotoSansCJK-Thin.ttc: Noto Sans CJK HK,Noto Sans CJK HK Thin:style=Thin,Regular
-/usr/share/fonts/opentype/noto/NotoSansCJK-Thin.ttc: Noto Sans CJK SC,Noto Sans CJK SC Thin:style=Thin,Regular
-/usr/share/fonts/opentype/noto/NotoSerifCJK-SemiBold.ttc: Noto Serif CJK JP,Noto Serif CJK JP SemiBold:style=SemiBold,Regular
-/usr/share/fonts/opentype/noto/NotoSerifCJK-Black.ttc: Noto Serif CJK SC,Noto Serif CJK SC Black:style=Black,Regular
-/usr/share/fonts/opentype/noto/NotoSansCJK-DemiLight.ttc: Noto Sans CJK TC,Noto Sans CJK TC DemiLight:style=DemiLight,Regular
-/usr/share/fonts/opentype/noto/NotoSerifCJK-Medium.ttc: Noto Serif CJK SC,Noto Serif CJK SC Medium:style=Medium,Regular
-/usr/share/fonts/opentype/noto/NotoSansCJK-DemiLight.ttc: Noto Sans CJK SC,Noto Sans CJK SC DemiLight:style=DemiLight,Regular
-/usr/share/fonts/opentype/noto/NotoSansCJK-Medium.ttc: Noto Sans CJK TC,Noto Sans CJK TC Medium:style=Medium,Regular
-/usr/share/fonts/opentype/noto/NotoSansCJK-Black.ttc: Noto Sans CJK JP,Noto Sans CJK JP Black:style=Black,Regular
-/usr/share/fonts/opentype/noto/NotoSerifCJK-Light.ttc: Noto Serif CJK KR,Noto Serif CJK KR Light:style=Light,Regular
-/usr/share/fonts/opentype/noto/NotoSerifCJK-SemiBold.ttc: Noto Serif CJK KR,Noto Serif CJK KR SemiBold:style=SemiBold,Regular
-/usr/share/fonts/opentype/noto/NotoSansCJK-Medium.ttc: Noto Sans CJK SC,Noto Sans CJK SC Medium:style=Medium,Regular
-/usr/share/fonts/opentype/noto/NotoSerifCJK-Black.ttc: Noto Serif CJK TC,Noto Serif CJK TC Black:style=Black,Regular
-/usr/share/fonts/opentype/noto/NotoSansCJK-Bold.ttc: Noto Sans Mono CJK TC:style=Bold
-/usr/share/fonts/opentype/noto/NotoSansCJK-DemiLight.ttc: Noto Sans CJK KR,Noto Sans CJK KR DemiLight:style=DemiLight,Regular
-/usr/share/fonts/opentype/noto/NotoSansCJK-Bold.ttc: Noto Sans Mono CJK SC:style=Bold
-/usr/share/fonts/opentype/noto/NotoSansCJK-Bold.ttc: Noto Sans Mono CJK KR:style=Bold
-/usr/share/fonts/opentype/noto/NotoSansCJK-Bold.ttc: Noto Sans Mono CJK HK:style=Bold
-/usr/share/fonts/opentype/noto/NotoSansCJK-Bold.ttc: Noto Sans Mono CJK JP:style=Bold
-/usr/share/fonts/opentype/noto/NotoSerifCJK-Medium.ttc: Noto Serif CJK TC,Noto Serif CJK TC Medium:style=Medium,Regular
-/usr/share/fonts/truetype/arphic/ukai.ttc: AR PL UKai TW MBE:style=Book
-/usr/share/fonts/opentype/noto/NotoSerifCJK-ExtraLight.ttc: Noto Serif CJK JP,Noto Serif CJK JP ExtraLight:style=ExtraLight,Regular
-/usr/share/fonts/truetype/arphic/uming.ttc: AR PL UMing TW:style=Light
-/usr/share/fonts/opentype/noto/NotoSerifCJK-Black.ttc: Noto Serif CJK KR,Noto Serif CJK KR Black:style=Black,Regular
-/usr/share/fonts/opentype/noto/NotoSansCJK-Medium.ttc: Noto Sans CJK HK,Noto Sans CJK HK Medium:style=Medium,Regular
-/usr/share/fonts/truetype/wqy/wqy-zenhei.ttc: 文泉驿等宽正黑,WenQuanYi Zen Hei Mono,文泉驛等寬正黑:style=Regular
-/usr/share/fonts/X11/misc/18x18ko.pcf.gz: Fixed:style=ko
-/usr/share/fonts/truetype/arphic/uming.ttc: AR PL UMing CN:style=Light
-/usr/share/fonts/truetype/arphic/uming.ttc: AR PL UMing HK:style=Light
-/usr/share/fonts/opentype/noto/NotoSerifCJK-SemiBold.ttc: Noto Serif CJK TC,Noto Serif CJK TC SemiBold:style=SemiBold,Regular
-/usr/share/fonts/opentype/noto/NotoSansCJK-Regular.ttc: Noto Sans Mono CJK SC:style=Regular
-/usr/share/fonts/truetype/wqy/wqy-microhei.ttc: 文泉驿等宽微米黑,WenQuanYi Micro Hei Mono,文泉驛等寬微米黑:style=Regular
-/usr/share/fonts/opentype/noto/NotoSansCJK-Regular.ttc: Noto Sans Mono CJK TC:style=Regular
-/usr/share/fonts/opentype/noto/NotoSerifCJK-Light.ttc: Noto Serif CJK TC,Noto Serif CJK TC Light:style=Light,Regular
-/usr/share/fonts/opentype/noto/NotoSansCJK-Regular.ttc: Noto Sans Mono CJK HK:style=Regular
-/usr/share/fonts/opentype/noto/NotoSansCJK-Regular.ttc: Noto Sans Mono CJK KR:style=Regular
-/usr/share/fonts/opentype/noto/NotoSansCJK-Regular.ttc: Noto Sans Mono CJK JP:style=Regular
-/usr/share/fonts/opentype/noto/NotoSansCJK-Thin.ttc: Noto Sans CJK TC,Noto Sans CJK TC Thin:style=Thin,Regular
-/usr/share/fonts/opentype/noto/NotoSansCJK-DemiLight.ttc: Noto Sans CJK HK,Noto Sans CJK HK DemiLight:style=DemiLight,Regular
-/usr/share/fonts/opentype/noto/NotoSansCJK-Bold.ttc: Noto Sans CJK JP:style=Bold
-/usr/share/fonts/opentype/noto/NotoSansCJK-Bold.ttc: Noto Sans CJK KR:style=Bold
-/usr/share/fonts/opentype/noto/NotoSansCJK-Bold.ttc: Noto Sans CJK HK:style=Bold
-/usr/share/fonts/opentype/noto/NotoSansCJK-Bold.ttc: Noto Sans CJK TC:style=Bold
-/usr/share/fonts/opentype/noto/NotoSansCJK-Bold.ttc: Noto Sans CJK SC:style=Bold
-/usr/share/fonts/opentype/noto/NotoSerifCJK-Medium.ttc: Noto Serif CJK JP,Noto Serif CJK JP Medium:style=Medium,Regular
-/usr/share/fonts/opentype/noto/NotoSansCJK-Light.ttc: Noto Sans CJK TC,Noto Sans CJK TC Light:style=Light,Regular
+#异常检测（梯度分析类）
+class GradientAnalyzer:
+    def __init__(self, n_components=2, use_gpu=True, device=device):
+        self.n_components = n_components
+        self.use_gpu = use_gpu
+        self.device = device
+        self.pca = PCA(n_components=self.n_components)
+    
+    def find_gradients(self, grads_dict:dict):
+        for i, grads in grads_dict.items():
+            print(f"Gradients from list {i}:")
+            for key in grads:
+                grad = grads[key]
+                # Warnging: 下面一行print会输出很多内容
+                print(f"Key: {key}, Gradient shape: {grad.shape}, Gradient dtype: {grad.dtype}, Gradient values: {grad}")
+    
+    # TODO: 更精确的检测模型
+    def find_useful_gradients(self, grads_dict: dict) -> Tuple[List, List]:
+        useful_grads_list = []
+        anomalous_grads_list = []
+        
+        # Collect all gradients into a single numpy array
+        grads_dict_cpu = {layer: {name: grad.cpu() for name, grad in grads.items()} for layer, grads in grads_dict.items()}
+        all_grads = np.array([np.concatenate([grad.flatten() for grad in grads.values()]) for _, grads in grads_dict_cpu.items()])
+        
+        # Perform PCA on all gradients
+        print(f"PCA Begin | {getNow()}")
+        reduced_grads = self.pca.fit_transform(all_grads)
+        print(f"PCA End | {getNow()}")
+        
+        # Calculate distances of each gradient to the principal components in PCA space
+        distances = np.linalg.norm(reduced_grads - np.mean(reduced_grads, axis=0), axis=1)
+
+        # Define anomaly threshold, e.g., 3 times standard deviation
+        threshold = np.mean(distances) + PCA_rate * np.std(distances)
+
+        # Determine useful and anomalous gradients
+        for i, distance in enumerate(distances):
+            if distance > threshold:
+                anomalous_grads_list.append(i)  # 标记为异常的grad
+            else:
+                useful_grads_list.append(i)     # 标记为有用的grad
+        print(anomalous_grads_list)
+        return useful_grads_list, anomalous_grads_list
+    
+    #清除anomalous_grads_list中的数据
+    def clean_grads(self, grads_dict: dict, anomalous_grads_list: list) -> dict:
+        cleaned_grads_dict = {}
+        current_index = 0
+        for name, grads in grads_dict.items():
+            if current_index not in anomalous_grads_list:
+                cleaned_grads_dict[name] = grads
+            else: 
+                print(f'{name} is BANNED!')
+            current_index += 1
+        return cleaned_grads_dict
 ```
 
-
-
-
-
-
-
-如何提取linux上的WenQuanYi Zen Hei字体
+但其中PCA的`n_components`是认为确定的。我想令`n_components="mle"`，请问如何修改？
 
 
 
@@ -324,21 +126,195 @@ VsCode能否实现当我保存latex文件时，执行make命令
 
 
 
-cp字体到fonts目录下后```\setCJKmainfont{WenQuanYi Zen Hei}[Path=fonts/]```报错还是找不到字体
+
+
+
+
+Traceback (most recent call last):
+  File "main.py", line 321, in <module>
+    _, anomaList = gradentAnalyzer.find_useful_gradients(grads_dict)
+  File "main.py", line 249, in find_useful_gradients
+    reduced_grads = self.pca.fit_transform(all_grads)
+  File "/home/lzy/.conda/envs/ltf/lib/python3.8/site-packages/sklearn/utils/_set_output.py", line 157, in wrapped
+    data_to_wrap = f(self, X, *args, **kwargs)
+  File "/home/lzy/.conda/envs/ltf/lib/python3.8/site-packages/sklearn/base.py", line 1152, in wrapper
+    return fit_method(estimator, *args, **kwargs)
+  File "/home/lzy/.conda/envs/ltf/lib/python3.8/site-packages/sklearn/decomposition/_pca.py", line 460, in fit_transform
+    U, S, Vt = self._fit(X)
+  File "/home/lzy/.conda/envs/ltf/lib/python3.8/site-packages/sklearn/decomposition/_pca.py", line 510, in _fit
+    return self._fit_full(X, n_components)
+  File "/home/lzy/.conda/envs/ltf/lib/python3.8/site-packages/sklearn/decomposition/_pca.py", line 520, in _fit_full
+    raise ValueError(
+ValueError: n_components='mle' is only supported if n_samples >= n_features
+
+
+
+
+
+
+PCA的n_compose是什么
+
+
+
+
+
+
+
+保留主成分的“主成分”是什么意思？
+
+
+
+
+
+
+我有十个客户端，每个客户端的参数个数为`85806346`个。但其中有少量的恶意客户端，我想把恶意客户端找出来。
+
+也就是说，我想在shape为`(10, 85806346)`的10组数据中，找出少量的异常的几组数据，请问我应该怎么设置PCA的参数比较合适？
+
+
+
+
+
+
+
+
+这是我当前的部分代码
 
 ```
-! Package fontspec Error: 
-(fontspec)                The font "WenQuanYi Zen Hei" cannot be found; this
-(fontspec)                may be but usually is not a fontspec bug. Either
-(fontspec)                there is a typo in the font name/file, the font is
-(fontspec)                not installed (correctly), or there is a bug in
-(fontspec)                the underlying font loading engine
-(fontspec)                (XeTeX/luaotfload).
-
-For immediate help type H <return>.
- ...                                              
-                                                  
-l.8 ...CJKmainfont{WenQuanYi Zen Hei}[Path=fonts/]
-                                                   % 设置中文主字体
-? 
+# 参数/配置
+num_clients = 10          # 客户端数量
+batch_size = 32           # 每批次多少张图片
+num_rounds = 32           # 总轮次
+epoch_client = 1          # 每个客户端的轮次
+datasize_perclient = 32   # 每个客户端的数据量
+datasize_valide = 1000    # 测试集大小
+learning_rate = 0.001     # 步长
+ifPCA = True              # 是否启用PCA评价 
+ifCleanAnoma = True       # 是否清理PCA抓出的异常数据
+PCA_rate = 1              # PCA偏离倍数
+attackList = [0, 1, 2]    # 恶意客户端下标
+attack_rate = 1           # 攻击强度
+device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+with open(f'./result/{now}/config.env', 'w') as f:
+    f.write(f"""num_clients = {num_clients}
+batch_size = {batch_size}
+num_rounds = {num_rounds}
+epoch_client = {epoch_client}
+datasize_perclient = {datasize_perclient}
+datasize_valide = {datasize_valide}
+learning_rate = {learning_rate}
+ifPCA = {ifPCA}
+ifCleanAnoma = {ifCleanAnoma}
+PCA_rate = {PCA_rate}
+attackList = {attackList}
+attack_rate = {attack_rate}
+device = {device}
+""")
 ```
+
+有没有更加优雅的方式？
+
+
+
+
+
+
+
+
+这样我还是要写两遍配置名称。假如我新增了一个配置，那么我配置文件里和python代码里都要再写一遍。这样不是很好。
+
+有没有什么只需要写一遍的方式？
+
+
+
+
+
+这是我当前代码中的配置相关的部分：
+
+```
+# 参数/配置
+num_clients = 10          # 客户端数量
+batch_size = 32           # 每批次多少张图片
+num_rounds = 32           # 总轮次
+epoch_client = 1          # 每个客户端的轮次
+datasize_perclient = 32   # 每个客户端的数据量
+datasize_valide = 1000    # 测试集大小
+learning_rate = 0.001     # 步长
+ifPCA = True              # 是否启用PCA评价 
+ifCleanAnoma = True       # 是否清理PCA抓出的异常数据
+PCA_rate = 1              # PCA偏离倍数
+attackList = [0, 1, 2]    # 恶意客户端下标
+attack_rate = 1           # 攻击强度
+```
+
+帮我写一个agrparser，实现以下功能：
+
++ 我可以直接使用`main.py`命令，这时使用代码中的配置。
++ 我也可以使用`main.py --num_clients=10`，这时将替换代码中的`num_clients`值。其中，`--num_clients`只是一个示例，要做到无论参数是什么，代码中都将这个参数变成一个变量名并赋值。
+
+
+
+
+
+
+我有一个Config类：
+
+```
+# 参数/配置
+class Config:
+    def __init__(self):
+        self.num_clients = 10          # 客户端数量
+        self.batch_size = 32           # 每批次多少张图片
+        self.num_rounds = 32           # 总轮次
+        self.epoch_client = 1          # 每个客户端的轮次
+        self.datasize_perclient = 32   # 每个客户端的数据量
+        self.datasize_valide = 1000    # 测试集大小
+        self.learning_rate = 0.001     # 步长
+        self.ifPCA = False             # 是否启用PCA评价 
+        self.ifCleanAnoma = True       # 是否清理PCA抓出的异常数据
+        self.PCA_rate = 1              # PCA偏离倍数
+        self.attackList = [0, 1, 2]    # 恶意客户端下标
+        self.attack_rate = 1           # 攻击强度
+        self.device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+```
+
+我想写一个函数，将Config类中```__init__```时定义的变量按顺序依次输出，请问我应该怎么做？
+
+
+
+
+
+
+写一个agrparser：
+
++ 调用命令`python main.py`时可以执行
++ 调用命令`python main.py --name="王二"`时，打印`name: 王二`
++ 调用命令`python main.py --name="王二" --age=18`时，打印`name: 王二\nage: 18`
+
+也就是说，不论我在命令行中添加什么参数，程序都能正常处理并打印。
+
+
+
+
+
+
+不，你理解错了，`--name`只是一个示例，不需要提供任何已知参数，只需要接收用户传递的参数
+
+
+
+
+
+
+
+
+帮我写一个python程序`main.py`，它可以接收任意数量的参数并打印。
+
+例如`python main.py --参数1=值 --参数2=值2`，则程序会输出`参数1: 值\n参数2: 值2`
+
+
+
+
+
+
+
+你理解错了，我要的命令不是`python main.py --parameters 参数1=值 参数2=值2`，而是`python main.py --参数1=值 --参数2=值2`

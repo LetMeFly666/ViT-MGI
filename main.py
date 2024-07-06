@@ -2,7 +2,7 @@
 Author: LetMeFly
 Date: 2024-07-03 10:37:25
 LastEditors: LetMeFly
-LastEditTime: 2024-07-05 21:26:09
+LastEditTime: 2024-07-06 12:14:13
 '''
 import datetime
 getNow = lambda: datetime.datetime.now().strftime('%Y.%m.%d-%H:%M:%S')
@@ -30,41 +30,60 @@ import numpy as np
 import random
 import copy
 from sklearn.decomposition import PCA
+import argparse
 
 
 # 参数/配置
-num_clients = 10          # 客户端数量
-batch_size = 32           # 每批次多少张图片
-num_rounds = 32           # 总轮次
-epoch_client = 1          # 每个客户端的轮次
-datasize_perclient = 32   # 每个客户端的数据量
-datasize_valide = 1000    # 测试集大小
-learning_rate = 0.001     # 步长
-ifPCA = True              # 是否启用PCA评价 
-ifCleanAnoma = True       # 是否清理PCA抓出的异常数据
-PCA_rate = 1              # PCA偏离倍数
-attackList = [0, 1, 2]    # 恶意客户端下标
-attack_rate = 1           # 攻击强度
-device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
-with open(f'./result/{now}/config.env', 'w') as f:
-    f.write(f"""num_clients = {num_clients}
-batch_size = {batch_size}
-num_rounds = {num_rounds}
-epoch_client = {epoch_client}
-datasize_perclient = {datasize_perclient}
-datasize_valide = {datasize_valide}
-learning_rate = {learning_rate}
-ifPCA = {ifPCA}
-ifCleanAnoma = {ifCleanAnoma}
-PCA_rate = {PCA_rate}
-attackList = {attackList}
-attack_rate = {attack_rate}
-device = {device}
-""")
+class Config:
+    def __init__(self):
+        self.num_clients = 10          # 客户端数量
+        self.batch_size = 32           # 每批次多少张图片
+        self.num_rounds = 32           # 总轮次
+        self.epoch_client = 1          # 每个客户端的轮次
+        self.datasize_perclient = 32   # 每个客户端的数据量
+        self.datasize_valide = 1000    # 测试集大小
+        self.learning_rate = 0.001     # 步长
+        self.ifPCA = False             # 是否启用PCA评价 
+        self.ifCleanAnoma = True       # 是否清理PCA抓出的异常数据
+        self.PCA_rate = 1              # PCA偏离倍数
+        self.attackList = [0, 1, 2]    # 恶意客户端下标
+        self.attack_rate = 1           # 攻击强度
+        self.device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+        self.parseAgrs()
+        self.saveConfig()
+    
+    def parseAgrs(self):
+        parser = argparse.ArgumentParser(description='FLDefinder Configuration')
+        known_args, unknown_args = parser.parse_known_args()
+        for arg in unknown_args:
+            if arg.startswith("--"):
+                key_value = arg.lstrip("--").split("=", 1)
+                if len(key_value) == 2:
+                    key, value = key_value
+                    try:
+                        value = eval(value)
+                    except:
+                        pass
+                    self.setConfig(key, value)
+                else:
+                    print(f"Invalid parameter format: {arg}")
+
+    def saveConfig(self):
+        toWrite = ''
+        for key, value in self.__dict__.items():
+            toWrite += f"{key} = {value}\n"
+            print(f'{key}: {type(value)}')
+        with open(f'./result/{now}/config.env', 'w') as f:
+            f.write(toWrite)
+    
+    def setConfig(self, key: str, value):
+        self.__dict__[key] = value
+
+config = Config()
 
 # 定义ViT模型
 class ViTModel(nn.Module):
-    def __init__(self, num_classes=10, device: str=device, name: str=None):
+    def __init__(self, num_classes=10, device: str=config.device, name: str=None):
         super(ViTModel, self).__init__()
         model_path = './data/vit_base_patch16_224'
         config = ViTConfig.from_pretrained(model_path)
@@ -169,7 +188,7 @@ class Attack(Client):
     def __init__(self, data_loader: DataLoader):
         super().__init__(data_loader)
 
-    def compute_gradient(self, criterion: nn.CrossEntropyLoss, device: str, num_epochs: int):
+    def compute_gradient(self, criterion: nn.CrossEntropyLoss, device: str, num_epochs: int, attack_rate: float=config.attack_rate):
         gradient_changes, average_loss = super().compute_gradient(criterion, device, num_epochs)
         
         # 返回gradient_changes中所有值的`相反数*attack_rate`
@@ -222,10 +241,9 @@ class Server:
 
 #异常检测（梯度分析类）
 class GradientAnalyzer:
-    def __init__(self, n_components=2, use_gpu=True, device=device):
+    def __init__(self, n_components=2, use_gpu=True):
         self.n_components = n_components
         self.use_gpu = use_gpu
-        self.device = device
         self.pca = PCA(n_components=self.n_components)
     
     def find_gradients(self, grads_dict:dict):
@@ -237,13 +255,14 @@ class GradientAnalyzer:
                 print(f"Key: {key}, Gradient shape: {grad.shape}, Gradient dtype: {grad.dtype}, Gradient values: {grad}")
     
     # TODO: 更精确的检测模型
-    def find_useful_gradients(self, grads_dict: dict) -> Tuple[List, List]:
+    def find_useful_gradients(self, grads_dict: dict, PCA_rate: int=config.PCA_rate) -> Tuple[List, List]:
         useful_grads_list = []
         anomalous_grads_list = []
         
         # Collect all gradients into a single numpy array
         grads_dict_cpu = {layer: {name: grad.cpu() for name, grad in grads.items()} for layer, grads in grads_dict.items()}
-        all_grads = np.array([np.concatenate([grad.flatten() for grad in grads.values()]) for _, grads in grads_dict_cpu.items()])
+        all_grads = np.array([np.concatenate([grad.flatten() for grad in grads.values()]) for _, grads in grads_dict_cpu.items()]) # shape: (10, 85806346)
+        # 尝试使用mle失败了，因为mle要求数据量大于特征数
         
         # Perform PCA on all gradients
         print(f"PCA Begin | {getNow()}")
@@ -278,28 +297,28 @@ class GradientAnalyzer:
         return cleaned_grads_dict
             
 # 初始化数据管理器
-data_manager = DataManager(num_clients, batch_size, datasize_perclient, datasize_valide)
+data_manager = DataManager(config.num_clients, config.batch_size, config.datasize_perclient, config.datasize_valide)
 
 # 初始化服务器
-global_model = ViTModel(device=device, name='GlobalModel')
-server = Server(global_model, device)
+global_model = ViTModel(device=config.device, name='GlobalModel')
+server = Server(global_model, config.device)
 
 # 联邦学习过程
 criterion = nn.CrossEntropyLoss()
 
 ploter = Ploter(x='batch', y=['loss', 'accuracy'], title='loss and accuracy', filename=f'./result/{now}/lossAndAccuracy.svg')
-accuracy = server.evaluate(data_manager.get_val_loader(), device)
+accuracy = server.evaluate(data_manager.get_val_loader(), config.device)
 timeRecorder.addRecord(f'init accuracy: {accuracy*100:.2f}%')
 import math  # TODO: 计算真正的loss
 ploter.addData(x=0, y={'loss': math.nan, 'accuracy': accuracy})
 
-for round_num in range(num_rounds):
-    timeRecorder.addRecord(f'Round {round_num + 1} of {num_rounds}')
+for round_num in range(config.num_rounds):
+    timeRecorder.addRecord(f'Round {round_num + 1} of {config.num_rounds}')
     
     # 获取当前轮次的客户端数据加载器
     clients_data_loaders = data_manager.get_clients_data_loaders()
     clients = [Client(data_loader) for data_loader in clients_data_loaders]
-    for attackerIndex in attackList:
+    for attackerIndex in config.attackList:
         clients[attackerIndex] = Attack(clients_data_loaders[attackerIndex])
 
     # 分发当前的全局模型给所有客户端
@@ -309,18 +328,18 @@ for round_num in range(num_rounds):
     total_loss = 0.0
     for th, client in enumerate(clients):
         # timeRecorder.addRecord(f'Round {round_num + 1}/{num_rounds} client {th + 1}/{num_clients} is computing gradients...')
-        grads, loss = client.compute_gradient(criterion, device, epoch_client)
+        grads, loss = client.compute_gradient(criterion, config.device, config.epoch_client)
         grads_dict[client.getName()] = grads 
         total_loss += loss
-    avg_loss = total_loss / num_clients
+    avg_loss = total_loss / config.num_clients
     print(f"Average loss: {avg_loss} | {getNow()}")
     
     # 服务器聚合梯度并更新全局模型
-    if attackList and ifPCA:
+    if config.attackList and config.ifPCA:
         gradentAnalyzer = GradientAnalyzer()
         # gradentAnalyzer.find_gradients(grads_dict)
         _, anomaList = gradentAnalyzer.find_useful_gradients(grads_dict)
-    if ifCleanAnoma and ifPCA and attackList:
+    if config.ifCleanAnoma and config.ifPCA and config.attackList:
         grads_dict = gradentAnalyzer.clean_grads(grads_dict, anomaList)
     
     avg_grads = server.aggregate_gradients(grads_dict)
@@ -329,7 +348,7 @@ for round_num in range(num_rounds):
     # 每轮训练后从测试集中随机挑选数据进行验证
     val_loader = data_manager.get_val_loader()
     # print(f'Begin to evaluate accuracy... | {getNow()}')
-    accuracy = server.evaluate(val_loader, device)
+    accuracy = server.evaluate(val_loader, config.device)
     timeRecorder.addRecord(f"Round {round_num + 1}\'s accuracy: {accuracy * 100:.2f}%")
     ploter.addData(x=round_num + 1, y={'loss': avg_loss, 'accuracy': accuracy})
 
