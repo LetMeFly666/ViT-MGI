@@ -2,7 +2,7 @@
  * @Author: LetMeFly
  * @Date: 2024-05-15 17:45:43
  * @LastEditors: LetMeFly
- * @LastEditTime: 2024-07-07 14:16:42
+ * @LastEditTime: 2024-07-07 15:13:53
 -->
 # FLDefinder
 
@@ -207,7 +207,7 @@ attack_rate = 1
 
 模型参数相关参数：
 
-| 单个客户端训练轮次 | learning rate | batch size | device | accuracy | 最大准确率 | 首次出现轮次 | 程序执行耗时 | 结果图 |
+| 单个客户端训练轮次 | 步长 | batch size | device | accuracy | 最大准确率 | 首次出现轮次 | 执行耗时 | 结果图 |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | 3 | 0.5 | 32 | cuda:0 | [准确率](./result/Archive001-oldHistory/Archive005-nonePretrainedModel-params/2024.07.07-02:27:51/accuracyList.txt) | 45.6% | 27 | 0:19:22 | ![Result Image](./result/Archive001-oldHistory/Archive005-nonePretrainedModel-params/2024.07.07-02:27:51/lossAndAccuracy.svg) |
 | 3 | 0.1 | 32 | cuda:0 | [准确率](./result/Archive001-oldHistory/Archive005-nonePretrainedModel-params/2024.07.07-01:52:45/accuracyList.txt) | 47.0% | 28 | 0:19:47 | ![Result Image](./result/Archive001-oldHistory/Archive005-nonePretrainedModel-params/2024.07.07-01:52:45/lossAndAccuracy.svg) |
@@ -223,7 +223,30 @@ attack_rate = 1
 | 2 | 0.001 | 8 | cuda:1 | [准确率](./result/Archive001-oldHistory/Archive005-nonePretrainedModel-params/2024.07.07-03:41:48/accuracyList.txt) | 40.4% | 27 | 0:26:43 | ![Result Image](./result/Archive001-oldHistory/Archive005-nonePretrainedModel-params/2024.07.07-03:41:48/lossAndAccuracy.svg) |
 | 1 | 0.001 | 32 | cuda:1 | [准确率](./result/Archive001-oldHistory/Archive005-nonePretrainedModel-params/2024.07.07-01:53:18/accuracyList.txt) | 38.9% | 32 | 0:12:44 | ![Result Image](./result/Archive001-oldHistory/Archive005-nonePretrainedModel-params/2024.07.07-01:53:18/lossAndAccuracy.svg) |
 | 1 | 0.001 | 8 | cuda:1 | [准确率](./result/Archive001-oldHistory/Archive005-nonePretrainedModel-params/2024.07.07-04:14:49/accuracyList.txt) | 36.4% | 32 | 0:16:48 | ![Result Image](./result/Archive001-oldHistory/Archive005-nonePretrainedModel-params/2024.07.07-04:14:49/lossAndAccuracy.svg) |
+
 可能是因训练轮次太少了，都暂未达到较高的准确率
+
+### Log010 - 2024.7.7_8:00-2024.7.7_11:30(ty)
+
++ 池化相关研究
++ 隔离森林相关研究
+
+#### 关于池化的研究
+
+池化size：4
+
++ 实验[`2024.07.07-09:28:37-pool`](./result/Archive001-oldHistory/Archive006-poolAndForest/2024.07.07-09:28:37-pool/stdout.txt)：抓人准确率下降，最高准确率略高
++ 实验[`2024.07.07-09:29:04-notpool`](./result/Archive001-oldHistory/Archive006-poolAndForest/2024.07.07-09:29:04-notpool/stdout.txt)：抓人准确率较高，最高准确率略低
+
+似乎效果并不明显。
+
+池化size：9，池化方式：mean
+
++ 实验[`2024.07.07-10:14:39`](./result/Archive001-oldHistory/Archive006-poolAndForest/2024.07.07-10:14:39/stdout.txt)：对比notpool，抓人准确率下降，最高准确率无优势
+
+#### 关于隔离森林的研究
+
+几乎是在瞎抓。不过基本上都是mean池。
 
 ### TODO
 

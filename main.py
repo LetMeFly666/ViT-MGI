@@ -2,7 +2,7 @@
 Author: LetMeFly
 Date: 2024-07-03 10:37:25
 LastEditors: LetMeFly
-LastEditTime: 2024-07-06 13:31:58
+LastEditTime: 2024-07-07 15:52:38
 '''
 import datetime
 getNow = lambda: datetime.datetime.now().strftime('%Y.%m.%d-%H:%M:%S')
@@ -32,6 +32,8 @@ import copy
 from sklearn.decomposition import PCA
 import argparse
 from collections import defaultdict
+import gc
+from sklearn.ensemble import IsolationForest
 
 
 # 参数/配置
@@ -44,12 +46,16 @@ class Config:
         self.datasize_perclient = 32   # 每个客户端的数据量
         self.datasize_valide = 1000    # 测试集大小
         self.learning_rate = 0.001     # 步长
-        self.ifPCA = True              # 是否启用PCA评价 
+        self.ifPCA = True              # 是否启用PCA评价 ，若不启用则启用forest
+        self.ifFindAttack=True         # 是否启用找出攻击者
         self.ifCleanAnoma = True       # 是否清理PCA抓出的异常数据
         self.PCA_rate = 1              # PCA偏离倍数
-        self.PCA_nComponents = 2       # PCA降维后的主成分数目
-        self.attackList = [0, 1, 2]    # 恶意客户端下标
+        self.PCA_nComponents = 0.2     # PCA降维后的主成分数目
+        self.attackList = [0, 1]       # 恶意客户端下标
         self.attack_rate = 1           # 攻击强度
+        self.ifPooling = True          #是否进行池化操作
+        self.poolsize = 3 * 3          #grads数组中每个grad，取n个数字中取最大值
+        self.pooltype = "mean"         #池化方式，可以为mean或者max，代表最大池化和平均池化
         self.device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
         self.parseAgrs()
         self.saveConfig()
@@ -255,16 +261,23 @@ class GradientAnalyzer:
                 # Warnging: 下面一行print会输出很多内容
                 print(f"Key: {key}, Gradient shape: {grad.shape}, Gradient dtype: {grad.dtype}, Gradient values: {grad}")
     
-    # TODO: 更精确的检测模型
-    def find_useful_gradients(self, grads_dict: dict, PCA_rate: int=config.PCA_rate) -> Tuple[List, List]:
-        useful_grads_list = []
-        anomalous_grads_list = []
-        
+    #将字典构建成列表
+    def make_gradients(self, grads_dict: dict) -> Tuple[List, List]:
         # Collect all gradients into a single numpy array
         grads_dict_cpu = {layer: {name: grad.cpu() for name, grad in grads.items()} for layer, grads in grads_dict.items()}
         all_grads = np.array([np.concatenate([grad.flatten() for grad in grads.values()]) for _, grads in grads_dict_cpu.items()]) # shape: (10, 85806346)
         # 尝试使用mle失败了，因为mle要求数据量大于特征数
-        
+        if config.ifPooling:
+           print(f"pooling Begin | {getNow()}")
+           all_grads = self.pooling(config.poolsize, all_grads)
+           print(f"pooling End | {getNow()}")
+        return all_grads
+    
+    # TODO: 更精确的检测模型
+    #PCA逻辑被移动到当前函数
+    def PCA_Method(self,all_grads:List, PCA_rate: int=config.PCA_rate):
+        useful_grads_list = []
+        anomalous_grads_list = []
         # Perform PCA on all gradients
         print(f"PCA Begin | {getNow()}")
         reduced_grads = self.pca.fit_transform(all_grads)  # 两次fit_transform会使用不同的主成分，而一次fit_transform后调用transform会使用相同的主成分
@@ -286,6 +299,79 @@ class GradientAnalyzer:
         self.ban_history.append(anomalous_grads_list)
         return useful_grads_list, anomalous_grads_list
     
+    # 根本不管用，以后再看
+    def isolation_Forest_Method(self, all_grads: List[np.ndarray]) -> Tuple[List, List]:
+        useful_grads_list = []
+        anomalous_grads_list = []
+        
+        print(f"Forest Begin | {getNow()}")
+        # Initialize Isolation Forest model
+        isolation_forest = IsolationForest()
+
+        # Fit the model to the gradients data
+        isolation_forest.fit(all_grads)
+
+        # Predict outliers (anomalies) and obtain anomaly scores
+        outlier_preds = isolation_forest.predict(all_grads)  # 返回每个数据点是否为异常点（数组），-1异常1正常
+        anomaly_scores = isolation_forest.decision_function(all_grads)  # 返回每个数据点的异常分数，分数越低表示越异常
+
+        # Combine predictions and scores for sorting
+        anomaly_results = list(zip(range(len(all_grads)), outlier_preds, anomaly_scores))
+        anomaly_results.sort(key=lambda x: x[2])  # Sort by anomaly score
+
+        # Extract useful and anomalous gradients based on predictions
+        for idx, pred, score in anomaly_results:
+            if pred == -1:  # -1 indicates an outlier
+                anomalous_grads_list.append((idx, score))
+            else:
+                useful_grads_list.append((idx, score))
+
+        print("Anomalous gradients:")
+        for idx, score in anomalous_grads_list:
+            print(f"Index: {idx}, Anomaly Score: {score}")
+
+        self.ban_history.append([idx for idx, _ in anomalous_grads_list])
+        print(f"Forest End | {getNow()}")
+        
+        return useful_grads_list, anomalous_grads_list  # TODO: 好像和PCA的样子不太一样
+
+    def find_useful_gradients(self, grads_dict: dict) -> Tuple[List, List]:
+        useful_grads_list = []
+        anomalous_grads_list = []
+        
+        all_grads = self.make_gradients(grads_dict)
+        
+        if config.ifPCA:
+            useful_grads_list, anomalous_grads_list = self.PCA_Method(all_grads, config.PCA_rate)
+        else :
+            self.isolation_Forest_Method(all_grads)  # TODO: 这里是不是应该为“useful_grads_list, anomalous_grads_list = xxx”捏
+        return useful_grads_list, anomalous_grads_list
+    
+    def pooling(self, poolsize: int, all_grads: np.ndarray) -> np.ndarray:
+        pooled_grads = []
+        for grad in all_grads:
+            grad_gpu = torch.tensor(grad, device=config.device)  # 将单个梯度移动到 GPU
+            if grad_gpu.shape[0] % poolsize != 0:
+                # 如果输入大小不能被 poolsize 整除，则进行填充
+                padding_size = poolsize - (grad_gpu.shape[0] % poolsize)
+                grad_gpu = torch.cat([grad_gpu, torch.zeros(padding_size, device=config.device)])
+            
+            grad_matrix = grad_gpu.view(-1, poolsize)  # 将梯度变为矩阵形式，每行有 poolsize 个元素
+            if config.pooltype == 'max':
+                pooled_grad, _ = torch.max(grad_matrix, dim=1)  # 最大池化
+            elif config.pooltype == 'mean':
+                pooled_grad = torch.mean(grad_matrix, dim=1)    # 平均池化
+            pooled_grads.append(pooled_grad.cpu().numpy())  # 将结果移动回 CPU 并转换为 NumPy 数组
+            
+            # 释放 GPU 内存
+            del grad_gpu, grad_matrix, pooled_grad
+            torch.cuda.empty_cache()
+            gc.collect()  # 手动调用垃圾收集器
+
+        pooled_grads = np.array(pooled_grads)
+        print(f"poolsize: {poolsize}, pooled_grads shape: {pooled_grads.shape}, all_grads shape: {all_grads.shape}")
+        return pooled_grads  # 相当于CPU内存又复制了一份，不影响原来的grad
+     
     #清除anomalous_grads_list中的数据
     def clean_grads(self, grads_dict: dict, anomalous_grads_list: list) -> dict:
         cleaned_grads_dict = {}
@@ -326,7 +412,7 @@ class GradientAnalyzer:
                 toSay += f'多抓{error}个'
             toSay += '，'
         toSay = toSay[:-1]
-        toSay += f' <br/>{tempList}|\n'
+        toSay += f' <br/>{tempList} |\n'
         print(toSay)
         return result
             
@@ -345,7 +431,7 @@ gradentAnalyzer = GradientAnalyzer(n_components=config.PCA_nComponents)
 
 ploter = Ploter(x='batch', y=['loss', 'accuracy'], title='loss and accuracy', filename=f'./result/{now}/lossAndAccuracy.svg')
 accuracy = server.evaluate(data_manager.get_val_loader(), config.device)
-timeRecorder.addRecord(f'init accuracy: {accuracy*100:.2f}%')
+timeRecorder.addRecord(f'init accuracy: {accuracy * 100:.2f}%')
 import math  # TODO: 计算真正的loss
 ploter.addData(x=0, y={'loss': math.nan, 'accuracy': accuracy})
 
@@ -372,10 +458,10 @@ for round_num in range(config.num_rounds):
     print(f"Average loss: {avg_loss} | {getNow()}")
     
     # 服务器聚合梯度并更新全局模型
-    if config.attackList and config.ifPCA:
+    if config.ifFindAttack:
         # gradentAnalyzer.find_gradients(grads_dict)
         _, anomaList = gradentAnalyzer.find_useful_gradients(grads_dict)
-    if config.ifCleanAnoma and config.ifPCA and config.attackList:
+    if config.ifFindAttack and config.ifCleanAnoma:
         grads_dict = gradentAnalyzer.clean_grads(grads_dict, anomaList)
     
     avg_grads = server.aggregate_gradients(grads_dict)
@@ -390,4 +476,5 @@ for round_num in range(config.num_rounds):
 
 print("Federated learning completed.")
 timeRecorder.printAll()
-gradentAnalyzer.evalBanAcc(config.attackList)
+if config.ifFindAttack:
+    gradentAnalyzer.evalBanAcc(config.attackList)
