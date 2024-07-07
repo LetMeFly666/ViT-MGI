@@ -47,7 +47,14 @@ def extract_time_info(log_file_path):
         elapsed_time = timedelta(0)
     return elapsed_time
 
-def generate_markdown_summary(folder_name, folder_path):
+def write_accuracies_to_file(folder_path, accuracies):
+    accuracy_file_path = os.path.join(folder_path, 'accuracyList.txt')
+    with open(accuracy_file_path, 'w') as file:
+        for accuracy in accuracies:
+            file.write(f"{accuracy}%\n")
+
+def generate_markdown_summary(base_folder, folder_name):
+    folder_path = os.path.join(base_folder, folder_name)
     config = read_config(folder_path)
     
     log_file_path = os.path.join(folder_path, 'stdout.txt')
@@ -55,13 +62,17 @@ def generate_markdown_summary(folder_name, folder_path):
     elapsed_time = extract_time_info(log_file_path)
     
     max_accuracy, max_round = get_max_accuracy(accuracies)
-    accuracy_str = ", ".join([f"{acc}%" for acc in accuracies])
-    accuracy_html = f"<div style='overflow-x:auto;width:300px;'>{accuracy_str}</div>"
+    
+    # 写入 accuracyList.txt 文件
+    write_accuracies_to_file(folder_path, accuracies)
+    
+    # 构建 accuracy 的链接
+    accuracy_link = f"[准确率](./result/Archive001-oldHistory/Archive005-nonePretrainedModel-params/{folder_name}/accuracyList.txt)"
     
     keys_of_interest = ['epoch_client', 'learning_rate', 'batch_size', 'device']
     config_values = [config.get(key, 'N/A') for key in keys_of_interest]
     
-    result_image = f"./result/{folder_name}/lossAndAccuracy.svg"
+    result_image = f"./result/Archive001-oldHistory/Archive005-nonePretrainedModel-params/{folder_name}/lossAndAccuracy.svg"
     result_image_markdown = f"![Result Image]({result_image})"
     
     values = {
@@ -69,7 +80,7 @@ def generate_markdown_summary(folder_name, folder_path):
         'learning_rate': float(config_values[1]),
         'batch_size': int(config_values[2]),
         'device': config_values[3],
-        'accuracy_str': accuracy_html,
+        'accuracy_str': accuracy_link,
         'max_accuracy': max_accuracy,
         'max_round': max_round,
         'elapsed_time': str(elapsed_time),
@@ -86,7 +97,7 @@ def is_within_date_range(folder_name, start_date, end_date):
         return False
 
 if __name__ == "__main__":
-    result_folder_path = './result'  # 将此替换为实际的结果文件夹路径
+    base_folder = './result/Archive001-oldHistory/Archive005-nonePretrainedModel-params'  # 将此替换为实际的结果文件夹路径
     start_date_str = '2024.07.07-00:41:37'
     end_date_str = '2024.07.07-04:14:49'
     
@@ -94,10 +105,9 @@ if __name__ == "__main__":
     end_date = datetime.strptime(end_date_str, "%Y.%m.%d-%H:%M:%S")
     
     summaries = []
-    for folder_name in os.listdir(result_folder_path):
-        folder_path = os.path.join(result_folder_path, folder_name)
-        if os.path.isdir(folder_path) and is_within_date_range(folder_name, start_date, end_date):
-            summary = generate_markdown_summary(folder_name, folder_path)
+    for folder_name in os.listdir(base_folder):
+        if os.path.isdir(os.path.join(base_folder, folder_name)) and is_within_date_range(folder_name, start_date, end_date):
+            summary = generate_markdown_summary(base_folder, folder_name)
             summaries.append(summary)
     
     # Sort the summaries based on the given criteria
