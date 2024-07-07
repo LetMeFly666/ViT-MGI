@@ -2,15 +2,14 @@
 \documentclass[conference]{IEEEtran}
 \IEEEoverridecommandlockouts
 % The preceding line is only needed to identify funding in the first footnote. If that is unneeded, please comment it out.
-% TODO: begin: 中文包，最终版本可删除
 % \usepackage{fontspec}               % 加载 fontspec 包
 \usepackage{xeCJK}                    % 加载 xeCJK 包
 % \setCJKmainfont{WenQuanYi Zen Hei}  % 设置中文主字体
 \setCJKmainfont[Path=fonts/, Extension=.ttc]{wqy-zenhei}
-% TODO: end: 中文包，最终版本可删除
 \usepackage{ulem}      % 删除线
 \usepackage{hyperref}  % 超链接
-% \usepackage{cite}
+\usepackage{url}       % 处理参考文献中的下划线
+% \usepackage{cite}    % 与biblatex包冲突
 \usepackage{amsmath,amssymb,amsfonts}
 \usepackage{algorithmic}
 \usepackage{graphicx}
@@ -26,7 +25,7 @@
   \maps[datatype=bibtex]{
     \map{
       \step[fieldsource=url,
-            match=\regexp{\_},
+            match=\regexp{_},
             replace=\regexp{\%5f}]
     }
   }
@@ -91,7 +90,9 @@ Federated Learning, Gradient Analysis, Malicious User Detection, Subjective Logi
 \end{IEEEkeywords}
 
 \section{Introduction}
-联邦学习(FL)使参与者能够联合训练一个全局模型，而不需要共享他们的数据集。
+联邦学习(FL)使参与者能够联合训练一个全局模型，而不需要共享他们的数据集\cite{BetterTogether24, BetterTogether29}。
+
+\textcolor{red}{上一段其实是抄的BetterTogether}
 
 \section{Ease of Use}
 
@@ -276,7 +277,7 @@ acknowledgments in the unnumbered footnote on the first page.
 
 \section*{References}
 
-Please number citations consecutively within brackets \cite{b1}. The 
+Please number citations consecutively within brackets \cite{maxwell1892}. The 
 sentence punctuation follows the bracket \cite{b2}. Refer simply to the reference 
 number, as in \cite{b3}---do not use ``Ref. \cite{b3}'' or ``reference \cite{b3}'' except at 
 the beginning of a sentence: ``Reference \cite{b3} was the first $\ldots$''

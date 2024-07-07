@@ -26,7 +26,7 @@ all: $(PDF)
 # Compile target
 $(PDF): $(TEX) $(CLS) $(BIB)
 	/usr/local/texlive/2024/bin/x86_64-linux/xelatex $(TEX)
-	/usr/local/texlive/2024/bin/x86_64-linux/biber $(BIB)
+	/usr/local/texlive/2024/bin/x86_64-linux/biber main
 	/usr/local/texlive/2024/bin/x86_64-linux/xelatex $(TEX)
 	/usr/local/texlive/2024/bin/x86_64-linux/xelatex $(TEX)
 	# chmod a+rw $(TEMP_FILES)
