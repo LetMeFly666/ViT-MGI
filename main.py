@@ -1,8 +1,8 @@
 '''
-Author: LetMeFly
+Author: LetMeFly vme50ty
 Date: 2024-07-03 10:37:25
 LastEditors: LetMeFly
-LastEditTime: 2024-07-07 15:52:38
+LastEditTime: 2024-07-07 16:30:57
 '''
 import datetime
 getNow = lambda: datetime.datetime.now().strftime('%Y.%m.%d-%H:%M:%S')
@@ -26,6 +26,7 @@ from torch.utils.data import DataLoader, Subset
 import torchvision.transforms as transforms
 import torchvision.datasets as datasets
 from transformers import ViTForImageClassification, ViTConfig
+from transformers import ViTModel as ViTModel_Original
 import numpy as np
 import random
 import copy
@@ -53,9 +54,10 @@ class Config:
         self.PCA_nComponents = 0.2     # PCA降维后的主成分数目
         self.attackList = [0, 1]       # 恶意客户端下标
         self.attack_rate = 1           # 攻击强度
-        self.ifPooling = True          #是否进行池化操作
-        self.poolsize = 3 * 3          #grads数组中每个grad，取n个数字中取最大值
-        self.pooltype = "mean"         #池化方式，可以为mean或者max，代表最大池化和平均池化
+        self.ifPooling = True          # 是否进行池化操作
+        self.poolsize = 3 * 3          # grads数组中每个grad，取n个数字中取最大值
+        self.pooltype = "mean"         # 池化方式，可以为mean或者max，代表最大池化和平均池化
+        self.ifPretrained = True       # 是否使用预训练模型
         self.device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
         self.parseAgrs()
         self.saveConfig()
@@ -92,15 +94,25 @@ config = Config()
 class ViTModel(nn.Module):
     def __init__(self, num_classes=10, device: str=config.device, name: str=None):
         super(ViTModel, self).__init__()
-        model_path = './data/vit_base_patch16_224'
-        config = ViTConfig.from_pretrained(model_path)
-        self.model = ViTForImageClassification.from_pretrained(model_path, config=config)
-        self.model.classifier = nn.Linear(self.model.config.hidden_size, num_classes)
+        if config.ifPretrained:
+            model_path = './data/vit_base_patch16_224'
+            vit_config = ViTConfig.from_pretrained(model_path)
+            self.model = ViTForImageClassification.from_pretrained(model_path, config=vit_config)
+            self.model.classifier = nn.Linear(self.model.config.hidden_size, num_classes)
+        else:
+            vit_config = ViTConfig()
+            self.model = ViTModel_Original(vit_config)
+            self.classifier = nn.Linear(vit_config.hidden_size, num_classes)
         self.model.to(device)  # 移动模型到设备
         self.name = 'defaultName'
     
     def forward(self, x):
-        return self.model(x).logits
+        if config.ifPretrained:
+            return self.model(x).logits
+        else:
+            outputs = self.model(x)
+            logits = self.classifier(outputs.last_hidden_state[:, 0])
+            return logits
 
     def setName(self, name: str) -> None:
         self.name = name
