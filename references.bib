@@ -25,3 +25,101 @@
     month     = {Sep},
     language  = {en-US}
 }
+
+@comment{FeSTA用于COVID-19胸部X光片诊断，通过分割学习（split learning）将神经网络分为客户端和服务器部分，从而减少了带宽消耗。该框架在多个来源的数据集上实现了性能提升，同时保留了数据隐私​ (NeurIPS Proceedings)​。}
+@article{federatedViT_example,
+    title   = {Federated split task-agnostic vision transformer for COVID-19 CXR diagnosis},
+    author  = {Park, Sangjoon and Kim, Gwanghyun and Kim, Jeongsol and Kim, Boah and Ye, Jong Chul},
+    journal = {Advances in Neural Information Processing Systems},
+    volume  = {34},
+    pages   = {24617--24630},
+    year    = {2021}
+}
+
+% 深度神经网络的潜在后门攻击
+% CCF-A
+@inproceedings{latentAttack,
+    title     = {Latent backdoor attacks on deep neural networks},
+    author    = {Yao, Yuanshun and Li, Huiying and Zheng, Haitao and Zhao, Ben Y},
+    booktitle = {Proceedings of the 2019 ACM SIGSAC conference on computer and communications security},
+    pages     = {2041--2055},
+    year      = {2019}
+}
+
+% 尾部攻击：是的，你确实可以对联邦学习进行后门攻击
+% CCF-A
+% 有涉及标签翻转
+@article{tailAttack_SuchAsLabelFlip,
+    title   = {Attack of the tails: Yes, you really can backdoor federated learning},
+    author  = {Wang, Hongyi and Sreenivasan, Kartik and Rajput, Shashank and Vishwakarma, Harit and Agarwal, Saurabh and Sohn, Jy-yong and Lee, Kangwook and Papailiopoulos, Dimitris},
+    journal = {Advances in Neural Information Processing Systems},
+    volume  = {33},
+    pages   = {16070--16084},
+    year    = {2020}
+}
+
+% 后门攻击
+% CCF-A
+@inproceedings{backdoor_001,
+    title     = {Invisible backdoor attack with sample-specific triggers},
+    author    = {Li, Yuezun and Li, Yiming and Wu, Baoyuan and Li, Longkang and He, Ran and Lyu, Siwei},
+    booktitle = {Proceedings of the IEEE/CVF international conference on computer vision},
+    pages     = {16463--16472},
+    year      = {2021}
+}
+
+% 通过在服务器上计算每个模型更新与其最近更新之间的欧氏距离之和来选择聚合模型的Krum算法
+% CCF-A
+@article{aggregation_Krum,
+    title   = {Machine learning with adversaries: Byzantine tolerant gradient descent},
+    author  = {Blanchard, Peva and El Mhamdi, El Mahdi and Guerraoui, Rachid and Stainer, Julien},
+    journal = {Advances in neural information processing systems},
+    volume  = {30},
+    year    = {2017}
+}
+
+% 选择中值或排除边缘值后的平均值作为全局模型的中值算法和裁剪平均算法
+% CCF-A
+@inproceedings{aggregation_MedianTrimmedMean,
+    title        = {Byzantine-robust distributed learning: Towards optimal statistical rates},
+    author       = {Yin, Dong and Chen, Yudong and Kannan, Ramchandran and Bartlett, Peter},
+    booktitle    = {International conference on machine learning},
+    pages        = {5650--5659},
+    year         = {2018},
+    organization = {Pmlr}
+}
+
+% Fed-PCA
+% CCF-None
+@inproceedings{Fed_PCA,
+    title        = {Data-free evaluation of user contributions in federated learning},
+    author       = {Lv, Hongtao and Zheng, Zhenzhe and Luo, Tie and Wu, Fan and Tang, Shaojie and Hua, Lifeng and Jia, Rongfei and Lv, Chengfei},
+    booktitle    = {2021 19th International Symposium on Modeling and Optimization in Mobile, Ad hoc, and Wireless Networks (WiOpt)},
+    pages        = {1--8},
+    year         = {2021},
+    organization = {IEEE}
+}
+
+% 通过解决最大团问题(Maximum CliqueProblem, MCP)从而无需无需恶意用户数量这一先验知识的Sniper方案
+% CCF-C
+@inproceedings{aggregation_Sniper,
+    title        = {Understanding distributed poisoning attack in federated learning},
+    author       = {Cao, Di and Chang, Shan and Lin, Zhijian and Liu, Guohua and Sun, Donghong},
+    booktitle    = {2019 IEEE 25th international conference on parallel and distributed systems (ICPADS)},
+    pages        = {233--239},
+    year         = {2019},
+    organization = {IEEE}
+}
+
+% 主观逻辑模型
+@article{Subjective_Logic_Model,
+    title    = {Incentive Mechanism for Reliable Federated Learning: A Joint Optimization Approach to Combining Reputation and Contract Theory},
+    url      = {http://dx.doi.org/10.1109/jiot.2019.2940820},
+    doi      = {10.1109/jiot.2019.2940820},
+    journal  = {IEEE Internet of Things Journal},
+    author   = {Kang, Jiawen and Xiong, Zehui and Niyato, Dusit and Xie, Shengli and Zhang, Junshan},
+    year     = {2019},
+    month    = {Dec},
+    pages    = {10700–10714},
+    language = {en-US}
+}
