@@ -1,2 +1,51 @@
-python main.py --ifFindAttack=False --attackList="[]"
-python main.py --ifFindAttack=False --attackList="[]" --ifPretrained=False
+python main.py --ifPooling=True --pooltype=Max --poolsize=4 --ifPCA=True
+python main.py --ifPooling=True --pooltype=Max --poolsize=4 --ifPCA=True
+python main.py --ifPooling=True --pooltype=Max --poolsize=4 --ifPCA=True
+python main.py --ifPooling=True --pooltype=Max --poolsize=9 --ifPCA=True
+python main.py --ifPooling=True --pooltype=Max --poolsize=9 --ifPCA=True
+python main.py --ifPooling=True --pooltype=Max --poolsize=9 --ifPCA=True
+python main.py --ifPooling=True --pooltype=Max --poolsize=16 --ifPCA=True
+python main.py --ifPooling=True --pooltype=Max --poolsize=16 --ifPCA=True
+python main.py --ifPooling=True --pooltype=Max --poolsize=16 --ifPCA=True
+python main.py --ifPooling=True --pooltype=Max --poolsize=25 --ifPCA=True
+python main.py --ifPooling=True --pooltype=Max --poolsize=25 --ifPCA=True
+python main.py --ifPooling=True --pooltype=Max --poolsize=25 --ifPCA=True
+
+python main.py --ifPooling=False --pooltype=Max --poolsize=4 --ifPCA=True
+python main.py --ifPooling=False --pooltype=Max --poolsize=4 --ifPCA=True
+python main.py --ifPooling=False --pooltype=Max --poolsize=4 --ifPCA=True
+python main.py --ifPooling=False --pooltype=Max --poolsize=9 --ifPCA=True
+python main.py --ifPooling=False --pooltype=Max --poolsize=9 --ifPCA=True
+python main.py --ifPooling=False --pooltype=Max --poolsize=9 --ifPCA=True
+python main.py --ifPooling=False --pooltype=Max --poolsize=16 --ifPCA=True
+python main.py --ifPooling=False --pooltype=Max --poolsize=16 --ifPCA=True
+python main.py --ifPooling=False --pooltype=Max --poolsize=16 --ifPCA=True
+python main.py --ifPooling=False --pooltype=Max --poolsize=25 --ifPCA=True
+python main.py --ifPooling=False --pooltype=Max --poolsize=25 --ifPCA=True
+python main.py --ifPooling=False --pooltype=Max --poolsize=25 --ifPCA=True
+
+python main.py --ifPooling=True --pooltype=Max --poolsize=4 --ifPCA=False
+python main.py --ifPooling=True --pooltype=Max --poolsize=4 --ifPCA=False
+python main.py --ifPooling=True --pooltype=Max --poolsize=4 --ifPCA=False
+python main.py --ifPooling=True --pooltype=Max --poolsize=9 --ifPCA=False
+python main.py --ifPooling=True --pooltype=Max --poolsize=9 --ifPCA=False
+python main.py --ifPooling=True --pooltype=Max --poolsize=9 --ifPCA=False
+python main.py --ifPooling=True --pooltype=Max --poolsize=16 --ifPCA=False
+python main.py --ifPooling=True --pooltype=Max --poolsize=16 --ifPCA=False
+python main.py --ifPooling=True --pooltype=Max --poolsize=16 --ifPCA=False
+python main.py --ifPooling=True --pooltype=Max --poolsize=25 --ifPCA=False
+python main.py --ifPooling=True --pooltype=Max --poolsize=25 --ifPCA=False
+python main.py --ifPooling=True --pooltype=Max --poolsize=25 --ifPCA=False
+
+python main.py --ifPooling=False --pooltype=Max --poolsize=4 --ifPCA=False
+python main.py --ifPooling=False --pooltype=Max --poolsize=4 --ifPCA=False
+python main.py --ifPooling=False --pooltype=Max --poolsize=4 --ifPCA=False
+python main.py --ifPooling=False --pooltype=Max --poolsize=9 --ifPCA=False
+python main.py --ifPooling=False --pooltype=Max --poolsize=9 --ifPCA=False
+python main.py --ifPooling=False --pooltype=Max --poolsize=9 --ifPCA=False
+python main.py --ifPooling=False --pooltype=Max --poolsize=16 --ifPCA=False
+python main.py --ifPooling=False --pooltype=Max --poolsize=16 --ifPCA=False
+python main.py --ifPooling=False --pooltype=Max --poolsize=16 --ifPCA=False
+python main.py --ifPooling=False --pooltype=Max --poolsize=25 --ifPCA=False
+python main.py --ifPooling=False --pooltype=Max --poolsize=25 --ifPCA=False
+python main.py --ifPooling=False --pooltype=Max --poolsize=25 --ifPCA=False
