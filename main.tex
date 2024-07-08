@@ -33,7 +33,7 @@
 \begin{document}
 
 % 标题
-\title{Conference Pa667per Title66*\\
+\title{ViT-MGI: Context-aware Lightweight Malicious Gradient Identification for Federated Vision Transformer Systems against Poisoning Attacks\\
 {\footnotesize \textsuperscript{*}Note: Sub-titles are not captured in Xplore and
 should not be used}
 \thanks{Identify applicable funding agency here. If none, delete this.}
@@ -81,6 +81,111 @@ email address or ORCID}
 % 摘要
 \begin{abstract}
 联邦学习可以在数据不离开客户端的前提下进行模型训练，保护了用户的隐私且减小了中央服务器的压力。然而，在联邦学习的过程中，经常会有恶意客户端的存在。当然，恶意用户的数量一般会占据较小的部分。本文对联邦学习过程中用户上传上来的梯度变化进行分析，首先利用最大池化技术提取主要特征的同时降低，利用主成分分析(PCA)算法\textcolor{red}{（这里还有待添加更多的算法）}对恶意用户进行识别。单次被识别为恶意用户可能是由于误判，因此本文使用主观逻辑模型来对用户的信用等级进行评估，并依据用户的可信度来调整模型聚合时的权重。
+
+
+
+
+Abstract:
+
+随着视觉大模型的发展，训练需要更多数据量，所以要做Fedteratred ViT。（可举例）
+
+但是这里面会存在恶意攻击者污染xx（待扩展，比如xx攻击 实际例子也可）。
+
+（问题）现有很多防御也提出了xx（不用太多）。However存在（安全效率冲突）问题。（可解释：）更复杂、数据更离散...   导致了现有防御方案在Fedteratred ViT下针对它们的防御存在效率低（xx模型参数多少 耗时要提高xx倍 ）下，不鲁棒xxx缺陷（可举例） 。（比如一下xxxx万参数，我xx的池化限制到xx，（和CNN差不多））
+
+（方法） In this paper，我们提出了一种两阶段的xx方法来提升效率、鲁棒性，通过xx理念解决xx问题（一句话：核心思想）。具体来说Specifically，首先通过xxx来xx了xx\%，随后我们xxx，最终/从而 实现了xx（具体是xx方法，别虚话）。
+
+（效果）我们在多少数据集上做了多少实验，从xx方面显示我们比xx等(当前最新)防御方法取得了xx提升。（若实验很好可多写点：在效率上提升了xx倍，在精度上xx  (详述)）
+
+
+
+
+Introduction:
+
+（创新点：核心-效率、精度-跟随-感知、实验）
+
+列几点（至少上面的3点）：
+
+\begin{enumerate}
+    \item ssf
+    \item sfs
+\end{enumerate}
+
+一段话的本文结论 第二章是xx，section 3是xxx。（可参考IEEE transction）
+
+
+
+
+
+Related work:
+
+（找十几篇，每个一两句话）
+
+（先分两到三类  每类一段 ）
+
+第一段xx攻击（可一句话带过）
+
+第二段 针对这种攻击有做xx的有做xx的 （总起）之后细分 大概分几类（2-3）
+
+一段一类。有头有尾（开头 这种方法基于xx，   一句一篇(也可加一句好坏之类的)，   结尾 总结这类方法也存在xx问题(可从被引的文章里找来改写)）
+
+最后一小段几句话（可写可不写）总体来说  （扣一下主题）   通过上述分析，核心问题是xx（就是摘要里的），因此我们要xx来解决。
+
+
+\textcolor{red}{今晚写好，(conclusion)}
+
+
+System model:
+
+（建模） 
+
+一部分是FL ViT场景 （一张图，至少包含←这个，可包含攻击）  数学定义之类的   可参考别人描述
+
+（也可放参数表，\textcolor{red}{一般不放}）
+
+一部分是攻击模型   
+
+（描述清楚，逻辑清楚就好，没有前面那么地受约束）
+
+\textcolor{red}{今晚至少构思好}
+
+
+
+
+Methodology:
+
+(也是总分，技术上是怎么实现的）
+
+（至少一张图，可2张3张，一张大的(总的方案图)，可加小(细节)图）
+
+（最后也可给个伪代码 ）
+
+\textcolor{red}{明后天写完}
+
+
+Experiments:
+
+实验设置（用的xx机器，在xx跑，用的xx模型xx参数，对比的哪些攻击/防御，数据集，...）能一大段
+
+实验结果分析（分点）
+
+比如：
+1. 精度
+2. 速度
+3. 防御效果
+对比着给点结论。
+
+\textcolor{red}{一直跑着实验}
+（最好写的部分）
+
+
+Conclusion:
+
+摘要 + 实验结果
+
+
+
+
 
 结果表明，当前方法对于恶意用户的识别率、恶意用户的识别效率，以及程序自身的鲁棒性都有所提升。我们将其命名为FLDefinder\textcolor{red}{（名字待定）}并发布了其源代码，以方便该领域的未来研究：\href{https://github.com/LetMeFly666/FLDefinder}{https://github.com/LetMeFly666/FLDefinder}\textcolor{red}{（论文投稿前此仓库为Private状态不可访问）}。
 \end{abstract}
