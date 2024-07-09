@@ -2,7 +2,7 @@
  * @Author: LetMeFly
  * @Date: 2024-05-15 17:45:43
  * @LastEditors: LetMeFly
- * @LastEditTime: 2024-07-09 15:35:05
+ * @LastEditTime: 2024-07-09 15:41:59
 -->
 # FLDefinder
 
@@ -511,7 +511,7 @@ device = cuda:0
 - [x] 增加参数：预训练模型还是非预训练模型
 - [x] 先写个题目和摘要
 - [x] 了解一些攻防手段，例如主成分萃取/最大池化及其关系
-- [ ] Un realized merge
+- [x] Un realized merge
 - [ ] IF零信任？
 - [ ] IF恶意用户检测之-检测此次梯度时参考历史梯度？
 - [ ] （暂时抛弃）难道是泛用的ViT模型不知道Cifar-10只有10个输出所以准确率一直在50%多徘徊？（非预训练）
