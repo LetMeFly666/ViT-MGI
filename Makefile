@@ -18,13 +18,14 @@ LOG2 = missfont.log
 OUT = main.out
 BCF = main.bcf
 XML = main.run.xml
-TEMP_FILES = $(AUX) $(DVI) $(LOG) $(PDF) $(LOG2) $(OUT) $(BCF) $(XML) $(BBL) $(BLG) $(BBL2) $(BLG2)
+TEMP_FILES = $(AUX) $(DVI) $(LOG) $(LOG2) $(OUT) $(BCF) $(XML) $(BBL) $(BLG) $(BBL2) $(BLG2)
 
 # Default target
 all: $(PDF)
 
 # Compile target
 $(PDF): $(TEX) $(CLS) $(BIB)
+	rm -f $(TEMP_FILES)
 	/usr/local/texlive/2024/bin/x86_64-linux/xelatex $(TEX)
 	/usr/local/texlive/2024/bin/x86_64-linux/biber main
 	/usr/local/texlive/2024/bin/x86_64-linux/xelatex $(TEX)
@@ -34,7 +35,7 @@ $(PDF): $(TEX) $(CLS) $(BIB)
 
 # Clean target
 clean:
-	rm -f $(TEMP_FILES)
+	rm -f $(TEMP_FILES) $(PDF)
 
 # Clean shortcut target
 c: clean

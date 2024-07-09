@@ -22,13 +22,15 @@
 \addbibresource{references.bib}
 % 替换下划线字符
 \DeclareSourcemap{
-  \maps[datatype=bibtex]{
-    \map{
-      \step[fieldsource=url,
-            match=\regexp{_},
-            replace=\regexp{\%5f}]
+    \maps[datatype=bibtex]{
+        \map{
+            \step[
+                fieldsource=url,
+                match=\regexp{_},
+                replace=\regexp{\%5f}
+            ]
+        }
     }
-  }
 }
 
 \begin{document}
@@ -84,6 +86,8 @@ email address or ORCID}
 
 % 联邦学习可以在数据不离开客户端的前提下进行模型训练，保护了用户的隐私且减小了中央服务器的压力。然而，在联邦学习的过程中，经常会有恶意客户端的存在。当然，恶意用户的数量一般会占据较小的部分。本文对联邦学习过程中用户上传上来的梯度变化进行分析，首先利用最大池化技术提取主要特征的同时降低，利用主成分分析(PCA)算法\textcolor{red}{（这里还有待添加更多的算法）}对恶意用户进行识别。单次被识别为恶意用户可能是由于误判，因此本文使用主观逻辑模型来对用户的信用等级进行评估，并依据用户的可信度来调整模型聚合时的权重。
 
+% 结果表明，当前方法对于恶意用户的识别率、恶意用户的识别效率，以及程序自身的鲁棒性都有所提升。我们将其命名为FLDefinder\textcolor{red}{（名字待定）}并发布了其源代码，以方便该领域的未来研究：\href{https://github.com/LetMeFly666/FLDefinder}{https://github.com/LetMeFly666/FLDefinder}\textcolor{red}{（论文投稿前此仓库为Private状态不可访问）}。
+
 随着视觉大模型的不断发展，模型训练时需要越来越多的数据量。因此需要联邦学习的ViT模型(Federated ViT)，在数据不离开多个客户端的前提下进行模型训练，同时捕捉复杂的全局特征\footnote{相比于简单的CNN等，ViT可以更好地捕捉全局信息}。例如FeSTA通过分割学习的ViT模型进行COVID-19的胸部X光片检测，保留数据隐私的同时在多个数据集上实现了性能提升\cite{federatedViT_example}。但是，在实际的应用场景中，可能会存在恶意攻击者攻击污染全局模型的问题。有的攻击者会篡改本地训练出的梯度数据，从而扰乱聚合后的全局模型的效果；有的攻击者会篡改数据集的标签，例如常见的标签翻转\cite{tailAttack_SuchAsLabelFlip}；还有的攻击者会采用更加隐蔽的后门攻击，在训练过程中涉及难以被识别的触发器从而达到插入后门的效果\cite{backdoor_001}。
 
 现已提出了很多防御机制，有通过在服务器上计算每个模型更新与其最近更新之间的欧氏距离之和来选择聚合模型的Krum算法和拓展的multi-Krum算法\cite{aggregation_Krum}，有选择中值或排除边缘值后的平均值作为全局模型的中值算法和裁剪平均算法\cite{aggregation_MedianTrimmedMean}，也有使用主成分分析(Principal Component Analysis, PCA)的Fed-PCA算法\cite{Fed_PCA}，以及通过解决最大团问题(Maximum CliqueProblem, MCP)从而无需无需恶意用户数量这一先验知识的Sniper方案\cite{aggregation_Sniper}。这些数据都能在不同程度上解决恶意用户的攻击问题，但是它们都普遍存在安全和效率冲突的问题。即，安全性较高的算法计算复杂度普遍较高，而计算效率高的算法其安全性未必能得到很好的保证。Fedteratred ViT下这些方法存在效率低、不鲁棒等缺陷。很小的ViT-B/16模型也有86百万级别的参数，相比于参数级别为百万甚至十万的传统CNN模型，即使是线性复杂度的安全检测方法，恶意攻击的检测耗时也要提升几十倍甚至几百倍\footnote{这一句在说参数量大所以原有防御方案效率低}。在庞大的ViT模型的参数中有很多不是那么敏感的成分，这些部分恶意用户于正常用户的区别一般不大，从而可能会降低恶意检测的鲁棒性\footnote{这一句在说参数散多所以原有防御方案鲁棒性差}。
@@ -92,22 +96,64 @@ In this paper，我们提出了一种针对ViT的两阶段的上下文感知轻�
 
 我们在CIFAR-10、CIFAR-100、xxx\footnote{待确认}上做了有关模型效率以及有关识别鲁棒性的实验，在处理时间上相比先进的xx\footnote{待确认，找个最近提出的但复杂度较高的算法}算法降低了80\%。模型鲁棒性方面，单纯的隔离森林的识别准确率非常低，这是由梯度中有大量的接近0的值所导致的。而对于使用放大池化来减少计算量并增强鲁棒性的算法\cite{betterTogether}，虽然能极大程度地减少计算量，但在ViT的拜占庭攻击下对鲁棒性会起到相反的效果。相比于单纯的PCA算法，我们的识别准确率由70\%提升到了95\%。
 
-我们将其命名为ViT-MGI并发布了其源代码，以方便该领域的未来研究：\href{https://github.com/LetMeFly666/FLDefinder}{https://github.com/LetMeFly666/FLDefinder}\footnote{（论文投稿前此仓库为Private状态不可访问）}。
+我们将其命名为ViT-MGI并发布了其源代码，以方便该领域的未来研究：\href{https://github.com/LetMeFly666/FLDefinder}{https://github.com/LetMeFly666/FLDefinder}\footnote{论文投稿前此仓库为Private状态不可访问}。
 
-Abstract:
+% 下面是关于摘要的大纲
 
-随着视觉大模型的发展，训练需要更多数据量，所以要做Fedteratred ViT。（可举例）
+% Abstract:
 
-但是这里面会存在恶意攻击者污染xx（待扩展，比如xx攻击 实际例子也可）。
+% 随着视觉大模型的发展，训练需要更多数据量，所以要做Fedteratred ViT。（可举例）
 
-（问题）现有很多防御也提出了xx（不用太多）。However存在（安全效率冲突）问题。（可解释：）更复杂、数据更离散...   导致了现有防御方案在Fedteratred ViT下针对它们的防御存在效率低（xx模型参数多少 耗时要提高xx倍 ）下，不鲁棒xxx缺陷（可举例） 。（比如一下xxxx万参数，我xx的池化限制到xx，（和CNN差不多））
+% 但是这里面会存在恶意攻击者污染xx（待扩展，比如xx攻击 实际例子也可）。
 
-（方法） In this paper，我们提出了一种两阶段的xx方法来提升效率、鲁棒性，通过xx理念解决xx问题（一句话：核心思想）。具体来说Specifically，首先通过xxx来xx了xx\%，随后我们xxx，最终/从而 实现了xx（具体是xx方法，别虚话）。
+% （问题）现有很多防御也提出了xx（不用太多）。However存在（安全效率冲突）问题。（可解释：）更复杂、数据更离散...   导致了现有防御方案在Fedteratred ViT下针对它们的防御存在效率低（xx模型参数多少 耗时要提高xx倍 ）下，不鲁棒xxx缺陷（可举例） 。（比如一下xxxx万参数，我xx的池化限制到xx，（和CNN差不多））
 
-（效果）我们在多少数据集上做了多少实验，从xx方面显示我们比xx等(当前最新)防御方法取得了xx提升。（若实验很好可多写点：在效率上提升了xx倍，在精度上xx  (详述)）
+% （方法） In this paper，我们提出了一种两阶段的xx方法来提升效率、鲁棒性，通过xx理念解决xx问题（一句话：核心思想）。具体来说Specifically，首先通过xxx来xx了xx\%，随后我们xxx，最终/从而 实现了xx（具体是xx方法，别虚话）。
+
+% （效果）我们在多少数据集上做了多少实验，从xx方面显示我们比xx等(当前最新)防御方法取得了xx提升。（若实验很好可多写点：在效率上提升了xx倍，在精度上xx  (详述)）
+
+\end{abstract}
 
 
+\begin{IEEEkeywords}
 
+Federated Learning, Gradient Analysis, Malicious User Detection, Subjective Logic Model\footnote{关键词待定}
+\end{IEEEkeywords}
+
+\section{Introduction}
+
+\label{sec:intro}
+
+% 联邦学习(FL)使参与者能够联合训练一个全局模型，而不需要共享他们的数据集\cite{BetterTogether24, BetterTogether29}。
+
+% \textcolor{red}{上一段其实是抄的BetterTogether}
+
+如今，边缘设备的激增使得数据量爆炸式增长\cite{edgeComputing_explosiveGrowth}，数据隐私的重要性也正显得越来越重要。2024年，全球大约75\%的人口将受到现代隐私法规的保护。这些法规的扩展推动了隐私实践的实施，并且企业在数据隐私方面的年均预算预计将超过250万美元\cite{dataPrivacyIsEncreasing}。为了解决这一问题，一种越来越流行的方式是使用联邦学习\cite{useFL2solve}。联邦学习（Federated Learning, FL）是一种分布式机器学习方法，旨在在多个分散的数据源上进行协作训练，同时避免将数据集中存储。FL由McMahan等人于2016年提出，通过在客户端设备上进行本地模型训练，并仅上传模型更新到中央服务器进行聚合，从而保护数据隐私和安全。一旦聚合，服务器将更新后的模型广播回所有客户端。节点将在本地更新其模型，并使用以下更新与新一批本地数据。这种方法不仅减少了数据传输的需求，还能在不暴露原始数据的情况下，利用分散的数据源提高模型性能\cite{FLGenesisArticle}\footnote{这段Intro参考Mitigating Adversarial写的}。
+
+联邦学习中一个流行的训练模型是Transformer\cite{transformer}，Transformer模型引入了自注意力机制（self-attention mechanism），能够在处理输入序列时捕捉长距离依赖关系，从而显著提高了模型的性能和并行处理能力，并且能够有效地被运用在翻译\cite{transformer_translation}、音频分类\cite{transformer_audioClassification}、计算机视觉(ViT)\cite{transformer_vision}等多个领域。联邦学习中对ViT进行训练或微调引起了业界和学术界的广泛兴趣\cite{transformer_gotInterest}，该系列模型需要大量的设计以及强大的计算资源，因此在训练过程中需要特别注意保护模型的完整性。\footnote{这段Intro参考Mitigating Adversarial写的}
+
+假设存在一些恶意客户端，在客户端向服务器发送训练得到的梯度之前，首先对梯度进行更改，例如对梯度取反，从而严重破环全局模型的训练质量。或者会存在一些恶意客户端，篡改本地数据，诱导中央服务器学到一些错误特征从而达到植入后门的效果\footnote{这里要看最终是否实现了backdoor的攻防}。这些行为都会严重影响最终的训练结果，甚至会造成一些安全性的问题。
+
+In this work，我们专注于对针对恶意用户上传恶意梯度从而攻击服务器模型进行系统的防御。图1\footnote{TODO: 画一张小图}描述了在正常训练中存在梯度上升攻击的恶意用户的情况。图的左侧是参与训练的客户端，它们首先接收中央服务器广播下发的全局模型，然后使用本地数据对模型进行一定量的训练，之后再将训练得到的梯度变化汇总到中央服务器上，从而完成一轮总的训练。假设在参与训练的客户端中出现了一些恶意用户，它们出于一定的目的想要干扰中央服务器的模型训练结果。于是它们在将训练得到的梯度变化上传到中央服务器之前，先对这些梯度进行一些修改操作，例如将梯度取反等，从而试图下降总模型的训练效果。
+
+In this Paper，我们提出了ViT-MGI：对于如图所示的恶意用户的攻击行为，ViT-MGT是一种有效的防御手段。它首先对模型上传上来的梯度进行主成分萃取操作，减少后续识别所需数据量的同时，成功剔除了大量无效的信息。这些“无效”信息是由于ViT模型的体积较大所导致的，对于单次训练，大量（例如ViT-B/16具有86百万级别的参数量）的梯度变化中，有很多梯度的变化几乎为0。如果不进行主成分萃取操作，这些对于攻击识别几乎无效的大量数据不仅会增加后续计算的复杂度，还会增加攻击者和正常参与者梯度之间的相似程度。在进行主成分萃取以及后续的识别时，我们只关注ViT模型的patch\_embed层、attn层以及mlp层\footnote{待定}，因为我们通过实验I\footnote{记得最后写好实验后增加引用链接}得知，存在梯度上升、标签翻转、后门植入等常见的攻击时，这些层的变化最为敏感，而其他层变化普遍较小，甚至有几乎全0的层变化的存在。经过一系列的处理，剩下的就只有我们所关注的敏感的少量的梯度变化了。最后，使用异常检测手段例如隔离森林，就能轻松准确地识别出恶意攻击的存在。考虑到实际训练过程中可能会存在很多随机因素，因此可能会出现一定的错误识别现象，即一些正常用户的梯度偶尔可能会和恶意用户较为相似，从而导致此轮次被错误识别为恶意行为用户，我们使用主观逻辑模型来对每个用户评分，依据用户权重来聚合模型的同时，也减少了由于随机因素导致的错误封禁。正常用户单次被识别为恶意的概率很小，多次连续被识别为恶意的概率更是会呈指数级别地减小。
+
+Our main contributions are as follows:
+
+\begin{enumerate}
+    \item 我们表明，通过数据降维，我们可以在极高效率的前提下完成恶意梯度的识别。
+    \item 我们使用ViT-MGI进行关键数据提取，从而使得恶意梯度的识别能达到较高的精度。
+    \item 我们的ViT-MGI能够结合多轮训练结果跟随并感知恶意用户的行为，从而提升了整体的鲁棒性。
+    \item 我们设计了一系列巧妙的实验证明了ViT-MGI的有效性。
+\end{enumerate}
+
+The rest of the paper is as follows. \hyperref[sec:related]{§\ref{sec:related}}surveys related work. \hyperref[sec:model]{§\ref{sec:model}} presents our system model. \hyperref[sec:method]{§\ref{sec:method}} describes the principles of the ViT-MGI shielding defense. We evaluate it on ViT-B/16 against a gradient-based attack and discuss the results in \hyperref[sec:exp]{§\ref{sec:exp}}. Finally, we conclude in \hyperref[sec:conclusion]{§\ref{sec:conclusion}}.
+
+
+\vspace{0.25cm}
+\rule{\linewidth}{0.4pt}
+\centerline{\Large\bf{以下为编写大纲}}
+\vspace{1cm}
 
 Introduction:
 
@@ -193,20 +239,31 @@ Conclusion:
 摘要 + 实验结果
 
 
+\section{Related Work}
+\label{sec:related}
 
+相关工作
 
+\section{System Model}
+\label{sec:model}
 
-结果表明，当前方法对于恶意用户的识别率、恶意用户的识别效率，以及程序自身的鲁棒性都有所提升。我们将其命名为FLDefinder\textcolor{red}{（名字待定）}并发布了其源代码，以方便该领域的未来研究：\href{https://github.com/LetMeFly666/FLDefinder}{https://github.com/LetMeFly666/FLDefinder}\textcolor{red}{（论文投稿前此仓库为Private状态不可访问）}。
-\end{abstract}
+系统模型
 
-\begin{IEEEkeywords}
-Federated Learning, Gradient Analysis, Malicious User Detection, Subjective Logic Model\textcolor{red}{（关键词待定）}
-\end{IEEEkeywords}
+\section{Methodology}
+\label{sec:method}
 
-\section{Introduction}
-联邦学习(FL)使参与者能够联合训练一个全局模型，而不需要共享他们的数据集\cite{BetterTogether24, BetterTogether29}。
+方法
 
-\textcolor{red}{上一段其实是抄的BetterTogether}
+\section{Experiments}
+\label{sec:exp}
+
+实验
+
+\section{Conclusion}
+\label{sec:conclusion}
+
+结论。
+
 
 \section{Ease of Use}
 
