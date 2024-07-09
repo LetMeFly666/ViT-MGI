@@ -6,15 +6,6 @@
     year      = {2022}
 }
 
-@article{BetterTogether24,
-    title    = {Communication-Efficient Learning of Deep Networks from Decentralized Data},
-    journal  = {arXiv: Learning,arXiv: Learning},
-    author   = {McMahan, H.Brendan and Moore, EiderB and Ramage, Daniel and Hampson, Seth and Arcas, BlaiseAgüeray},
-    year     = {2016},
-    month    = {Feb},
-    language = {en-US}
-}
-
 @inproceedings{BetterTogether29,
     title     = {Privacy-preserving deep learning},
     url       = {http://dx.doi.org/10.1109/allerton.2015.7447103},
@@ -44,6 +35,24 @@
     booktitle = {Proceedings of the 2019 ACM SIGSAC conference on computer and communications security},
     pages     = {2041--2055},
     year      = {2019}
+}
+
+% 清洁标签投毒攻击
+% CCF-A，1142次引用
+@article{cleanLabelAttack,
+    title   = {Poison frogs! targeted clean-label poisoning attacks on neural networks},
+    author  = {Shafahi, Ali and Huang, W Ronny and Najibi, Mahyar and Suciu, Octavian and Studer, Christoph and Dumitras, Tudor and Goldstein, Tom},
+    journal = {Advances in neural information processing systems},
+    volume  = {31},
+    year    = {2018}
+}
+
+% CCF-None
+@article{canYouBackdoor,
+    title   = {Can you really backdoor federated learning?},
+    author  = {Sun, Ziteng and Kairouz, Peter and Suresh, Ananda Theertha and McMahan, H Brendan},
+    journal = {arXiv preprint arXiv:1911.07963},
+    year    = {2019}
 }
 
 % 尾部攻击：是的，你确实可以对联邦学习进行后门攻击
@@ -218,4 +227,110 @@
     author  = {Ro, Jae Hun and Breiner, Theresa and McConnaughey, Lara and Chen, Mingqing and Suresh, Ananda Theertha and Kumar, Shankar and Mathews, Rajiv},
     journal = {arXiv preprint arXiv:2204.09715},
     year    = {2022}
+}
+
+% 包含梯度上升攻击
+% CCF-A
+@article{gradientAscentAttack,
+    title     = {Security and privacy threats to federated learning: Issues, methods, and challenges},
+    author    = {Zhang, Junpeng and Zhu, Hui and Wang, Fengwei and Zhao, Jiaqi and Xu, Qi and Li, Hui},
+    journal   = {Security and Communication Networks},
+    volume    = {2022},
+    number    = {1},
+    pages     = {2886795},
+    year      = {2022},
+    publisher = {Wiley Online Library}
+}
+
+% 假标签攻击
+% CCF-None
+@inproceedings{fakeLabelAttack,
+    title        = {Data Leakage with Label Reconstruction in Distributed Learning Environments},
+    author       = {Zhang, Xiaoxue and Zhou, Xiuhua and Chen, Kongyang},
+    booktitle    = {International Conference on Machine Learning for Cyber Security},
+    pages        = {185--197},
+    year         = {2022},
+    organization = {Springer}
+}
+
+% Backdoor
+% CCF-C
+@inproceedings{how2backdoor,
+    title        = {How to backdoor federated learning},
+    author       = {Bagdasaryan, Eugene and Veit, Andreas and Hua, Yiqing and Estrin, Deborah and Shmatikov, Vitaly},
+    booktitle    = {International conference on artificial intelligence and statistics},
+    pages        = {2938--2948},
+    year         = {2020},
+    organization = {PMLR}
+}
+
+% 该论文提出了DEFEAT框架，通过依赖对等网络（P2P）在客户端之间传递模型参数，避免了中央服务器的集中管理，从而抵御梯度攻击。DEFEAT框架允许客户端共同训练个性化模型，而无需依赖全局模型​
+% CCF-None
+@article{gradientAscentAttack_privacy,
+    title     = {Defeat: A decentralized federated learning against gradient attacks},
+    author    = {Lu, Guangxi and Xiong, Zuobin and Li, Ruinian and Mohammad, Nael and Li, Yingshu and Li, Wei},
+    journal   = {High-Confidence Computing},
+    volume    = {3},
+    number    = {3},
+    pages     = {100128},
+    year      = {2023},
+    publisher = {Elsevier}
+}
+
+% 开关攻击（梯度攻击和标签反转）Viceroy
+% CCF-A
+@article{gradientAscentAttackAndLabelFlip,
+    title   = {Attacks against federated learning defense systems and their mitigation},
+    author  = {Lewis, Cody and Varadharajan, Vijay and Noman, Nasimul},
+    journal = {Journal of Machine Learning Research},
+    volume  = {24},
+    number  = {30},
+    pages   = {1--50},
+    year    = {2023}
+}
+
+% 联邦学习攻防中文综述-计算机学报
+% CCF-None
+@article{chineseSurveyOnAttackAndDefense,
+    title   = {联邦学习系统攻击与防御技术研究综述},
+    author  = {段培 and 陈培炫},
+    journal = {计算机学报},
+    volume  = {46},
+    number  = {9},
+    year    = {2023}
+}
+
+% backdoor and defense看摘要有点空好像
+% CCF-None
+@article{backdoorAndDefense,
+    title     = {Backdoor attacks and defenses in federated learning: State-of-the-art, taxonomy, and future directions},
+    author    = {Gong, Xueluan and Chen, Yanjiao and Wang, Qian and Kong, Weihan},
+    journal   = {IEEE Wireless Communications},
+    volume    = {30},
+    number    = {2},
+    pages     = {114--121},
+    year      = {2022},
+    publisher = {IEEE}
+}
+
+% backdoor and defense robust
+% CCF-A
+@inproceedings{backdoorAndDefense_robust,
+    title        = {Crfl: Certifiably robust federated learning against backdoor attacks},
+    author       = {Xie, Chulin and Chen, Minghao and Chen, Pin-Yu and Li, Bo},
+    booktitle    = {International Conference on Machine Learning},
+    pages        = {11372--11382},
+    year         = {2021},
+    organization = {PMLR}
+}
+
+% backdoor and defense 基于反馈
+% CCF-B
+@inproceedings{backdoorAndDefense_feedback,
+    title        = {Baffle: Backdoor detection via feedback-based federated learning},
+    author       = {Andreina, Sebastien and Marson, Giorgia Azzurra and M{\"o}llering, Helen and Karame, Ghassan},
+    booktitle    = {2021 IEEE 41st International Conference on Distributed Computing Systems (ICDCS)},
+    pages        = {852--863},
+    year         = {2021},
+    organization = {IEEE}
 }

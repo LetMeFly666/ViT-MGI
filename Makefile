@@ -27,7 +27,7 @@ all: $(PDF)
 $(PDF): $(TEX) $(CLS) $(BIB)
 	rm -f $(TEMP_FILES)
 	/usr/local/texlive/2024/bin/x86_64-linux/xelatex $(TEX)
-	/usr/local/texlive/2024/bin/x86_64-linux/biber main
+	/usr/local/texlive/2024/bin/x86_64-linux/bibtex main
 	/usr/local/texlive/2024/bin/x86_64-linux/xelatex $(TEX)
 	/usr/local/texlive/2024/bin/x86_64-linux/xelatex $(TEX)
 	# chmod a+rw $(TEMP_FILES)

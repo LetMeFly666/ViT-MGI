@@ -6,32 +6,48 @@
 \usepackage{xeCJK}                    % 加载 xeCJK 包
 % \setCJKmainfont{WenQuanYi Zen Hei}  % 设置中文主字体
 \setCJKmainfont[Path=fonts/, Extension=.ttc]{wqy-zenhei}
-\usepackage{ulem}      % 删除线
+% \usepackage{ulem}      % 删除线、normalem
 \usepackage{hyperref}  % 超链接
+% \usepackage{breakurl}
 \usepackage{url}       % 处理参考文献中的下划线
+\def\UrlBreaks{\do\A\do\B\do\C\do\D\do\E\do\F\do\G\do\H\do\I\do\J
+\do\K\do\L\do\M\do\N\do\O\do\P\do\Q\do\R\do\S\do\T\do\U\do\V
+\do\W\do\X\do\Y\do\Z\do\[\do\\\do\]\do\^\do\_\do\`\do\a\do\b
+\do\c\do\d\do\e\do\f\do\g\do\h\do\i\do\j\do\k\do\l\do\m\do\n
+\do\o\do\p\do\q\do\r\do\s\do\t\do\u\do\v\do\w\do\x\do\y\do\z
+\do\.\do\@\do\\\do\/\do\!\do\_\do\|\do\;\do\>\do\]\do\)\do\,
+\do\?\do\'\do+\do\=\do\#}
 % \usepackage{cite}    % 与biblatex包冲突
 \usepackage{amsmath,amssymb,amsfonts}
 \usepackage{algorithmic}
 \usepackage{graphicx}
 \usepackage{textcomp}
 \usepackage{xcolor}
-\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
-    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+% \def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+%     T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
 
-\usepackage[style=ieee,backend=biber]{biblatex}
-\addbibresource{references.bib}
-% 替换下划线字符
-\DeclareSourcemap{
-    \maps[datatype=bibtex]{
-        \map{
-            \step[
-                fieldsource=url,
-                match=\regexp{_},
-                replace=\regexp{\%5f}
-            ]
-        }
-    }
-}
+% \usepackage[style=ieee,backend=biber]{biblatex}
+% \normalem  % 取消参考文献的下划线
+% \addbibresource{references.bib}
+
+% % 设置姓名缩写
+% \AtBeginBibliography{%
+%     \renewbibmacro*{bbx:savehash}{}%
+%     \renewcommand*{\mkbibnamegiven}[1]{\uppercase{#1}}%
+%     \renewcommand*{\mkbibnamefamily}[1]{\uppercase{#1}}%
+% }
+% % 替换下划线字符
+% \DeclareSourcemap{
+%     \maps[datatype=bibtex]{
+%         \map{
+%             \step[
+%                 fieldsource=url,
+%                 match=\regexp{_},
+%                 replace=\regexp{\%5f}
+%             ]
+%         }
+%     }
+% }
 
 \begin{document}
 
@@ -124,7 +140,7 @@ Federated Learning, Gradient Analysis, Malicious User Detection, Subjective Logi
 
 \label{sec:intro}
 
-% 联邦学习(FL)使参与者能够联合训练一个全局模型，而不需要共享他们的数据集\cite{BetterTogether24, BetterTogether29}。
+% 联邦学习(FL)使参与者能够联合训练一个全局模型，而不需要共享他们的数据集\cite{FLGenesisArticle, BetterTogether29}。
 
 % \textcolor{red}{上一段其实是抄的BetterTogether}
 
@@ -149,25 +165,34 @@ Our main contributions are as follows:
 
 The rest of the paper is as follows. \hyperref[sec:related]{§\ref{sec:related}}surveys related work. \hyperref[sec:model]{§\ref{sec:model}} presents our system model. \hyperref[sec:method]{§\ref{sec:method}} describes the principles of the ViT-MGI shielding defense. We evaluate it on ViT-B/16 against a gradient-based attack and discuss the results in \hyperref[sec:exp]{§\ref{sec:exp}}. Finally, we conclude in \hyperref[sec:conclusion]{§\ref{sec:conclusion}}.
 
+% Introduction:
+
+% （创新点：核心-效率、精度-跟随-感知、实验）
+
+% 列几点（至少上面的3点）：
+
+% \begin{enumerate}
+%     \item ssf
+%     \item sfs
+% \end{enumerate}
+
+% 一段话的本文结论 第二章是xx，section 3是xxx。（可参考IEEE transction）
+
+\section{Related Work}
+\label{sec:related}
+
+在联邦学习对抗性攻击的投毒攻击中，通常有梯度上升攻击\cite{gradientAscentAttack}\footnote{检索关键词："Gradient ascent attack" AND "Federated learning"}、假标签攻击\cite{fakeLabelAttack}\footnote{检索关键词："fake label" AND "Federated learning"}以及后门攻击\cite{how2backdoor}这几类。其中，梯度上升或梯度扰乱攻击，以及假标签攻击都属于拜占庭攻击。
+
+拜占庭攻击：攻击者试图破坏训练可用性和模型可用性，使其无法收敛或无法在主要训练任务中达到最优性能，并且不针对任何特定的用户或数据样本\footnote{这句话来自中文综述\cite{chineseSurveyOnAttackAndDefense}}。其中，梯度上升攻击是指攻击者在本地训练时，将梯度上升方向的信息反转，从而在全局模型聚合时对全局模型造成破坏\cite{gradientAscentAttack}。针对这种攻击，G Lu等人提出了DEFEAT框架\cite{gradientAscentAttack_privacy}，通过依赖对等网络（P2P）在客户端之间传递模型参数，避免了中央服务器的集中管理，但是其主要目的是防止梯度泄露的隐私问题。假标签攻击又分为脏标签攻击(Dirty-labelAttack)\cite{latentAttack}和清洁标签攻击(Clean-labelAttack)\cite{cleanLabelAttack}。脏标签攻击会篡改数据集的标签，如常见的标签翻转攻击[33]，而清洁标签攻击不篡改标签，仅对数据进行处理生成新的样本。Lewis等人提出了Viceroy算法\cite{gradientAscentAttackAndLabelFlip}，通过实施安全多方计算（Secure Multi-Party Computation, MPC）和差分隐私（Differential Privacy, DP）来检测并抵抗拜占庭攻击并提高系统隐私安全性。其文章中也指出，现有联邦学习防御系统在面对复杂和持续的梯度上升攻击时，通常会表现出鲁棒性不足的问题。并且Viceroy算法在面对ViT这种复杂度较高的模型时会暴露出通信开销较大和检测复杂度上升的问题。
+
+后门攻击：又叫木马攻击（Trojan Attack），攻击者试图使模型在某些目标任务上实现特定表现，同时保持模型在主要任务上保持良好的性能\cite{canYouBackdoor}。不同于主要目标是降低主任务总体性能的拜占庭攻击，后门攻击的目的通常是未知的，因此通常更难被检测。X. Gong等人对现有的backdoor攻击及防御手段做了系统的分析，指出了联邦学习框架下后门攻击和防御的各种潜在未来方向\cite{backdoorAndDefense}。C. Xie等人提出了专门针对backdoor的Certifiably Robust Federated Learning(CRFL)模型，他们exploited clipping and smoothing on model parameters to control the global model smoothness（利用模型参数的剪辑和平滑来控制全局模型平滑度），从而对有限幅度的后门产生样本稳健性认证\cite{backdoorAndDefense_robust}。这在一定程度上取得了不错的效果，但其实际的计算开销较大。S. Andreina等人提出了基于反馈的联邦学习后门检测模型，将反馈合并到FL的训练流程，利用多个客户端的数据不仅进行训练，而且还发现模型中毒\cite{backdoorAndDefense_feedback}。其检测准确率很大，但实际执行开销同样不小。
+
+这些攻击的主要防御方式在面对参数量庞大的ViT模型时，会暴露出安全和效率冲突的问题。过于追求准确性的防御手段往往复杂度较高，其复杂度不能随着模型参数的增长呈现线性增长的趋势。而复杂度较低的防御手段在面对ViT这种较大的模型时虽然效率上不成问题，但是因参数中存在着大量对于攻击检测来说低效甚至无效的信息，反而会影响最终检测的结果。
 
 \vspace{0.25cm}
 \rule{\linewidth}{0.4pt}
 \centerline{\Large\bf{以下为编写大纲}}
 \vspace{1cm}
-
-Introduction:
-
-（创新点：核心-效率、精度-跟随-感知、实验）
-
-列几点（至少上面的3点）：
-
-\begin{enumerate}
-    \item ssf
-    \item sfs
-\end{enumerate}
-
-一段话的本文结论 第二章是xx，section 3是xxx。（可参考IEEE transction）
-
 
 
 
@@ -186,6 +211,7 @@ Related work:
 
 最后一小段几句话（可写可不写）总体来说  （扣一下主题）   通过上述分析，核心问题是xx（就是摘要里的），因此我们要xx来解决。
 
+More：自己把开头结尾写好，大概讲什么内容自己写，然后中间找几篇相关论文论证，找的论文只用看摘要，可以让GPT总结一下摘要。
 
 \textcolor{red}{今晚写好，(conclusion)}
 
@@ -239,10 +265,16 @@ Conclusion:
 摘要 + 实验结果
 
 
-\section{Related Work}
-\label{sec:related}
 
-相关工作
+按照8页来规划内容
+
+introduction和related work这些大概两页
+
+system model，method主体部分，这些加起来可能三页
+
+实验部分两页半
+
+最后参考文献等等将近一页
 
 \section{System Model}
 \label{sec:model}
@@ -335,9 +367,9 @@ article in which the equation numbers skip from (17) to (20), causing
 the copy editors to wonder if you've discovered a new method of
 counting.
 
-{\BibTeX} does not work by magic. It doesn't get the bibliographic
-data from thin air but from .bib files. If you use {\BibTeX} to produce a
-bibliography you must send the .bib files. 
+% {\BibTeX} does not work by magic. It doesn't get the bibliographic
+% data from thin air but from .bib files. If you use {\BibTeX} to produce a
+% bibliography you must send the .bib files. 
 
 {\LaTeX} can't read your mind. If you assign the same label to a
 subsubsection and a table, you might find that Table I has been cross
@@ -476,7 +508,9 @@ citation first, followed by the original foreign-language citation \cite{b6}.
 % \bibitem{b6} Y. Yorozu, M. Hirano, K. Oka, and Y. Tagawa, ``Electron spectroscopy studies on magneto-optical media and plastic substrate interface,'' IEEE Transl. J. Magn. Japan, vol. 2, pp. 740--741, August 1987 [Digests 9th Annual Conf. Magnetics Japan, p. 301, 1982].
 % \bibitem{b7} M. Young, The Technical Writer's Handbook. Mill Valley, CA: University Science, 1989.
 % \end{thebibliography}
-\printbibliography % 打印参考文献
+\bibliographystyle{IEEEtran}
+\bibliography{references}
+% \printbibliography % 打印参考文献
 \vspace{12pt}
 \color{red}
 IEEE conference templates contain guidance text for composing and formatting conference papers. Please ensure that all template text is removed from your conference paper prior to submission to the conference. Failure to remove the template text from your paper may result in your paper not being published.
