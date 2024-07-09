@@ -3,7 +3,8 @@ import re
 from datetime import datetime, timedelta
 from typing import List, Tuple, Dict
 
-base_path = './result/Archive001-oldHistory/Archive007-poolSizeAndPCAorForest'
+base_path = './result/Archive001-oldHistory/Archive008-nComponseAndForestNEstimators'
+# base_path = './result'
 
 def read_config(file_path: str) -> Dict[str, str]:
     config = {}
@@ -13,10 +14,6 @@ def read_config(file_path: str) -> Dict[str, str]:
                 key, value = line.strip().split('=', 1)
                 config[key.strip()] = value.strip()
     return config
-
-def get_pool_size_string(pool_size: str) -> str:
-    size = int(pool_size)
-    return f"{int(size ** 0.5)} * {int(size ** 0.5)}"
 
 def extract_detection_result(line: str) -> str:
     pattern = r'\|\s*\|\s*[^|]*\|\s*[^|]*\|\s*[^|]*\|\s*[^|]*\|\s*([^|]+)\s*\|'
@@ -59,29 +56,28 @@ def get_max_accuracy(accuracies: List[float]) -> Tuple[float, int]:
     return max_accuracy, max_round
 
 def print_summary(config: Dict[str, str], accuracies: List[float], detection_result: str, start_time: str, end_time: str) -> str:
-    if_pooling = config.get('ifPooling', 'False')
-    pool_size = get_pool_size_string(config.get('poolsize', '1'))
-    detection_method = 'PCA' if config.get('ifPCA', 'False') == 'True' else 'Isolation Forest'
-    accuracy_link = f"[准确率](./result/Archive001-oldHistory/Archive007-poolSizeAndPCAorForest/{config['folder_name']}/accuracyList.txt)"
+    pca_components = config.get('PCA_nComponents', 'N/A')
+    forest_n_estimators = config.get('forest_nEstimators', 'N/A')
+    accuracy_link = f"[准确率]({os.path.join(base_path, config['folder_name'] + '/accuracyList.txt')})"
     max_accuracy, max_round = get_max_accuracy(accuracies)
     duration = datetime.strptime(end_time, '%Y.%m.%d-%H:%M:%S') - datetime.strptime(start_time, '%Y.%m.%d-%H:%M:%S')
-    result_img = f"![结果图](./result/Archive001-oldHistory/Archive007-poolSizeAndPCAorForest/{config['folder_name']}/lossAndAccuracy.svg)"
+    result_img = f"![结果图]({os.path.join(base_path, config['folder_name'] + '/lossAndAccuracy.svg')})"
     
     detection_result_clean = detection_result.split(" <br/>")[0]
 
-    return f"| {if_pooling} | {pool_size} | {detection_method} | {detection_result_clean} | {accuracy_link} | {max_accuracy}% | {max_round} | {duration} | {result_img} |"
+    return f"| {pca_components} | {forest_n_estimators} | {detection_result_clean} | {accuracy_link} | {max_accuracy}% | {max_round} | {duration} | {result_img} |"
 
 def main():
     date_format = '%Y.%m.%d-%H:%M:%S'
-    start_date = datetime.strptime('2024.07.08-00:01:53', date_format)
-    end_date = datetime.strptime('2024.07.08-08:48:25', date_format)
+    start_date = datetime.strptime('2024.07.09-00:28:55', date_format)
+    end_date = datetime.strptime('2024.07.09-15:01:09', date_format)
     
     folder_names = [f for f in os.listdir(base_path) if os.path.isdir(os.path.join(base_path, f))]
     folder_names = [f for f in folder_names if re.match(r'\d{4}\.\d{2}\.\d{2}-\d{2}:\d{2}:\d{2}$', f)]
     folder_names = [f for f in folder_names if start_date <= datetime.strptime(f[:19], date_format) <= end_date]
 
-    table_header = "| 是否池化 | pool size | 检测方式 | 检测结果 | accuracy | 最大准确率 | 首次出现轮次 | 执行耗时 | 结果图 |\n"
-    table_header += "| --- | --- | --- | --- | --- | --- | --- | --- | --- |\n"
+    table_header = "| PCA components | forest n estimators | 检测结果 | accuracy | 最大准确率 | 首次出现轮次 | 执行耗时 | 结果图 |\n"
+    table_header += "| --- | --- | --- | --- | --- | --- | --- | --- |\n"
     table_rows = []
 
     for folder_name in folder_names:
@@ -101,9 +97,8 @@ def main():
             table_rows.append(row)
     
     table_rows = sorted(table_rows, key=lambda x: (
-        'Isolation Forest' in x,  # 检测方法是PCA的优先
-        'True' not in x.split('|')[1],  # ifPooling为True的优先
-        int(re.search(r'\d+', x.split('|')[2]).group()),  # pool size小的优先
+        float(re.search(r'\d*\.?\d+', x.split('|')[2]).group() if re.search(r'\d*\.?\d+', x.split('|')[2]) else 'inf'),  # forest n estimators小的优先
+        -float(re.search(r'[+-]?\d*\.?\d+(?:[eE][+-]?\d+)?', x.split('|')[1]).group() if re.search(r'[+-]?\d*\.?\d+(?:[eE][+-]?\d+)?', x.split('|')[1]) else 'inf'),  # PCA components大的优先
         x.split('|')[0]  # 文件夹日期小的优先
     ))
 
@@ -111,8 +106,4 @@ def main():
     print(markdown_table)
 
 if __name__ == "__main__":
-    # table_rows = [(False, 1, '4'), (False, 2, '9'), (True, 2, '0')]
-    # table_rows = sorted(table_rows)
-    # print(table_rows)
-    # exit()
     main()

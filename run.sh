@@ -1,51 +1,56 @@
-python main.py --ifPooling=True --pooltype=Max --poolsize=4 --ifPCA=True
-python main.py --ifPooling=True --pooltype=Max --poolsize=4 --ifPCA=True
-python main.py --ifPooling=True --pooltype=Max --poolsize=4 --ifPCA=True
-python main.py --ifPooling=True --pooltype=Max --poolsize=9 --ifPCA=True
-python main.py --ifPooling=True --pooltype=Max --poolsize=9 --ifPCA=True
-python main.py --ifPooling=True --pooltype=Max --poolsize=9 --ifPCA=True
-python main.py --ifPooling=True --pooltype=Max --poolsize=16 --ifPCA=True
-python main.py --ifPooling=True --pooltype=Max --poolsize=16 --ifPCA=True
-python main.py --ifPooling=True --pooltype=Max --poolsize=16 --ifPCA=True
-python main.py --ifPooling=True --pooltype=Max --poolsize=25 --ifPCA=True
-python main.py --ifPooling=True --pooltype=Max --poolsize=25 --ifPCA=True
-python main.py --ifPooling=True --pooltype=Max --poolsize=25 --ifPCA=True
+python main.py --PCA_nComponents=0.04 --forest_nEstimators=300
+python main.py --PCA_nComponents=0.04 --forest_nEstimators=300
+python main.py --PCA_nComponents=0.04 --forest_nEstimators=300
+python main.py --PCA_nComponents=0.01 --forest_nEstimators=300
+python main.py --PCA_nComponents=0.01 --forest_nEstimators=300
+python main.py --PCA_nComponents=0.01 --forest_nEstimators=300
+python main.py --PCA_nComponents=0.008 --forest_nEstimators=300
+python main.py --PCA_nComponents=0.008 --forest_nEstimators=300
+python main.py --PCA_nComponents=0.008 --forest_nEstimators=300
+python main.py --PCA_nComponents=0.0016 --forest_nEstimators=300
+python main.py --PCA_nComponents=0.0016 --forest_nEstimators=300
+python main.py --PCA_nComponents=0.0016 --forest_nEstimators=300
+python main.py --PCA_nComponents=0.00032 --forest_nEstimators=300
+python main.py --PCA_nComponents=0.00032 --forest_nEstimators=300
+python main.py --PCA_nComponents=0.00032 --forest_nEstimators=300
+python main.py --PCA_nComponents=0.000064 --forest_nEstimators=300
+python main.py --PCA_nComponents=0.000064 --forest_nEstimators=300
+python main.py --PCA_nComponents=0.000064 --forest_nEstimators=300
 
-python main.py --ifPooling=False --pooltype=Max --poolsize=4 --ifPCA=True
-python main.py --ifPooling=False --pooltype=Max --poolsize=4 --ifPCA=True
-python main.py --ifPooling=False --pooltype=Max --poolsize=4 --ifPCA=True
-python main.py --ifPooling=False --pooltype=Max --poolsize=9 --ifPCA=True
-python main.py --ifPooling=False --pooltype=Max --poolsize=9 --ifPCA=True
-python main.py --ifPooling=False --pooltype=Max --poolsize=9 --ifPCA=True
-python main.py --ifPooling=False --pooltype=Max --poolsize=16 --ifPCA=True
-python main.py --ifPooling=False --pooltype=Max --poolsize=16 --ifPCA=True
-python main.py --ifPooling=False --pooltype=Max --poolsize=16 --ifPCA=True
-python main.py --ifPooling=False --pooltype=Max --poolsize=25 --ifPCA=True
-python main.py --ifPooling=False --pooltype=Max --poolsize=25 --ifPCA=True
-python main.py --ifPooling=False --pooltype=Max --poolsize=25 --ifPCA=True
+python main.py --PCA_nComponents=0.04 --forest_nEstimators=500
+python main.py --PCA_nComponents=0.04 --forest_nEstimators=500
+python main.py --PCA_nComponents=0.04 --forest_nEstimators=500
+python main.py --PCA_nComponents=0.01 --forest_nEstimators=500
+python main.py --PCA_nComponents=0.01 --forest_nEstimators=500
+python main.py --PCA_nComponents=0.01 --forest_nEstimators=500
+python main.py --PCA_nComponents=0.008 --forest_nEstimators=500
+python main.py --PCA_nComponents=0.008 --forest_nEstimators=500
+python main.py --PCA_nComponents=0.008 --forest_nEstimators=500
+python main.py --PCA_nComponents=0.0016 --forest_nEstimators=500
+python main.py --PCA_nComponents=0.0016 --forest_nEstimators=500
+python main.py --PCA_nComponents=0.0016 --forest_nEstimators=500
+python main.py --PCA_nComponents=0.00032 --forest_nEstimators=500
+python main.py --PCA_nComponents=0.00032 --forest_nEstimators=500
+python main.py --PCA_nComponents=0.00032 --forest_nEstimators=500
+python main.py --PCA_nComponents=0.000064 --forest_nEstimators=500
+python main.py --PCA_nComponents=0.000064 --forest_nEstimators=500
+python main.py --PCA_nComponents=0.000064 --forest_nEstimators=500
 
-python main.py --ifPooling=True --pooltype=Max --poolsize=4 --ifPCA=False
-python main.py --ifPooling=True --pooltype=Max --poolsize=4 --ifPCA=False
-python main.py --ifPooling=True --pooltype=Max --poolsize=4 --ifPCA=False
-python main.py --ifPooling=True --pooltype=Max --poolsize=9 --ifPCA=False
-python main.py --ifPooling=True --pooltype=Max --poolsize=9 --ifPCA=False
-python main.py --ifPooling=True --pooltype=Max --poolsize=9 --ifPCA=False
-python main.py --ifPooling=True --pooltype=Max --poolsize=16 --ifPCA=False
-python main.py --ifPooling=True --pooltype=Max --poolsize=16 --ifPCA=False
-python main.py --ifPooling=True --pooltype=Max --poolsize=16 --ifPCA=False
-python main.py --ifPooling=True --pooltype=Max --poolsize=25 --ifPCA=False
-python main.py --ifPooling=True --pooltype=Max --poolsize=25 --ifPCA=False
-python main.py --ifPooling=True --pooltype=Max --poolsize=25 --ifPCA=False
-
-python main.py --ifPooling=False --pooltype=Max --poolsize=4 --ifPCA=False
-python main.py --ifPooling=False --pooltype=Max --poolsize=4 --ifPCA=False
-python main.py --ifPooling=False --pooltype=Max --poolsize=4 --ifPCA=False
-python main.py --ifPooling=False --pooltype=Max --poolsize=9 --ifPCA=False
-python main.py --ifPooling=False --pooltype=Max --poolsize=9 --ifPCA=False
-python main.py --ifPooling=False --pooltype=Max --poolsize=9 --ifPCA=False
-python main.py --ifPooling=False --pooltype=Max --poolsize=16 --ifPCA=False
-python main.py --ifPooling=False --pooltype=Max --poolsize=16 --ifPCA=False
-python main.py --ifPooling=False --pooltype=Max --poolsize=16 --ifPCA=False
-python main.py --ifPooling=False --pooltype=Max --poolsize=25 --ifPCA=False
-python main.py --ifPooling=False --pooltype=Max --poolsize=25 --ifPCA=False
-python main.py --ifPooling=False --pooltype=Max --poolsize=25 --ifPCA=False
+python main.py --PCA_nComponents=0.04 --forest_nEstimators=1000
+python main.py --PCA_nComponents=0.04 --forest_nEstimators=1000
+python main.py --PCA_nComponents=0.04 --forest_nEstimators=1000
+python main.py --PCA_nComponents=0.01 --forest_nEstimators=1000
+python main.py --PCA_nComponents=0.01 --forest_nEstimators=1000
+python main.py --PCA_nComponents=0.01 --forest_nEstimators=1000
+python main.py --PCA_nComponents=0.008 --forest_nEstimators=1000
+python main.py --PCA_nComponents=0.008 --forest_nEstimators=1000
+python main.py --PCA_nComponents=0.008 --forest_nEstimators=1000
+python main.py --PCA_nComponents=0.0016 --forest_nEstimators=1000
+python main.py --PCA_nComponents=0.0016 --forest_nEstimators=1000
+python main.py --PCA_nComponents=0.0016 --forest_nEstimators=1000
+python main.py --PCA_nComponents=0.00032 --forest_nEstimators=1000
+python main.py --PCA_nComponents=0.00032 --forest_nEstimators=1000
+python main.py --PCA_nComponents=0.00032 --forest_nEstimators=1000
+python main.py --PCA_nComponents=0.000064 --forest_nEstimators=1000
+python main.py --PCA_nComponents=0.000064 --forest_nEstimators=1000
+python main.py --PCA_nComponents=0.000064 --forest_nEstimators=1000

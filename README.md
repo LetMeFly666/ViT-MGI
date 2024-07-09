@@ -2,7 +2,7 @@
  * @Author: LetMeFly
  * @Date: 2024-05-15 17:45:43
  * @LastEditors: LetMeFly
- * @LastEditTime: 2024-07-08 16:08:25
+ * @LastEditTime: 2024-07-09 15:35:05
 -->
 # FLDefinder
 
@@ -289,6 +289,64 @@ ifPretrained = True
 device = cuda:0
 ```
 
+<details><summary>实验命令</summary>
+
+```bash
+python main.py --ifPooling=True --pooltype=Max --poolsize=4 --ifPCA=True
+python main.py --ifPooling=True --pooltype=Max --poolsize=4 --ifPCA=True
+python main.py --ifPooling=True --pooltype=Max --poolsize=4 --ifPCA=True
+python main.py --ifPooling=True --pooltype=Max --poolsize=9 --ifPCA=True
+python main.py --ifPooling=True --pooltype=Max --poolsize=9 --ifPCA=True
+python main.py --ifPooling=True --pooltype=Max --poolsize=9 --ifPCA=True
+python main.py --ifPooling=True --pooltype=Max --poolsize=16 --ifPCA=True
+python main.py --ifPooling=True --pooltype=Max --poolsize=16 --ifPCA=True
+python main.py --ifPooling=True --pooltype=Max --poolsize=16 --ifPCA=True
+python main.py --ifPooling=True --pooltype=Max --poolsize=25 --ifPCA=True
+python main.py --ifPooling=True --pooltype=Max --poolsize=25 --ifPCA=True
+python main.py --ifPooling=True --pooltype=Max --poolsize=25 --ifPCA=True
+
+python main.py --ifPooling=False --pooltype=Max --poolsize=4 --ifPCA=True
+python main.py --ifPooling=False --pooltype=Max --poolsize=4 --ifPCA=True
+python main.py --ifPooling=False --pooltype=Max --poolsize=4 --ifPCA=True
+python main.py --ifPooling=False --pooltype=Max --poolsize=9 --ifPCA=True
+python main.py --ifPooling=False --pooltype=Max --poolsize=9 --ifPCA=True
+python main.py --ifPooling=False --pooltype=Max --poolsize=9 --ifPCA=True
+python main.py --ifPooling=False --pooltype=Max --poolsize=16 --ifPCA=True
+python main.py --ifPooling=False --pooltype=Max --poolsize=16 --ifPCA=True
+python main.py --ifPooling=False --pooltype=Max --poolsize=16 --ifPCA=True
+python main.py --ifPooling=False --pooltype=Max --poolsize=25 --ifPCA=True
+python main.py --ifPooling=False --pooltype=Max --poolsize=25 --ifPCA=True
+python main.py --ifPooling=False --pooltype=Max --poolsize=25 --ifPCA=True
+
+python main.py --ifPooling=True --pooltype=Max --poolsize=4 --ifPCA=False
+python main.py --ifPooling=True --pooltype=Max --poolsize=4 --ifPCA=False
+python main.py --ifPooling=True --pooltype=Max --poolsize=4 --ifPCA=False
+python main.py --ifPooling=True --pooltype=Max --poolsize=9 --ifPCA=False
+python main.py --ifPooling=True --pooltype=Max --poolsize=9 --ifPCA=False
+python main.py --ifPooling=True --pooltype=Max --poolsize=9 --ifPCA=False
+python main.py --ifPooling=True --pooltype=Max --poolsize=16 --ifPCA=False
+python main.py --ifPooling=True --pooltype=Max --poolsize=16 --ifPCA=False
+python main.py --ifPooling=True --pooltype=Max --poolsize=16 --ifPCA=False
+python main.py --ifPooling=True --pooltype=Max --poolsize=25 --ifPCA=False
+python main.py --ifPooling=True --pooltype=Max --poolsize=25 --ifPCA=False
+python main.py --ifPooling=True --pooltype=Max --poolsize=25 --ifPCA=False
+
+python main.py --ifPooling=False --pooltype=Max --poolsize=4 --ifPCA=False
+python main.py --ifPooling=False --pooltype=Max --poolsize=4 --ifPCA=False
+python main.py --ifPooling=False --pooltype=Max --poolsize=4 --ifPCA=False
+python main.py --ifPooling=False --pooltype=Max --poolsize=9 --ifPCA=False
+python main.py --ifPooling=False --pooltype=Max --poolsize=9 --ifPCA=False
+python main.py --ifPooling=False --pooltype=Max --poolsize=9 --ifPCA=False
+python main.py --ifPooling=False --pooltype=Max --poolsize=16 --ifPCA=False
+python main.py --ifPooling=False --pooltype=Max --poolsize=16 --ifPCA=False
+python main.py --ifPooling=False --pooltype=Max --poolsize=16 --ifPCA=False
+python main.py --ifPooling=False --pooltype=Max --poolsize=25 --ifPCA=False
+python main.py --ifPooling=False --pooltype=Max --poolsize=25 --ifPCA=False
+python main.py --ifPooling=False --pooltype=Max --poolsize=25 --ifPCA=False
+```
+
+</details>
+
 实验结果如下：
 
 | 是否池化 | pool size | 检测方式 | 检测结果 | accuracy | 最大准确率 | 首次出现轮次 | 执行耗时 | 结果图 |
@@ -347,14 +405,113 @@ device = cuda:0
 + 对于某种检测方法（不论是PCA还是隔离森林），池化能很大程度减少计算耗时，但池化后的检测结构都明显不如不池化的。
 + 隔离森林的检测结果都没有PCA好。
 
+但是：PCA降维后再隔离森林效果还不错。后续可能会写一个手动划分恶意用户的函数。
+
+忽然想到好像也不能那么随意地按倍数手动划分，现在攻击者的隔离森林评分几乎相差不大，但是不排除实际应用中会出现贼逆天的攻击者，一举拉大与其他用户的区别。
+
+然后当前在CPU上进行PCA很耗时也确实是个问题。
+
+### Log016 - 2024.7.9_0:00-2024.7.9_15:30
+
++ 有关`PCA_nComponents`和`forest_nEstimators`的实验。
+
+攻击检测方法恒为PCA+隔离森林，攻击者占比恒为20%。
+
+<details><summary>实验中的不变量</summary>
+
+```python
+num_clients = 10
+batch_size = 32
+num_rounds = 32
+epoch_client = 1
+datasize_perclient = 32
+datasize_valide = 1000
+learning_rate = 0.001
+ifPCA = False  # 此时ifPCA=False意思是同时启用PCA和隔离森林（待完善，先这样）
+ifFindAttack = True
+ifCleanAnoma = True
+PCA_rate = 1
+attackList = [0, 1]
+attack_rate = 1
+ifPooling = False
+poolsize = 1000
+pooltype = Max
+ifPretrained = True
+device = cuda:0
+```
+
+</details>
+
+<details><summary>实验结果(x54)</summary>
+
+| PCA components | forest n estimators | 检测结果 | accuracy | 最大准确率 | 首次出现轮次 | 执行耗时 | 结果图 |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| 0.04 | 300 | 32次中有：17次多抓1个，1次少抓1个多抓1个，10次多抓2个，3次多抓3个，1次少抓2个多抓3个 | [准确率](./result/Archive001-oldHistory/Archive008-nComponseAndForestNEstimators/2024.07.09-00:44:08/accuracyList.txt) | 97.3% | 30 | 0:15:11 | ![结果图](./result/Archive001-oldHistory/Archive008-nComponseAndForestNEstimators/2024.07.09-00:44:08/lossAndAccuracy.svg) |
+| 0.04 | 300 | 32次中有：1次完全正确，16次多抓1个，12次多抓2个，3次多抓3个 | [准确率](./result/Archive001-oldHistory/Archive008-nComponseAndForestNEstimators/2024.07.09-00:59:20/accuracyList.txt) | 96.4% | 28 | 0:15:11 | ![结果图](./result/Archive001-oldHistory/Archive008-nComponseAndForestNEstimators/2024.07.09-00:59:20/lossAndAccuracy.svg) |
+| 0.04 | 300 | 32次中有：1次完全正确，19次多抓1个，11次多抓2个，1次少抓1个多抓2个 | [准确率](./result/Archive001-oldHistory/Archive008-nComponseAndForestNEstimators/2024.07.09-00:28:55/accuracyList.txt) | 96.1% | 26 | 0:15:12 | ![结果图](./result/Archive001-oldHistory/Archive008-nComponseAndForestNEstimators/2024.07.09-00:28:55/lossAndAccuracy.svg) |
+| 0.01 | 300 | 32次中有：15次多抓1个，17次多抓2个 | [准确率](./result/Archive001-oldHistory/Archive008-nComponseAndForestNEstimators/2024.07.09-01:45:01/accuracyList.txt) | 96.6% | 28 | 0:15:30 | ![结果图](./result/Archive001-oldHistory/Archive008-nComponseAndForestNEstimators/2024.07.09-01:45:01/lossAndAccuracy.svg) |
+| 0.01 | 300 | 32次中有：1次完全正确，17次多抓1个，1次少抓1个多抓1个，10次多抓2个，1次少抓1个多抓2个，1次少抓2个多抓2个，1次多抓3个 | [准确率](./result/Archive001-oldHistory/Archive008-nComponseAndForestNEstimators/2024.07.09-01:29:44/accuracyList.txt) | 96.3% | 30 | 0:15:16 | ![结果图](./result/Archive001-oldHistory/Archive008-nComponseAndForestNEstimators/2024.07.09-01:29:44/lossAndAccuracy.svg) |
+| 0.01 | 300 | 32次中有：19次多抓1个，12次多抓2个，1次少抓1个多抓2个 | [准确率](./result/Archive001-oldHistory/Archive008-nComponseAndForestNEstimators/2024.07.09-01:14:32/accuracyList.txt) | 96.7% | 30 | 0:15:11 | ![结果图](./result/Archive001-oldHistory/Archive008-nComponseAndForestNEstimators/2024.07.09-01:14:32/lossAndAccuracy.svg) |
+| 0.008 | 300 | 32次中有：15次多抓1个，1次少抓1个多抓1个，15次多抓2个，1次多抓3个 | [准确率](./result/Archive001-oldHistory/Archive008-nComponseAndForestNEstimators/2024.07.09-02:00:32/accuracyList.txt) | 96.5% | 32 | 0:15:10 | ![结果图](./result/Archive001-oldHistory/Archive008-nComponseAndForestNEstimators/2024.07.09-02:00:32/lossAndAccuracy.svg) |
+| 0.008 | 300 | 32次中有：18次多抓1个，11次多抓2个，1次少抓1个多抓2个，2次少抓2个多抓2个 | [准确率](./result/Archive001-oldHistory/Archive008-nComponseAndForestNEstimators/2024.07.09-02:30:54/accuracyList.txt) | 96.5% | 27 | 0:15:08 | ![结果图](./result/Archive001-oldHistory/Archive008-nComponseAndForestNEstimators/2024.07.09-02:30:54/lossAndAccuracy.svg) |
+| 0.008 | 300 | 32次中有：1次完全正确，17次多抓1个，14次多抓2个 | [准确率](./result/Archive001-oldHistory/Archive008-nComponseAndForestNEstimators/2024.07.09-02:15:43/accuracyList.txt) | 95.7% | 28 | 0:15:09 | ![结果图](./result/Archive001-oldHistory/Archive008-nComponseAndForestNEstimators/2024.07.09-02:15:43/lossAndAccuracy.svg) |
+| 0.0016 | 300 | 32次中有：20次多抓1个，10次多抓2个，2次多抓3个 | [准确率](./result/Archive001-oldHistory/Archive008-nComponseAndForestNEstimators/2024.07.09-03:01:11/accuracyList.txt) | 95.9% | 32 | 0:15:11 | ![结果图](./result/Archive001-oldHistory/Archive008-nComponseAndForestNEstimators/2024.07.09-03:01:11/lossAndAccuracy.svg) |
+| 0.0016 | 300 | 32次中有：1次完全正确，16次多抓1个，13次多抓2个，1次少抓1个多抓2个，1次多抓4个 | [准确率](./result/Archive001-oldHistory/Archive008-nComponseAndForestNEstimators/2024.07.09-02:46:03/accuracyList.txt) | 96.7% | 28 | 0:15:07 | ![结果图](./result/Archive001-oldHistory/Archive008-nComponseAndForestNEstimators/2024.07.09-02:46:03/lossAndAccuracy.svg) |
+| 0.0016 | 300 | 32次中有：1次完全正确，18次多抓1个，11次多抓2个，1次少抓1个多抓2个，1次多抓3个 | [准确率](./result/Archive001-oldHistory/Archive008-nComponseAndForestNEstimators/2024.07.09-03:16:23/accuracyList.txt) | 96.4% | 30 | 0:15:15 | ![结果图](./result/Archive001-oldHistory/Archive008-nComponseAndForestNEstimators/2024.07.09-03:16:23/lossAndAccuracy.svg) |
+| 0.00032 | 300 | 32次中有：1次完全正确，11次多抓1个，16次多抓2个，1次少抓1个多抓2个，3次多抓3个 | [准确率](./result/Archive001-oldHistory/Archive008-nComponseAndForestNEstimators/2024.07.09-03:31:39/accuracyList.txt) | 95.7% | 26 | 0:15:10 | ![结果图](./result/Archive001-oldHistory/Archive008-nComponseAndForestNEstimators/2024.07.09-03:31:39/lossAndAccuracy.svg) |
+| 0.00032 | 300 | 32次中有：2次完全正确，10次多抓1个，17次多抓2个，1次少抓1个多抓2个，1次少抓2个多抓2个，1次多抓3个 | [准确率](./result/Archive001-oldHistory/Archive008-nComponseAndForestNEstimators/2024.07.09-04:01:56/accuracyList.txt) | 96.4% | 31 | 0:15:09 | ![结果图](./result/Archive001-oldHistory/Archive008-nComponseAndForestNEstimators/2024.07.09-04:01:56/lossAndAccuracy.svg) |
+| 0.00032 | 300 | 32次中有：2次完全正确，15次多抓1个，13次多抓2个，1次少抓2个多抓2个，1次多抓3个 | [准确率](./result/Archive001-oldHistory/Archive008-nComponseAndForestNEstimators/2024.07.09-03:46:50/accuracyList.txt) | 96.1% | 32 | 0:15:05 | ![结果图](./result/Archive001-oldHistory/Archive008-nComponseAndForestNEstimators/2024.07.09-03:46:50/lossAndAccuracy.svg) |
+| 6.4e-05 | 300 | 32次中有：2次完全正确，14次多抓1个，15次多抓2个，1次少抓2个多抓2个 | [准确率](./result/Archive001-oldHistory/Archive008-nComponseAndForestNEstimators/2024.07.09-04:47:24/accuracyList.txt) | 96.7% | 32 | 0:15:09 | ![结果图](./result/Archive001-oldHistory/Archive008-nComponseAndForestNEstimators/2024.07.09-04:47:24/lossAndAccuracy.svg) |
+| 6.4e-05 | 300 | 32次中有：1次完全正确，15次多抓1个，15次多抓2个，1次多抓3个 | [准确率](./result/Archive001-oldHistory/Archive008-nComponseAndForestNEstimators/2024.07.09-04:32:14/accuracyList.txt) | 96.8% | 29 | 0:15:09 | ![结果图](./result/Archive001-oldHistory/Archive008-nComponseAndForestNEstimators/2024.07.09-04:32:14/lossAndAccuracy.svg) |
+| 6.4e-05 | 300 | 32次中有：1次完全正确，15次多抓1个，16次多抓2个 | [准确率](./result/Archive001-oldHistory/Archive008-nComponseAndForestNEstimators/2024.07.09-04:17:06/accuracyList.txt) | 96.5% | 30 | 0:15:07 | ![结果图](./result/Archive001-oldHistory/Archive008-nComponseAndForestNEstimators/2024.07.09-04:17:06/lossAndAccuracy.svg) |
+| 0.04 | 500 | 32次中有：2次完全正确，15次多抓1个，14次多抓2个，1次多抓3个 | [准确率](./result/Archive001-oldHistory/Archive008-nComponseAndForestNEstimators/2024.07.09-05:33:05/accuracyList.txt) | 96.8% | 30 | 0:15:18 | ![结果图](./result/Archive001-oldHistory/Archive008-nComponseAndForestNEstimators/2024.07.09-05:33:05/lossAndAccuracy.svg) |
+| 0.04 | 500 | 32次中有：3次完全正确，16次多抓1个，10次多抓2个，3次多抓3个 | [准确率](./result/Archive001-oldHistory/Archive008-nComponseAndForestNEstimators/2024.07.09-05:17:48/accuracyList.txt) | 97.1% | 30 | 0:15:16 | ![结果图](./result/Archive001-oldHistory/Archive008-nComponseAndForestNEstimators/2024.07.09-05:17:48/lossAndAccuracy.svg) |
+| 0.04 | 500 | 32次中有：13次多抓1个，1次少抓1个多抓1个，16次多抓2个，1次多抓3个，1次少抓2个多抓3个 | [准确率](./result/Archive001-oldHistory/Archive008-nComponseAndForestNEstimators/2024.07.09-05:02:34/accuracyList.txt) | 96.8% | 27 | 0:15:13 | ![结果图](./result/Archive001-oldHistory/Archive008-nComponseAndForestNEstimators/2024.07.09-05:02:34/lossAndAccuracy.svg) |
+| 0.01 | 500 | 32次中有：1次完全正确，16次多抓1个，14次多抓2个，1次少抓2个多抓3个 | [准确率](./result/Archive001-oldHistory/Archive008-nComponseAndForestNEstimators/2024.07.09-06:03:40/accuracyList.txt) | 96.6% | 31 | 0:15:17 | ![结果图](./result/Archive001-oldHistory/Archive008-nComponseAndForestNEstimators/2024.07.09-06:03:40/lossAndAccuracy.svg) |
+| 0.01 | 500 | 32次中有：17次多抓1个，1次少抓1个多抓1个，13次多抓2个，1次少抓1个多抓3个 | [准确率](./result/Archive001-oldHistory/Archive008-nComponseAndForestNEstimators/2024.07.09-06:18:58/accuracyList.txt) | 96.3% | 31 | 0:15:16 | ![结果图](./result/Archive001-oldHistory/Archive008-nComponseAndForestNEstimators/2024.07.09-06:18:58/lossAndAccuracy.svg) |
+| 0.01 | 500 | 32次中有：18次多抓1个，12次多抓2个，1次少抓1个多抓2个，1次少抓2个多抓2个 | [准确率](./result/Archive001-oldHistory/Archive008-nComponseAndForestNEstimators/2024.07.09-05:48:24/accuracyList.txt) | 97.0% | 32 | 0:15:15 | ![结果图](./result/Archive001-oldHistory/Archive008-nComponseAndForestNEstimators/2024.07.09-05:48:24/lossAndAccuracy.svg) |
+| 0.008 | 500 | 32次中有：17次多抓1个，2次少抓1个多抓1个，10次多抓2个，2次多抓3个，1次少抓2个多抓3个 | [准确率](./result/Archive001-oldHistory/Archive008-nComponseAndForestNEstimators/2024.07.09-06:49:32/accuracyList.txt) | 96.6% | 29 | 0:15:21 | ![结果图](./result/Archive001-oldHistory/Archive008-nComponseAndForestNEstimators/2024.07.09-06:49:32/lossAndAccuracy.svg) |
+| 0.008 | 500 | 32次中有：1次完全正确，13次多抓1个，1次少抓1个多抓1个，13次多抓2个，3次少抓1个多抓2个，1次多抓3个 | [准确率](./result/Archive001-oldHistory/Archive008-nComponseAndForestNEstimators/2024.07.09-07:04:53/accuracyList.txt) | 96.0% | 27 | 0:15:15 | ![结果图](./result/Archive001-oldHistory/Archive008-nComponseAndForestNEstimators/2024.07.09-07:04:53/lossAndAccuracy.svg) |
+| 0.008 | 500 | 32次中有：2次完全正确，16次多抓1个，14次多抓2个 | [准确率](./result/Archive001-oldHistory/Archive008-nComponseAndForestNEstimators/2024.07.09-06:34:15/accuracyList.txt) | 96.8% | 31 | 0:15:16 | ![结果图](./result/Archive001-oldHistory/Archive008-nComponseAndForestNEstimators/2024.07.09-06:34:15/lossAndAccuracy.svg) |
+| 0.0016 | 500 | 32次中有：3次完全正确，18次多抓1个，9次多抓2个，1次少抓2个多抓2个，1次多抓3个 | [准确率](./result/Archive001-oldHistory/Archive008-nComponseAndForestNEstimators/2024.07.09-07:50:42/accuracyList.txt) | 96.3% | 31 | 0:15:14 | ![结果图](./result/Archive001-oldHistory/Archive008-nComponseAndForestNEstimators/2024.07.09-07:50:42/lossAndAccuracy.svg) |
+| 0.0016 | 500 | 32次中有：1次完全正确，15次多抓1个，16次多抓2个 | [准确率](./result/Archive001-oldHistory/Archive008-nComponseAndForestNEstimators/2024.07.09-07:35:25/accuracyList.txt) | 96.7% | 30 | 0:15:16 | ![结果图](./result/Archive001-oldHistory/Archive008-nComponseAndForestNEstimators/2024.07.09-07:35:25/lossAndAccuracy.svg) |
+| 0.0016 | 500 | 32次中有：21次多抓1个，11次多抓2个 | [准确率](./result/Archive001-oldHistory/Archive008-nComponseAndForestNEstimators/2024.07.09-07:20:09/accuracyList.txt) | 97.1% | 32 | 0:15:15 | ![结果图](./result/Archive001-oldHistory/Archive008-nComponseAndForestNEstimators/2024.07.09-07:20:09/lossAndAccuracy.svg) |
+| 0.00032 | 500 | 32次中有：17次多抓1个，15次多抓2个 | [准确率](./result/Archive001-oldHistory/Archive008-nComponseAndForestNEstimators/2024.07.09-08:21:15/accuracyList.txt) | 97.1% | 31 | 0:15:20 | ![结果图](./result/Archive001-oldHistory/Archive008-nComponseAndForestNEstimators/2024.07.09-08:21:15/lossAndAccuracy.svg) |
+| 0.00032 | 500 | 32次中有：1次完全正确，14次多抓1个，1次少抓1个多抓1个，13次多抓2个，2次多抓3个，1次少抓2个多抓3个 | [准确率](./result/Archive001-oldHistory/Archive008-nComponseAndForestNEstimators/2024.07.09-08:05:57/accuracyList.txt) | 97.0% | 31 | 0:15:17 | ![结果图](./result/Archive001-oldHistory/Archive008-nComponseAndForestNEstimators/2024.07.09-08:05:57/lossAndAccuracy.svg) |
+| 0.00032 | 500 | 32次中有：1次完全正确，18次多抓1个，12次多抓2个，1次多抓3个 | [准确率](./result/Archive001-oldHistory/Archive008-nComponseAndForestNEstimators/2024.07.09-08:36:36/accuracyList.txt) | 96.6% | 31 | 0:15:22 | ![结果图](./result/Archive001-oldHistory/Archive008-nComponseAndForestNEstimators/2024.07.09-08:36:36/lossAndAccuracy.svg) |
+| 6.4e-05 | 500 | 32次中有：2次完全正确，17次多抓1个，12次多抓2个，1次少抓1个多抓2个 | [准确率](./result/Archive001-oldHistory/Archive008-nComponseAndForestNEstimators/2024.07.09-08:51:59/accuracyList.txt) | 95.8% | 31 | 0:15:13 | ![结果图](./result/Archive001-oldHistory/Archive008-nComponseAndForestNEstimators/2024.07.09-08:51:59/lossAndAccuracy.svg) |
+| 6.4e-05 | 500 | 32次中有：4次完全正确，18次多抓1个，2次少抓1个多抓1个，7次多抓2个，1次多抓3个 | [准确率](./result/Archive001-oldHistory/Archive008-nComponseAndForestNEstimators/2024.07.09-09:07:13/accuracyList.txt) | 96.9% | 31 | 0:15:18 | ![结果图](./result/Archive001-oldHistory/Archive008-nComponseAndForestNEstimators/2024.07.09-09:07:13/lossAndAccuracy.svg) |
+| 6.4e-05 | 500 | 32次中有：1次完全正确，13次多抓1个，14次多抓2个，1次少抓2个多抓2个，3次多抓3个 | [准确率](./result/Archive001-oldHistory/Archive008-nComponseAndForestNEstimators/2024.07.09-09:22:32/accuracyList.txt) | 96.0% | 29 | <span title="由人为观测引起的误差（screen copy mode下print函数卡住了）">1:12:13</span> | ![结果图](./result/Archive001-oldHistory/Archive008-nComponseAndForestNEstimators/2024.07.09-09:22:32/lossAndAccuracy.svg) |
+| 0.04 | 1000 | 32次中有：1次完全正确，14次多抓1个，1次少抓1个多抓1个，16次多抓2个 | [准确率](./result/Archive001-oldHistory/Archive008-nComponseAndForestNEstimators/2024.07.09-11:05:52/accuracyList.txt) | 97.5% | 32 | 0:15:37 | ![结果图](./result/Archive001-oldHistory/Archive008-nComponseAndForestNEstimators/2024.07.09-11:05:52/lossAndAccuracy.svg) |
+| 0.04 | 1000 | 32次中有：14次多抓1个，15次多抓2个，1次少抓1个多抓2个，2次多抓3个 | [准确率](./result/Archive001-oldHistory/Archive008-nComponseAndForestNEstimators/2024.07.09-10:34:46/accuracyList.txt) | 96.9% | 27 | 0:15:31 | ![结果图](./result/Archive001-oldHistory/Archive008-nComponseAndForestNEstimators/2024.07.09-10:34:46/lossAndAccuracy.svg) |
+| 0.04 | 1000 | 32次中有：3次完全正确，17次多抓1个，11次多抓2个，1次多抓3个 | [准确率](./result/Archive001-oldHistory/Archive008-nComponseAndForestNEstimators/2024.07.09-10:50:18/accuracyList.txt) | 96.4% | 28 | 0:15:34 | ![结果图](./result/Archive001-oldHistory/Archive008-nComponseAndForestNEstimators/2024.07.09-10:50:18/lossAndAccuracy.svg) |
+| 0.01 | 1000 | 32次中有：11次多抓1个，18次多抓2个，1次少抓1个多抓2个，1次少抓2个多抓2个，1次多抓3个 | [准确率](./result/Archive001-oldHistory/Archive008-nComponseAndForestNEstimators/2024.07.09-11:37:03/accuracyList.txt) | 96.3% | 31 | 0:15:39 | ![结果图](./result/Archive001-oldHistory/Archive008-nComponseAndForestNEstimators/2024.07.09-11:37:03/lossAndAccuracy.svg) |
+| 0.01 | 1000 | 32次中有：1次完全正确，15次多抓1个，15次多抓2个，1次少抓1个多抓3个 | [准确率](./result/Archive001-oldHistory/Archive008-nComponseAndForestNEstimators/2024.07.09-11:21:30/accuracyList.txt) | 96.4% | 31 | 0:15:32 | ![结果图](./result/Archive001-oldHistory/Archive008-nComponseAndForestNEstimators/2024.07.09-11:21:30/lossAndAccuracy.svg) |
+| 0.01 | 1000 | 32次中有：12次多抓1个，17次多抓2个，3次多抓3个 | [准确率](./result/Archive001-oldHistory/Archive008-nComponseAndForestNEstimators/2024.07.09-11:52:43/accuracyList.txt) | 96.7% | 24 | 0:15:29 | ![结果图](./result/Archive001-oldHistory/Archive008-nComponseAndForestNEstimators/2024.07.09-11:52:43/lossAndAccuracy.svg) |
+| 0.008 | 1000 | 32次中有：16次多抓1个，1次少抓1个多抓1个，12次多抓2个，1次少抓1个多抓2个，2次多抓3个 | [准确率](./result/Archive001-oldHistory/Archive008-nComponseAndForestNEstimators/2024.07.09-12:23:52/accuracyList.txt) | 96.8% | 28 | 0:15:31 | ![结果图](./result/Archive001-oldHistory/Archive008-nComponseAndForestNEstimators/2024.07.09-12:23:52/lossAndAccuracy.svg) |
+| 0.008 | 1000 | 32次中有：1次完全正确，16次多抓1个，1次少抓1个多抓1个，12次多抓2个，2次多抓3个 | [准确率](./result/Archive001-oldHistory/Archive008-nComponseAndForestNEstimators/2024.07.09-12:08:13/accuracyList.txt) | 96.6% | 32 | 0:15:38 | ![结果图](./result/Archive001-oldHistory/Archive008-nComponseAndForestNEstimators/2024.07.09-12:08:13/lossAndAccuracy.svg) |
+| 0.008 | 1000 | 32次中有：3次完全正确，13次多抓1个，15次多抓2个，1次少抓1个多抓2个 | [准确率](./result/Archive001-oldHistory/Archive008-nComponseAndForestNEstimators/2024.07.09-12:39:24/accuracyList.txt) | 96.0% | 26 | 0:15:38 | ![结果图](./result/Archive001-oldHistory/Archive008-nComponseAndForestNEstimators/2024.07.09-12:39:24/lossAndAccuracy.svg) |
+| 0.0016 | 1000 | 32次中有：1次完全正确，12次多抓1个，16次多抓2个，3次多抓3个 | [准确率](./result/Archive001-oldHistory/Archive008-nComponseAndForestNEstimators/2024.07.09-13:11:59/accuracyList.txt) | 96.1% | 31 | 0:15:34 | ![结果图](./result/Archive001-oldHistory/Archive008-nComponseAndForestNEstimators/2024.07.09-13:11:59/lossAndAccuracy.svg) |
+| 0.0016 | 1000 | 32次中有：1次完全正确，14次多抓1个，15次多抓2个，1次多抓3个，1次少抓2个多抓3个 | [准确率](./result/Archive001-oldHistory/Archive008-nComponseAndForestNEstimators/2024.07.09-13:27:34/accuracyList.txt) | 96.9% | 31 | 0:15:36 | ![结果图](./result/Archive001-oldHistory/Archive008-nComponseAndForestNEstimators/2024.07.09-13:27:34/lossAndAccuracy.svg) |
+| 0.0016 | 1000 | 32次中有：1次完全正确，18次多抓1个，11次多抓2个，1次少抓2个多抓2个，1次多抓3个 | [准确率](./result/Archive001-oldHistory/Archive008-nComponseAndForestNEstimators/2024.07.09-12:55:03/accuracyList.txt) | 97.6% | 32 | 0:16:55 | ![结果图](./result/Archive001-oldHistory/Archive008-nComponseAndForestNEstimators/2024.07.09-12:55:03/lossAndAccuracy.svg) |
+| 0.00032 | 1000 | 32次中有：1次完全正确，15次多抓1个，16次多抓2个 | [准确率](./result/Archive001-oldHistory/Archive008-nComponseAndForestNEstimators/2024.07.09-13:43:11/accuracyList.txt) | 96.7% | 31 | 0:15:30 | ![结果图](./result/Archive001-oldHistory/Archive008-nComponseAndForestNEstimators/2024.07.09-13:43:11/lossAndAccuracy.svg) |
+| 0.00032 | 1000 | 32次中有：12次多抓1个，19次多抓2个，1次少抓2个多抓3个 | [准确率](./result/Archive001-oldHistory/Archive008-nComponseAndForestNEstimators/2024.07.09-13:58:42/accuracyList.txt) | 96.5% | 28 | 0:15:28 | ![结果图](./result/Archive001-oldHistory/Archive008-nComponseAndForestNEstimators/2024.07.09-13:58:42/lossAndAccuracy.svg) |
+| 0.00032 | 1000 | 32次中有：3次完全正确，8次多抓1个，2次少抓1个多抓1个，18次多抓2个，1次多抓3个 | [准确率](./result/Archive001-oldHistory/Archive008-nComponseAndForestNEstimators/2024.07.09-14:14:11/accuracyList.txt) | 96.3% | 30 | 0:15:47 | ![结果图](./result/Archive001-oldHistory/Archive008-nComponseAndForestNEstimators/2024.07.09-14:14:11/lossAndAccuracy.svg) |
+| 6.4e-05 | 1000 | 32次中有：18次多抓1个，1次少抓1个多抓1个，11次多抓2个，2次多抓3个 | [准确率](./result/Archive001-oldHistory/Archive008-nComponseAndForestNEstimators/2024.07.09-14:45:36/accuracyList.txt) | 96.0% | 31 | 0:15:32 | ![结果图](./result/Archive001-oldHistory/Archive008-nComponseAndForestNEstimators/2024.07.09-14:45:36/lossAndAccuracy.svg) |
+| 6.4e-05 | 1000 | 32次中有：2次完全正确，16次多抓1个，11次多抓2个，3次多抓3个 | [准确率](./result/Archive001-oldHistory/Archive008-nComponseAndForestNEstimators/2024.07.09-14:29:59/accuracyList.txt) | 96.1% | 27 | 0:15:36 | ![结果图](./result/Archive001-oldHistory/Archive008-nComponseAndForestNEstimators/2024.07.09-14:29:59/lossAndAccuracy.svg) |
+| 6.4e-05 | 1000 | 32次中有：13次多抓1个，17次多抓2个，1次多抓3个，1次少抓2个多抓3个 | [准确率](./result/Archive001-oldHistory/Archive008-nComponseAndForestNEstimators/2024.07.09-15:01:09/accuracyList.txt) | 96.8% | 31 | 0:15:34 | ![结果图](./result/Archive001-oldHistory/Archive008-nComponseAndForestNEstimators/2024.07.09-15:01:09/lossAndAccuracy.svg) |
+
+</details>
+
 ### TODO
 
 - [x] 每个客户端下次数据会发生变化
 - [x] 客户端本地训练多个（例如3）epoch
 - [x] 没有攻击者时若参数中启用PCA也要尝试抓人，因为服务器不知道有没有攻击者
-- [ ] 增加参数：预训练模型还是非预训练模型
-- [ ] 先写个题目和摘要
-- [ ] 了解一些攻防手段，例如主成分萃取/最大池化及其关系
+- [x] 增加参数：预训练模型还是非预训练模型
+- [x] 先写个题目和摘要
+- [x] 了解一些攻防手段，例如主成分萃取/最大池化及其关系
+- [ ] Un realized merge
 - [ ] IF零信任？
 - [ ] IF恶意用户检测之-检测此次梯度时参考历史梯度？
 - [ ] （暂时抛弃）难道是泛用的ViT模型不知道Cifar-10只有10个输出所以准确率一直在50%多徘徊？（非预训练）

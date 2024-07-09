@@ -1,8 +1,8 @@
 '''
 Author: LetMeFly vme50ty
 Date: 2024-07-03 10:37:25
-LastEditors: LetMeFly666 814114971@qq.com
-LastEditTime: 2024-07-08 16:09:20
+LastEditors: LetMeFly
+LastEditTime: 2024-07-07 16:30:57
 '''
 import datetime
 getNow = lambda: datetime.datetime.now().strftime('%Y.%m.%d-%H:%M:%S')
@@ -47,16 +47,16 @@ class Config:
         self.datasize_perclient = 32   # 每个客户端的数据量
         self.datasize_valide = 1000    # 测试集大小
         self.learning_rate = 0.001     # 步长
-        self.ifPCA = False              # 是否启用PCA评价 ，若不启用则启用forest
+        self.ifPCA = True              # 是否启用PCA评价 ，若不启用则启用forest
         self.ifFindAttack=True         # 是否启用找出攻击者
         self.ifCleanAnoma = True       # 是否清理PCA抓出的异常数据
         self.PCA_rate = 1              # PCA偏离倍数
         self.PCA_nComponents = 0.2     # PCA降维后的主成分数目
-        self.attackList = [0]         # 恶意客户端下标
+        self.attackList = [0, 1]       # 恶意客户端下标
         self.attack_rate = 1           # 攻击强度
         self.ifPooling = True          # 是否进行池化操作
-        self.poolsize = 1000          # grads数组中每个grad，取n个数字中取最大值
-        self.pooltype = "Sum"          # 池化方式，可以为Mean或者Max,sum，代表最大池化和平均池化
+        self.poolsize = 3 * 3          # grads数组中每个grad，取n个数字中取最大值
+        self.pooltype = "mean"         # 池化方式，可以为mean或者max，代表最大池化和平均池化
         self.ifPretrained = True       # 是否使用预训练模型
         self.device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
         self.parseAgrs()
@@ -312,32 +312,40 @@ class GradientAnalyzer:
         return useful_grads_list, anomalous_grads_list
     
     # 根本不管用，以后再看
-    def isolation_Forest_Method(self, all_grads: List[np.ndarray]) -> Tuple[List[int], List[int]]:
+    def isolation_Forest_Method(self, all_grads: List[np.ndarray]) -> Tuple[List, List]:
         useful_grads_list = []
         anomalous_grads_list = []
         
         print(f"Forest Begin | {getNow()}")
         # Initialize Isolation Forest model
-        isolation_forest = IsolationForest(n_estimators=2000, max_samples=1.0, max_features=1.0, random_state=42)
+        isolation_forest = IsolationForest()
 
         # Fit the model to the gradients data
         isolation_forest.fit(all_grads)
 
-        # Predict outliers (anomalies)
-        outlier_preds = isolation_forest.predict(all_grads)  # 返回每个数据点是否为异常点（数组），-1表示异常，1表示正常
+        # Predict outliers (anomalies) and obtain anomaly scores
+        outlier_preds = isolation_forest.predict(all_grads)  # 返回每个数据点是否为异常点（数组），-1异常1正常
+        anomaly_scores = isolation_forest.decision_function(all_grads)  # 返回每个数据点的异常分数，分数越低表示越异常
+
+        # Combine predictions and scores for sorting
+        anomaly_results = list(zip(range(len(all_grads)), outlier_preds, anomaly_scores))
+        anomaly_results.sort(key=lambda x: x[2])  # Sort by anomaly score
 
         # Extract useful and anomalous gradients based on predictions
-        for idx, pred in enumerate(outlier_preds):
+        for idx, pred, score in anomaly_results:
             if pred == -1:  # -1 indicates an outlier
-                anomalous_grads_list.append(idx)
+                anomalous_grads_list.append((idx, score))
             else:
-                useful_grads_list.append(idx)
+                useful_grads_list.append((idx, score))
 
-        print("Anomalous gradients:", anomalous_grads_list)
-        self.ban_history.append(anomalous_grads_list)
+        print("Anomalous gradients:")
+        for idx, score in anomalous_grads_list:
+            print(f"Index: {idx}, Anomaly Score: {score}")
+
+        self.ban_history.append([idx for idx, _ in anomalous_grads_list])
         print(f"Forest End | {getNow()}")
-        return useful_grads_list, anomalous_grads_list
-
+        
+        return useful_grads_list, anomalous_grads_list  # TODO: 好像和PCA的样子不太一样
 
     def find_useful_gradients(self, grads_dict: dict) -> Tuple[List, List]:
         useful_grads_list = []
@@ -348,7 +356,7 @@ class GradientAnalyzer:
         if config.ifPCA:
             useful_grads_list, anomalous_grads_list = self.PCA_Method(all_grads, config.PCA_rate)
         else :
-            useful_grads_list, anomalous_grads_list = self.isolation_Forest_Method(all_grads)  # TODO: 这里是不是应该为“useful_grads_list, anomalous_grads_list = xxx”捏
+            self.isolation_Forest_Method(all_grads)  # TODO: 这里是不是应该为“useful_grads_list, anomalous_grads_list = xxx”捏
         return useful_grads_list, anomalous_grads_list
     
     def pooling(self, poolsize: int, all_grads: np.ndarray) -> np.ndarray:
@@ -361,12 +369,11 @@ class GradientAnalyzer:
                 grad_gpu = torch.cat([grad_gpu, torch.zeros(padding_size, device=config.device)])
             
             grad_matrix = grad_gpu.view(-1, poolsize)  # 将梯度变为矩阵形式，每行有 poolsize 个元素
-            if config.pooltype == 'Max':
+            if config.pooltype == 'max':
                 pooled_grad, _ = torch.max(grad_matrix, dim=1)  # 最大池化
-            elif config.pooltype == 'Mean':
+            elif config.pooltype == 'mean':
                 pooled_grad = torch.mean(grad_matrix, dim=1)    # 平均池化
-            elif config.pooltype == 'Sum':
-                pooled_grad = torch.sum(grad_matrix, dim=1)  # 将结果移动回 CPU 并转换为 NumPy 数组
+            pooled_grads.append(pooled_grad.cpu().numpy())  # 将结果移动回 CPU 并转换为 NumPy 数组
             
             # 释放 GPU 内存
             del grad_gpu, grad_matrix, pooled_grad
