@@ -106,7 +106,7 @@ email address or ORCID}
 
 随着视觉大模型的不断发展，模型训练时需要越来越多的数据量。因此需要联邦学习的ViT模型(Federated ViT)，在数据不离开多个客户端的前提下进行模型训练，同时捕捉复杂的全局特征\footnote{相比于简单的CNN等，ViT可以更好地捕捉全局信息}。例如FeSTA通过分割学习的ViT模型进行COVID-19的胸部X光片检测，保留数据隐私的同时在多个数据集上实现了性能提升\cite{federatedViT_example}。但是，在实际的应用场景中，可能会存在恶意攻击者攻击污染全局模型的问题。有的攻击者会篡改本地训练出的梯度数据，从而扰乱聚合后的全局模型的效果；有的攻击者会篡改数据集的标签，例如常见的标签翻转\cite{tailAttack_SuchAsLabelFlip}；还有的攻击者会采用更加隐蔽的后门攻击，在训练过程中涉及难以被识别的触发器从而达到插入后门的效果\cite{backdoor_001}。
 
-现已提出了很多防御机制，有通过在服务器上计算每个模型更新与其最近更新之间的欧氏距离之和来选择聚合模型的Krum算法和拓展的multi-Krum算法\cite{aggregation_Krum}，有选择中值或排除边缘值后的平均值作为全局模型的中值算法和裁剪平均算法\cite{aggregation_MedianTrimmedMean}，也有使用主成分分析(Principal Component Analysis, PCA)的Fed-PCA算法\cite{Fed_PCA}，以及通过解决最大团问题(Maximum CliqueProblem, MCP)从而无需无需恶意用户数量这一先验知识的Sniper方案\cite{aggregation_Sniper}。这些数据都能在不同程度上解决恶意用户的攻击问题，但是它们都普遍存在安全和效率冲突的问题。即，安全性较高的算法计算复杂度普遍较高，而计算效率高的算法其安全性未必能得到很好的保证。Fedteratred ViT下这些方法存在效率低、不鲁棒等缺陷。很小的ViT-B/16模型也有86百万级别的参数，相比于参数级别为百万甚至十万的传统CNN模型，即使是线性复杂度的安全检测方法，恶意攻击的检测耗时也要提升几十倍甚至几百倍\footnote{这一句在说参数量大所以原有防御方案效率低}。在庞大的ViT模型的参数中有很多不是那么敏感的成分，这些部分恶意用户于正常用户的区别一般不大，从而可能会降低恶意检测的鲁棒性\footnote{这一句在说参数散多所以原有防御方案鲁棒性差}。
+现已提出了很多防御机制，有通过在服务器上计算每个模型更新与其最近更新之间的欧氏距离之和来选择聚合模型的Krum算法和拓展的multi-Krum算法\cite{aggregation_Krum}，有选择中值或排除边缘值后的平均值作为全局模型的中值算法和裁剪平均算法\cite{aggregation_MedianTrimmedMean}，也有使用主成分分析(Principal Component Analysis, PCA)来检测恶意用户的算法\cite{federatedPCA}，以及通过解决最大团问题(Maximum CliqueProblem, MCP)从而无需无需恶意用户数量这一先验知识的Sniper方案\cite{aggregation_Sniper}。这些数据都能在不同程度上解决恶意用户的攻击问题，但是它们都普遍存在安全和效率冲突的问题。即，安全性较高的算法计算复杂度普遍较高，而计算效率高的算法其安全性未必能得到很好的保证。Fedteratred ViT下这些方法存在效率低、不鲁棒等缺陷。很小的ViT-B/16模型也有86百万级别的参数，相比于参数级别为百万甚至十万的传统CNN模型，即使是线性复杂度的安全检测方法，恶意攻击的检测耗时也要提升几十倍甚至几百倍\footnote{这一句在说参数量大所以原有防御方案效率低}。在庞大的ViT模型的参数中有很多不是那么敏感的成分，这些部分恶意用户于正常用户的区别一般不大，从而可能会降低恶意检测的鲁棒性\footnote{这一句在说参数散多所以原有防御方案鲁棒性差}。
 
 In this paper，我们提出了一种针对ViT的两阶段的上下文感知轻量级恶意梯度识别方法来提升恶意梯度检测时的效率和鲁棒性。通过放大池化技术\footnote{最终也有可能会决定使用PCA来分析出主成分}和特征层提取技术，在减少计算量的同时去除无效的梯度信息，从而在提升了检测效率的同时提升了恶意检测的鲁棒性。Specifically，对于用户上传上来的梯度信息，首先进行PCA算法对数据进行降维，将数据量下降到原来的4\%\footnote{这个值是目前最佳的实验结果，后续可能会变，记得回来修改}，去除无用信息并保留有效信息，同时为后续算法降低了需要处理的数据量大小。随后我们使用隔离森林算法随机挑选剩下梯度中的1000\footnote{具体数值同样待定}个特征，进一步降低恶意识别部分的复杂度。由于已经使用过主成分分析算法，因此隔离森林算法的输入数据特征都比较明显，因此可以纯随机挑选要计算的维度。最后，我们使用主观逻辑模型\cite{Subjective_Logic_Model}对用户评分并在聚合的过程中附以权重，这样使得聚合结果更加有效的同时减少了由于随机导致的错误封禁\footnote{因为多次都错误封禁一个恶意用户的概率会指数级别的减小}。这样，在ViT这种具有大量参数的模型下，也能够进行很好的联邦学习训练并杜绝可能的潜在的攻击。
 
@@ -183,7 +183,7 @@ The rest of the paper is as follows. \hyperref[sec:related]{§\ref{sec:related}}
 
 在联邦学习对抗性攻击的投毒攻击中，通常有梯度上升攻击\cite{gradientAscentAttack}\footnote{检索关键词："Gradient ascent attack" AND "Federated learning"}、假标签攻击\cite{fakeLabelAttack}\footnote{检索关键词："fake label" AND "Federated learning"}以及后门攻击\cite{how2backdoor}这几类。其中，梯度上升或梯度扰乱攻击，以及假标签攻击都属于拜占庭攻击。
 
-拜占庭攻击：攻击者试图破坏训练可用性和模型可用性，使其无法收敛或无法在主要训练任务中达到最优性能，并且不针对任何特定的用户或数据样本\footnote{这句话来自中文综述\cite{chineseSurveyOnAttackAndDefense}}。其中，梯度上升攻击是指攻击者在本地训练时，将梯度上升方向的信息反转，从而在全局模型聚合时对全局模型造成破坏\cite{gradientAscentAttack}。针对这种攻击，G Lu等人提出了DEFEAT框架\cite{gradientAscentAttack_privacy}，通过依赖对等网络（P2P）在客户端之间传递模型参数，避免了中央服务器的集中管理，但是其主要目的是防止梯度泄露的隐私问题。假标签攻击又分为脏标签攻击(Dirty-labelAttack)\cite{latentAttack}和清洁标签攻击(Clean-labelAttack)\cite{cleanLabelAttack}。脏标签攻击会篡改数据集的标签，如常见的标签翻转攻击[33]，而清洁标签攻击不篡改标签，仅对数据进行处理生成新的样本。Lewis等人提出了Viceroy算法\cite{gradientAscentAttackAndLabelFlip}，通过实施安全多方计算（Secure Multi-Party Computation, MPC）和差分隐私（Differential Privacy, DP）来检测并抵抗拜占庭攻击并提高系统隐私安全性。其文章中也指出，现有联邦学习防御系统在面对复杂和持续的梯度上升攻击时，通常会表现出鲁棒性不足的问题。并且Viceroy算法在面对ViT这种复杂度较高的模型时会暴露出通信开销较大和检测复杂度上升的问题。
+拜占庭攻击：攻击者试图破坏训练可用性和模型可用性，使其无法收敛或无法在主要训练任务中达到最优性能，并且不针对任何特定的用户或数据样本\footnote{这句话来自中文综述\cite{chineseSurveyOnAttackAndDefense}}。其中，梯度上升攻击是指攻击者在本地训练时，将梯度上升方向的信息反转，从而在全局模型聚合时对全局模型造成破坏\cite{gradientAscentAttack}。针对这种攻击，G Lu等人提出了DEFEAT框架\cite{gradientAscentAttack_privacy}，通过依赖对等网络（P2P）在客户端之间传递模型参数，避免了中央服务器的集中管理，但是其主要目的是防止梯度泄露的隐私问题。A. Grammenos等人使用主成分分析算法增强联邦学习的安全性\cite{federatedPCA}，但其是一种差分隐私算法。假标签攻击又分为脏标签攻击(Dirty-labelAttack)\cite{latentAttack}和清洁标签攻击(Clean-labelAttack)\cite{cleanLabelAttack}。脏标签攻击会篡改数据集的标签，如常见的标签翻转攻击\cite{tailAttack_SuchAsLabelFlip}，而清洁标签攻击不篡改标签，仅对数据进行处理生成新的样本。Lewis等人提出了Viceroy算法\cite{gradientAscentAttackAndLabelFlip}，通过实施安全多方计算（Secure Multi-Party Computation, MPC）和差分隐私（Differential Privacy, DP）来检测并抵抗拜占庭攻击并提高系统隐私安全性。其文章中也指出，现有联邦学习防御系统在面对复杂和持续的梯度上升攻击时，通常会表现出鲁棒性不足的问题。并且Viceroy算法在面对ViT这种复杂度较高的模型时会暴露出通信开销较大和检测复杂度上升的问题。
 
 后门攻击：又叫木马攻击（Trojan Attack），攻击者试图使模型在某些目标任务上实现特定表现，同时保持模型在主要任务上保持良好的性能\cite{canYouBackdoor}。不同于主要目标是降低主任务总体性能的拜占庭攻击，后门攻击的目的通常是未知的，因此通常更难被检测。X. Gong等人对现有的backdoor攻击及防御手段做了系统的分析，指出了联邦学习框架下后门攻击和防御的各种潜在未来方向\cite{backdoorAndDefense}。C. Xie等人提出了专门针对backdoor的Certifiably Robust Federated Learning(CRFL)模型，他们exploited clipping and smoothing on model parameters to control the global model smoothness（利用模型参数的剪辑和平滑来控制全局模型平滑度），从而对有限幅度的后门产生样本稳健性认证\cite{backdoorAndDefense_robust}。这在一定程度上取得了不错的效果，但其实际的计算开销较大。S. Andreina等人提出了基于反馈的联邦学习后门检测模型，将反馈合并到FL的训练流程，利用多个客户端的数据不仅进行训练，而且还发现模型中毒\cite{backdoorAndDefense_feedback}。其检测准确率很大，但实际执行开销同样不小。
 
@@ -211,7 +211,56 @@ The rest of the paper is as follows. \hyperref[sec:related]{§\ref{sec:related}}
 
 \label{sec:model}
 
-系统模型
+% % GPT生成的参数列表示例：
+% We consider a federated learning system with $N$ clients, each denoted as $C_i$ for $i = 1, 2, ..., N$. The key parameters used in our model are listed as follows:
+
+% \begin{itemize}
+%     \item $N$: Number of clients participating in federated learning.
+%     \item $C_i$: The $i$-th client.
+%     \item $D_i$: The dataset held by client $C_i$.
+%     \item $n_i$: The number of data samples in $D_i$.
+%     \item $\theta$: The global model parameter vector.
+%     \item $\theta_i$: The local model parameter vector at client $C_i$.
+%     \item $f(\theta; D_i)$: The loss function of model $\theta$ on dataset $D_i$.
+%     \item $T$: Total number of training rounds.
+%     \item $E$: Number of local training epochs per global communication round.
+%     \item $B$: Batch size for local training.
+%     \item $\eta$: Learning rate.
+%     \item $\Delta \theta_i$: The model update uploaded by client $C_i$.
+%     \item $\theta \leftarrow \theta - \eta \sum_{i=1}^N \frac{n_i}{\sum_{j=1}^N n_j} \Delta \theta_i$: The global model parameter update rule.
+%     \item $\alpha$: Proportion of poisoned updates uploaded by malicious clients.
+%     \item $\beta$: Threshold for detecting anomalous updates.
+%     \item $\delta$: Noise intensity parameter for differential privacy.
+% \end{itemize}
+
+我们的系统模型通过以下几个步骤实现对恶意客户端的检测和防御。首先，从用户上传的梯度中提取敏感特征层。这些特征层在训练过程中具有显著的差异性，有助于识别潜在的恶意行为。接着，应用主成分分析（PCA）对这些数据进行降维，以保留最具差异性的特征，从而简化后续的分析步骤。
+
+令 $g_i$ 表示第 $i$ 个客户端上传的梯度，提取后的特征层表示为 $\phi(g_i)$。通过PCA，我们得到降维后的数据 $\phi'(g_i)$，其中保留了主要的特征信息。
+
+然后，使用隔离森林算法对降维后的数据进行分析。隔离森林算法通过随机选择特征和分割值来构建树结构，以便有效地隔离数据点。对每个客户端的降维数据 $\phi'(g_i)$ 进行隔离森林分析，得到异常评分 $s_i$，用于识别潜在的恶意客户端。
+
+最终，采用主观逻辑模型对每个客户端进行评分。主观逻辑模型根据客户端的历史行为和当前表现，计算其可信度评分 $\sigma_i$。评分结果用于筛选可信客户端，并将这些客户端的梯度加权合并到全局模型中。具体地，全局模型更新规则为：
+\[
+\theta \leftarrow \theta - \eta \sum_{i=1}^N w_i \Delta \theta_i
+\]
+其中 $w_i$ 为第 $i$ 个客户端的权重，根据其可信度评分 $\sigma_i$ 确定。
+
+其中的参数列表如下\footnote{这部分可不写，若篇幅不够可以加上}：
+
+\begin{itemize}
+    \item $N$: 参与联邦学习的客户端数量。
+    \item $C_i$: 第 $i$ 个客户端，其中 $i$ 从 1 到 $N$。
+    \item $g_i$: 第 $i$ 个客户端上传的梯度。
+    \item $\phi(g_i)$: 提取后的特征层表示。
+    \item $\phi'(g_i)$: 降维后的数据。
+    \item $\theta$: 全局模型的参数向量。
+    \item $\theta_i$: 第 $i$ 个客户端的本地模型参数向量。
+    \item $\Delta \theta_i$: 第 $i$ 个客户端上传的模型更新。
+    \item $\eta$: 学习率（learning rate）。
+    \item $w_i$: 第 $i$ 个客户端的权重。
+    \item $s_i$: 异常评分，用于识别潜在的恶意客户端。
+    \item $\sigma_i$: 第 $i$ 个客户端的可信度评分。
+\end{itemize}
 
 \vspace{0.25cm}
 \rule{\linewidth}{0.4pt}
@@ -294,16 +343,20 @@ system model，method主体部分，这些加起来可能三页
 
 实验
 
+池化+PCA的实验 对比 PCA的实验，发现只有耗时减少了，但准确率会下降。证明池化技术不适用于具有大量参数的ViT的拜占庭攻击检测。
+
 \section{Conclusion}
 \label{sec:conclusion}
 
-结论。
+% 单独PCA太慢又不准，单独隔离森林纯乱抓（因为无效数据太多了），池化（最大池、平均池）+PCA、池化+隔离森林都只能提升计算效率，但是准确率会下降很多。
 
-单独PCA太慢又不准，单独隔离森林纯乱抓（因为无效数据太多了），池化（最大池、平均池）+PCA、池化+隔离森林都只能提升计算效率，但是准确率会下降很多。
+% 最终发现提取特征层后，先进行PCA降维，再进行隔离森林，结合上主观逻辑模型，效果最好。
 
-最终发现提取特征层后，先进行PCA降维，再进行隔离森林，结合上主观逻辑模型，效果最好。
+% 单独的提取特征层+PCA降维+隔离森林就已经很不错了，基本上每次都会抓对。（恶意攻击被识别的准确率几乎100\%），单看某次来说可能会抓一两个无辜的，但是无辜用户被抓地很随机，结合上主观逻辑模型几轮次下来几乎就能确定出来了。
 
-单独的提取特征层+PCA降维+隔离森林就已经很不错了，基本上每次都会抓对。（恶意攻击被识别的准确率几乎100\%），单看某次来说可能会抓一两个无辜的，但是无辜用户被抓地很随机，结合上主观逻辑模型几轮次下来几乎就能确定出来了。
+实验结果表明，在检测恶意用户的拜占庭攻击时，若单独使用主成分分析算法，则耗时较长且检测结果不准确，无法应用到实际的项目中去。若单独使用隔离森林算法则因大量参数中包含着大量的对恶意检测无效的数据，导致检测准确性极低，甚至接近随机抓取的效果。若使用池化技术\cite{betterTogether}对数据进行降维后再进行PCA提取异常成分，则仅仅会减少PCA的时间损耗而会导致检测准确性降低。使用池化技术加上隔离森林算法则同样如此，只能减少计算耗时而无法提升检测准确率。最终发现，拜占庭攻击发生时由于ViT每层的敏感程度不同，所以可以先通过提取特征层的方式，降低数据量的同时去除对异常检测无效的数据，再通过PCA降维聚类，聚合提取异常数据，最后通过隔离森林算法进行检测，实现效果最好。这种方法的恶意攻击检测准确率几乎达到100\%，对于较低的误报率而言由于被误报的客户端数量较少且被误报的客户端很随机，因此结合上主观逻辑模型能很好地得到满意的结果。
+
+总的来说，为了检测恶意用户的拜占庭攻击现象，我们提出了一种两阶段的检测方法。首先，我们提取了用户上传的梯度的敏感特征层，然后通过主成分分析（PCA）对这些数据进行降维。接着，我们使用隔离森林算法对降维后的数据进行分析，得到异常评分。最后，我们使用主观逻辑模型对每个客户端进行评分，根据评分结果筛选可信客户端，并将这些客户端的梯度加权合并到全局模型中。实验结果表明，我们的方法在检测恶意用户的拜占庭攻击方面取得了很好的效果。
 
 \section{Ease of Use}
 
