@@ -1,0 +1,66 @@
++----- main.py:15 -----+
+| 2024.07.11-15:20:32  |
++----------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -+
+| Start | 2024.07.11-15:20:34                                     |
++-----------------------------------------------------------------+
+
++- /home/lzy/.conda/envs/ltf/lib/python3.8/site-packages/torchvision/datasets/cifar.py:141 -+
+| Tisfy: Files already downloaded and verified.                                             |
++-------------------------------------------------------------------------------------------+
+
++- /home/lzy/.conda/envs/ltf/lib/python3.8/site-packages/torchvision/datasets/cifar.py:141 -+
+| Tisfy: Files already downloaded and verified.                                             |
++-------------------------------------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -+
+| init accuracy: 9.80% | 2024.07.11-15:20:42                      |
++-----------------------------------------------------------------+
+
++---------------------- main.py:89 ----------------------+
+| Average loss: 2.460306715965271 | 2024.07.11-15:20:45  |
++--------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:131 -+
+| PCA Begin | 2024.07.11-15:20:49                             |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:133 -+
+| PCA End | 2024.07.11-15:21:08                               |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:90 -+
+| Forest Begin | 2024.07.11-15:21:08                         |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:113 -+
+| Anomaly scores (from high to low):                          |
+| Index: 6, Score: 0.1026                                     |
+| Index: 9, Score: 0.0916                                     |
+| Index: 5, Score: 0.0832                                     |
+| Index: 3, Score: 0.0787                                     |
+| Index: 2, Score: 0.0624                                     |
+| Index: 8, Score: 0.0315                                     |
+| Index: 7, Score: 0.0118                                     |
+| Index: 4, Score: -0.0680                                    |
+| Index: 0, Score: -0.1728                                    |
+| Index: 1, Score: -0.1807                                    |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:121 -+
+| Anomalous gradients: [0, 1, 4]                              |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:123 -+
+| Forest End | 2024.07.11-15:21:09                            |
++-------------------------------------------------------------+
+
++------------- /home/lzy/ltf/Codes/FLDefinder/master/src/findLayer.py:41 -------------+
+| Shape of layer_values_np for layer 'model.vit.embeddings.cls_token': (7, 1, 1, 768) |
++-------------------------------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:131 -+
+| PCA Begin | 2024.07.11-15:21:46                             |
++-------------------------------------------------------------+
+

@@ -1,0 +1,1430 @@
++----- main.py:15 -----+
+| 2024.07.11-14:01:11  |
++----------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -+
+| Start | 2024.07.11-14:01:13                                     |
++-----------------------------------------------------------------+
+
++- /home/lzy/.conda/envs/ltf/lib/python3.8/site-packages/torchvision/datasets/cifar.py:141 -+
+| Tisfy: Files already downloaded and verified.                                             |
++-------------------------------------------------------------------------------------------+
+
++- /home/lzy/.conda/envs/ltf/lib/python3.8/site-packages/torchvision/datasets/cifar.py:141 -+
+| Tisfy: Files already downloaded and verified.                                             |
++-------------------------------------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -+
+| init accuracy: 9.50% | 2024.07.11-14:01:21                      |
++-----------------------------------------------------------------+
+
++---------------------- main.py:87 ----------------------+
+| Average loss: 2.471908688545227 | 2024.07.11-14:01:24  |
++--------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:131 -+
+| PCA Begin | 2024.07.11-14:01:28                             |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:133 -+
+| PCA End | 2024.07.11-14:01:47                               |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:90 -+
+| Forest Begin | 2024.07.11-14:01:47                         |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:113 -+
+| Anomaly scores (from high to low):                          |
+| Index: 5, Score: 0.0712                                     |
+| Index: 7, Score: 0.0622                                     |
+| Index: 6, Score: 0.0555                                     |
+| Index: 3, Score: 0.0512                                     |
+| Index: 8, Score: 0.0511                                     |
+| Index: 9, Score: 0.0453                                     |
+| Index: 2, Score: 0.0127                                     |
+| Index: 4, Score: -0.0459                                    |
+| Index: 0, Score: -0.1736                                    |
+| Index: 1, Score: -0.1845                                    |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:121 -+
+| Anomalous gradients: [0, 1, 4]                              |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:123 -+
+| Forest End | 2024.07.11-14:01:47                            |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -+
+| Round 1's accuracy: 16.50% | 2024.07.11-14:01:50                |
++-----------------------------------------------------------------+
+
++---------------------- main.py:87 ----------------------+
+| Average loss: 2.316519522666931 | 2024.07.11-14:01:54  |
++--------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:131 -+
+| PCA Begin | 2024.07.11-14:01:57                             |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:133 -+
+| PCA End | 2024.07.11-14:02:16                               |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:90 -+
+| Forest Begin | 2024.07.11-14:02:16                         |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:113 -+
+| Anomaly scores (from high to low):                          |
+| Index: 7, Score: 0.1449                                     |
+| Index: 6, Score: 0.1442                                     |
+| Index: 2, Score: 0.1313                                     |
+| Index: 5, Score: 0.1112                                     |
+| Index: 8, Score: 0.0955                                     |
+| Index: 9, Score: 0.0905                                     |
+| Index: 3, Score: -0.0374                                    |
+| Index: 4, Score: -0.1068                                    |
+| Index: 0, Score: -0.1712                                    |
+| Index: 1, Score: -0.1943                                    |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:121 -+
+| Anomalous gradients: [0, 1, 3, 4]                           |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:123 -+
+| Forest End | 2024.07.11-14:02:17                            |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -+
+| Round 2's accuracy: 25.20% | 2024.07.11-14:02:19                |
++-----------------------------------------------------------------+
+
++---------------------- main.py:87 ----------------------+
+| Average loss: 2.144869637489319 | 2024.07.11-14:02:23  |
++--------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:131 -+
+| PCA Begin | 2024.07.11-14:02:27                             |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:133 -+
+| PCA End | 2024.07.11-14:02:46                               |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:90 -+
+| Forest Begin | 2024.07.11-14:02:46                         |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:113 -+
+| Anomaly scores (from high to low):                          |
+| Index: 7, Score: 0.0990                                     |
+| Index: 8, Score: 0.0990                                     |
+| Index: 9, Score: 0.0726                                     |
+| Index: 2, Score: 0.0566                                     |
+| Index: 6, Score: 0.0560                                     |
+| Index: 4, Score: 0.0495                                     |
+| Index: 5, Score: 0.0465                                     |
+| Index: 3, Score: -0.0517                                    |
+| Index: 0, Score: -0.1770                                    |
+| Index: 1, Score: -0.1956                                    |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:121 -+
+| Anomalous gradients: [0, 1, 3]                              |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:123 -+
+| Forest End | 2024.07.11-14:02:47                            |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -+
+| Round 3's accuracy: 34.20% | 2024.07.11-14:02:49                |
++-----------------------------------------------------------------+
+
++---------------------- main.py:87 ----------------------+
+| Average loss: 2.074987268447876 | 2024.07.11-14:02:53  |
++--------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:131 -+
+| PCA Begin | 2024.07.11-14:02:57                             |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:133 -+
+| PCA End | 2024.07.11-14:03:16                               |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:90 -+
+| Forest Begin | 2024.07.11-14:03:16                         |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:113 -+
+| Anomaly scores (from high to low):                          |
+| Index: 8, Score: 0.1233                                     |
+| Index: 4, Score: 0.1133                                     |
+| Index: 7, Score: 0.1059                                     |
+| Index: 5, Score: 0.0990                                     |
+| Index: 6, Score: 0.0913                                     |
+| Index: 3, Score: 0.0476                                     |
+| Index: 9, Score: -0.0445                                    |
+| Index: 2, Score: -0.0756                                    |
+| Index: 0, Score: -0.1770                                    |
+| Index: 1, Score: -0.1858                                    |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:121 -+
+| Anomalous gradients: [0, 1, 2, 9]                           |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:123 -+
+| Forest End | 2024.07.11-14:03:16                            |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -+
+| Round 4's accuracy: 48.60% | 2024.07.11-14:03:19                |
++-----------------------------------------------------------------+
+
++---------------------- main.py:87 ----------------------+
+| Average loss: 1.9507770776748656 | 2024.07.11-14:03:23 |
++--------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:131 -+
+| PCA Begin | 2024.07.11-14:03:26                             |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:133 -+
+| PCA End | 2024.07.11-14:03:45                               |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:90 -+
+| Forest Begin | 2024.07.11-14:03:45                         |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:113 -+
+| Anomaly scores (from high to low):                          |
+| Index: 8, Score: 0.1172                                     |
+| Index: 5, Score: 0.1170                                     |
+| Index: 4, Score: 0.1125                                     |
+| Index: 6, Score: 0.0987                                     |
+| Index: 3, Score: 0.0871                                     |
+| Index: 9, Score: 0.0778                                     |
+| Index: 7, Score: -0.0056                                    |
+| Index: 2, Score: -0.1212                                    |
+| Index: 1, Score: -0.1712                                    |
+| Index: 0, Score: -0.1905                                    |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:121 -+
+| Anomalous gradients: [0, 1, 2, 7]                           |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:123 -+
+| Forest End | 2024.07.11-14:03:46                            |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -+
+| Round 5's accuracy: 57.30% | 2024.07.11-14:03:48                |
++-----------------------------------------------------------------+
+
++---------------------- main.py:87 ----------------------+
+| Average loss: 1.8697092533111572 | 2024.07.11-14:03:52 |
++--------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:131 -+
+| PCA Begin | 2024.07.11-14:03:56                             |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:133 -+
+| PCA End | 2024.07.11-14:04:15                               |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:90 -+
+| Forest Begin | 2024.07.11-14:04:15                         |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:113 -+
+| Anomaly scores (from high to low):                          |
+| Index: 9, Score: 0.0923                                     |
+| Index: 6, Score: 0.0871                                     |
+| Index: 5, Score: 0.0777                                     |
+| Index: 7, Score: 0.0674                                     |
+| Index: 4, Score: 0.0666                                     |
+| Index: 2, Score: 0.0564                                     |
+| Index: 8, Score: 0.0101                                     |
+| Index: 3, Score: -0.0923                                    |
+| Index: 0, Score: -0.1666                                    |
+| Index: 1, Score: -0.1707                                    |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:121 -+
+| Anomalous gradients: [0, 1, 3]                              |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:123 -+
+| Forest End | 2024.07.11-14:04:15                            |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -+
+| Round 6's accuracy: 66.10% | 2024.07.11-14:04:18                |
++-----------------------------------------------------------------+
+
++---------------------- main.py:87 ----------------------+
+| Average loss: 1.7508883357048035 | 2024.07.11-14:04:22 |
++--------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:131 -+
+| PCA Begin | 2024.07.11-14:04:25                             |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:133 -+
+| PCA End | 2024.07.11-14:04:44                               |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:90 -+
+| Forest Begin | 2024.07.11-14:04:44                         |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:113 -+
+| Anomaly scores (from high to low):                          |
+| Index: 6, Score: 0.1005                                     |
+| Index: 3, Score: 0.0867                                     |
+| Index: 7, Score: 0.0776                                     |
+| Index: 4, Score: 0.0571                                     |
+| Index: 2, Score: 0.0470                                     |
+| Index: 9, Score: 0.0443                                     |
+| Index: 8, Score: 0.0046                                     |
+| Index: 5, Score: -0.0545                                    |
+| Index: 0, Score: -0.1716                                    |
+| Index: 1, Score: -0.1761                                    |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:121 -+
+| Anomalous gradients: [0, 1, 5]                              |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:123 -+
+| Forest End | 2024.07.11-14:04:45                            |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -+
+| Round 7's accuracy: 69.80% | 2024.07.11-14:04:47                |
++-----------------------------------------------------------------+
+
++---------------------- main.py:87 ----------------------+
+| Average loss: 1.6585587024688722 | 2024.07.11-14:04:51 |
++--------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:131 -+
+| PCA Begin | 2024.07.11-14:04:55                             |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:133 -+
+| PCA End | 2024.07.11-14:05:14                               |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:90 -+
+| Forest Begin | 2024.07.11-14:05:14                         |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:113 -+
+| Anomaly scores (from high to low):                          |
+| Index: 8, Score: 0.1237                                     |
+| Index: 6, Score: 0.1155                                     |
+| Index: 7, Score: 0.1149                                     |
+| Index: 5, Score: 0.1100                                     |
+| Index: 2, Score: 0.0974                                     |
+| Index: 9, Score: 0.0748                                     |
+| Index: 4, Score: -0.0151                                    |
+| Index: 0, Score: -0.1381                                    |
+| Index: 1, Score: -0.1428                                    |
+| Index: 3, Score: -0.2107                                    |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:121 -+
+| Anomalous gradients: [0, 1, 3, 4]                           |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:123 -+
+| Forest End | 2024.07.11-14:05:14                            |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -+
+| Round 8's accuracy: 76.00% | 2024.07.11-14:05:17                |
++-----------------------------------------------------------------+
+
++---------------------- main.py:87 ----------------------+
+| Average loss: 1.5874151229858398 | 2024.07.11-14:05:20 |
++--------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:131 -+
+| PCA Begin | 2024.07.11-14:05:24                             |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:133 -+
+| PCA End | 2024.07.11-14:05:43                               |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:90 -+
+| Forest Begin | 2024.07.11-14:05:43                         |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:113 -+
+| Anomaly scores (from high to low):                          |
+| Index: 2, Score: 0.1166                                     |
+| Index: 6, Score: 0.1157                                     |
+| Index: 9, Score: 0.0657                                     |
+| Index: 4, Score: 0.0537                                     |
+| Index: 3, Score: 0.0529                                     |
+| Index: 8, Score: 0.0410                                     |
+| Index: 5, Score: -0.0053                                    |
+| Index: 7, Score: -0.0679                                    |
+| Index: 1, Score: -0.1716                                    |
+| Index: 0, Score: -0.1766                                    |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:121 -+
+| Anomalous gradients: [0, 1, 5, 7]                           |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:123 -+
+| Forest End | 2024.07.11-14:05:43                            |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -+
+| Round 9's accuracy: 77.10% | 2024.07.11-14:05:46                |
++-----------------------------------------------------------------+
+
++---------------------- main.py:87 ----------------------+
+| Average loss: 1.5577562689781188 | 2024.07.11-14:05:50 |
++--------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:131 -+
+| PCA Begin | 2024.07.11-14:05:53                             |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:133 -+
+| PCA End | 2024.07.11-14:06:12                               |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:90 -+
+| Forest Begin | 2024.07.11-14:06:12                         |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:113 -+
+| Anomaly scores (from high to low):                          |
+| Index: 7, Score: 0.1169                                     |
+| Index: 4, Score: 0.1139                                     |
+| Index: 3, Score: 0.1000                                     |
+| Index: 5, Score: 0.0829                                     |
+| Index: 2, Score: 0.0459                                     |
+| Index: 9, Score: 0.0235                                     |
+| Index: 8, Score: -0.0176                                    |
+| Index: 6, Score: -0.0429                                    |
+| Index: 1, Score: -0.1782                                    |
+| Index: 0, Score: -0.1862                                    |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:121 -+
+| Anomalous gradients: [0, 1, 6, 8]                           |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:123 -+
+| Forest End | 2024.07.11-14:06:13                            |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -+
+| Round 10's accuracy: 85.10% | 2024.07.11-14:06:16               |
++-----------------------------------------------------------------+
+
++---------------------- main.py:87 ----------------------+
+| Average loss: 1.4533262491226195 | 2024.07.11-14:06:19 |
++--------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:131 -+
+| PCA Begin | 2024.07.11-14:06:23                             |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:133 -+
+| PCA End | 2024.07.11-14:06:43                               |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:90 -+
+| Forest Begin | 2024.07.11-14:06:43                         |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:113 -+
+| Anomaly scores (from high to low):                          |
+| Index: 7, Score: 0.1265                                     |
+| Index: 6, Score: 0.1219                                     |
+| Index: 8, Score: 0.1210                                     |
+| Index: 4, Score: 0.1032                                     |
+| Index: 5, Score: 0.0982                                     |
+| Index: 3, Score: 0.0207                                     |
+| Index: 2, Score: 0.0020                                     |
+| Index: 9, Score: -0.1202                                    |
+| Index: 0, Score: -0.1683                                    |
+| Index: 1, Score: -0.1736                                    |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:121 -+
+| Anomalous gradients: [0, 1, 9]                              |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:123 -+
+| Forest End | 2024.07.11-14:06:43                            |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -+
+| Round 11's accuracy: 86.40% | 2024.07.11-14:06:46               |
++-----------------------------------------------------------------+
+
++---------------------- main.py:87 ----------------------+
+| Average loss: 1.3723029136657714 | 2024.07.11-14:06:49 |
++--------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:131 -+
+| PCA Begin | 2024.07.11-14:06:53                             |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:133 -+
+| PCA End | 2024.07.11-14:07:12                               |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:90 -+
+| Forest Begin | 2024.07.11-14:07:12                         |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:113 -+
+| Anomaly scores (from high to low):                          |
+| Index: 6, Score: 0.0884                                     |
+| Index: 7, Score: 0.0844                                     |
+| Index: 4, Score: 0.0760                                     |
+| Index: 2, Score: 0.0739                                     |
+| Index: 3, Score: 0.0621                                     |
+| Index: 8, Score: 0.0438                                     |
+| Index: 9, Score: 0.0046                                     |
+| Index: 5, Score: -0.0456                                    |
+| Index: 1, Score: -0.1774                                    |
+| Index: 0, Score: -0.1812                                    |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:121 -+
+| Anomalous gradients: [0, 1, 5]                              |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:123 -+
+| Forest End | 2024.07.11-14:07:12                            |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -+
+| Round 12's accuracy: 86.00% | 2024.07.11-14:07:15               |
++-----------------------------------------------------------------+
+
++---------------------- main.py:87 ----------------------+
+| Average loss: 1.3561099827289582 | 2024.07.11-14:07:19 |
++--------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:131 -+
+| PCA Begin | 2024.07.11-14:07:22                             |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:133 -+
+| PCA End | 2024.07.11-14:07:42                               |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:90 -+
+| Forest Begin | 2024.07.11-14:07:42                         |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:113 -+
+| Anomaly scores (from high to low):                          |
+| Index: 6, Score: 0.1047                                     |
+| Index: 5, Score: 0.1016                                     |
+| Index: 2, Score: 0.0843                                     |
+| Index: 3, Score: 0.0823                                     |
+| Index: 9, Score: 0.0442                                     |
+| Index: 8, Score: 0.0412                                     |
+| Index: 7, Score: 0.0364                                     |
+| Index: 4, Score: -0.1143                                    |
+| Index: 0, Score: -0.1712                                    |
+| Index: 1, Score: -0.1736                                    |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:121 -+
+| Anomalous gradients: [0, 1, 4]                              |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:123 -+
+| Forest End | 2024.07.11-14:07:42                            |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -+
+| Round 13's accuracy: 87.60% | 2024.07.11-14:07:45               |
++-----------------------------------------------------------------+
+
++---------------------- main.py:87 ----------------------+
+| Average loss: 1.3550247848033905 | 2024.07.11-14:07:48 |
++--------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:131 -+
+| PCA Begin | 2024.07.11-14:07:52                             |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:133 -+
+| PCA End | 2024.07.11-14:08:11                               |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:90 -+
+| Forest Begin | 2024.07.11-14:08:11                         |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:113 -+
+| Anomaly scores (from high to low):                          |
+| Index: 6, Score: 0.1149                                     |
+| Index: 2, Score: 0.1101                                     |
+| Index: 7, Score: 0.1022                                     |
+| Index: 9, Score: 0.0928                                     |
+| Index: 5, Score: 0.0912                                     |
+| Index: 4, Score: 0.0678                                     |
+| Index: 3, Score: -0.0155                                    |
+| Index: 8, Score: -0.1279                                    |
+| Index: 0, Score: -0.1741                                    |
+| Index: 1, Score: -0.1782                                    |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:121 -+
+| Anomalous gradients: [0, 1, 3, 8]                           |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:123 -+
+| Forest End | 2024.07.11-14:08:11                            |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -+
+| Round 14's accuracy: 89.30% | 2024.07.11-14:08:14               |
++-----------------------------------------------------------------+
+
++---------------------- main.py:87 ----------------------+
+| Average loss: 1.2701121330261231 | 2024.07.11-14:08:18 |
++--------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:131 -+
+| PCA Begin | 2024.07.11-14:08:21                             |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:133 -+
+| PCA End | 2024.07.11-14:08:40                               |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:90 -+
+| Forest Begin | 2024.07.11-14:08:40                         |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:113 -+
+| Anomaly scores (from high to low):                          |
+| Index: 8, Score: 0.0948                                     |
+| Index: 9, Score: 0.0891                                     |
+| Index: 5, Score: 0.0833                                     |
+| Index: 7, Score: 0.0811                                     |
+| Index: 6, Score: 0.0584                                     |
+| Index: 3, Score: 0.0426                                     |
+| Index: 2, Score: 0.0199                                     |
+| Index: 4, Score: -0.1089                                    |
+| Index: 1, Score: -0.1687                                    |
+| Index: 0, Score: -0.1712                                    |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:121 -+
+| Anomalous gradients: [0, 1, 4]                              |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:123 -+
+| Forest End | 2024.07.11-14:08:41                            |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -+
+| Round 15's accuracy: 90.30% | 2024.07.11-14:08:43               |
++-----------------------------------------------------------------+
+
++---------------------- main.py:87 ----------------------+
+| Average loss: 1.2349108815193177 | 2024.07.11-14:08:47 |
++--------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:131 -+
+| PCA Begin | 2024.07.11-14:08:51                             |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:133 -+
+| PCA End | 2024.07.11-14:09:10                               |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:90 -+
+| Forest Begin | 2024.07.11-14:09:10                         |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:113 -+
+| Anomaly scores (from high to low):                          |
+| Index: 5, Score: 0.1050                                     |
+| Index: 2, Score: 0.0907                                     |
+| Index: 7, Score: 0.0608                                     |
+| Index: 4, Score: 0.0581                                     |
+| Index: 3, Score: 0.0520                                     |
+| Index: 9, Score: 0.0383                                     |
+| Index: 8, Score: 0.0263                                     |
+| Index: 6, Score: -0.0449                                    |
+| Index: 0, Score: -0.1770                                    |
+| Index: 1, Score: -0.1956                                    |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:121 -+
+| Anomalous gradients: [0, 1, 6]                              |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:123 -+
+| Forest End | 2024.07.11-14:09:10                            |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -+
+| Round 16's accuracy: 90.90% | 2024.07.11-14:09:13               |
++-----------------------------------------------------------------+
+
++---------------------- main.py:87 ----------------------+
+| Average loss: 1.1925719320774077 | 2024.07.11-14:09:17 |
++--------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:131 -+
+| PCA Begin | 2024.07.11-14:09:20                             |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:133 -+
+| PCA End | 2024.07.11-14:09:39                               |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:90 -+
+| Forest Begin | 2024.07.11-14:09:39                         |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:113 -+
+| Anomaly scores (from high to low):                          |
+| Index: 6, Score: 0.0938                                     |
+| Index: 2, Score: 0.0917                                     |
+| Index: 3, Score: 0.0735                                     |
+| Index: 4, Score: 0.0572                                     |
+| Index: 9, Score: 0.0503                                     |
+| Index: 8, Score: 0.0150                                     |
+| Index: 5, Score: 0.0113                                     |
+| Index: 7, Score: -0.0494                                    |
+| Index: 1, Score: -0.1778                                    |
+| Index: 0, Score: -0.1858                                    |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:121 -+
+| Anomalous gradients: [0, 1, 7]                              |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:123 -+
+| Forest End | 2024.07.11-14:09:39                            |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -+
+| Round 17's accuracy: 93.10% | 2024.07.11-14:09:42               |
++-----------------------------------------------------------------+
+
++---------------------- main.py:87 ----------------------+
+| Average loss: 1.2238941669464112 | 2024.07.11-14:09:46 |
++--------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:131 -+
+| PCA Begin | 2024.07.11-14:09:49                             |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:133 -+
+| PCA End | 2024.07.11-14:10:08                               |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:90 -+
+| Forest Begin | 2024.07.11-14:10:08                         |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:113 -+
+| Anomaly scores (from high to low):                          |
+| Index: 6, Score: 0.1251                                     |
+| Index: 2, Score: 0.1250                                     |
+| Index: 5, Score: 0.0991                                     |
+| Index: 9, Score: 0.0663                                     |
+| Index: 3, Score: 0.0477                                     |
+| Index: 8, Score: 0.0299                                     |
+| Index: 4, Score: 0.0190                                     |
+| Index: 7, Score: -0.0750                                    |
+| Index: 0, Score: -0.1766                                    |
+| Index: 1, Score: -0.1879                                    |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:121 -+
+| Anomalous gradients: [0, 1, 7]                              |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:123 -+
+| Forest End | 2024.07.11-14:10:09                            |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -+
+| Round 18's accuracy: 92.40% | 2024.07.11-14:10:11               |
++-----------------------------------------------------------------+
+
++---------------------- main.py:87 ----------------------+
+| Average loss: 1.1348686158657073 | 2024.07.11-14:10:15 |
++--------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:131 -+
+| PCA Begin | 2024.07.11-14:10:19                             |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:133 -+
+| PCA End | 2024.07.11-14:10:38                               |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:90 -+
+| Forest Begin | 2024.07.11-14:10:38                         |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:113 -+
+| Anomaly scores (from high to low):                          |
+| Index: 4, Score: 0.1375                                     |
+| Index: 2, Score: 0.1370                                     |
+| Index: 5, Score: 0.1257                                     |
+| Index: 9, Score: 0.1177                                     |
+| Index: 3, Score: 0.0957                                     |
+| Index: 7, Score: 0.0637                                     |
+| Index: 6, Score: 0.0066                                     |
+| Index: 8, Score: -0.1420                                    |
+| Index: 1, Score: -0.1807                                    |
+| Index: 0, Score: -0.1909                                    |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:121 -+
+| Anomalous gradients: [0, 1, 8]                              |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:123 -+
+| Forest End | 2024.07.11-14:10:38                            |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -+
+| Round 19's accuracy: 92.80% | 2024.07.11-14:10:41               |
++-----------------------------------------------------------------+
+
++---------------------- main.py:87 ----------------------+
+| Average loss: 1.1502395212650298 | 2024.07.11-14:10:45 |
++--------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:131 -+
+| PCA Begin | 2024.07.11-14:10:48                             |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:133 -+
+| PCA End | 2024.07.11-14:11:07                               |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:90 -+
+| Forest Begin | 2024.07.11-14:11:07                         |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:113 -+
+| Anomaly scores (from high to low):                          |
+| Index: 2, Score: 0.1005                                     |
+| Index: 4, Score: 0.0996                                     |
+| Index: 6, Score: 0.0971                                     |
+| Index: 8, Score: 0.0945                                     |
+| Index: 9, Score: 0.0862                                     |
+| Index: 5, Score: 0.0559                                     |
+| Index: 3, Score: 0.0222                                     |
+| Index: 7, Score: -0.0730                                    |
+| Index: 0, Score: -0.1824                                    |
+| Index: 1, Score: -0.2020                                    |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:121 -+
+| Anomalous gradients: [0, 1, 7]                              |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:123 -+
+| Forest End | 2024.07.11-14:11:08                            |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -+
+| Round 20's accuracy: 94.60% | 2024.07.11-14:11:11               |
++-----------------------------------------------------------------+
+
++---------------------- main.py:87 ----------------------+
+| Average loss: 1.0952553451061249 | 2024.07.11-14:11:14 |
++--------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:131 -+
+| PCA Begin | 2024.07.11-14:11:18                             |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:133 -+
+| PCA End | 2024.07.11-14:11:37                               |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:90 -+
+| Forest Begin | 2024.07.11-14:11:37                         |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:113 -+
+| Anomaly scores (from high to low):                          |
+| Index: 9, Score: 0.1231                                     |
+| Index: 5, Score: 0.1229                                     |
+| Index: 4, Score: 0.0829                                     |
+| Index: 3, Score: 0.0465                                     |
+| Index: 7, Score: 0.0441                                     |
+| Index: 6, Score: 0.0343                                     |
+| Index: 2, Score: 0.0342                                     |
+| Index: 8, Score: -0.0374                                    |
+| Index: 0, Score: -0.1753                                    |
+| Index: 1, Score: -0.1986                                    |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:121 -+
+| Anomalous gradients: [0, 1, 8]                              |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:123 -+
+| Forest End | 2024.07.11-14:11:38                            |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -+
+| Round 21's accuracy: 94.40% | 2024.07.11-14:11:40               |
++-----------------------------------------------------------------+
+
++---------------------- main.py:87 ----------------------+
+| Average loss: 1.0742401361465455 | 2024.07.11-14:11:44 |
++--------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:131 -+
+| PCA Begin | 2024.07.11-14:11:48                             |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:133 -+
+| PCA End | 2024.07.11-14:12:07                               |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:90 -+
+| Forest Begin | 2024.07.11-14:12:07                         |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:113 -+
+| Anomaly scores (from high to low):                          |
+| Index: 2, Score: 0.1091                                     |
+| Index: 4, Score: 0.1013                                     |
+| Index: 3, Score: 0.0828                                     |
+| Index: 9, Score: 0.0734                                     |
+| Index: 8, Score: 0.0586                                     |
+| Index: 7, Score: 0.0516                                     |
+| Index: 5, Score: -0.0168                                    |
+| Index: 6, Score: -0.0293                                    |
+| Index: 1, Score: -0.1795                                    |
+| Index: 0, Score: -0.1883                                    |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:121 -+
+| Anomalous gradients: [0, 1, 5, 6]                           |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:123 -+
+| Forest End | 2024.07.11-14:12:07                            |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -+
+| Round 22's accuracy: 94.90% | 2024.07.11-14:12:10               |
++-----------------------------------------------------------------+
+
++---------------------- main.py:87 ----------------------+
+| Average loss: 1.0077215015888215 | 2024.07.11-14:12:14 |
++--------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:131 -+
+| PCA Begin | 2024.07.11-14:12:17                             |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:133 -+
+| PCA End | 2024.07.11-14:12:36                               |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:90 -+
+| Forest Begin | 2024.07.11-14:12:36                         |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:113 -+
+| Anomaly scores (from high to low):                          |
+| Index: 4, Score: 0.0925                                     |
+| Index: 5, Score: 0.0749                                     |
+| Index: 9, Score: 0.0677                                     |
+| Index: 6, Score: 0.0633                                     |
+| Index: 8, Score: 0.0627                                     |
+| Index: 3, Score: 0.0609                                     |
+| Index: 7, Score: 0.0495                                     |
+| Index: 2, Score: -0.0798                                    |
+| Index: 0, Score: -0.1816                                    |
+| Index: 1, Score: -0.1892                                    |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:121 -+
+| Anomalous gradients: [0, 1, 2]                              |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:123 -+
+| Forest End | 2024.07.11-14:12:37                            |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -+
+| Round 23's accuracy: 93.50% | 2024.07.11-14:12:40               |
++-----------------------------------------------------------------+
+
++---------------------- main.py:87 ----------------------+
+| Average loss: 0.9989664286375046 | 2024.07.11-14:12:43 |
++--------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:131 -+
+| PCA Begin | 2024.07.11-14:12:47                             |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:133 -+
+| PCA End | 2024.07.11-14:13:06                               |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:90 -+
+| Forest Begin | 2024.07.11-14:13:06                         |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:113 -+
+| Anomaly scores (from high to low):                          |
+| Index: 7, Score: 0.1175                                     |
+| Index: 8, Score: 0.1098                                     |
+| Index: 4, Score: 0.1007                                     |
+| Index: 2, Score: 0.0963                                     |
+| Index: 9, Score: 0.0924                                     |
+| Index: 3, Score: 0.0490                                     |
+| Index: 5, Score: -0.0153                                    |
+| Index: 6, Score: -0.0609                                    |
+| Index: 1, Score: -0.1828                                    |
+| Index: 0, Score: -0.1990                                    |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:121 -+
+| Anomalous gradients: [0, 1, 5, 6]                           |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:123 -+
+| Forest End | 2024.07.11-14:13:06                            |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -+
+| Round 24's accuracy: 93.70% | 2024.07.11-14:13:09               |
++-----------------------------------------------------------------+
+
++---------------------- main.py:87 ----------------------+
+| Average loss: 1.0383192002773285 | 2024.07.11-14:13:13 |
++--------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:131 -+
+| PCA Begin | 2024.07.11-14:13:16                             |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:133 -+
+| PCA End | 2024.07.11-14:13:36                               |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:90 -+
+| Forest Begin | 2024.07.11-14:13:36                         |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:113 -+
+| Anomaly scores (from high to low):                          |
+| Index: 9, Score: 0.1198                                     |
+| Index: 5, Score: 0.1119                                     |
+| Index: 4, Score: 0.1093                                     |
+| Index: 6, Score: 0.0968                                     |
+| Index: 8, Score: 0.0963                                     |
+| Index: 2, Score: 0.0730                                     |
+| Index: 3, Score: 0.0105                                     |
+| Index: 7, Score: -0.1142                                    |
+| Index: 1, Score: -0.1795                                    |
+| Index: 0, Score: -0.2012                                    |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:121 -+
+| Anomalous gradients: [0, 1, 7]                              |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:123 -+
+| Forest End | 2024.07.11-14:13:36                            |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -+
+| Round 25's accuracy: 95.70% | 2024.07.11-14:13:39               |
++-----------------------------------------------------------------+
+
++---------------------- main.py:87 ----------------------+
+| Average loss: 1.025981530547142 | 2024.07.11-14:13:42  |
++--------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:131 -+
+| PCA Begin | 2024.07.11-14:13:46                             |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:133 -+
+| PCA End | 2024.07.11-14:14:05                               |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:90 -+
+| Forest Begin | 2024.07.11-14:14:05                         |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:113 -+
+| Anomaly scores (from high to low):                          |
+| Index: 5, Score: 0.0895                                     |
+| Index: 3, Score: 0.0810                                     |
+| Index: 7, Score: 0.0780                                     |
+| Index: 6, Score: 0.0779                                     |
+| Index: 4, Score: 0.0634                                     |
+| Index: 2, Score: -0.0175                                    |
+| Index: 8, Score: -0.0179                                    |
+| Index: 9, Score: -0.0196                                    |
+| Index: 1, Score: -0.1837                                    |
+| Index: 0, Score: -0.1845                                    |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:121 -+
+| Anomalous gradients: [0, 1, 2, 8, 9]                        |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:123 -+
+| Forest End | 2024.07.11-14:14:05                            |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -+
+| Round 26's accuracy: 94.50% | 2024.07.11-14:14:08               |
++-----------------------------------------------------------------+
+
++---------------------- main.py:87 ----------------------+
+| Average loss: 1.0538923561573028 | 2024.07.11-14:14:12 |
++--------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:131 -+
+| PCA Begin | 2024.07.11-14:14:15                             |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:133 -+
+| PCA End | 2024.07.11-14:14:34                               |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:90 -+
+| Forest Begin | 2024.07.11-14:14:34                         |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:113 -+
+| Anomaly scores (from high to low):                          |
+| Index: 9, Score: 0.1379                                     |
+| Index: 2, Score: 0.1335                                     |
+| Index: 8, Score: 0.1262                                     |
+| Index: 6, Score: 0.1100                                     |
+| Index: 3, Score: 0.0803                                     |
+| Index: 5, Score: 0.0092                                     |
+| Index: 4, Score: -0.0496                                    |
+| Index: 7, Score: -0.0697                                    |
+| Index: 0, Score: -0.1807                                    |
+| Index: 1, Score: -0.1837                                    |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:121 -+
+| Anomalous gradients: [0, 1, 4, 7]                           |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:123 -+
+| Forest End | 2024.07.11-14:14:35                            |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -+
+| Round 27's accuracy: 95.30% | 2024.07.11-14:14:37               |
++-----------------------------------------------------------------+
+
++---------------------- main.py:87 ----------------------+
+| Average loss: 1.0059238344430923 | 2024.07.11-14:14:41 |
++--------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:131 -+
+| PCA Begin | 2024.07.11-14:14:45                             |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:133 -+
+| PCA End | 2024.07.11-14:15:04                               |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:90 -+
+| Forest Begin | 2024.07.11-14:15:04                         |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:113 -+
+| Anomaly scores (from high to low):                          |
+| Index: 6, Score: 0.1318                                     |
+| Index: 2, Score: 0.1246                                     |
+| Index: 5, Score: 0.1219                                     |
+| Index: 3, Score: 0.0854                                     |
+| Index: 7, Score: 0.0718                                     |
+| Index: 4, Score: 0.0388                                     |
+| Index: 8, Score: -0.0023                                    |
+| Index: 9, Score: -0.0579                                    |
+| Index: 0, Score: -0.1833                                    |
+| Index: 1, Score: -0.2020                                    |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:121 -+
+| Anomalous gradients: [0, 1, 8, 9]                           |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:123 -+
+| Forest End | 2024.07.11-14:15:04                            |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -+
+| Round 28's accuracy: 95.70% | 2024.07.11-14:15:07               |
++-----------------------------------------------------------------+
+
++---------------------- main.py:87 ----------------------+
+| Average loss: 0.9885033041238784 | 2024.07.11-14:15:10 |
++--------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:131 -+
+| PCA Begin | 2024.07.11-14:15:14                             |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:133 -+
+| PCA End | 2024.07.11-14:15:33                               |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:90 -+
+| Forest Begin | 2024.07.11-14:15:33                         |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:113 -+
+| Anomaly scores (from high to low):                          |
+| Index: 7, Score: 0.1188                                     |
+| Index: 6, Score: 0.1156                                     |
+| Index: 5, Score: 0.0830                                     |
+| Index: 3, Score: 0.0578                                     |
+| Index: 9, Score: 0.0423                                     |
+| Index: 4, Score: 0.0125                                     |
+| Index: 8, Score: 0.0087                                     |
+| Index: 2, Score: -0.0147                                    |
+| Index: 1, Score: -0.1799                                    |
+| Index: 0, Score: -0.1982                                    |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:121 -+
+| Anomalous gradients: [0, 1, 2]                              |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:123 -+
+| Forest End | 2024.07.11-14:15:33                            |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -+
+| Round 29's accuracy: 96.10% | 2024.07.11-14:15:36               |
++-----------------------------------------------------------------+
+
++---------------------- main.py:87 ----------------------+
+| Average loss: 1.0196389496326446 | 2024.07.11-14:15:40 |
++--------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:131 -+
+| PCA Begin | 2024.07.11-14:15:43                             |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:133 -+
+| PCA End | 2024.07.11-14:16:02                               |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:90 -+
+| Forest Begin | 2024.07.11-14:16:02                         |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:113 -+
+| Anomaly scores (from high to low):                          |
+| Index: 3, Score: 0.1070                                     |
+| Index: 7, Score: 0.1023                                     |
+| Index: 6, Score: 0.0981                                     |
+| Index: 2, Score: 0.0973                                     |
+| Index: 5, Score: 0.0648                                     |
+| Index: 4, Score: 0.0550                                     |
+| Index: 9, Score: 0.0034                                     |
+| Index: 8, Score: -0.0465                                    |
+| Index: 0, Score: -0.1833                                    |
+| Index: 1, Score: -0.2020                                    |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:121 -+
+| Anomalous gradients: [0, 1, 8]                              |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:123 -+
+| Forest End | 2024.07.11-14:16:03                            |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -+
+| Round 30's accuracy: 95.50% | 2024.07.11-14:16:05               |
++-----------------------------------------------------------------+
+
++---------------------- main.py:87 ----------------------+
+| Average loss: 0.9762516170740128 | 2024.07.11-14:16:09 |
++--------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:131 -+
+| PCA Begin | 2024.07.11-14:16:13                             |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:133 -+
+| PCA End | 2024.07.11-14:16:32                               |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:90 -+
+| Forest Begin | 2024.07.11-14:16:32                         |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:113 -+
+| Anomaly scores (from high to low):                          |
+| Index: 8, Score: 0.1345                                     |
+| Index: 4, Score: 0.1333                                     |
+| Index: 3, Score: 0.1191                                     |
+| Index: 2, Score: 0.1191                                     |
+| Index: 5, Score: 0.0821                                     |
+| Index: 6, Score: 0.0538                                     |
+| Index: 7, Score: -0.0434                                    |
+| Index: 9, Score: -0.0447                                    |
+| Index: 1, Score: -0.1812                                    |
+| Index: 0, Score: -0.2038                                    |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:121 -+
+| Anomalous gradients: [0, 1, 7, 9]                           |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:123 -+
+| Forest End | 2024.07.11-14:16:33                            |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -+
+| Round 31's accuracy: 94.50% | 2024.07.11-14:16:35               |
++-----------------------------------------------------------------+
+
++---------------------- main.py:87 ----------------------+
+| Average loss: 0.952222928404808 | 2024.07.11-14:16:39  |
++--------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:131 -+
+| PCA Begin | 2024.07.11-14:16:43                             |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:133 -+
+| PCA End | 2024.07.11-14:17:02                               |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:90 -+
+| Forest Begin | 2024.07.11-14:17:02                         |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:113 -+
+| Anomaly scores (from high to low):                          |
+| Index: 7, Score: 0.1110                                     |
+| Index: 9, Score: 0.1069                                     |
+| Index: 3, Score: 0.0759                                     |
+| Index: 5, Score: 0.0719                                     |
+| Index: 6, Score: 0.0673                                     |
+| Index: 8, Score: 0.0495                                     |
+| Index: 2, Score: 0.0432                                     |
+| Index: 4, Score: 0.0309                                     |
+| Index: 0, Score: -0.1833                                    |
+| Index: 1, Score: -0.2389                                    |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:121 -+
+| Anomalous gradients: [0, 1]                                 |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:123 -+
+| Forest End | 2024.07.11-14:17:02                            |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -+
+| Round 32's accuracy: 94.70% | 2024.07.11-14:17:05               |
++-----------------------------------------------------------------+
+
++----------------------------------------------------- main.py:144 -----------------------------------------------------+
+| Original labels for modified images: tensor([4, 2, 1, 7, 4, 7, 2, 1, 7, 3, 4, 3, 4, 3, 9, 9, 5, 5, 4, 1, 7, 0, 6, 7,  |
+|         3, 0, 3, 5, 2, 9, 6, 1])                                                                                      |
++-----------------------------------------------------------------------------------------------------------------------+
+
++---------------------------------------------- main.py:145 ----------------------------------------------+
+| Predicted labels for modified images: [4 2 9 7 4 7 2 1 7 3 4 3 4 3 9 9 5 5 4 1 7 0 6 7 3 0 3 5 2 9 6 1] |
++---------------------------------------------------------------------------------------------------------+
+
++--------- main.py:149 ---------+
+| Backdoor success rate: 6.25%  |
++-------------------------------+
+
++------------ main.py:155 ------------+
+| Accuracy on modified images: 96.88% |
++-------------------------------------+
+
++--------- main.py:158 ---------+
+| Federated learning completed. |
++-------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:30 -+
+| TimeList:                                                       |
+| 00: Start | 2024.07.11-14:01:13                                 |
+| 01: init accuracy: 9.50% | 2024.07.11-14:01:21                  |
+| 02: Round 1's accuracy: 16.50% | 2024.07.11-14:01:50            |
+| 03: Round 2's accuracy: 25.20% | 2024.07.11-14:02:19            |
+| 04: Round 3's accuracy: 34.20% | 2024.07.11-14:02:49            |
+| 05: Round 4's accuracy: 48.60% | 2024.07.11-14:03:19            |
+| 06: Round 5's accuracy: 57.30% | 2024.07.11-14:03:48            |
+| 07: Round 6's accuracy: 66.10% | 2024.07.11-14:04:18            |
+| 08: Round 7's accuracy: 69.80% | 2024.07.11-14:04:47            |
+| 09: Round 8's accuracy: 76.00% | 2024.07.11-14:05:17            |
+| 10: Round 9's accuracy: 77.10% | 2024.07.11-14:05:46            |
+| 11: Round 10's accuracy: 85.10% | 2024.07.11-14:06:16           |
+| 12: Round 11's accuracy: 86.40% | 2024.07.11-14:06:46           |
+| 13: Round 12's accuracy: 86.00% | 2024.07.11-14:07:15           |
+| 14: Round 13's accuracy: 87.60% | 2024.07.11-14:07:45           |
+| 15: Round 14's accuracy: 89.30% | 2024.07.11-14:08:14           |
+| 16: Round 15's accuracy: 90.30% | 2024.07.11-14:08:43           |
+| 17: Round 16's accuracy: 90.90% | 2024.07.11-14:09:13           |
+| 18: Round 17's accuracy: 93.10% | 2024.07.11-14:09:42           |
+| 19: Round 18's accuracy: 92.40% | 2024.07.11-14:10:11           |
+| 20: Round 19's accuracy: 92.80% | 2024.07.11-14:10:41           |
+| 21: Round 20's accuracy: 94.60% | 2024.07.11-14:11:11           |
+| 22: Round 21's accuracy: 94.40% | 2024.07.11-14:11:40           |
+| 23: Round 22's accuracy: 94.90% | 2024.07.11-14:12:10           |
+| 24: Round 23's accuracy: 93.50% | 2024.07.11-14:12:40           |
+| 25: Round 24's accuracy: 93.70% | 2024.07.11-14:13:09           |
+| 26: Round 25's accuracy: 95.70% | 2024.07.11-14:13:39           |
+| 27: Round 26's accuracy: 94.50% | 2024.07.11-14:14:08           |
+| 28: Round 27's accuracy: 95.30% | 2024.07.11-14:14:37           |
+| 29: Round 28's accuracy: 95.70% | 2024.07.11-14:15:07           |
+| 30: Round 29's accuracy: 96.10% | 2024.07.11-14:15:36           |
+| 31: Round 30's accuracy: 95.50% | 2024.07.11-14:16:05           |
+| 32: Round 31's accuracy: 94.50% | 2024.07.11-14:16:35           |
+| 33: Round 32's accuracy: 94.70% | 2024.07.11-14:17:05           |
++-----------------------------------------------------------------+
+
++-------------------------------- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:222 --------------------------------+
+| | 攻击者 | 攻击力度 | PCA的偏离倍数 | PCA降维后的主成分数目 | 表现 |                                                                             |
+| |---|---|---|---|---|                                                                                                     |
+| | 2/10 | 1 | 1 | 0.04 | 32次中有：1次完全正确，18次多抓1个，12次多抓2个，1次多抓3个 <br/>[((2, 0), 1), ((2, 1), 18), ((2, 2), 12), ((2, 3), 1)] | |
+|                                                                                                                           |
++---------------------------------------------------------------------------------------------------------------------------+
+

@@ -1,0 +1,1 @@
+stdout.txt 212k deleted

@@ -1,0 +1,50 @@
++----- main.py:15 -----+
+| 2024.07.11-10:31:06  |
++----------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -+
+| Start | 2024.07.11-10:31:08                                     |
++-----------------------------------------------------------------+
+
++- /home/lzy/.conda/envs/ltf/lib/python3.8/site-packages/torchvision/datasets/cifar.py:141 -+
+| Tisfy: Files already downloaded and verified.                                             |
++-------------------------------------------------------------------------------------------+
+
++- /home/lzy/.conda/envs/ltf/lib/python3.8/site-packages/torchvision/datasets/cifar.py:141 -+
+| Tisfy: Files already downloaded and verified.                                             |
++-------------------------------------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -+
+| init accuracy: 17.40% | 2024.07.11-10:31:16                     |
++-----------------------------------------------------------------+
+
++---------------------- main.py:87 ----------------------+
+| Average loss: 2.3971015214920044 | 2024.07.11-10:31:18 |
++--------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:118 -+
+| PCA Begin | 2024.07.11-10:31:22                             |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:120 -+
+| PCA End | 2024.07.11-10:31:41                               |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:71 -+
+| Forest Begin | 2024.07.11-10:31:41                         |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:93 -+
+| Anomaly scores (from high to low):                         |
+| Index: 6, Score: 0.1184                                    |
+| Index: 9, Score: 0.1154                                    |
+| Index: 7, Score: 0.0988                                    |
+| Index: 3, Score: 0.0854                                    |
+| Index: 4, Score: 0.0649                                    |
+| Index: 2, Score: 0.0315                                    |
+| Index: 5, Score: 0.0169                                    |
+| Index: 8, Score: -0.1309                                   |
+| Index: 0, Score: -0.1654                                   |
+| Index: 1, Score: -0.1691                                   |
++------------------------------------------------------------+
+

@@ -7,6 +7,7 @@ import gc
 import numpy as np
 import datetime
 from collections import defaultdict
+from src import BanAttacker
 
 getNow = lambda: datetime.datetime.now().strftime('%Y.%m.%d-%H:%M:%S')
 
@@ -19,15 +20,19 @@ class GradientAnalyzer:
         self.config=config
     
     def find_gradients(self, grads_dict: dict):
+        toWrite = ''
         for i, grads in grads_dict.items():
-            print(f"Gradients from list {i}:")
             for key in grads:
-                grad = grads[key]
-                # Warnging: 下面一行print会输出很多内容
-                print(f"Key: {key}, Gradient shape: {grad.shape}, Gradient dtype: {grad.dtype}, Gradient values: {grad}")
+                  grad = grads[key]
+                  toWrite += f"Key: {key}, Gradient shape: {grad.shape}, Gradient dtype: {grad.dtype}, Gradient values: {grad}\n"
+
+                  # Warnging: 下面一行print会输出很多内容
+        with open(f'./result/grident-dict.txt', 'w') as f:
+            f.write(toWrite)
+                
     
     #将字典构建成列表
-    def make_gradients(self, grads_dict: dict) -> Tuple[List, List]:
+    def make_gradients(self, grads_dict: dict) -> np.ndarray:
         # Collect all gradients into a single numpy array
         grads_dict_cpu = {layer: {name: grad.cpu() for name, grad in grads.items()} for layer, grads in grads_dict.items()}
         all_grads = np.array([np.concatenate([grad.flatten() for grad in grads.values()]) for _, grads in grads_dict_cpu.items()]) # shape: (10, 85806346)
@@ -38,8 +43,20 @@ class GradientAnalyzer:
            print(f"pooling End | {getNow()}")
         return all_grads
     
+    
+    def writeAnomalyScore(self, scoreList: list):
+        with open(f'./result/AnomalyScore-{self.config.device}.txt', 'a') as f:
+            try:
+                self.config.Analyzer_alreadyWriteScore
+            except:
+                self.config.Analyzer_alreadyWriteScore = True
+                f.write('*' * 20 + '\n')
+                f.write(f'{getNow()}\n')
+                f.write(f'{self.config.attackMethod}, {self.config.defendMethod}, {self.config.attackList}\n')
+            f.write(f'{scoreList}\n')
+    
     # TODO: 更精确的检测模型
-    #PCA逻辑被移动到当前函数
+    # 纯PCA，PCAForest是不会调用此函数的
     def PCA_Method(self, all_grads: List):
         useful_grads_list = []
         anomalous_grads_list = []
@@ -49,10 +66,13 @@ class GradientAnalyzer:
         print(f"PCA End | {getNow()}")
         
         # Calculate distances of each gradient to the principal components in PCA space
+        # 或者说，这里甚至已经不属于PCA的范畴了
         distances = np.linalg.norm(reduced_grads - np.mean(reduced_grads, axis=0), axis=1)
 
         # Define anomaly threshold, e.g., 3 times standard deviation
         threshold = np.mean(distances) + self.config.PCA_rate * np.std(distances)
+        print(f'score: {distances}')
+        self.writeAnomalyScore(list(distances))
 
         # Determine useful and anomalous gradients
         for i, distance in enumerate(distances):
@@ -64,7 +84,7 @@ class GradientAnalyzer:
         self.ban_history.append(anomalous_grads_list)
         return useful_grads_list, anomalous_grads_list
     
-    def isolation_Forest_Method(self, all_grads: List[np.ndarray]) -> Tuple[List[int], List[int]]:
+    def isolation_Forest_Method(self, all_grads: List[np.ndarray]) -> Tuple[List[int], List[int], List[float], List[int]]:
         useful_grads_list = []
         anomalous_grads_list = []
         
@@ -80,6 +100,7 @@ class GradientAnalyzer:
 
         # Get anomaly scores for each sample
         anomaly_scores = isolation_forest.decision_function(all_grads)
+        self.writeAnomalyScore(list(anomaly_scores))
 
         # Print scores from high to low
         sorted_indices = np.argsort(anomaly_scores)[::-1]
@@ -90,21 +111,21 @@ class GradientAnalyzer:
         for idx, score in zip(sorted_indices, sorted_scores):
             scoreStr += f'Index: {idx}, Score: {score:.4f}\n'
         scoreStr = scoreStr[:-1]
-        print(scoreStr)
-
+        if self.config.isprintScore:
+            print(scoreStr)
         # Extract useful and anomalous gradients based on predictions
         for idx, pred in enumerate(outlier_preds):
             if pred == -1:  # -1 indicates an outlier
                 anomalous_grads_list.append(idx)
             else:
                 useful_grads_list.append(idx)
-
+        
         print("Anomalous gradients:", anomalous_grads_list)
         self.ban_history.append(anomalous_grads_list)
         print(f"Forest End | {getNow()}")
-        return useful_grads_list, anomalous_grads_list
+        return useful_grads_list, anomalous_grads_list, anomaly_scores, sorted_indices
     
-    def PCA_isolation_Forest_Method(self, all_grads: List[np.ndarray]) -> Tuple[List[int], List[int]]:
+    def PCA_isolation_Forest_Method(self, all_grads: List[np.ndarray]) -> Tuple[List[int], List[int], List[float], List[int]]:
         useful_grads_list = []
         anomalous_grads_list = []
         
@@ -112,21 +133,24 @@ class GradientAnalyzer:
         print(f"PCA Begin | {getNow()}")
         reduced_grads = self.pca.fit_transform(all_grads)  # 两次fit_transform会使用不同的主成分，而一次fit_transform后调用transform会使用相同的主成分
         print(f"PCA End | {getNow()}")
-        useful_grads_list, anomalous_grads_list = self.isolation_Forest_Method(reduced_grads)
-        return useful_grads_list, anomalous_grads_list
+        useful_grads_list, anomalous_grads_list, anomalous_scores, anomalous_indicates = self.isolation_Forest_Method(reduced_grads)            
+        return useful_grads_list, anomalous_grads_list, anomalous_scores, anomalous_indicates
 
-
-    def find_useful_gradients(self, grads_dict: dict) -> Tuple[List, List]:
+    # 如果是单独的隔离森林的话，暂无anomalous评分
+    def find_useful_gradients(self, grads_dict: dict) -> Tuple[List[int], List[int], List[float], List[int]]:
         useful_grads_list = []
         anomalous_grads_list = []
+        anomalous_scores = []
+        anomalous_indicates=[]
         
         all_grads = self.make_gradients(grads_dict)
+        print(all_grads.shape)
         
         if self.config.defendMethod == 'PCA':
             useful_grads_list, anomalous_grads_list = self.PCA_Method(all_grads)
         else:  # Both
-            useful_grads_list, anomalous_grads_list = self.PCA_isolation_Forest_Method(all_grads)
-        return useful_grads_list, anomalous_grads_list
+            useful_grads_list, anomalous_grads_list, anomalous_scores, anomalous_indicates = self.PCA_isolation_Forest_Method(all_grads)
+        return useful_grads_list, anomalous_grads_list, anomalous_scores, anomalous_indicates
     
     def pooling(self, poolsize: int, all_grads: np.ndarray) -> np.ndarray:
         pooled_grads = []
@@ -156,11 +180,13 @@ class GradientAnalyzer:
         return pooled_grads  # 相当于CPU内存又复制了一份，不影响原来的grad
      
     #清除anomalous_grads_list中的数据
-    def clean_grads(self, grads_dict: dict, anomalous_grads_list: list) -> dict:
+    def clean_grads(self, grads_dict: dict, anomalous_grads_list: list,banList: list,userList:List) -> dict:
         cleaned_grads_dict = {}
+        ban_indices = [int(client[6:]) - 1 for client in banList]  # 提取出 banList 中的编号，并减去 1 得到索引
         current_index = 0
         for name, grads in grads_dict.items():
-            if current_index not in anomalous_grads_list:
+            # 只要被ban了，就不要了；否则偶尔被评为恶意但是只要主观逻辑模型的总评分不低于0.6就要
+            if (userList[current_index] >= 0.6 or current_index not in anomalous_grads_list) and current_index not in ban_indices:
                 cleaned_grads_dict[name] = grads
             current_index += 1
         return cleaned_grads_dict
@@ -185,7 +211,7 @@ class GradientAnalyzer:
         # TODO: 改成正常的
         tempList.sort(key=lambda x: (x[0][1], -x[0][0]))
         with open('./result/defendResult.txt', 'a') as f:
-            f.write(f'{self.config.attackMethod}, {self.config.defendMethod}, {self.config.attackMethod}, {self.config.attackList} | {tempList}\n')
+            f.write(f'{self.config.attackMethod}, {self.config.defendMethod}, {self.config.attackList} | {tempList}\n')
         for (correct, error), times in tempList:
             toSay += f'{times}次'
             if correct == len(answer) and not error:

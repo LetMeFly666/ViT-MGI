@@ -1,0 +1,140 @@
++----- main.py:15 -----+
+| 2024.07.11-10:35:12  |
++----------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -+
+| Start | 2024.07.11-10:35:14                                     |
++-----------------------------------------------------------------+
+
++- /home/lzy/.conda/envs/ltf/lib/python3.8/site-packages/torchvision/datasets/cifar.py:141 -+
+| Tisfy: Files already downloaded and verified.                                             |
++-------------------------------------------------------------------------------------------+
+
++- /home/lzy/.conda/envs/ltf/lib/python3.8/site-packages/torchvision/datasets/cifar.py:141 -+
+| Tisfy: Files already downloaded and verified.                                             |
++-------------------------------------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -+
+| init accuracy: 10.60% | 2024.07.11-10:35:21                     |
++-----------------------------------------------------------------+
+
++---------------------- main.py:87 ----------------------+
+| Average loss: 2.483186888694763 | 2024.07.11-10:35:24  |
++--------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:123 -+
+| PCA Begin | 2024.07.11-10:35:27                             |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:125 -+
+| PCA End | 2024.07.11-10:35:47                               |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:82 -+
+| Forest Begin | 2024.07.11-10:35:47                         |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:104 -+
+| Anomaly scores (from high to low):                          |
+| Index: 2, Score: 0.0898                                     |
+| Index: 6, Score: 0.0886                                     |
+| Index: 5, Score: 0.0588                                     |
+| Index: 3, Score: 0.0525                                     |
+| Index: 9, Score: 0.0448                                     |
+| Index: 4, Score: 0.0426                                     |
+| Index: 8, Score: 0.0319                                     |
+| Index: 7, Score: -0.0620                                    |
+| Index: 0, Score: -0.1782                                    |
+| Index: 1, Score: -0.1791                                    |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:113 -+
+| Anomalous gradients: [0, 1, 7]                              |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:115 -+
+| Forest End | 2024.07.11-10:35:47                            |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -+
+| Round 1's accuracy: 16.80% | 2024.07.11-10:35:50                |
++-----------------------------------------------------------------+
+
++---------------------- main.py:87 ----------------------+
+| Average loss: 2.3608424186706545 | 2024.07.11-10:35:52 |
++--------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:123 -+
+| PCA Begin | 2024.07.11-10:35:56                             |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:125 -+
+| PCA End | 2024.07.11-10:36:15                               |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:82 -+
+| Forest Begin | 2024.07.11-10:36:15                         |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:104 -+
+| Anomaly scores (from high to low):                          |
+| Index: 2, Score: 0.0969                                     |
+| Index: 9, Score: 0.0909                                     |
+| Index: 6, Score: 0.0889                                     |
+| Index: 8, Score: 0.0790                                     |
+| Index: 3, Score: 0.0496                                     |
+| Index: 7, Score: 0.0206                                     |
+| Index: 4, Score: -0.0241                                    |
+| Index: 5, Score: -0.0402                                    |
+| Index: 1, Score: -0.1745                                    |
+| Index: 0, Score: -0.1841                                    |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:113 -+
+| Anomalous gradients: [0, 1, 4, 5]                           |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:115 -+
+| Forest End | 2024.07.11-10:36:16                            |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -+
+| Round 2's accuracy: 24.80% | 2024.07.11-10:36:18                |
++-----------------------------------------------------------------+
+
++----------------------------------------------------- main.py:144 -----------------------------------------------------+
+| Original labels for modified images: tensor([3, 6, 6, 5, 8, 7, 6, 8, 7, 2, 2, 5, 7, 8, 9, 1, 2, 9, 1, 3, 7, 1, 1, 5,  |
+|         6, 7, 7, 4, 4, 5, 1, 4])                                                                                      |
++-----------------------------------------------------------------------------------------------------------------------+
+
++---------------------------------------------- main.py:145 ----------------------------------------------+
+| Predicted labels for modified images: [0 6 6 5 4 2 4 9 7 2 3 5 1 1 7 7 7 9 3 1 1 3 3 5 6 1 7 5 7 5 7 7] |
++---------------------------------------------------------------------------------------------------------+
+
++--------- main.py:149 ---------+
+| Backdoor success rate: 3.12%  |
++-------------------------------+
+
++------------ main.py:155 ------------+
+| Accuracy on modified images: 34.38% |
++-------------------------------------+
+
++--------- main.py:158 ---------+
+| Federated learning completed. |
++-------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:30 -+
+| TimeList:                                                       |
+| 00: Start | 2024.07.11-10:35:14                                 |
+| 01: init accuracy: 10.60% | 2024.07.11-10:35:21                 |
+| 02: Round 1's accuracy: 16.80% | 2024.07.11-10:35:50            |
+| 03: Round 2's accuracy: 24.80% | 2024.07.11-10:36:18            |
++-----------------------------------------------------------------+
+
++---------- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:213 ----------+
+| | 攻击者 | 攻击力度 | PCA的偏离倍数 | PCA降维后的主成分数目 | 表现 |                                 |
+| |---|---|---|---|---|                                                         |
+| | 2/10 | 1 | 1 | 0.04 | 2次中有：1次多抓1个，1次多抓2个 <br/>[((2, 1), 1), ((2, 2), 1)] |  |
+|                                                                               |
++-------------------------------------------------------------------------------+
+

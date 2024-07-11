@@ -1,0 +1,302 @@
++----- main.py:15 -----+
+| 2024.07.11-21:53:39  |
++----------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -+
+| Start | 2024.07.11-21:53:41                                     |
++-----------------------------------------------------------------+
+
++- /home/lzy/.conda/envs/ltf/lib/python3.8/site-packages/torchvision/datasets/cifar.py:141 -+
+| Tisfy: Files already downloaded and verified.                                             |
++-------------------------------------------------------------------------------------------+
+
++- /home/lzy/.conda/envs/ltf/lib/python3.8/site-packages/torchvision/datasets/cifar.py:141 -+
+| Tisfy: Files already downloaded and verified.                                             |
++-------------------------------------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -+
+| init accuracy: 9.10% | 2024.07.11-21:53:49                      |
++-----------------------------------------------------------------+
+
++---------------------- main.py:99 ----------------------+
+| Average loss: 2.5705245971679687 | 2024.07.11-21:53:52 |
++--------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:147 -+
+| (10, 10043136)                                              |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:133 -+
+| PCA Begin | 2024.07.11-21:53:52                             |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:135 -+
+| PCA End | 2024.07.11-21:53:55                               |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:91 -+
+| Forest Begin | 2024.07.11-21:53:55                         |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:115 -+
+| Anomaly scores (from high to low):                          |
+| Index: 9, Score: 0.1318                                     |
+| Index: 4, Score: 0.1291                                     |
+| Index: 3, Score: 0.1278                                     |
+| Index: 7, Score: 0.1195                                     |
+| Index: 6, Score: 0.0969                                     |
+| Index: 5, Score: 0.0169                                     |
+| Index: 2, Score: -0.0281                                    |
+| Index: 8, Score: -0.0503                                    |
+| Index: 0, Score: -0.1858                                    |
+| Index: 1, Score: -0.2055                                    |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:123 -+
+| Anomalous gradients: [0, 1, 2, 8]                           |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:125 -+
+| Forest End | 2024.07.11-21:53:55                            |
++-------------------------------------------------------------+
+
++------------------------------------------------------------------------------------------------ main.py:116 ------------------------------------------------------------------------------------------------+
+| [0.4071052912592247, 0.39724494878239985, 0.48593124049998315, 0.5639090591590051, 0.5645570354461054, 0.5084516651060286, 0.5484406144829177, 0.5597324580781686, 0.4748472899053086, 0.5658811439241814]  |
++-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/banAttacker.py:45 -+
+| Client 1,has been banned                                      |
++---------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/banAttacker.py:45 -+
+| Client 2,has been banned                                      |
++---------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/banAttacker.py:45 -+
+| Client 3,has been banned                                      |
++---------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/banAttacker.py:45 -+
+| Client 4,has been banned                                      |
++---------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/banAttacker.py:45 -+
+| Client 5,has been banned                                      |
++---------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/banAttacker.py:45 -+
+| Client 6,has been banned                                      |
++---------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/banAttacker.py:45 -+
+| Client 7,has been banned                                      |
++---------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/banAttacker.py:45 -+
+| Client 8,has been banned                                      |
++---------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/banAttacker.py:45 -+
+| Client 9,has been banned                                      |
++---------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/banAttacker.py:45 -+
+| Client 10,has been banned                                     |
++---------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -+
+| Round 1's accuracy: 11.60% | 2024.07.11-21:53:58                |
++-----------------------------------------------------------------+
+
++---------------------- main.py:99 ----------------------+
+| Average loss: 2.3193296432495116 | 2024.07.11-21:54:00 |
++--------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:147 -+
+| (10, 10043136)                                              |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:133 -+
+| PCA Begin | 2024.07.11-21:54:01                             |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:135 -+
+| PCA End | 2024.07.11-21:54:03                               |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:91 -+
+| Forest Begin | 2024.07.11-21:54:03                         |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:115 -+
+| Anomaly scores (from high to low):                          |
+| Index: 3, Score: 0.1351                                     |
+| Index: 6, Score: 0.1315                                     |
+| Index: 5, Score: 0.1236                                     |
+| Index: 9, Score: 0.0705                                     |
+| Index: 2, Score: 0.0567                                     |
+| Index: 8, Score: 0.0500                                     |
+| Index: 4, Score: 0.0048                                     |
+| Index: 7, Score: -0.0545                                    |
+| Index: 0, Score: -0.1833                                    |
+| Index: 1, Score: -0.2055                                    |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:123 -+
+| Anomalous gradients: [0, 1, 7]                              |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:125 -+
+| Forest End | 2024.07.11-21:54:04                            |
++-------------------------------------------------------------+
+
++---------------------------------------------------------------------------------------------- main.py:116 ----------------------------------------------------------------------------------------------+
+| [0.40837093625433885, 0.39724494878239985, 0.5283284278626097, 0.567573816847053, 0.5024018795310692, 0.56180938139545, 0.5657643176484651, 0.4727677791836534, 0.5250160720969778, 0.5352332769328296] |
++---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/banAttacker.py:45 -+
+| Client 1,has been banned                                      |
++---------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/banAttacker.py:45 -+
+| Client 2,has been banned                                      |
++---------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/banAttacker.py:45 -+
+| Client 3,has been banned                                      |
++---------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/banAttacker.py:45 -+
+| Client 4,has been banned                                      |
++---------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/banAttacker.py:45 -+
+| Client 5,has been banned                                      |
++---------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/banAttacker.py:45 -+
+| Client 6,has been banned                                      |
++---------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/banAttacker.py:45 -+
+| Client 7,has been banned                                      |
++---------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/banAttacker.py:45 -+
+| Client 8,has been banned                                      |
++---------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/banAttacker.py:45 -+
+| Client 9,has been banned                                      |
++---------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/banAttacker.py:45 -+
+| Client 10,has been banned                                     |
++---------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -+
+| Round 2's accuracy: 22.00% | 2024.07.11-21:54:06                |
++-----------------------------------------------------------------+
+
++---------------------- main.py:99 ----------------------+
+| Average loss: 2.187051558494568 | 2024.07.11-21:54:09  |
++--------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:147 -+
+| (10, 10043136)                                              |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:133 -+
+| PCA Begin | 2024.07.11-21:54:09                             |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:135 -+
+| PCA End | 2024.07.11-21:54:12                               |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:91 -+
+| Forest Begin | 2024.07.11-21:54:12                         |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:115 -+
+| Anomaly scores (from high to low):                          |
+| Index: 8, Score: 0.0841                                     |
+| Index: 5, Score: 0.0815                                     |
+| Index: 7, Score: 0.0807                                     |
+| Index: 3, Score: 0.0742                                     |
+| Index: 2, Score: 0.0517                                     |
+| Index: 6, Score: 0.0459                                     |
+| Index: 4, Score: 0.0422                                     |
+| Index: 9, Score: -0.0508                                    |
+| Index: 0, Score: -0.1849                                    |
+| Index: 1, Score: -0.1986                                    |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:123 -+
+| Anomalous gradients: [0, 1, 9]                              |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:125 -+
+| Forest End | 2024.07.11-21:54:12                            |
++-------------------------------------------------------------+
+
++----------------------------------------------------------------------------------------------- main.py:116 -----------------------------------------------------------------------------------------------+
+| [0.4075276930548089, 0.4007063847147877, 0.525851078639171, 0.5371006531645666, 0.5210945903514617, 0.5407413573243296, 0.5229589008001914, 0.5403493160015461, 0.5420553950653556, 0.47461606320179783]  |
++-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/banAttacker.py:45 -+
+| Client 1,has been banned                                      |
++---------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/banAttacker.py:45 -+
+| Client 2,has been banned                                      |
++---------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/banAttacker.py:45 -+
+| Client 3,has been banned                                      |
++---------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/banAttacker.py:45 -+
+| Client 4,has been banned                                      |
++---------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/banAttacker.py:45 -+
+| Client 5,has been banned                                      |
++---------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/banAttacker.py:45 -+
+| Client 6,has been banned                                      |
++---------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/banAttacker.py:45 -+
+| Client 7,has been banned                                      |
++---------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/banAttacker.py:45 -+
+| Client 8,has been banned                                      |
++---------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/banAttacker.py:45 -+
+| Client 9,has been banned                                      |
++---------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/banAttacker.py:45 -+
+| Client 10,has been banned                                     |
++---------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -+
+| Round 3's accuracy: 32.20% | 2024.07.11-21:54:15                |
++-----------------------------------------------------------------+
+
++---------------------- main.py:99 ----------------------+
+| Average loss: 2.019201898574829 | 2024.07.11-21:54:18  |
++--------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:147 -+
+| (10, 10043136)                                              |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:133 -+
+| PCA Begin | 2024.07.11-21:54:18                             |
++-------------------------------------------------------------+
+

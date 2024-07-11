@@ -2,7 +2,7 @@
  * @Author: LetMeFly
  * @Date: 2024-05-15 17:45:43
  * @LastEditors: LetMeFly
- * @LastEditTime: 2024-07-11 10:13:32
+ * @LastEditTime: 2024-07-11 15:39:45
 -->
 # FLDefinder
 
@@ -574,4 +574,5 @@ device = cuda:0
 + 感谢室友[许天宇](https://github.com/vme50ty)的理论、实验帮助，提出了很多的实验思路以及技术支持
 + 感谢实验室[王波](https://github.com/Pesuking)的共同讨论与研究，前期是该项目的核心骨干
 + 感谢本科室友[李楠](https://github.com/spln13)的写作讨论及陪伴，实现了参考文献的正确格式
++ 第一次听说联邦学习就是李楠给我讲的；没有许天宇的大力帮助肯定无法在截稿日期前完成实验；感谢Github这个开源平台；感谢北邮overleaf平台；感谢ChatGPT的写作指导和英文润色
 + 感谢实验室窗外的那棵松，在无数独自一人的夜晚有你陪我随风起舞

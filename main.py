@@ -2,7 +2,7 @@
 Author: LetMeFly vme50ty
 Date: 2024-07-03 10:37:25
 LastEditors: LetMeFly
-LastEditTime: 2024-07-11 10:08:42
+LastEditTime: 2024-07-11 23:59:33
 '''
 import datetime
 getNow = lambda: datetime.datetime.now().strftime('%Y.%m.%d-%H:%M:%S')
@@ -35,10 +35,12 @@ import argparse
 from collections import defaultdict
 import gc
 from sklearn.ensemble import IsolationForest
-from src import Config, DataManager, ViTModel, Client, GradientAscentAttack, LabelFlippingAttack, BackDoorAttack, GradientAnalyzer, Server
+from src import Config, DataManager, ViTModel, Client, GradientAscentAttack, LabelFlippingAttack, BackDoorAttack, GradientAnalyzer, Server, FindLayer, BanAttacker
 
 
 config = Config(now)
+
+banAttacker = BanAttacker(config)
 
 # 初始化数据管理器
 data_manager = DataManager(config.num_clients, config.batch_size, config.datasize_perclient, config.datasize_valide)
@@ -50,14 +52,24 @@ server = Server(global_model, config.device)
 # 联邦学习过程
 criterion = nn.CrossEntropyLoss()
 
-# 共计检测
+# 攻击检测
 gradentAnalyzer = GradientAnalyzer(config,n_components=config.PCA_nComponents)
+
+findLayer = FindLayer(config, gradentAnalyzer)
 
 ploter = Ploter(x='batch', y=['loss', 'accuracy'], title='loss and accuracy', filename=f'./result/{now}/lossAndAccuracy.svg')
 accuracy = server.evaluate(data_manager.get_val_loader(), config.device)
 timeRecorder.addRecord(f'init accuracy: {accuracy * 100:.2f}%')
 import math  # TODO: 计算真正的loss
 ploter.addData(x=0, y={'loss': math.nan, 'accuracy': accuracy})
+
+
+with open('result/UsefulLayer/merge-resut.txt', 'r') as f:
+    lines = f.readlines()
+    lines = [line.strip() for line in lines if line.strip()]  # 去除空行和首尾空格
+usefulLayers = set(lines)
+
+banList=[]
 
 for round_num in range(config.num_rounds):
     # timeRecorder.addRecord(f'Round {round_num + 1} of {config.num_rounds}')
@@ -76,22 +88,33 @@ for round_num in range(config.num_rounds):
     # 分发当前的全局模型给所有客户端
     server.distribute_model(clients)
     # 每个客户端计算梯度
-    grads_dict = {}
+    grads_dict = {}  # 所有的梯度(weight)
+    compute_grads_dict={}  # 提取的特征层的梯度
     total_loss = 0.0
     for th, client in enumerate(clients):
         # timeRecorder.addRecord(f'Round {round_num + 1}/{num_rounds} client {th + 1}/{num_clients} is computing gradients...')
         grads, loss = client.compute_gradient(criterion, config.device, config.epoch_client)
-        grads_dict[client.getName()] = grads 
+        grads_dict[client.getName()] = grads
+        compute_grads_dict[client.getName()] = {k: v for k, v in grads.items() if k in usefulLayers}
         total_loss += loss
     avg_loss = total_loss / config.num_clients
     print(f"Average loss: {avg_loss} | {getNow()}")
     
     # 服务器聚合梯度并更新全局模型
     if config.ifFindAttack:
-        # gradentAnalyzer.find_gradients(grads_dict)
-        _, anomaList = gradentAnalyzer.find_useful_gradients(grads_dict)
+        #gradentAnalyzer.find_gradients(grads_dict)
+        _, anomaList, anomaly_scores , _= gradentAnalyzer.find_useful_gradients(compute_grads_dict)
     if config.ifFindAttack and config.ifCleanAnoma:
-        grads_dict = gradentAnalyzer.clean_grads(grads_dict, anomaList)
+        grads_dict = gradentAnalyzer.clean_grads(grads_dict, anomaList, banList, banAttacker.userList)
+    #是否封禁被找出的用户
+    if config.isBanAttacker and config.ifFindAttack:
+        userList = banAttacker.Subjective_Logic_Model(anomaly_scores)
+        print(userList)
+        banList = banAttacker.ban(round_num)
+    
+    if config.ifFindUsefulLayer:
+        values_list = findLayer.make_gradients_list(grads_dict)
+        findLayer.find_useful_layer(values_list)
     
     avg_grads = server.aggregate_gradients(grads_dict)
     server.update_model(avg_grads)
@@ -103,6 +126,7 @@ for round_num in range(config.num_rounds):
     timeRecorder.addRecord(f"Round {round_num + 1}\'s accuracy: {accuracy * 100:.2f}%")
     ploter.addData(x=round_num + 1, y={'loss': avg_loss, 'accuracy': accuracy})
 
+print(banList)
 
 if config.attackMethod == 'backdoor':
     # model_path = f"./testModel_final.pth"
