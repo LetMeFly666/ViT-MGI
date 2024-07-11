@@ -2,7 +2,7 @@
 Author: LetMeFly vme50ty
 Date: 2024-07-03 10:37:25
 LastEditors: LetMeFly
-LastEditTime: 2024-07-09 16:59:33
+LastEditTime: 2024-07-11 09:47:09
 '''
 import datetime
 getNow = lambda: datetime.datetime.now().strftime('%Y.%m.%d-%H:%M:%S')
@@ -18,12 +18,12 @@ timeRecorder = TimeRecorder()
 timeRecorder.addRecord('Start', getNow())
 
 
-    
+
 import torch
 import torch.nn as nn
 import torch.optim as optim
 from torch.utils.data import DataLoader, Subset
-import torchvision.transforms as transforms
+import torchvision.transforms as transformsConfig
 import torchvision.datasets as datasets
 from transformers import ViTForImageClassification, ViTConfig
 from transformers import ViTModel as ViTModel_Original
@@ -35,430 +35,23 @@ import argparse
 from collections import defaultdict
 import gc
 from sklearn.ensemble import IsolationForest
+from src import Config, DataManager, ViTModel, Client, GradientAscentAttack, LabelFlippingAttack, BackDoorAttack, GradientAnalyzer, Server
 
 
-# 参数/配置
-class Config:
-    def __init__(self):
-        self.num_clients = 10          # 客户端数量
-        self.batch_size = 32           # 每批次多少张图片
-        self.num_rounds = 32           # 总轮次
-        self.epoch_client = 1          # 每个客户端的轮次
-        self.datasize_perclient = 32   # 每个客户端的数据量
-        self.datasize_valide = 1000    # 测试集大小
-        self.learning_rate = 0.001     # 步长
-        self.ifFindAttack=True         # 是否启用找出攻击者
-        self.ifCleanAnoma = True       # 是否清理PCA抓出的异常数据
-        self.defendMethod = 'Both'     # 仅使用PCA评价，还是使用“PCA+隔离森林”
-        self.PCA_rate = 1              # PCA偏离倍数
-        self.PCA_nComponents = 0.04    # PCA降维后的主成分数目
-        self.forest_nEstimators = 300  # 随机森林的估计器数量
-        self.attackList = [0, 1]       # 恶意客户端下标
-        self.attack_rate = 1           # 攻击强度
-        self.ifPooling = False         # 是否进行池化操作
-        self.poolsize = 1000           # grads数组中每个grad，取n个数字中取最大值
-        self.pooltype = "Max"          # 池化方式，可以为Mean或者Max，代表最大池化和平均池化
-        self.ifPretrained = True       # 是否使用预训练模型
-        self.device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
-        self.parseAgrs()
-        self.saveConfig()
-    
-    def parseAgrs(self):
-        parser = argparse.ArgumentParser(description='FLDefinder Configuration')
-        known_args, unknown_args = parser.parse_known_args()
-        for arg in unknown_args:
-            if arg.startswith("--"):
-                key_value = arg.lstrip("--").split("=", 1)
-                if len(key_value) == 2:
-                    key, value = key_value
-                    try:
-                        value = eval(value)
-                    except:
-                        pass
-                    self.setConfig(key, value)
-                else:
-                    print(f"Invalid parameter format: {arg}")
+config = Config(now)
 
-    def saveConfig(self):
-        toWrite = ''
-        for key, value in self.__dict__.items():
-            toWrite += f"{key} = {value}\n"
-        with open(f'./result/{now}/config.env', 'w') as f:
-            f.write(toWrite)
-    
-    def setConfig(self, key: str, value):
-        self.__dict__[key] = value
-
-config = Config()
-
-# 定义ViT模型
-class ViTModel(nn.Module):
-    def __init__(self, num_classes=10, device: str=config.device, name: str=None):
-        super(ViTModel, self).__init__()
-        if config.ifPretrained:
-            model_path = './data/vit_base_patch16_224'
-            vit_config = ViTConfig.from_pretrained(model_path)
-            self.model = ViTForImageClassification.from_pretrained(model_path, config=vit_config)
-            self.model.classifier = nn.Linear(self.model.config.hidden_size, num_classes)
-        else:
-            vit_config = ViTConfig()
-            self.model = ViTModel_Original(vit_config)
-            self.classifier = nn.Linear(vit_config.hidden_size, num_classes)
-        self.model.to(device)  # 移动模型到设备
-        self.name = 'defaultName'
-    
-    def forward(self, x):
-        if config.ifPretrained:
-            return self.model(x).logits
-        else:
-            outputs = self.model(x)
-            logits = self.classifier(outputs.last_hidden_state[:, 0])
-            return logits
-
-    def setName(self, name: str) -> None:
-        self.name = name
-    
-    def getName(self) -> str:
-        return self.name
-
-# 数据管理类
-class DataManager:
-    def __init__(self, num_clients: int, batch_size: int, datasize_perclient: int, datasize_valide: int):
-        self.num_clients = num_clients
-        self.batch_size = batch_size
-        self.datasize_perclient = datasize_perclient
-        self.datasize_valide = datasize_valide
-        self.transform = transforms.Compose([
-            transforms.Resize(224),
-            transforms.ToTensor(),
-            transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))
-        ])
-        self.train_dataset = datasets.CIFAR10(root='./data', train=True, download=True, transform=self.transform)
-        self.test_dataset = datasets.CIFAR10(root='./data', train=False, download=True, transform=self.transform)
-        
-    def get_clients_data_loaders(self) -> List[DataLoader]:
-        dataset_size = len(self.train_dataset)
-        indices = list(range(dataset_size))
-        random.shuffle(indices)
-        
-        clients_data_loaders = []
-        start_idx = 0
-        for _ in range(self.num_clients):
-            split_indices = indices[start_idx:start_idx + self.datasize_perclient]
-            subset = Subset(self.train_dataset, split_indices)
-            data_loader = DataLoader(subset, batch_size=self.batch_size, shuffle=True)
-            clients_data_loaders.append(data_loader)
-            start_idx += self.datasize_perclient
-        
-        return clients_data_loaders
-
-    def get_val_loader(self) -> DataLoader:
-        test_indices = list(range(len(self.test_dataset)))
-        random.shuffle(test_indices)
-        val_indices = test_indices[:self.datasize_valide]
-        val_subset = Subset(self.test_dataset, val_indices)
-        val_loader = DataLoader(val_subset, batch_size=self.batch_size, shuffle=False)
-        return val_loader
-
-# 客户端类
-class Client:
-    def __init__(self, data_loader: DataLoader):
-        self.data_loader = data_loader
-        self.model: Optional[ViTModel] = None
-        self.name: Optional[str] = None
-    
-    def set_model(self, model: ViTModel, device: str, name: str=None):
-        self.model = model
-        self.model.to(device)
-        self.model.setName(name)
-        self.initial_state_dict = copy.deepcopy(self.model.state_dict())
-    
-    def compute_gradient(self, criterion: nn.CrossEntropyLoss, device: str, num_epochs: int):
-        self.model.to(device)
-        self.model.train()
-        optimizer = optim.SGD(self.model.parameters(), lr=0.01, momentum=0.9)
-        
-        total_loss = 0.0
-        for epoch in range(num_epochs):
-            for images, labels in self.data_loader:
-                optimizer.zero_grad()  # 每个批次前清零梯度
-                images, labels = images.to(device), labels.to(device)
-                outputs = self.model(images)
-                loss = criterion(outputs, labels)
-                loss.backward()  # 计算当前批次的梯度
-                thisLoss = loss.item()
-                total_loss += thisLoss
-                optimizer.step()
-        
-        # 计算梯度变化
-        final_state_dict = self.model.state_dict()
-        gradient_changes = {}
-        for key in self.initial_state_dict:
-            gradient_changes[key] = final_state_dict[key] - self.initial_state_dict[key]
-        return gradient_changes, total_loss / (len(self.data_loader) * num_epochs)
-
-    def getName(self) -> str:
-        return self.model.getName()
-    
-"""
-梯度上升攻击
-TODO: 更智能的攻击（现在的梯度上升攻击太基础了）
-"""
-class Attack(Client):
-    def __init__(self, data_loader: DataLoader):
-        super().__init__(data_loader)
-
-    def compute_gradient(self, criterion: nn.CrossEntropyLoss, device: str, num_epochs: int, attack_rate: float=config.attack_rate):
-        gradient_changes, average_loss = super().compute_gradient(criterion, device, num_epochs)
-        
-        # 返回gradient_changes中所有值的`相反数*attack_rate`
-        neg_gradient_changes = {key: -value * attack_rate for key, value in gradient_changes.items()}
-        return neg_gradient_changes, average_loss
-
-# 服务器类
-class Server:
-    def __init__(self, model: ViTModel, device: str):
-        self.global_model = model
-        self.global_model.to(device)
-        self.device = device
-    
-    def distribute_model(self, clients: List[Client]):
-        for th, client in enumerate(clients):
-            client.set_model(copy.deepcopy(self.global_model), device=self.device, name=f'Client{th + 1}')
-    
-    def aggregate_gradients(self, grads_dict:dict):
-        avg_grads = {}
-        for _, grads in grads_dict.items():
-            for key in grads:
-                if key not in avg_grads:
-                    avg_grads[key] = grads[key].clone() / len(grads_dict)
-                else:
-                    avg_grads[key] += grads[key] / len(grads_dict)
-        return avg_grads
-        
-    def update_model(self, gradient_changes):
-        # 获取全局模型的状态字典
-        global_state_dict = self.global_model.state_dict()
-        # 更新全局模型的参数
-        for key in global_state_dict:
-            global_state_dict[key] += gradient_changes[key]
-        # 将更新后的状态字典加载回全局模型
-        self.global_model.load_state_dict(global_state_dict)
-
-    def evaluate(self, data_loader, device: str):
-        self.global_model.to(device)
-        self.global_model.eval()
-        correct = 0
-        total = 0
-        with torch.no_grad():
-            for images, labels in data_loader:
-                images, labels = images.to(device), labels.to(device)
-                outputs = self.global_model(images)
-                _, predicted = torch.max(outputs.data, 1)
-                total += labels.size(0)
-                correct += (predicted == labels).sum().item()
-        return correct / total
-
-#异常检测（梯度分析类）
-class GradientAnalyzer:
-    def __init__(self, n_components=2):
-        self.n_components = n_components
-        self.pca = PCA(n_components=self.n_components)
-        self.ban_history = []  # 封禁历史
-    
-    def find_gradients(self, grads_dict:dict):
-        for i, grads in grads_dict.items():
-            print(f"Gradients from list {i}:")
-            for key in grads:
-                grad = grads[key]
-                # Warnging: 下面一行print会输出很多内容
-                print(f"Key: {key}, Gradient shape: {grad.shape}, Gradient dtype: {grad.dtype}, Gradient values: {grad}")
-    
-    #将字典构建成列表
-    def make_gradients(self, grads_dict: dict) -> Tuple[List, List]:
-        # Collect all gradients into a single numpy array
-        grads_dict_cpu = {layer: {name: grad.cpu() for name, grad in grads.items()} for layer, grads in grads_dict.items()}
-        all_grads = np.array([np.concatenate([grad.flatten() for grad in grads.values()]) for _, grads in grads_dict_cpu.items()]) # shape: (10, 85806346)
-        # 尝试使用mle失败了，因为mle要求数据量大于特征数
-        if config.ifPooling:
-           print(f"pooling Begin | {getNow()}")
-           all_grads = self.pooling(config.poolsize, all_grads)
-           print(f"pooling End | {getNow()}")
-        return all_grads
-    
-    # TODO: 更精确的检测模型
-    #PCA逻辑被移动到当前函数
-    def PCA_Method(self,all_grads:List, PCA_rate: int=config.PCA_rate):
-        useful_grads_list = []
-        anomalous_grads_list = []
-        # Perform PCA on all gradients
-        print(f"PCA Begin | {getNow()}")
-        reduced_grads = self.pca.fit_transform(all_grads)  # 两次fit_transform会使用不同的主成分，而一次fit_transform后调用transform会使用相同的主成分
-        print(f"PCA End | {getNow()}")
-        
-        # Calculate distances of each gradient to the principal components in PCA space
-        distances = np.linalg.norm(reduced_grads - np.mean(reduced_grads, axis=0), axis=1)
-
-        # Define anomaly threshold, e.g., 3 times standard deviation
-        threshold = np.mean(distances) + PCA_rate * np.std(distances)
-
-        # Determine useful and anomalous gradients
-        for i, distance in enumerate(distances):
-            if distance > threshold:
-                anomalous_grads_list.append(i)  # 标记为异常的grad
-            else:
-                useful_grads_list.append(i)     # 标记为有用的grad
-        print(anomalous_grads_list)
-        self.ban_history.append(anomalous_grads_list)
-        return useful_grads_list, anomalous_grads_list
-    
-    def isolation_Forest_Method(self, all_grads: List[np.ndarray]) -> Tuple[List[int], List[int]]:
-        useful_grads_list = []
-        anomalous_grads_list = []
-        
-        print(f"Forest Begin | {getNow()}")
-        isolation_forest = IsolationForest(n_estimators=config.forest_nEstimators, max_samples=1.0, max_features=1.0, random_state=42, contamination='auto')
-        # Initialize Isolation Forest model
-
-        # Fit the model to the gradients data
-        isolation_forest.fit(all_grads)
-
-        # Predict outliers (anomalies)
-        outlier_preds = isolation_forest.predict(all_grads)  # 返回每个数据点是否为异常点（数组），-1表示异常，1表示正常
-
-        # Get anomaly scores for each sample
-        anomaly_scores = isolation_forest.decision_function(all_grads)
-
-        # Print scores from high to low
-        sorted_indices = np.argsort(anomaly_scores)[::-1]
-        sorted_scores = anomaly_scores[sorted_indices]
-        
-        scoreStr = 'Anomaly scores (from high to low):\n'
-        
-        for idx, score in zip(sorted_indices, sorted_scores):
-            scoreStr += f'Index: {idx}, Score: {score:.4f}\n'
-        scoreStr = scoreStr[:-1]
-        print(scoreStr)
-
-        # Extract useful and anomalous gradients based on predictions
-        for idx, pred in enumerate(outlier_preds):
-            if pred == -1:  # -1 indicates an outlier
-                anomalous_grads_list.append(idx)
-            else:
-                useful_grads_list.append(idx)
-
-        print("Anomalous gradients:", anomalous_grads_list)
-        self.ban_history.append(anomalous_grads_list)
-        print(f"Forest End | {getNow()}")
-        return useful_grads_list, anomalous_grads_list
-    
-    def PCA_isolation_Forest_Method(self, all_grads: List[np.ndarray]) -> Tuple[List[int], List[int]]:
-        useful_grads_list = []
-        anomalous_grads_list = []
-        
-        # Perform PCA on all gradients
-        print(f"PCA Begin | {getNow()}")
-        reduced_grads = self.pca.fit_transform(all_grads)  # 两次fit_transform会使用不同的主成分，而一次fit_transform后调用transform会使用相同的主成分
-        print(f"PCA End | {getNow()}")
-        useful_grads_list, anomalous_grads_list = self.isolation_Forest_Method(reduced_grads)
-        return useful_grads_list, anomalous_grads_list
-
-
-    def find_useful_gradients(self, grads_dict: dict) -> Tuple[List, List]:
-        useful_grads_list = []
-        anomalous_grads_list = []
-        
-        all_grads = self.make_gradients(grads_dict)
-        
-        if config.defendMethod == 'PCA':
-            useful_grads_list, anomalous_grads_list = self.PCA_Method(all_grads, config.PCA_rate)
-        else:  # Both
-            useful_grads_list, anomalous_grads_list = self.PCA_isolation_Forest_Method(all_grads)
-        return useful_grads_list, anomalous_grads_list
-    
-    def pooling(self, poolsize: int, all_grads: np.ndarray) -> np.ndarray:
-        pooled_grads = []
-        for grad in all_grads:
-            grad_gpu = torch.tensor(grad, device=config.device)  # 将单个梯度移动到 GPU
-            if grad_gpu.shape[0] % poolsize != 0:
-                # 如果输入大小不能被 poolsize 整除，则进行填充
-                padding_size = poolsize - (grad_gpu.shape[0] % poolsize)
-                grad_gpu = torch.cat([grad_gpu, torch.zeros(padding_size, device=config.device)])
-            
-            grad_matrix = grad_gpu.view(-1, poolsize)  # 将梯度变为矩阵形式，每行有 poolsize 个元素
-            if config.pooltype == 'Max':
-                pooled_grad, _ = torch.max(grad_matrix, dim=1)  # 最大池化
-            elif config.pooltype == 'Mean':
-                pooled_grad = torch.mean(grad_matrix, dim=1)    # 平均池化
-            elif config.pooltype == 'Sum':
-                pooled_grad = torch.sum(grad_matrix, dim=1)     # 求和池化
-            pooled_grads.append(pooled_grad.cpu().numpy())  # 将结果移动回 CPU 并转换为 NumPy 数组
-            
-            # 释放 GPU 内存
-            del grad_gpu, grad_matrix, pooled_grad
-            torch.cuda.empty_cache()
-            gc.collect()  # 手动调用垃圾收集器
-
-        pooled_grads = np.array(pooled_grads)
-        print(f"poolsize: {poolsize}, pooled_grads shape: {pooled_grads.shape}, all_grads shape: {all_grads.shape}")
-        return pooled_grads  # 相当于CPU内存又复制了一份，不影响原来的grad
-     
-    #清除anomalous_grads_list中的数据
-    def clean_grads(self, grads_dict: dict, anomalous_grads_list: list) -> dict:
-        cleaned_grads_dict = {}
-        current_index = 0
-        for name, grads in grads_dict.items():
-            if current_index not in anomalous_grads_list:
-                cleaned_grads_dict[name] = grads
-            current_index += 1
-        return cleaned_grads_dict
-    
-    def evalBanAcc(self, answer: List[int]) -> Dict[Tuple[int, int], int]:
-        result = defaultdict(int)
-        for banList in self.ban_history:
-            correct, error = 0, 0  # 正确的，错抓的
-            for thisClient in banList:
-                if thisClient in answer:
-                    correct += 1
-                else:
-                    error += 1
-            thisState = (correct, error)
-            result[thisState] += 1
-        toSay = '| 攻击者 | 攻击力度 | PCA的偏离倍数 | PCA降维后的主成分数目 | 表现 |\n'
-        toSay += '|---|---|---|---|---|\n'
-        toSay += f'| {len(answer)}/{config.num_clients} | {config.attack_rate} | {config.PCA_rate} | {config.PCA_nComponents} | {len(self.ban_history)}次中有：'
-        tempList = []
-        for key, value in result.items():
-            tempList.append((key, value))
-        tempList.sort(key=lambda x: (x[0][1], -x[0][0]))
-        for (correct, error), times in tempList:
-            toSay += f'{times}次'
-            if correct == len(answer) and not error:
-                toSay += '完全正确'
-            elif not error:
-                toSay += f'少抓{len(answer) - correct}个'
-            else:
-                if correct < len(answer):
-                    toSay += f'少抓{len(answer) - correct}个'
-                toSay += f'多抓{error}个'
-            toSay += '，'
-        toSay = toSay[:-1]
-        toSay += f' <br/>{tempList} |\n'
-        print(toSay)
-        return result
-            
 # 初始化数据管理器
 data_manager = DataManager(config.num_clients, config.batch_size, config.datasize_perclient, config.datasize_valide)
 
 # 初始化服务器
-global_model = ViTModel(device=config.device, name='GlobalModel')
+global_model = ViTModel(config, name='GlobalModel')
 server = Server(global_model, config.device)
 
 # 联邦学习过程
 criterion = nn.CrossEntropyLoss()
 
 # 共计检测
-gradentAnalyzer = GradientAnalyzer(n_components=config.PCA_nComponents)
+gradentAnalyzer = GradientAnalyzer(config,n_components=config.PCA_nComponents)
 
 ploter = Ploter(x='batch', y=['loss', 'accuracy'], title='loss and accuracy', filename=f'./result/{now}/lossAndAccuracy.svg')
 accuracy = server.evaluate(data_manager.get_val_loader(), config.device)
@@ -473,8 +66,13 @@ for round_num in range(config.num_rounds):
     clients_data_loaders = data_manager.get_clients_data_loaders()
     clients = [Client(data_loader) for data_loader in clients_data_loaders]
     for attackerIndex in config.attackList:
-        clients[attackerIndex] = Attack(clients_data_loaders[attackerIndex])
-
+        if config.attackMethod == 'backdoor':
+            clients[attackerIndex] = BackDoorAttack(clients_data_loaders[attackerIndex],config)
+        elif config.attackMethod == 'grad':
+            clients[attackerIndex] = GradientAscentAttack(clients_data_loaders[attackerIndex],config)
+        else:  # lable
+            clients[attackerIndex] = LabelFlippingAttack(clients_data_loaders[attackerIndex],config)
+        # TODO: 更多的攻击类型尝试
     # 分发当前的全局模型给所有客户端
     server.distribute_model(clients)
     # 每个客户端计算梯度
@@ -504,6 +102,58 @@ for round_num in range(config.num_rounds):
     accuracy = server.evaluate(val_loader, config.device)
     timeRecorder.addRecord(f"Round {round_num + 1}\'s accuracy: {accuracy * 100:.2f}%")
     ploter.addData(x=round_num + 1, y={'loss': avg_loss, 'accuracy': accuracy})
+
+
+if config.attackMethod == 'backdoor':
+    # model_path = f"./testModel_final.pth"
+    # torch.save(server.model.state_dict(), model_path)
+    # print(f"Model saved to {model_path}")
+
+    # 加载模型状态字典（如果需要在不同脚本或环境中加载）
+    # server.model.load_state_dict(torch.load(model_path))
+    # server.model.eval()
+
+    # 获取验证集数据
+    original_images = []
+    original_labels = []
+    for images, labels in data_manager.get_val_loader():
+        original_images.extend(images.cpu().numpy())
+        original_labels.extend(labels.cpu().numpy())
+        break
+
+    # 转换为Tensor
+    original_images = torch.tensor(original_images)
+    original_labels = torch.tensor(original_labels)
+
+    original_images = original_images.clone()  # 避免修改原始图像
+    original_images[:, :, -3:, :3] = 1  # 设置触发模式为全2，可以根据需要调整（后trigger_size行，前trigger_size列）
+
+
+    # 使用模型进行预测
+    card2 = config.device
+    server.global_model.to(config.device)
+    server.global_model.eval()
+
+    with torch.no_grad():
+        modified_images = original_images.to(config.device)
+        outputs = server.global_model(modified_images)
+        _, predicted_labels = torch.max(outputs, 1)
+        predicted_labels = predicted_labels.cpu().numpy()
+
+    # 打印预测结果
+    print(f"Original labels for modified images: {original_labels}")
+    print(f"Predicted labels for modified images: {predicted_labels}")
+
+    # 比较修改后的标签与原始标签
+    backdoor_success_rate = np.mean(predicted_labels == 0)  # 假设后门攻击将标签改为0
+    print(f"Backdoor success rate: {backdoor_success_rate * 100:.2f}%")
+
+    # 还可以计算修改后图像的准确率
+    correct_predictions = np.sum(predicted_labels == original_labels.cpu().numpy())
+    total_predictions = len(original_labels)
+    accuracy = correct_predictions / total_predictions
+    print(f"Accuracy on modified images: {accuracy * 100:.2f}%")
+
 
 print("Federated learning completed.")
 timeRecorder.printAll()

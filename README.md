@@ -2,7 +2,7 @@
  * @Author: LetMeFly
  * @Date: 2024-05-15 17:45:43
  * @LastEditors: LetMeFly
- * @LastEditTime: 2024-07-09 15:41:59
+ * @LastEditTime: 2024-07-10 23:12:11
 -->
 # FLDefinder
 
@@ -263,7 +263,7 @@ attack_rate = 1
 
 不得不说，虽然池化的效果仍有待商榷，但是PCA识别起来真的快太多了！
 
-### Log015 - 2024.7.8_10:30-2024.7.8_23:59
+### Log016 - 2024.7.8_10:30-2024.7.8_23:59
 
 + 今日务必先将Abstract、Introduction和Related Work写完
 + 整理了昨晚的“是否池化以及池化size以及检测方式的实验”的实验结果
@@ -411,7 +411,7 @@ python main.py --ifPooling=False --pooltype=Max --poolsize=25 --ifPCA=False
 
 然后当前在CPU上进行PCA很耗时也确实是个问题。
 
-### Log016 - 2024.7.9_0:00-2024.7.9_15:30
+### Log017 - 2024.7.9_0:00-2024.7.9_15:30
 
 + 有关`PCA_nComponents`和`forest_nEstimators`的实验。
 
@@ -439,6 +439,8 @@ pooltype = Max
 ifPretrained = True
 device = cuda:0
 ```
+
+本版本中隔离森林的划分规则为`auto`。
 
 </details>
 
@@ -480,7 +482,7 @@ device = cuda:0
 | 0.00032 | 500 | 32次中有：1次完全正确，14次多抓1个，1次少抓1个多抓1个，13次多抓2个，2次多抓3个，1次少抓2个多抓3个 | [准确率](./result/Archive001-oldHistory/Archive008-nComponseAndForestNEstimators/2024.07.09-08:05:57/accuracyList.txt) | 97.0% | 31 | 0:15:17 | ![结果图](./result/Archive001-oldHistory/Archive008-nComponseAndForestNEstimators/2024.07.09-08:05:57/lossAndAccuracy.svg) |
 | 0.00032 | 500 | 32次中有：1次完全正确，18次多抓1个，12次多抓2个，1次多抓3个 | [准确率](./result/Archive001-oldHistory/Archive008-nComponseAndForestNEstimators/2024.07.09-08:36:36/accuracyList.txt) | 96.6% | 31 | 0:15:22 | ![结果图](./result/Archive001-oldHistory/Archive008-nComponseAndForestNEstimators/2024.07.09-08:36:36/lossAndAccuracy.svg) |
 | 6.4e-05 | 500 | 32次中有：2次完全正确，17次多抓1个，12次多抓2个，1次少抓1个多抓2个 | [准确率](./result/Archive001-oldHistory/Archive008-nComponseAndForestNEstimators/2024.07.09-08:51:59/accuracyList.txt) | 95.8% | 31 | 0:15:13 | ![结果图](./result/Archive001-oldHistory/Archive008-nComponseAndForestNEstimators/2024.07.09-08:51:59/lossAndAccuracy.svg) |
-| 6.4e-05 | 500 | 32次中有：4次完全正确，18次多抓1个，2次少抓1个多抓1个，7次多抓2个，1次多抓3个 | [准确率](./result/Archive001-oldHistory/Archive008-nComponseAndForestNEstimators/2024.07.09-09:07:13/accuracyList.txt) | 96.9% | 31 | 0:15:18 | ![结果图](./result/Archive001-oldHistory/Archive008-nComponseAndForestNEstimators/2024.07.09-09:07:13/lossAndAccuracy.svg) |
+| 6.4e-05 | 500 | **32次中有：4次完全正确，18次多抓1个，2次少抓1个多抓1个，7次多抓2个，1次多抓3个** | [准确率](./result/Archive001-oldHistory/Archive008-nComponseAndForestNEstimators/2024.07.09-09:07:13/accuracyList.txt) | 96.9% | 31 | 0:15:18 | ![结果图](./result/Archive001-oldHistory/Archive008-nComponseAndForestNEstimators/2024.07.09-09:07:13/lossAndAccuracy.svg) |
 | 6.4e-05 | 500 | 32次中有：1次完全正确，13次多抓1个，14次多抓2个，1次少抓2个多抓2个，3次多抓3个 | [准确率](./result/Archive001-oldHistory/Archive008-nComponseAndForestNEstimators/2024.07.09-09:22:32/accuracyList.txt) | 96.0% | 29 | <span title="由人为观测引起的误差（screen copy mode下print函数卡住了）">1:12:13</span> | ![结果图](./result/Archive001-oldHistory/Archive008-nComponseAndForestNEstimators/2024.07.09-09:22:32/lossAndAccuracy.svg) |
 | 0.04 | 1000 | 32次中有：1次完全正确，14次多抓1个，1次少抓1个多抓1个，16次多抓2个 | [准确率](./result/Archive001-oldHistory/Archive008-nComponseAndForestNEstimators/2024.07.09-11:05:52/accuracyList.txt) | 97.5% | 32 | 0:15:37 | ![结果图](./result/Archive001-oldHistory/Archive008-nComponseAndForestNEstimators/2024.07.09-11:05:52/lossAndAccuracy.svg) |
 | 0.04 | 1000 | 32次中有：14次多抓1个，15次多抓2个，1次少抓1个多抓2个，2次多抓3个 | [准确率](./result/Archive001-oldHistory/Archive008-nComponseAndForestNEstimators/2024.07.09-10:34:46/accuracyList.txt) | 96.9% | 27 | 0:15:31 | ![结果图](./result/Archive001-oldHistory/Archive008-nComponseAndForestNEstimators/2024.07.09-10:34:46/lossAndAccuracy.svg) |
@@ -503,6 +505,24 @@ device = cuda:0
 
 </details>
 
+总的来看，萃取数为0.000064的效果普遍最好，但在萃取数大于0.000064时隔离森林样本数越大（300-500-1000）效果越好（一点）。
+
+### Log018 - 2024.7.9_15:30-2024.7.9_0:30
+
++ Related work
+
+### Log019 - 2024.7.10_9:15-2024.7.10_15:30
+
++ System model
++ conclusion
+
+### Log020 - 2024.7.10_15:30-2024.7.10_17:45
+
++ 因安装不了cuml，但成功安装了cupy，故尝试手动实现一个支持GPU的PCA，结论是ChatGPT无法胜任此项工作
++ 安装cuml需要安装RAPIDS，pip安装需要至少python3.9，conda安装（即使是清华源也）卡死。
+
+离谱了，决定不安装cuml了。
+
 ### TODO
 
 - [x] 每个客户端下次数据会发生变化
@@ -512,13 +532,43 @@ device = cuda:0
 - [x] 先写个题目和摘要
 - [x] 了解一些攻防手段，例如主成分萃取/最大池化及其关系
 - [x] Un realized merge
+- [ ] 实验设计：要验证每个实验
+   - 要证明的有：
+   - [x] 单独PCA很慢 :+( 因安装不了且实现不了GPU版本的PCA，所以真的好慢好慢
+   - [x] 单独PCA不准
+   - [x] 单独隔离森林纯乱抓
+   - [x] 最终提取特征层后总体时间可以接受
+   - [x] 池化+PCA（虽然能提升效率但）准确率会下降很多
+   - [x] 池化+隔离森林（虽然能提升效率但）准确率会下降很多
+   - [x] 提取特征层+PCA+隔离森林 抓到率很高（这里可以先不说抓到多抓的，先说应该抓确实抓到的）
+   - [x] 提取特征层+PCA+隔离森林+主观逻辑模型效果很好
+   - 设计的实验有：
+   - [ ] 单独训练耗时 Vs 加上PCA耗时 Vs 特征层提取+PCA+隔离森林耗时 -> 说明单独PCA太慢了、说明最终总体时间可以接受
+   - [ ] 设计实验证明哪些层最敏感
+   - [ ] 单独PCA识别效果评估 Vs 单独隔离森林识别效果评估 Vs 池化+PCA识别效果评估 Vs 池化+隔离森林识别效果评估 Vs 提取特征层+PCA+隔离森林+主观逻辑模型效果评估 -> 单独PCA不准、单独隔离森林纯乱抓、池化+PCA准确率下降、池化+隔离森林准确率下降、提取特征层+PCA+隔离森林+主观逻辑模型效果很好
+   - [ ] PCA抓到率 Vs 隔离森林抓到率 Vs 池化+PCA抓到率 Vs 池化+隔离森林抓到率 Vs 提取特征层+PCA+隔离森林 抓到率 -> 提取特征层+PCA+隔离森林 抓到率很高
+   - [ ] **主流方法**的实验结果对比，例如COSDEN、Fang、FLTrust
+   - [ ] 尝试一下非拜占庭攻击的防御效果（例如backdoor）
+   - [ ] 在多个数据集上验证
+- [ ] 图
+   - [ ] System model部分一张总的场景图/Methodology部分的总的方案图
+   - [ ] Methodology部分的总的细节图
+   - [ ] 画一张提取特征层的图
+- [ ] 将中文版本翻译为英文版本并润色
 - [ ] IF零信任？
 - [ ] IF恶意用户检测之-检测此次梯度时参考历史梯度？
 - [ ] （暂时抛弃）难道是泛用的ViT模型不知道Cifar-10只有10个输出所以准确率一直在50%多徘徊？（非预训练）
-- [ ] （暂时抛弃）不上传客户端的diff，而是直接上传所有客户端的参数然后在服务端求平均
+- [ ] （抛弃）不上传客户端的diff，而是直接上传所有客户端的参数然后在服务端求平均
 - [ ] （暂时抛弃）损失函数求模型总的损失函数
 - [ ] 最后：若非预训练模型最高准确率仍然很低，则重构时删掉使用非预训练模型的选项。因为低准确率的实验不是很能让人信服。
 
 ## End
 
-The End.
+**Acknowledgement**
+
++ 感谢我的导师[杨老师](https://teacher.bupt.edu.cn/yangshujie1)给我提供的这次机会，日常受了导师很多照顾
++ 感谢[周老师](https://orcid.org/0000-0003-2388-2280)对本次内容的细心指导与大力支持，以及周老师的3090机器
++ 感谢室友[许天宇](https://github.com/vme50ty)的理论、实验帮助，提出了很多的实验思路以及技术支持
++ 感谢实验室[王波](https://github.com/Pesuking)的共同讨论与研究，前期是该项目的核心骨干
++ 感谢本科室友[李楠](https://github.com/spln13)的写作讨论及陪伴，实现了参考文献的正确格式
++ 感谢实验室窗外的那棵松，在无数独自一人的夜晚有你陪我随风起舞

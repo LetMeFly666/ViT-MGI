@@ -1,56 +1,8 @@
-python main.py --PCA_nComponents=0.04 --forest_nEstimators=300
-python main.py --PCA_nComponents=0.04 --forest_nEstimators=300
-python main.py --PCA_nComponents=0.04 --forest_nEstimators=300
-python main.py --PCA_nComponents=0.01 --forest_nEstimators=300
-python main.py --PCA_nComponents=0.01 --forest_nEstimators=300
-python main.py --PCA_nComponents=0.01 --forest_nEstimators=300
-python main.py --PCA_nComponents=0.008 --forest_nEstimators=300
-python main.py --PCA_nComponents=0.008 --forest_nEstimators=300
-python main.py --PCA_nComponents=0.008 --forest_nEstimators=300
-python main.py --PCA_nComponents=0.0016 --forest_nEstimators=300
-python main.py --PCA_nComponents=0.0016 --forest_nEstimators=300
-python main.py --PCA_nComponents=0.0016 --forest_nEstimators=300
-python main.py --PCA_nComponents=0.00032 --forest_nEstimators=300
-python main.py --PCA_nComponents=0.00032 --forest_nEstimators=300
-python main.py --PCA_nComponents=0.00032 --forest_nEstimators=300
-python main.py --PCA_nComponents=0.000064 --forest_nEstimators=300
-python main.py --PCA_nComponents=0.000064 --forest_nEstimators=300
-python main.py --PCA_nComponents=0.000064 --forest_nEstimators=300
-
-python main.py --PCA_nComponents=0.04 --forest_nEstimators=500
-python main.py --PCA_nComponents=0.04 --forest_nEstimators=500
-python main.py --PCA_nComponents=0.04 --forest_nEstimators=500
-python main.py --PCA_nComponents=0.01 --forest_nEstimators=500
-python main.py --PCA_nComponents=0.01 --forest_nEstimators=500
-python main.py --PCA_nComponents=0.01 --forest_nEstimators=500
-python main.py --PCA_nComponents=0.008 --forest_nEstimators=500
-python main.py --PCA_nComponents=0.008 --forest_nEstimators=500
-python main.py --PCA_nComponents=0.008 --forest_nEstimators=500
-python main.py --PCA_nComponents=0.0016 --forest_nEstimators=500
-python main.py --PCA_nComponents=0.0016 --forest_nEstimators=500
-python main.py --PCA_nComponents=0.0016 --forest_nEstimators=500
-python main.py --PCA_nComponents=0.00032 --forest_nEstimators=500
-python main.py --PCA_nComponents=0.00032 --forest_nEstimators=500
-python main.py --PCA_nComponents=0.00032 --forest_nEstimators=500
-python main.py --PCA_nComponents=0.000064 --forest_nEstimators=500
-python main.py --PCA_nComponents=0.000064 --forest_nEstimators=500
-python main.py --PCA_nComponents=0.000064 --forest_nEstimators=500
-
-python main.py --PCA_nComponents=0.04 --forest_nEstimators=1000
-python main.py --PCA_nComponents=0.04 --forest_nEstimators=1000
-python main.py --PCA_nComponents=0.04 --forest_nEstimators=1000
-python main.py --PCA_nComponents=0.01 --forest_nEstimators=1000
-python main.py --PCA_nComponents=0.01 --forest_nEstimators=1000
-python main.py --PCA_nComponents=0.01 --forest_nEstimators=1000
-python main.py --PCA_nComponents=0.008 --forest_nEstimators=1000
-python main.py --PCA_nComponents=0.008 --forest_nEstimators=1000
-python main.py --PCA_nComponents=0.008 --forest_nEstimators=1000
-python main.py --PCA_nComponents=0.0016 --forest_nEstimators=1000
-python main.py --PCA_nComponents=0.0016 --forest_nEstimators=1000
-python main.py --PCA_nComponents=0.0016 --forest_nEstimators=1000
-python main.py --PCA_nComponents=0.00032 --forest_nEstimators=1000
-python main.py --PCA_nComponents=0.00032 --forest_nEstimators=1000
-python main.py --PCA_nComponents=0.00032 --forest_nEstimators=1000
-python main.py --PCA_nComponents=0.000064 --forest_nEstimators=1000
-python main.py --PCA_nComponents=0.000064 --forest_nEstimators=1000
-python main.py --PCA_nComponents=0.000064 --forest_nEstimators=1000
+while true; do
+    python main.py --attackMethod=backdoor --defendMethod=Both --device="cuda:0"
+    python main.py --attackMethod=backdoor --defendMethod=PCA --device="cuda:0"
+    python main.py --attackMethod=lable --defendMethod=Both --device="cuda:0"
+    python main.py --attackMethod=lable --defendMethod=PCA --device="cuda:0"
+    python main.py --attackMethod=grad --defendMethod=Both --device="cuda:0"
+    python main.py --attackMethod=grad --defendMethod=PCA --device="cuda:0"
+done
