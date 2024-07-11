@@ -35,7 +35,8 @@ $(PDF): $(TEX) $(CLS) $(BIB)
 
 # Clean target
 clean:
-	rm -f $(TEMP_FILES) $(PDF)
+	rm -f $(TEMP_FILES)
+	rm -r $(PDF)
 
 # Clean shortcut target
 c: clean

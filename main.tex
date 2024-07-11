@@ -19,7 +19,13 @@
 \do\?\do\'\do+\do\=\do\#}
 % \usepackage{cite}    % 与biblatex包冲突
 \usepackage{amsmath,amssymb,amsfonts}
-\usepackage{algorithmic}
+\usepackage{algorithm}
+\usepackage{algorithmicx}
+\usepackage{algpseudocode}
+\renewcommand{\algorithmicrequire}{\textbf{Input:}}
+\renewcommand{\algorithmicensure}{\textbf{Output:}}
+% \newcommand{\FUNCTION}[1]{\STATE \textbf{function} \textsc{#1}}
+% \newcommand{\ENDFUNCTION}{\STATE \textbf{end function}}
 \usepackage{graphicx}
 \usepackage{textcomp}
 \usepackage{xcolor}
@@ -150,7 +156,7 @@ Federated Learning, Gradient Analysis, Malicious User Detection, Subjective Logi
 
 假设存在一些恶意客户端，在客户端向服务器发送训练得到的梯度之前，首先对梯度进行更改，例如对梯度取反，从而严重破环全局模型的训练质量。或者会存在一些恶意客户端，篡改本地数据，诱导中央服务器学到一些错误特征从而达到植入后门的效果\footnote{这里要看最终是否实现了backdoor的攻防}。这些行为都会严重影响最终的训练结果，甚至会造成一些安全性的问题。
 
-In this work，我们专注于对针对恶意用户上传恶意梯度从而攻击服务器模型进行系统的防御。图1\footnote{TODO: 画一张小图}描述了在正常训练中存在梯度上升攻击的恶意用户的情况。图的左侧是参与训练的客户端，它们首先接收中央服务器广播下发的全局模型，然后使用本地数据对模型进行一定量的训练，之后再将训练得到的梯度变化汇总到中央服务器上，从而完成一轮总的训练。假设在参与训练的客户端中出现了一些恶意用户，它们出于一定的目的想要干扰中央服务器的模型训练结果。于是它们在将训练得到的梯度变化上传到中央服务器之前，先对这些梯度进行一些修改操作，例如将梯度取反等，从而试图下降总模型的训练效果。
+In this work，我们专注于对针对恶意用户上传恶意梯度从而攻击服务器模型进行系统的防御。图1\footnote{\textcolor{red}{TODO:} 画一张小图，可能不画了到最后}描述了在正常训练中存在梯度上升攻击的恶意用户的情况。图的左侧是参与训练的客户端，它们首先接收中央服务器广播下发的全局模型，然后使用本地数据对模型进行一定量的训练，之后再将训练得到的梯度变化汇总到中央服务器上，从而完成一轮总的训练。假设在参与训练的客户端中出现了一些恶意用户，它们出于一定的目的想要干扰中央服务器的模型训练结果。于是它们在将训练得到的梯度变化上传到中央服务器之前，先对这些梯度进行一些修改操作，例如将梯度取反等，从而试图下降总模型的训练效果。
 
 In this Paper，我们提出了ViT-MGI：对于如图所示的恶意用户的攻击行为，ViT-MGT是一种有效的防御手段。它首先对模型上传上来的梯度进行主成分萃取操作，减少后续识别所需数据量的同时，成功剔除了大量无效的信息。这些“无效”信息是由于ViT模型的体积较大所导致的，对于单次训练，大量（例如ViT-B/16具有86百万级别的参数量）的梯度变化中，有很多梯度的变化几乎为0。如果不进行主成分萃取操作，这些对于攻击识别几乎无效的大量数据不仅会增加后续计算的复杂度，还会增加攻击者和正常参与者梯度之间的相似程度。在进行主成分萃取以及后续的识别时，我们只关注ViT模型的patch\_embed层、attn层以及mlp层\footnote{待定}，因为我们通过实验I\footnote{记得最后写好实验后增加引用链接}得知，存在梯度上升、标签翻转、后门植入等常见的攻击时，这些层的变化最为敏感，而其他层变化普遍较小，甚至有几乎全0的层变化的存在。经过一系列的处理，剩下的就只有我们所关注的敏感的少量的梯度变化了。最后，使用异常检测手段例如隔离森林，就能轻松准确地识别出恶意攻击的存在。考虑到实际训练过程中可能会存在很多随机因素，因此可能会出现一定的错误识别现象，即一些正常用户的梯度偶尔可能会和恶意用户较为相似，从而导致此轮次被错误识别为恶意行为用户，我们使用主观逻辑模型来对每个用户评分，依据用户权重来聚合模型的同时，也减少了由于随机因素导致的错误封禁。正常用户单次被识别为恶意的概率很小，多次连续被识别为恶意的概率更是会呈指数级别地减小。
 
@@ -262,39 +268,342 @@ The rest of the paper is as follows. \hyperref[sec:related]{§\ref{sec:related}}
     \item $\sigma_i$: 第 $i$ 个客户端的可信度评分。
 \end{itemize}
 
-\vspace{0.25cm}
-\rule{\linewidth}{0.4pt}
-\centerline{\Large\bf{以下为编写大纲}}
-\vspace{1cm}
+
+% System model:
+
+% （建模） 
+
+% 一部分是FL ViT场景 （一张图\footnote{\textcolor{red}{TODO:} 场景图}，至少包含←这个，可包含攻击）  数学定义之类的   可参考别人描述
+
+% （也可放参数表，\textcolor{red}{一般不放}）
+
+% 一部分是攻击模型   
+
+% （描述清楚，逻辑清楚就好，没有前面那么地受约束）
+
+% \textcolor{red}{今晚至少构思好}
+
+\section{Methodology}
+\label{method}
+
+我们首先在\hyperref[sec:method_basic]{§\ref{sec:method_basic}}部分解释ViT-MGI的基本流程，然后在\hyperref[sec:method_layer]{§\ref{sec:method_layer}}部分介绍特征层提取的具体实现步骤。接着，我们会在\hyperref[sec:method_PCA]{§\ref{sec:method_PCA}}介绍主成分分析的具体实现方法及其原理，并在\hyperref[sec:method_forest]{§\ref{sec:method_forest}}部分介绍隔离森林是如何工作的。最后，我们将在\hyperref[sec:method_subjective]{§\ref{sec:method_subjective}}部分介绍如何使用主观逻辑模型来评估客户端的可信度。
+
+\subsection{基本流程}
+\label{sec:method_basic}
+
+图二\footnote{TODO: 待画图}\footnote{subsectiond “基本流程”也可以修改为“overview”}展示了ViT-MGI算法的整个流程。首先，ViT-MGI收集各个客户端上传上来的梯度变化结果，然后根据\hyperref[exp:exp_layer]{§\ref{exp:exp_layer}}得出的结论将攻击识别所关注的层提取出来。如图三\footnote{TODO: 待画图：特征层提取}所示，对于某个客户端$c_i$，我们将其上传到中央服务器的梯度记为$g_i$，ViT-MGI首先将$g_i$中的mtta.hidden层、jsj.iiuio层\footnote{待确定}等全部提取出来重新拼接到一个向量中并记为$\phi(g_i)$，之后使用主成分分析算法对这些数据中的主成分进行分析。
+
+对于提取特征层之后的权重$\phi(g_i)$，我们使用主成分分析算法对其进行二次降维，将降维之后的权重记为$\phi'(g_i)$。主成分分析通过线性变换将高维数据投影到低维空间，保留数据中最重要的变化信息。通过这种方式，ViT-MGI算法能够在保留数据主要信息的同时，显著减少数据的维度，从而提高后续攻击检测算法的效率和准确性。
+
+接下来，使用隔离森林算法对降维后的数据进行分析。隔离森林算法通过随机选择特征和分割值来构建树结构，以便有效地隔离数据点。对每个客户端的降维数据 $\phi'(g_i)$ 进行隔离森林分析，得到异常评分 $s_i$，用于识别潜在的恶意客户端。具体来说，隔离森林算法会计算每个数据点被隔离的平均路径长度，异常数据点的路径长度通常较短。
+
+最后，采用主观逻辑模型对每个客户端进行评分。主观逻辑模型根据客户端的历史行为和当前表现，计算其可信度评分 $\sigma_i$。评分结果用于筛选可信客户端，并将这些客户端的梯度加权合并到全局模型中。
+
+\subsection{特征层提取}
+\label{sec:method_layer}
+
+如图三\footnote{TODO: 待画图：特征层提取}所示，对于某个客户端$c_i$，其上传到中央服务器的梯度变化数量为$85806346$个。将其上传到中央服务器的梯度记为$g_i$，ViT-MGI首先将$g_i$中的mtta.hidden层、jsj.iiuio层\footnote{待确定}等全部提取出来，之后将其重新拼接到一个向量中。我们将这些提取出来的更加有效的数据记为$\phi(g_i)$，则经过特征层提取这一步的操作后，每个客户端的参数数量将由$g_i$的$85806346$个减少到$\phi(g_i)$的$12500$个。
+
+这些特征层是由我们经过一系列实验得到的。在实验\hyperref[exp:exp_layer]{§\ref{exp:exp_layer}}中，我们将ViT模型划分为了$2048$\footnote{待确定}个层，其中每个层大约平均就只有几十万个参数。
+
+% \begin{algorithm}
+%     \caption{特征层提取}
+%     \label{alg:example}
+%     \begin{algorithmic}[1]
+%         \Require $g_i$ - 第$i$个客户端上传的梯度; $L_{keep}$ - 要保留的层
+%         \Ensure $\phi(g_i)$ - 提取特征层后的梯度
+%         \Function{Extract}{$g_i, L_{keep}$}
+%         \For{$l\in g_i.layers()$}
+%             \If{$l.name\in L_{keep}$}
+%                 \State $\phi_i\gets l$
+%             \EndIf
+%         \EndFor
+%         \State $\phi(g_i)\gets Concatenate(\{\phi_i | i=1, 2, \cdots, len(L_{keep}) \})$
+%         \Return $\phi(g_i)$
+%         \EndFunction
+%     \end{algorithmic}
+% \end{algorithm}
+
+\begin{algorithm}
+    \caption{特征层提取}
+    \label{alg:example}
+    \begin{algorithmic}[1]
+        \Require $g_i$ - 第$i$个客户端上传的梯度; $L_{keep}$ - 要保留的层
+        \Ensure $\phi(g_i)$ - 提取特征层后的梯度
+        \Function{Extract}{$g_i, L_{keep}$}
+            \State $\phi(g_i)\gets\emptyset$
+            \For{$l\in g_i.layers()$}
+                \If{$l.name \in L_{keep}$}
+                    \State $\phi(g_i) += l$
+                \EndIf
+            \EndFor
+            \State \Return $\phi(g_i)$
+        \EndFunction
+    \end{algorithmic}
+\end{algorithm}
+
+\subsection{主成分分析}
+\label{sec:method_PCA}
+
+在完成特征层提取后，我们得到了每个客户端上传的特征向量$\phi(g_i)$。为了进一步简化数据结构并保留主要信息，ViT-MGI算法使用主成分分析对这些特征向量进行处理。
+
+PCA是一种常用的降维技术，通过将高维数据投影到一个低维空间中，保留数据中最重要的变化信息。具体来说，PCA通过线性变换将数据转化为一组新的不相关变量，这些变量称为主成分。主成分按其解释的方差大小排序，前几个主成分保留了数据中的主要信息，从而减少了数据维度。
+
+对于每个客户端的特征向量$\phi(g_i)$，我们首先对其进行中心化处理，即减去其均值：
+
+\[
+\phi(g_i) = \phi(g_i) - \bar{\phi}
+\]
+
+其中，$\bar{\phi}$是所有客户端上传的特征向量的均值。接下来，计算协方差矩阵：
+
+\[
+\mathbf{C} = \frac{1}{N} \sum_{i=1}^N \phi(g_i) \phi(g_i)^T
+\]
+
+然后，对协方差矩阵$\mathbf{C}$进行特征值分解，得到特征值和特征向量：
+
+\[
+\mathbf{C} = \mathbf{V} \mathbf{\Lambda} \mathbf{V}^T
+\]
+
+其中，$\mathbf{\Lambda}$是对角矩阵，其对角元素是协方差矩阵的特征值，$\mathbf{V}$是特征向量矩阵。特征向量矩阵$\mathbf{V}$的每一列是一个主成分的方向。我们选择前$r$个最大的特征值对应的特征向量构成的子空间：
+
+\[
+\mathbf{V}_r = [\mathbf{v}_1, \mathbf{v}_2, \ldots, \mathbf{v}_r]
+\]
+
+将原始数据投影到该子空间中，得到降维后的数据：
+
+\[
+\phi'(g_i) = \mathbf{V}_r^T \phi(g_i)
+\]
+
+通过这种方式，ViT-MGI算法能够在保留数据主要信息的同时，显著减少数据的维度，从而提高后续攻击检测算法的效率和准确性。
+
+\subsection{隔离森林}
+\label{sec:method_forest}
+
+在完成主成分分析（PCA）后，我们得到了降维后的数据$\phi'(g_i)$。为了识别潜在的恶意客户端，ViT-MGI算法使用隔离森林（Isolation Forest）算法对这些降维后的数据进行异常检测。
+
+隔离森林是一种基于树结构的无监督异常检测算法，其核心思想是通过随机选择特征和分割值构建树结构，以便有效地隔离数据点。异常数据点通常更容易被隔离，因为它们在树结构中的路径长度较短。具体来说，隔离森林算法的步骤如下：
+
+1. 构建森林：首先，随机选择一个子样本集，并从中构建多棵隔离树（iTree）。每棵树通过随机选择特征和分割点来分割数据，直到所有数据点都被完全隔离，或者达到预定的最大树深度。
+
+2. 计算路径长度：对于每个数据点，计算其在每棵树中的路径长度，即从根节点到叶节点的距离。异常数据点的平均路径长度较短，因为它们更容易被隔离。
+
+3. 计算异常评分：根据路径长度计算每个数据点的异常评分。具体来说，假设数据点$x$在隔离树中的平均路径长度为$h(x)$，则其异常评分$s(x)$定义为：
+   \[
+   s(x) = 2^{-\frac{h(x)}{c(n)}}
+   \]
+其中，$c(n)$是一个调整因子，$n$为数据集的样本数量。异常评分$s(x)$越接近1，表示数据点越可能是异常点。
+
+在ViT-MGI算法中，我们对每个客户端的降维数据$\phi'(g_i)$进行隔离森林分析，得到每个客户端的异常评分$s_i$。这些异常评分用于识别潜在的恶意客户端。在后续步骤中，我们将结合这些评分和主观逻辑模型计算每个客户端的可信度评分$\sigma_i$，从而筛选出可信的客户端进行全局模型更新。
+
+\subsection{主观逻辑模型}
+\label{sec:method_subjective}
+
+在使用隔离森林算法对降维后的数据进行异常检测并获得每个客户端的异常评分$s_i$之后，ViT-MGI算法进一步采用主观逻辑模型（Subjective Logic Model, SLM）来计算每个客户端的可信度评分$\sigma_i$。
+
+主观逻辑模型是一种用于处理不确定性和主观意见的数学框架，通过结合历史行为和当前表现来计算每个客户端的可信度评分。具体来说，主观逻辑模型使用信任度（belief）、不信任度（disbelief）和不确定度（uncertainty）三个参数来表示可信度评分。对于每个客户端$c_i$，这些参数可以根据其历史行为和异常评分来计算。
+
+1. 信任度（Belief）：信任度表示对客户端行为的信任程度。可以根据客户端在过去多次训练中的良好表现来估计。例如，客户端上传的模型更新在过去多次迭代中表现稳定且有效，则其信任度较高。
+
+2. 不信任度（Disbelief）：不信任度表示对客户端行为的不信任程度。可以根据隔离森林算法检测到的异常评分$s_i$来估计。如果客户端的异常评分较高，则其不信任度也较高。
+
+3. 不确定度（Uncertainty）：不确定度表示对客户端行为的不确定性。当缺乏足够的历史数据或当前表现不明显时，不确定度较高。
+
+主观逻辑模型结合这三个参数，计算每个客户端的综合可信度评分$\sigma_i$。具体计算公式如下：
+\[
+\sigma_i = \frac{b_i}{b_i + d_i + u_i}
+\]
+其中，$b_i$、$d_i$和$u_i$分别表示客户端$c_i$的信任度、不信任度和不确定度。
+
+根据计算得到的可信度评分$\sigma_i$，我们可以筛选出可信的客户端进行全局模型更新。具体地，全局模型更新规则为：
+\[
+\theta \leftarrow \theta - \eta \sum_{i=1}^N w_i \Delta \theta_i
+\]
+其中，$w_i$为第$i$个客户端的权重，根据其可信度评分$\sigma_i$确定。
+
+通过主观逻辑模型，ViT-MGI算法能够更有效地识别并筛选出可信的客户端，确保全局模型的鲁棒性和准确性。
+
+\begin{algorithm}
+    \caption{ViT-MGI 总流程}
+    \label{alg:vit_mgi}
+    \begin{algorithmic}[1]
+        \Require $G = \{g_i\}$ - 各客户端上传的梯度集合; $L_{keep}$ - 要保留的特征层
+        \Ensure $\theta$ - 更新后的全局模型参数
+        \Function{ViT-MGI}{$g_i, L_{keep}$}
+            \State 初始化全局模型参数 $\theta$
+            \For{每个通信轮次 $t$}
+                \State \textcolor{blue}{\# 特征层提取}
+                \For{每个客户端 $c_i \in G$}
+                    \State 提取 $g_i$ 中的特征层，得到 $\phi(g_i)$
+                \EndFor
+                
+                \State \textcolor{blue}{\# 主成分分析 (PCA)}
+                \For{每个客户端 $c_i \in G$}
+                    \State 对 $\phi(g_i)$ 进行中心化处理
+                    \State 计算协方差矩阵并进行特征值分解
+                    \State 得到降维后的数据 $\phi'(g_i)$
+                \EndFor
+                
+                \State \textcolor{blue}{\# 隔离森林 (Isolation Forest)}
+                \For{每个客户端 $c_i \in G$}
+                    \State 使用隔离森林算法对 $\phi'(g_i)$ 进行异常检测，得到异常评分 $s_i$
+                \EndFor
+                
+                \State \textcolor{blue}{\# 主观逻辑模型 (SLM)}
+                \For{每个客户端 $c_i \in G$}
+                    \State 根据历史行为和异常评分 $s_i$ 计算可信度评分 $\sigma_i$
+                    \State 根据 $\sigma_i$ 计算权重 $w_i$
+                \EndFor
+                
+                \State \textcolor{blue}{\# 全局模型更新}
+                \State 计算加权合并后的全局模型更新 $\Delta \theta = \sum_{i=1}^N w_i \Delta \theta_i$
+                \State 更新全局模型参数 $\theta \leftarrow \theta - \eta \Delta \theta$
+            \EndFor
+        \EndFunction
+        \State \Return $\theta$
+    \end{algorithmic}
+\end{algorithm}
 
 
 
-System model:
+% (也是总分，技术上是怎么实现的)
 
-（建模） 
+% \textcolor{red}{TODO:} 总的方案图
 
-一部分是FL ViT场景 （一张图，至少包含←这个，可包含攻击）  数学定义之类的   可参考别人描述
+% \textcolor{red}{TODO:} 能体现细节的图
 
-（也可放参数表，\textcolor{red}{一般不放}）
+% （至少一张图，可2张3张，一张大的(总的方案图)，可加小(细节)图）
 
-一部分是攻击模型   
+% （最后也可给个伪代码 ）
 
-（描述清楚，逻辑清楚就好，没有前面那么地受约束）
+% \textcolor{red}{明后天写完}
 
-\textcolor{red}{今晚至少构思好}
+\section{Experiments}
+\label{sec:exp}
+
+池化+PCA的实验 对比 PCA的实验，发现只有耗时减少了，但准确率会下降。证明池化技术不适用于具有大量参数的ViT的拜占庭攻击检测。
+
+在识别恶意客户端的过程中，我们使用以下变量来评价不同算法的性能：
+
+1. TP（True Positives，真正例）: 被正确识别为恶意客户端的恶意客户端数量。
+2. TN（True Negatives，真负例）: 被正确识别为正常客户端的正常客户端数量。
+3. FP（False Positives，假正例）: 被错误识别为恶意客户端的正常客户端数量。
+4. FN（False Negatives，假负例）: 被错误识别为正常客户端的恶意客户端数量。
+
+1. 精确率 (Precision): 精确率衡量的是被识别为恶意客户端中实际为恶意客户端的比例。
+    \[
+    \text{Precision} = \frac{TP}{TP + FP}
+    \]
+
+2. 召回率 (Recall): 召回率衡量的是实际恶意客户端中被正确识别的比例。
+    \[
+    \text{Recall} = \frac{TP}{TP + FN}
+    \]
+
+3. F1分数 (F1 Score): F1分数是精确率和召回率的调和平均值，综合考虑了两者的表现。
+    \[
+    \text{F1 Score} = \frac{2 \times \text{Precision} \times \text{Recall}}{\text{Precision} + \text{Recall}}
+    \]
+
+4. 假阳性率 (False Positive Rate, FPR): 假阳性率衡量的是实际正常客户端中被错误识别为恶意客户端的比例。
+    \[
+    \text{FPR} = \frac{FP}{FP + TN}
+    \]
+
+5. 假阴性率 (False Negative Rate, FNR): 假阴性率衡量的是实际恶意客户端中被错误识别为正常客户端的比例。
+    \[
+    \text{FNR} = \frac{FN}{TP + FN}
+    \]
+
+6. 准确率 (Accuracy): 准确率衡量的是所有客户端中被正确识别的比例。
+    \[
+    \text{Accuracy} = \frac{TP + TN}{TP + TN + FP + FN}
+    \]
+
+7. ROC曲线 (ROC Curve): ROC曲线是以假阳性率为横轴，真阳性率（即召回率）为纵轴绘制的曲线，用来评价分类器的性能。
+    - AUC值 (Area Under Curve): AUC值是ROC曲线下的面积，数值越接近1，说明分类器性能越好。
+
+\begin{itemize}
+    \item \textbf{实际标签（True Labels）}: 每个客户端的实际恶意程度（0 表示良性，1 表示恶意）。
+    \item \textbf{预测概率（Predicted Probabilities）}: 每个客户端的恶意概率预测值（介于 0 到 1 之间）。
+\end{itemize}
+
+Log Loss（对数损失）衡量的是模型预测的概率与实际标签之间的不一致性，数值越小越好。
+
+\begin{equation}
+\text{Log Loss} = -\frac{1}{N} \sum_{i=1}^{N} [y_i \log(p_i) + (1 - y_i) \log(1 - p_i)]
+\end{equation}
+
+其中，$y_i$ 为实际标签（0 或 1），$p_i$ 为预测的恶意概率。
+
+Brier Score（布雷尔分数）衡量的是预测概率与实际标签之间的均方误差，数值越小越好。
+
+\begin{equation}
+\text{Brier Score} = \frac{1}{N} \sum_{i=1}^{N} (p_i - y_i)^2
+\end{equation}
+
+AUC-ROC受试者工作特征曲线下面积衡量的是分类器在不同阈值下的性能，数值越接近1，分类器性能越好。
+
+\begin{equation}
+\text{AUC} = \int_0^1 \text{TPR}(\text{FPR}) \, d(\text{FPR})
+\end{equation}
+
+其中，TPR 为真阳性率，FPR 为假阳性率。
+
+PRC-AUC（精确率-召回率曲线下面积）衡量的是分类器在不同阈值下的精确率和召回率之间的权衡。
+
+\begin{equation}
+\text{PRC-AUC} = \int_0^1 \text{Precision}(\text{Recall}) \, d(\text{Recall})
+\end{equation}
+
+Calibration Plot（校准曲线）展示的是预测概率和实际概率的一致性。校准曲线越接近45度线，预测概率越准确。
+
+\begin{enumerate}
+    \item \textbf{数据准备}:
+    \begin{itemize}
+        \item 收集并标注每个客户端的实际恶意程度（0 或 1）。
+        \item 使用各算法对每个客户端进行恶意概率预测。
+    \end{itemize}
+
+    \item \textbf{评估指标计算}:
+    \begin{itemize}
+        \item 计算每个算法在各个指标（Log Loss、Brier Score、AUC-ROC、PRC-AUC）上的表现。
+    \end{itemize}
+
+    \item \textbf{校准曲线绘制}:
+    \begin{itemize}
+        \item 绘制预测概率与实际概率的校准曲线，评估预测概率的准确性。
+    \end{itemize}
+
+    \item \textbf{结果分析}:
+    \begin{itemize}
+        \item 对比各算法在不同评估指标上的性能。
+        \item 使用可视化方法展示不同算法的优劣（如绘制ROC曲线、PR曲线、校准曲线）。
+    \end{itemize}
+\end{enumerate}
+
+\subsection{实验设置}
+\label{exp:settings}
+
+我们使用了一台操作系统为
+
+\subsection{攻击与防御实验}
+\label{exp:attack_defense}
+
+为了能够更好地进一步实验，我们决定首先搭建好联邦学习训练ViT的框架。我们使用PyTorch作为
+
+\subsection{特征层确定}
+\label{exp:exp_layer}
 
 
 
+\subsection{衡量准确率}
 
-Methodology:
-
-(也是总分，技术上是怎么实现的）
-
-（至少一张图，可2张3张，一张大的(总的方案图)，可加小(细节)图）
-
-（最后也可给个伪代码 ）
-
-\textcolor{red}{明后天写完}
+\subsection{单独PCA}
 
 
 Experiments:
@@ -328,22 +637,6 @@ system model，method主体部分，这些加起来可能三页
 实验部分两页半
 
 最后参考文献等等将近一页
-
-
-
-
-
-\section{Methodology}
-\label{sec:method}
-
-方法
-
-\section{Experiments}
-\label{sec:exp}
-
-实验
-
-池化+PCA的实验 对比 PCA的实验，发现只有耗时减少了，但准确率会下降。证明池化技术不适用于具有大量参数的ViT的拜占庭攻击检测。
 
 \section{Conclusion}
 \label{sec:conclusion}
