@@ -1,0 +1,46 @@
++----- main.py:15 -----+
+| 2024.07.10-16:30:01  |
++----------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -+
+| Start | 2024.07.10-16:30:02                                     |
++-----------------------------------------------------------------+
+
+
+下面ByHand:
+
+Traceback (most recent call last):
+  File "/home/lzy/.conda/envs/ltf/lib/python3.8/site-packages/cupy/__init__.py", line 17, in <module>
+    from cupy import _core  # NOQA
+  File "/home/lzy/.conda/envs/ltf/lib/python3.8/site-packages/cupy/_core/__init__.py", line 3, in <module>
+    from cupy._core import core  # NOQA
+  File "cupy/_core/core.pyx", line 1, in init cupy._core.core
+  File "/home/lzy/.conda/envs/ltf/lib/python3.8/site-packages/cupy/cuda/__init__.py", line 8, in <module>
+    from cupy.cuda import compiler  # NOQA
+  File "/home/lzy/.conda/envs/ltf/lib/python3.8/site-packages/cupy/cuda/compiler.py", line 13, in <module>
+    from cupy.cuda import device
+  File "cupy/cuda/device.pyx", line 1, in init cupy.cuda.device
+ImportError: /home/lzy/.conda/envs/ltf/lib/python3.8/site-packages/cupy_backends/cuda/api/runtime.cpython-38-x86_64-linux-gnu.so: undefined symbol: cudaMemPoolCreate, version libcudart.so.11.0
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "main.py", line 38, in <module>
+    import cupy as cp
+  File "/home/lzy/.conda/envs/ltf/lib/python3.8/site-packages/cupy/__init__.py", line 19, in <module>
+    raise ImportError(f'''
+ImportError: 
+================================================================
+Failed to import CuPy.
+
+If you installed CuPy via wheels (cupy-cudaXXX or cupy-rocm-X-X), make sure that the package matches with the version of CUDA or ROCm installed.
+
+On Linux, you may need to set LD_LIBRARY_PATH environment variable depending on how you installed CUDA/ROCm.
+On Windows, try setting CUDA_PATH environment variable.
+
+Check the Installation Guide for details:
+  https://docs.cupy.dev/en/latest/install.html
+
+Original error:
+  ImportError: /home/lzy/.conda/envs/ltf/lib/python3.8/site-packages/cupy_backends/cuda/api/runtime.cpython-38-x86_64-linux-gnu.so: undefined symbol: cudaMemPoolCreate, version libcudart.so.11.0
+================================================================

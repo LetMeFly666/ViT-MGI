@@ -2,7 +2,7 @@
 Author: LetMeFly vme50ty
 Date: 2024-07-03 10:37:25
 LastEditors: LetMeFly
-LastEditTime: 2024-07-11 09:47:09
+LastEditTime: 2024-07-11 10:08:42
 '''
 import datetime
 getNow = lambda: datetime.datetime.now().strftime('%Y.%m.%d-%H:%M:%S')
@@ -60,7 +60,7 @@ import math  # TODO: 计算真正的loss
 ploter.addData(x=0, y={'loss': math.nan, 'accuracy': accuracy})
 
 for round_num in range(config.num_rounds):
-    timeRecorder.addRecord(f'Round {round_num + 1} of {config.num_rounds}')
+    # timeRecorder.addRecord(f'Round {round_num + 1} of {config.num_rounds}')
     
     # 获取当前轮次的客户端数据加载器
     clients_data_loaders = data_manager.get_clients_data_loaders()

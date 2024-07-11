@@ -1,0 +1,69 @@
++----- main.py:15 -----+
+| 2024.07.10-16:31:27  |
++----------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -+
+| Start | 2024.07.10-16:31:27                                     |
++-----------------------------------------------------------------+
+
++- /home/lzy/.conda/envs/ltf/lib/python3.8/site-packages/torchvision/datasets/cifar.py:141 -+
+| Tisfy: Files already downloaded and verified.                                             |
++-------------------------------------------------------------------------------------------+
+
++- /home/lzy/.conda/envs/ltf/lib/python3.8/site-packages/torchvision/datasets/cifar.py:141 -+
+| Tisfy: Files already downloaded and verified.                                             |
++-------------------------------------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -+
+| init accuracy: 7.00% | 2024.07.10-16:31:36                      |
++-----------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -+
+| Round 1 of 32 | 2024.07.10-16:31:37                             |
++-----------------------------------------------------------------+
+
++---------------------- main.py:564 ----------------------+
+| Average loss: 2.4089604377746583 | 2024.07.10-16:31:39  |
++---------------------------------------------------------+
+
++---------- main.py:435 ----------+
+| PCA Begin | 2024.07.10-16:31:43 |
++---------------------------------+
+
+
+
+下面ByHand:
+
+
+Traceback (most recent call last):
+  File "main.py", line 569, in <module>
+    _, anomaList = gradentAnalyzer.find_useful_gradients(grads_dict)
+  File "main.py", line 451, in find_useful_gradients
+    useful_grads_list, anomalous_grads_list = self.PCA_isolation_Forest_Method(all_grads)
+  File "main.py", line 436, in PCA_isolation_Forest_Method
+    reduced_grads = self.pca.fit_transform(all_grads)  # 两次fit_transform会使用不同的主成分，而一次fit_transform后调用transform会使用相同的主成分
+  File "main.py", line 341, in fit_transform
+    self.fit(X)
+  File "main.py", line 293, in fit
+    covariance_matrix = cp.cov(X_centered, rowvar=False)
+  File "/home/lzy/.conda/envs/ltf/lib/python3.8/site-packages/cupy/_statistics/correlation.py", line 140, in cov
+    X = cupy.array(a, ndmin=2, dtype=dtype)
+  File "/home/lzy/.conda/envs/ltf/lib/python3.8/site-packages/cupy/_creation/from_data.py", line 46, in array
+    return _core.array(obj, dtype, copy, order, subok, ndmin)
+  File "cupy/_core/core.pyx", line 2376, in cupy._core.core.array
+  File "cupy/_core/core.pyx", line 2400, in cupy._core.core.array
+  File "cupy/_core/core.pyx", line 2531, in cupy._core.core._array_default
+  File "cupy/_core/core.pyx", line 132, in cupy._core.core.ndarray.__new__
+  File "cupy/_core/core.pyx", line 220, in cupy._core.core._ndarray_base._init
+  File "cupy/cuda/memory.pyx", line 740, in cupy.cuda.memory.alloc
+  File "cupy/cuda/memory.pyx", line 1426, in cupy.cuda.memory.MemoryPool.malloc
+  File "cupy/cuda/memory.pyx", line 1447, in cupy.cuda.memory.MemoryPool.malloc
+  File "cupy/cuda/memory.pyx", line 1118, in cupy.cuda.memory.SingleDeviceMemoryPool.malloc
+  File "cupy/cuda/memory.pyx", line 1139, in cupy.cuda.memory.SingleDeviceMemoryPool._malloc
+  File "cupy/cuda/memory.pyx", line 1384, in cupy.cuda.memory.SingleDeviceMemoryPool._try_malloc
+  File "cupy/cuda/memory.pyx", line 1387, in cupy.cuda.memory.SingleDeviceMemoryPool._try_malloc
+cupy.cuda.memory.OutOfMemoryError: Out of memory allocating 6,864,507,904 bytes (allocated so far: 0 bytes).
+TimeList:
+00: Start | 2024.07.10-16:31:27
+01: init accuracy: 7.00% | 2024.07.10-16:31:36
+02: Round 1 of 32 | 2024.07.10-16:31:37

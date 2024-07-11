@@ -2,7 +2,7 @@
  * @Author: LetMeFly
  * @Date: 2024-05-15 17:45:43
  * @LastEditors: LetMeFly
- * @LastEditTime: 2024-07-10 23:12:11
+ * @LastEditTime: 2024-07-11 10:13:32
 -->
 # FLDefinder
 
@@ -532,6 +532,9 @@ device = cuda:0
 - [x] 先写个题目和摘要
 - [x] 了解一些攻防手段，例如主成分萃取/最大池化及其关系
 - [x] Un realized merge
+- [ ] 主观逻辑模型
+- [ ] 他人对比
+- [ ] if-手动划分
 - [ ] 实验设计：要验证每个实验
    - 要证明的有：
    - [x] 单独PCA很慢 :+( 因安装不了且实现不了GPU版本的PCA，所以真的好慢好慢
