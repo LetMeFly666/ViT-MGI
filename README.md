@@ -2,7 +2,7 @@
  * @Author: LetMeFly
  * @Date: 2024-07-05 21:09:55
  * @LastEditors: LetMeFly
- * @LastEditTime: 2024-07-06 00:03:26
+ * @LastEditTime: 2024-07-11 21:41:18
 -->
 # 頑張って
 
@@ -23,3 +23,5 @@ emm，VsCode连接远程服务器的时候Latex插件的默认工作路径是```
     ]
 }
 ```
+
+TODO: un ignore PDF

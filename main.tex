@@ -29,6 +29,8 @@
 \usepackage{graphicx}
 \usepackage{textcomp}
 \usepackage{xcolor}
+\def\figGradAscentAttack{0.5\textwidth}
+% \usepackage{svg}
 % \def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
 %     T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
 
@@ -589,12 +591,42 @@ Calibration Plot（校准曲线）展示的是预测概率和实际概率的一�
 \subsection{实验设置}
 \label{exp:settings}
 
-我们使用了一台操作系统为
+% 本实验在一台配置高性能硬件的Ubuntu 20.04.3 LTS操作系统的计算机上进行，具体配置如下：
 
-\subsection{攻击与防御实验}
-\label{exp:attack_defense}
+% 操作系统：Ubuntu 20.04.3 LTS，内核版本 5.15.0-73-generic
+% CPU：Intel(R) Core(TM) i9-10940X CPU @ 3.30GHz，28核，最大频率 4.8GHz
+% 内存：128GB DDR4，2933 MT/s
+% GPU：2 x NVIDIA GeForce RTX 3090，显存各 24GB，驱动版本 470.239.06，CUDA 版本 11.4
+% 存储：SSD，提供高速数据读写支持
+% 为了确保实验结果的可靠性和再现性，我们使用了标准的数据集，包括MNIST数据集和一个大型工业产品推荐数据集。实验中使用的具体硬件配置能够提供充足的计算资源，支持大规模深度学习模型的训练和复杂算法的测试。
 
-为了能够更好地进一步实验，我们决定首先搭建好联邦学习训练ViT的框架。我们使用PyTorch作为
+我们的实验在一台操作系统为Ubuntu 20.04.3 LTS的计算机上进行，CPU为Intel i9-10940X 28核；内存为128GB DDR4；显卡为2张NVIDIA GeForce RTX 3090，显存各 24GB。我们实验使用的模型为ViT-B/16，并在ViT-L/16、ViT-H/14上进行了验证。我们实验使用的数据集为CIFAR-10，同时在MNIST、OrganAMNIST上进行了验证。对于攻击的方式，我们验证了包括属于拜占庭攻击的梯度上升攻击、标签翻转攻击以及属于非拜占庭攻击的后门植入攻击等多种攻击方式。关于防御方式，我们使用并对比了ViT-MGI、PCA、隔离森林、池化放大\cite{betterTogether}+PCA、池化放大+隔离森林，以及常用的或最新的余弦相似度计算、Fang算法以及FLTrust算法。最终证实了我们算法的有效性。
+
+\subsection{攻击有效性实验}
+\label{exp:attack}
+
+为了能够更好地进一步实验，我们决定首先搭建好联邦学习训练ViT的框架。我们使用PyTorch作为深度学习库，使用ViT-L/16的预训练模型和CIFAR-10数据集，使用串行的方式依次模拟各个客户端，每个客户端都有自己独自的数据集，它们在本地训练结束后将梯度变化上传到中央服务器中。经过一系列的调参后，模型能够在较短的时间内，从最初的大约10\%的准确率逐渐上升到大约97\%的准确率。
+
+\subsubsection{\textbf{梯度上升攻击}}
+\label{exp:attack:grad}
+
+我们在正常的联邦学习框架基础上分别进行了不加任何防御的梯度上升攻击、标签翻转攻击以及后门植入攻击，结果发现对于梯度上升攻击，若不进行防御，则在20\%的攻击者与较小的攻击力度的情况下，模型准确率上升明显减慢。如图\hyperref[fig:gradAscent]{\ref{fig:gradAscent}}所示，攻击者的比例都是20\%。当攻击者把本地训练得到的梯度变化进行取反操作时，发现模型准确率的上升有一定程度的减缓；当攻击者把本地的梯度变化乘以$-2$后上传时，发现模型准确率的上升速率进一步下降；而当攻击者把本地梯度变化乘以$-3$再上传时，可以发现模型已经无法正常工作。蓝色显示的是没有攻击者时的训练结果，橘色显示的是梯度取反的攻击结果，绿色、红色和紫色显示的分别是梯度乘以$-2$、$-3$、$-4$时的训练结果。
+
+\begin{figure}[htbp]
+    \centerline{\includegraphics[width=\figGradAscentAttack]{pics/001-gradAttack-attackRate.pdf}}
+    % \centering
+    % \includesvg[width=0.5\textwidth]{pics/001-gradAttack-attackRate.pdf}
+    \caption{grad ascent attack}
+    \label{fig:gradAscent}
+\end{figure}
+
+这是因为，假设每个客户端的数据质量均匀分布、训练效果预期一直，那么每个客户端对于模型准确率的贡献的期望值都是相同的。将这个期望值记为$E$，则正常情况下所有客户端对模型的总贡献期望为$\frac{E\times num}{num}=E$。若其中有$20\%$的客户端将自己的梯度变化量取反，则单个恶意客户端对模型准确率的贡献的期望值是$-E$，所有客户端对模型的总贡献期望为$\frac{E\times num\times(1-20\%)+(-E)\times num\times 20\%}{num} = 0.6E$。同理，若每个客户端将自己的梯度变化量乘以$-2$，则单个客户端的贡献期望为$-2E$，所有客户端贡献总期望为$0.4E$。若单个恶意客户端将自己梯度乘以$-3$，则总贡献期望为$0.2E$。若单个恶意客户端将自己的梯度变化量乘以$-4$，则总贡献期望为$0$。由这个对比试验的结果图TODO:可以看出，梯度上升攻击是有效的。
+
+\subsubsection{\textbf{标签翻转攻击}}
+\label{exp:attack:label}
+
+为了验证标签翻转攻击的有效性，我们同样先选取$20\%$的客户端作为恶意客户端进行标签翻转攻击，并且不设置防御手段。标签翻转攻击的攻击方式为，篡改本地数据的标签为一个错误的标签。例如，
+
 
 \subsection{特征层确定}
 \label{exp:exp_layer}

@@ -18,7 +18,11 @@ LOG2 = missfont.log
 OUT = main.out
 BCF = main.bcf
 XML = main.run.xml
-TEMP_FILES = $(AUX) $(DVI) $(LOG) $(LOG2) $(OUT) $(BCF) $(XML) $(BBL) $(BLG) $(BBL2) $(BLG2)
+FLS = main.fls
+XMK = main.fdb_latexmk
+XDV = main.xdv
+TEMP_FILES = $(AUX) $(DVI) $(LOG) $(LOG2) $(OUT) $(BCF) $(XML) $(BBL) $(BLG) $(BBL2) $(BLG2) $(FLS) $(XMK) $(XDV)
+TEMP_DIRS = svg-inkscape
 
 # Default target
 all: $(PDF)
@@ -26,6 +30,9 @@ all: $(PDF)
 # Compile target
 $(PDF): $(TEX) $(CLS) $(BIB)
 	rm -f $(TEMP_FILES)
+	rm -rf $(TEMP_DIRS)
+	# /usr/local/texlive/2024/bin/x86_64-linux/latexmk -xelatex -shell-escape main.tex
+	
 	/usr/local/texlive/2024/bin/x86_64-linux/xelatex $(TEX)
 	/usr/local/texlive/2024/bin/x86_64-linux/bibtex main
 	/usr/local/texlive/2024/bin/x86_64-linux/xelatex $(TEX)
@@ -36,7 +43,8 @@ $(PDF): $(TEX) $(CLS) $(BIB)
 # Clean target
 clean:
 	rm -f $(TEMP_FILES)
-	rm -r $(PDF)
+	rm -f $(PDF)
+	rm -rf $(TEMP_DIRS)
 
 # Clean shortcut target
 c: clean
