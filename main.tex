@@ -30,6 +30,7 @@
 \usepackage{textcomp}
 \usepackage{xcolor}
 \def\figGradAscentAttack{0.5\textwidth}
+\def\figLabelFlip{0.5\textwidth}
 \def\figBackdoorAttack{0.5\textwidth}
 % \usepackage{svg}
 % \def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
@@ -166,9 +167,9 @@ In this Paper，我们提出了ViT-MGI：对于如图所示的恶意用户的攻
 Our main contributions are as follows:
 
 \begin{enumerate}
-    \item 我们表明，通过数据降维，我们可以在极高效率的前提下完成恶意梯度的识别。
-    \item 我们使用ViT-MGI进行关键数据提取，从而使得恶意梯度的识别能达到较高的精度。
-    \item 我们的ViT-MGI能够结合多轮训练结果跟随并感知恶意用户的行为，从而提升了整体的鲁棒性。
+    \item 我们证明，在针对ViT这种体积较大的模型时，可以使用特征层提取的方式来降低数据维度并提升恶意梯度的识别效率。
+    \item 我们的ViT-MGI能够结合多轮训练结果跟随并感知恶意用户的行为，从而提升了整体的鲁棒性，具有较高的检测准确率，在多种攻击下都能在6轮次以内找出并封禁所有恶意客户端。
+    \item 我们的ViT-MGI能够在较高的效率下完成恶意客户端的识别。
     \item 我们设计了一系列巧妙的实验证明了ViT-MGI的有效性。
 \end{enumerate}
 
@@ -287,7 +288,7 @@ The rest of the paper is as follows. \hyperref[sec:related]{§\ref{sec:related}}
 % \textcolor{red}{今晚至少构思好}
 
 \section{Methodology}
-\label{method}
+\label{sec:method}
 
 我们首先在\hyperref[sec:method_basic]{§\ref{sec:method_basic}}部分解释ViT-MGI的基本流程，然后在\hyperref[sec:method_layer]{§\ref{sec:method_layer}}部分介绍特征层提取的具体实现步骤。接着，我们会在\hyperref[sec:method_PCA]{§\ref{sec:method_PCA}}介绍主成分分析的具体实现方法及其原理，并在\hyperref[sec:method_forest]{§\ref{sec:method_forest}}部分介绍隔离森林是如何工作的。最后，我们将在\hyperref[sec:method_subjective]{§\ref{sec:method_subjective}}部分介绍如何使用主观逻辑模型来评估客户端的可信度。
 
@@ -626,11 +627,15 @@ Calibration Plot（校准曲线）展示的是预测概率和实际概率的一�
 \subsubsection{\textbf{标签翻转攻击}}
 \label{exp:attack:label}
 
-为了验证标签翻转攻击的有效性，我们同样先选取$20\%$的客户端作为恶意客户端进行标签翻转攻击，并且不设置防御手段。标签翻转攻击的攻击方式为，篡改本地数据的标签为一个错误的标签。例如CIFAR-10数据集有10种标签，假设恶意客户端想让所有标签本来是0的数据被预测成1，因此它将自己本地所有的0标签全部修改为1。
+为了验证标签翻转攻击的有效性，我们同样先选取$20\%$的客户端作为恶意客户端进行标签翻转攻击，并且不设置防御手段。标签翻转攻击的攻击方式为，篡改本地数据的标签为一个错误的标签。例如，将本地数据的所有标签都标记为1。
 
-TODO: 想想标签翻转实验应该怎么说。
+\begin{figure}[htbp]
+    \centerline{\includegraphics[width=\figLabelFlip]{pics/002-LabelFlippingAttack-attackRate.pdf}}
+    \caption{label flip attack}
+    \label{fig:labelFlip}
+\end{figure}
 
-实验结果表明，虽然只有$20\%$的客户端篡改了$10\%$的标签量，但不加防御的话原本应被预测为0的标签有$95\%$都被错误地预测成了1。这说明标签反转的攻击也是有效的。
+如图\hyperref[fig:labelFlip]{\ref{fig:labelFlip}}所示，蓝色的曲线是没有攻击者时的准确率，橙色的曲线是有$20\%$的恶意客户端进行标签翻转攻击时的准确率，而绿色的的是标签翻转攻击的成功率，即将图片输入到合并到服务器的全局模型，模型预测结果为攻击目标标签1的概率。横坐标表示训练轮次，可以看出，随着训练轮次的增加，标签翻转的成功率首先迅速升高；而随着训练的进行，模型与更多的良性客户端聚合，导致攻击成功率呈现下降趋势。标签翻转攻击导致模型的准确率始终不如正常训练的模型准确率，且随着训练轮次的增加，攻击成功率在$20\%$附近维持稳定。实验结果表明，标签反转的攻击也是有效的。
 
 \subsubsection{\textbf{后门植入攻击}}
 \label{exp:attack:backdoor}
@@ -649,14 +654,41 @@ TODO: 想想标签翻转实验应该怎么说。
 
 总的来说，实验\hyperref[exp:attack]{\ref{exp:attack}}表明，梯度上升攻击、标签翻转攻击以及后门植入攻击都是有效的。
 
+\subsection{防御效果衡量}
+\label{exp:defense}
+
+在这一部分，我们设计了实验来衡量现有防御方式的防御效果。我们分别使用余弦相似度分析、PCA+余弦相似度分析、特征层提取+PCA+余弦相似度分析、池化放大+PCA+余弦相似度分析；隔离森林、PCA+隔离森林、特征层提取+PCA+隔离森林、池化放大+隔离森林；ViT-MGI等异常检测方式。衡量标准主要有防御准确度和防御速度两个指标。这部分我们选择以CIFAR-10数据集和ViT-B/16模型为例，并分别在ViT-L/16和ViT-H/14模型上、在MNIST和OrganAMNIST数据集上进行验证。
+
+% 余弦相似度分析、PCA+余弦相似度分析、特征层提取+PCA+余弦相似度分析、池化放大+PCA+余弦相似度分析；隔离森林、PCA+隔离森林、特征层提取+PCA+隔离森林、池化放大+隔离森林；ViT-MGI。
+
+TODO:防御成功性实验：比如进行1000次训练，我们的防御效果。500次在两轮次内全部抓到，...。没有多抓漏抓的情况。
+
+\subsubsection{\textbf{防御准确度衡量}}
+\label{exp:defense_accuracy}
+
+对于恶意用户的攻防，我们三个指标来衡量。即召回率、
+
+召回率是实际恶意客户端中被正确识别的比例，也就是恶意用户被标记为恶意的概率。召回率越高，说明恶意客户端的识别越准确。
+
+\[
+\text{Recall} = \frac{TP}{TP + FN}
+\]
+
+由图\hyperref[fig:backdoorAttack]{\ref{fig:backdoorAttack}}可以看出，后门植入攻击能够在几乎不影响模型准确率的情况下进行，其十分难以被察觉。随着时间的推移，可能会出现越来越多的新型攻击方式，其同样很难被发掘。
+
+\subsubsection{\textbf{防御速度衡量}}
+
+我们在相同环境、相同训练参数的情况下分别进行了上述实验，并统计了正常训练耗时、以及应用上各种防御方式后的总耗时。将防御方式的耗时减去正常训练的平均耗时，即可视为各种防御方式所带来的额外的时间开销。
+
+实验结果如图TODO:时间对比图所示。图XXX的纵轴表示了时间消耗，并以正常训练的平均耗时为单位1进行了缩放；横轴表示了不同的防御方式。其中PCA+余弦相似度的耗时是单独余弦相似度算法耗时的15倍，PCA+隔离森林耗时是单独隔离森林耗时的100倍，结合防御准确度的实验\hyperref[exp:defense_accuracy]{\ref{exp:defense_accuracy}}可以看出，虽然主成分分析可以有效地提高恶意用户的识别率，但是一方面准去率提高不如Vit-MGI，另一方面PCA会照成大量的时间开销，因此无法将其视为一种可行的解决方案。为了降低时间消耗，我们尝试使用
+
+
+
 \subsection{特征层确定}
 \label{exp:exp_layer}
 
+为了减小计算量
 
-
-\subsection{衡量准确率}
-
-\subsection{单独PCA}
 
 
 Experiments:
