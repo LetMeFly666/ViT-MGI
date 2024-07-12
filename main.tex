@@ -114,11 +114,11 @@ email address or ORCID}
 
 % 结果表明，当前方法对于恶意用户的识别率、恶意用户的识别效率，以及程序自身的鲁棒性都有所提升。我们将其命名为FLDefinder\textcolor{red}{（名字待定）}并发布了其源代码，以方便该领域的未来研究：\href{https://github.com/LetMeFly666/FLDefinder}{https://github.com/LetMeFly666/FLDefinder}\textcolor{red}{（论文投稿前此仓库为Private状态不可访问）}。
 
-随着视觉大模型的不断发展，模型训练时需要越来越多的数据量。因此需要联邦学习的ViT模型(Federated ViT)，在数据不离开多个客户端的前提下进行模型训练，同时捕捉复杂的全局特征\footnote{相比于简单的CNN等，ViT可以更好地捕捉全局信息}。例如FeSTA通过分割学习的ViT模型进行COVID-19的胸部X光片检测，保留数据隐私的同时在多个数据集上实现了性能提升\cite{federatedViT_example}。但是，在实际的应用场景中，可能会存在恶意攻击者攻击污染全局模型的问题。有的攻击者会篡改本地训练出的梯度数据，从而扰乱聚合后的全局模型的效果；有的攻击者会篡改数据集的标签，例如常见的标签翻转\cite{tailAttack_SuchAsLabelFlip}；还有的攻击者会采用更加隐蔽的后门攻击，在训练过程中涉及难以被识别的触发器从而达到插入后门的效果\cite{backdoor_001}。
+随着视觉大模型的不断发展，模型训练时需要越来越多的数据量。因此需要联邦学习的ViT模型(Federated ViT)，在数据不离开多个客户端的前提下进行模型训练，同时捕捉复杂的全局特征\footnote{相比于简单的CNN等，ViT可以更好地捕捉全局信息}。例如FeSTA通过分割学习的ViT模型进行COVID-19的胸部X光片检测，保留数据隐私的同时在多个数据集上实现了性能提升\cite{federatedViT_example}。但是，在实际的应用场景中，可能会存在恶意攻击者攻击污染全局模型的问题。有的攻击者会篡改本地训练出的梯度数据，从而扰乱聚合后的全局模型的效果；有的攻击者会篡改数据集的标签，例如常见的标签翻转\cite{tailAttack_SuchAsLabelFlip}；还有的攻击者会采用更加隐蔽的后门攻击，在训练过程中设计难以被识别的触发器从而达到插入后门的效果\cite{backdoor_001}。
 
 现已提出了很多防御机制，有通过在服务器上计算每个模型更新与其最近更新之间的欧氏距离之和来选择聚合模型的Krum算法和拓展的multi-Krum算法\cite{aggregation_Krum}，有选择中值或排除边缘值后的平均值作为全局模型的中值算法和裁剪平均算法\cite{aggregation_MedianTrimmedMean}，也有使用主成分分析(Principal Component Analysis, PCA)来检测恶意用户的算法\cite{federatedPCA}，以及通过解决最大团问题(Maximum CliqueProblem, MCP)从而无需无需恶意用户数量这一先验知识的Sniper方案\cite{aggregation_Sniper}。这些数据都能在不同程度上解决恶意用户的攻击问题，但是它们都普遍存在安全和效率冲突的问题。即，安全性较高的算法计算复杂度普遍较高，而计算效率高的算法其安全性未必能得到很好的保证。Fedteratred ViT下这些方法存在效率低、不鲁棒等缺陷。很小的ViT-B/16模型也有86百万级别的参数，相比于参数级别为百万甚至十万的传统CNN模型，即使是线性复杂度的安全检测方法，恶意攻击的检测耗时也要提升几十倍甚至几百倍\footnote{这一句在说参数量大所以原有防御方案效率低}。在庞大的ViT模型的参数中有很多不是那么敏感的成分，这些部分恶意用户于正常用户的区别一般不大，从而可能会降低恶意检测的鲁棒性\footnote{这一句在说参数散多所以原有防御方案鲁棒性差}。
 
-In this paper，我们提出了一种针对ViT的两阶段的上下文感知轻量级恶意梯度识别方法来提升恶意梯度检测时的效率和鲁棒性。通过放大池化技术\footnote{最终也有可能会决定使用PCA来分析出主成分}和特征层提取技术，在减少计算量的同时去除无效的梯度信息，从而在提升了检测效率的同时提升了恶意检测的鲁棒性。Specifically，对于用户上传上来的梯度信息，首先进行PCA算法对数据进行降维，将数据量下降到原来的4\%\footnote{这个值是目前最佳的实验结果，后续可能会变，记得回来修改}，去除无用信息并保留有效信息，同时为后续算法降低了需要处理的数据量大小。随后我们使用隔离森林算法随机挑选剩下梯度中的1000\footnote{具体数值同样待定}个特征，进一步降低恶意识别部分的复杂度。由于已经使用过主成分分析算法，因此隔离森林算法的输入数据特征都比较明显，因此可以纯随机挑选要计算的维度。最后，我们使用主观逻辑模型\cite{Subjective_Logic_Model}对用户评分并在聚合的过程中附以权重，这样使得聚合结果更加有效的同时减少了由于随机导致的错误封禁\footnote{因为多次都错误封禁一个恶意用户的概率会指数级别的减小}。这样，在ViT这种具有大量参数的模型下，也能够进行很好的联邦学习训练并杜绝可能的潜在的攻击。
+In this paper，我们提出了一种针对ViT的两阶段的上下文感知轻量级恶意梯度识别方法来提升恶意梯度检测时的效率和鲁棒性。通过放大池化技术\footnote{最终也有可能会决定使用PCA来分析出主成分}和特征层提取技术，在减少计算量的同时去除无效的梯度信息，从而在提升了检测效率的同时提升了恶意检测的鲁棒性。Specifically，对于用户上传上来的梯度信息，首先进行特征层提取，保留对恶意检测有效信息的同时降低数据维度。接着PCA算法对数据进行再次降维和提取，将数据量下降到原来的4\%\footnote{这个值是目前最佳的实验结果，后续可能会变，记得回来修改}，去除无用信息并保留有效信息，同时为后续算法降低了需要处理的数据量大小。随后我们使用隔离森林算法随机挑选剩下梯度中的300\footnote{具体数值同样待定}个特征，从而鉴别恶意用户和良性用户。由于已经使用过主成分分析算法，因此隔离森林算法的输入数据特征都比较明显，因此可以纯随机挑选要计算的维度。最后，我们使用主观逻辑模型\cite{Subjective_Logic_Model}对用户评分并在聚合的过程中附以权重，这样使得聚合结果更加有效的同时减少了由于随机导致的错误封禁\footnote{因为多次都错误封禁一个恶意用户的概率会指数级别的减小}。这样，在ViT这种具有大量参数的模型下，也能够进行很好的联邦学习训练并杜绝可能的潜在的攻击。
 
 我们在CIFAR-10、CIFAR-100、xxx\footnote{待确认}上做了有关模型效率以及有关识别鲁棒性的实验，在处理时间上相比先进的xx\footnote{待确认，找个最近提出的但复杂度较高的算法}算法降低了80\%。模型鲁棒性方面，单纯的隔离森林的识别准确率非常低，这是由梯度中有大量的接近0的值所导致的。而对于使用放大池化来减少计算量并增强鲁棒性的算法\cite{betterTogether}，虽然能极大程度地减少计算量，但在ViT的拜占庭攻击下对鲁棒性会起到相反的效果。相比于单纯的PCA算法，我们的识别准确率由70\%提升到了95\%。
 
@@ -489,106 +489,66 @@ PCA是一种常用的降维技术，通过将高维数据投影到一个低维�
 \section{Experiments}
 \label{sec:exp}
 
-池化+PCA的实验 对比 PCA的实验，发现只有耗时减少了，但准确率会下降。证明池化技术不适用于具有大量参数的ViT的拜占庭攻击检测。
+% 池化+PCA的实验 对比 PCA的实验，发现只有耗时减少了，但准确率会下降。证明池化技术不适用于具有大量参数的ViT的拜占庭攻击检测。
 
-在识别恶意客户端的过程中，我们使用以下变量来评价不同算法的性能：
+% \begin{itemize}
+%     \item \textbf{实际标签（True Labels）}: 每个客户端的实际恶意程度（0 表示良性，1 表示恶意）。
+%     \item \textbf{预测概率（Predicted Probabilities）}: 每个客户端的恶意概率预测值（介于 0 到 1 之间）。
+% \end{itemize}
 
-1. TP（True Positives，真正例）: 被正确识别为恶意客户端的恶意客户端数量。
-2. TN（True Negatives，真负例）: 被正确识别为正常客户端的正常客户端数量。
-3. FP（False Positives，假正例）: 被错误识别为恶意客户端的正常客户端数量。
-4. FN（False Negatives，假负例）: 被错误识别为正常客户端的恶意客户端数量。
+% Log Loss（对数损失）衡量的是模型预测的概率与实际标签之间的不一致性，数值越小越好。
 
-1. 精确率 (Precision): 精确率衡量的是被识别为恶意客户端中实际为恶意客户端的比例。
-    \[
-    \text{Precision} = \frac{TP}{TP + FP}
-    \]
+% \begin{equation}
+% \text{Log Loss} = -\frac{1}{N} \sum_{i=1}^{N} [y_i \log(p_i) + (1 - y_i) \log(1 - p_i)]
+% \end{equation}
 
-2. 召回率 (Recall): 召回率衡量的是实际恶意客户端中被正确识别的比例。
-    \[
-    \text{Recall} = \frac{TP}{TP + FN}
-    \]
+% 其中，$y_i$ 为实际标签（0 或 1），$p_i$ 为预测的恶意概率。
 
-3. F1分数 (F1 Score): F1分数是精确率和召回率的调和平均值，综合考虑了两者的表现。
-    \[
-    \text{F1 Score} = \frac{2 \times \text{Precision} \times \text{Recall}}{\text{Precision} + \text{Recall}}
-    \]
+% Brier Score（布雷尔分数）衡量的是预测概率与实际标签之间的均方误差，数值越小越好。
 
-4. 假阳性率 (False Positive Rate, FPR): 假阳性率衡量的是实际正常客户端中被错误识别为恶意客户端的比例。
-    \[
-    \text{FPR} = \frac{FP}{FP + TN}
-    \]
+% \begin{equation}
+% \text{Brier Score} = \frac{1}{N} \sum_{i=1}^{N} (p_i - y_i)^2
+% \end{equation}
 
-5. 假阴性率 (False Negative Rate, FNR): 假阴性率衡量的是实际恶意客户端中被错误识别为正常客户端的比例。
-    \[
-    \text{FNR} = \frac{FN}{TP + FN}
-    \]
+% AUC-ROC受试者工作特征曲线下面积衡量的是分类器在不同阈值下的性能，数值越接近1，分类器性能越好。
 
-6. 准确率 (Accuracy): 准确率衡量的是所有客户端中被正确识别的比例。
-    \[
-    \text{Accuracy} = \frac{TP + TN}{TP + TN + FP + FN}
-    \]
+% \begin{equation}
+% \text{AUC} = \int_0^1 \text{TPR}(\text{FPR}) \, d(\text{FPR})
+% \end{equation}
 
-7. ROC曲线 (ROC Curve): ROC曲线是以假阳性率为横轴，真阳性率（即召回率）为纵轴绘制的曲线，用来评价分类器的性能。
-    - AUC值 (Area Under Curve): AUC值是ROC曲线下的面积，数值越接近1，说明分类器性能越好。
+% 其中，TPR 为真阳性率，FPR 为假阳性率。
 
-\begin{itemize}
-    \item \textbf{实际标签（True Labels）}: 每个客户端的实际恶意程度（0 表示良性，1 表示恶意）。
-    \item \textbf{预测概率（Predicted Probabilities）}: 每个客户端的恶意概率预测值（介于 0 到 1 之间）。
-\end{itemize}
+% PRC-AUC（精确率-召回率曲线下面积）衡量的是分类器在不同阈值下的精确率和召回率之间的权衡。
 
-Log Loss（对数损失）衡量的是模型预测的概率与实际标签之间的不一致性，数值越小越好。
+% \begin{equation}
+% \text{PRC-AUC} = \int_0^1 \text{Precision}(\text{Recall}) \, d(\text{Recall})
+% \end{equation}
 
-\begin{equation}
-\text{Log Loss} = -\frac{1}{N} \sum_{i=1}^{N} [y_i \log(p_i) + (1 - y_i) \log(1 - p_i)]
-\end{equation}
+% Calibration Plot（校准曲线）展示的是预测概率和实际概率的一致性。校准曲线越接近45度线，预测概率越准确。
 
-其中，$y_i$ 为实际标签（0 或 1），$p_i$ 为预测的恶意概率。
+% \begin{enumerate}
+%     \item \textbf{数据准备}:
+%     \begin{itemize}
+%         \item 收集并标注每个客户端的实际恶意程度（0 或 1）。
+%         \item 使用各算法对每个客户端进行恶意概率预测。
+%     \end{itemize}
 
-Brier Score（布雷尔分数）衡量的是预测概率与实际标签之间的均方误差，数值越小越好。
+%     \item \textbf{评估指标计算}:
+%     \begin{itemize}
+%         \item 计算每个算法在各个指标（Log Loss、Brier Score、AUC-ROC、PRC-AUC）上的表现。
+%     \end{itemize}
 
-\begin{equation}
-\text{Brier Score} = \frac{1}{N} \sum_{i=1}^{N} (p_i - y_i)^2
-\end{equation}
+%     \item \textbf{校准曲线绘制}:
+%     \begin{itemize}
+%         \item 绘制预测概率与实际概率的校准曲线，评估预测概率的准确性。
+%     \end{itemize}
 
-AUC-ROC受试者工作特征曲线下面积衡量的是分类器在不同阈值下的性能，数值越接近1，分类器性能越好。
-
-\begin{equation}
-\text{AUC} = \int_0^1 \text{TPR}(\text{FPR}) \, d(\text{FPR})
-\end{equation}
-
-其中，TPR 为真阳性率，FPR 为假阳性率。
-
-PRC-AUC（精确率-召回率曲线下面积）衡量的是分类器在不同阈值下的精确率和召回率之间的权衡。
-
-\begin{equation}
-\text{PRC-AUC} = \int_0^1 \text{Precision}(\text{Recall}) \, d(\text{Recall})
-\end{equation}
-
-Calibration Plot（校准曲线）展示的是预测概率和实际概率的一致性。校准曲线越接近45度线，预测概率越准确。
-
-\begin{enumerate}
-    \item \textbf{数据准备}:
-    \begin{itemize}
-        \item 收集并标注每个客户端的实际恶意程度（0 或 1）。
-        \item 使用各算法对每个客户端进行恶意概率预测。
-    \end{itemize}
-
-    \item \textbf{评估指标计算}:
-    \begin{itemize}
-        \item 计算每个算法在各个指标（Log Loss、Brier Score、AUC-ROC、PRC-AUC）上的表现。
-    \end{itemize}
-
-    \item \textbf{校准曲线绘制}:
-    \begin{itemize}
-        \item 绘制预测概率与实际概率的校准曲线，评估预测概率的准确性。
-    \end{itemize}
-
-    \item \textbf{结果分析}:
-    \begin{itemize}
-        \item 对比各算法在不同评估指标上的性能。
-        \item 使用可视化方法展示不同算法的优劣（如绘制ROC曲线、PR曲线、校准曲线）。
-    \end{itemize}
-\end{enumerate}
+%     \item \textbf{结果分析}:
+%     \begin{itemize}
+%         \item 对比各算法在不同评估指标上的性能。
+%         \item 使用可视化方法展示不同算法的优劣（如绘制ROC曲线、PR曲线、校准曲线）。
+%     \end{itemize}
+% \end{enumerate}
 
 \subsection{实验设置}
 \label{exp:settings}
@@ -666,62 +626,178 @@ TODO:防御成功性实验：比如进行1000次训练，我们的防御效果�
 \subsubsection{\textbf{防御准确度衡量}}
 \label{exp:defense_accuracy}
 
-对于恶意用户的攻防，我们三个指标来衡量。即召回率、
+对于恶意用户的攻防，我们使用以下指标来衡量不同算法的性能：
 
-召回率是实际恶意客户端中被正确识别的比例，也就是恶意用户被标记为恶意的概率。召回率越高，说明恶意客户端的识别越准确。
+1. TP（True Positives，真正例）: 被正确识别为恶意客户端的恶意客户端数量。
+2. TN（True Negatives，真负例）: 被正确识别为正常客户端的正常客户端数量。
+3. FP（False Positives，假正例）: 被错误识别为恶意客户端的正常客户端数量。
+4. FN（False Negatives，假负例）: 被错误识别为正常客户端的恶意客户端数量。
 
-\[
-\text{Recall} = \frac{TP}{TP + FN}
-\]
+1. 精确率 (Precision): 精确率衡量的是被识别为恶意客户端中实际为恶意客户端的比例。
+    \[
+    \text{Precision} = \frac{TP}{TP + FP}
+    \]
 
-由图\hyperref[fig:backdoorAttack]{\ref{fig:backdoorAttack}}可以看出，后门植入攻击能够在几乎不影响模型准确率的情况下进行，其十分难以被察觉。随着时间的推移，可能会出现越来越多的新型攻击方式，其同样很难被发掘。
+2. 召回率 (Recall): 召回率衡量的是实际恶意客户端中被正确识别的比例。
+    \[
+    \text{Recall} = \frac{TP}{TP + FN}
+    \]
+
+3. F1分数 (F1 Score): F1分数是精确率和召回率的调和平均值，综合考虑了两者的表现。
+    \[
+    \text{F1 Score} = \frac{2 \times \text{Precision} \times \text{Recall}}{\text{Precision} + \text{Recall}}
+    \]
+
+4. 假阳性率 (False Positive Rate, FPR): 假阳性率衡量的是实际正常客户端中被错误识别为恶意客户端的比例。
+    \[
+    \text{FPR} = \frac{FP}{FP + TN}
+    \]
+
+5. 假阴性率 (False Negative Rate, FNR): 假阴性率衡量的是实际恶意客户端中被错误识别为正常客户端的比例。
+    \[
+    \text{FNR} = \frac{FN}{TP + FN}
+    \]
+
+6. 准确率 (Accuracy): 准确率衡量的是所有客户端中被正确识别的比例。
+    \[
+    \text{Accuracy} = \frac{TP + TN}{TP + TN + FP + FN}
+    \]
+
+7. ROC曲线 (ROC Curve): ROC曲线是以假阳性率为横轴，真阳性率（即召回率）为纵轴绘制的曲线，用来评价分类器的性能。
+    - AUC值 (Area Under Curve): AUC值是ROC曲线下的面积，数值越接近1，说明分类器性能越好。
+
+% 由图\hyperref[fig:backdoorAttack]{\ref{fig:backdoorAttack}}可以看出，后门植入攻击能够在几乎不影响模型准确率的情况下进行，其十分难以被察觉。随着时间的推移，可能会出现越来越多的新型攻击方式，其同样很难被发掘。
 
 \subsubsection{\textbf{防御速度衡量}}
 
 我们在相同环境、相同训练参数的情况下分别进行了上述实验，并统计了正常训练耗时、以及应用上各种防御方式后的总耗时。将防御方式的耗时减去正常训练的平均耗时，即可视为各种防御方式所带来的额外的时间开销。
 
-实验结果如图TODO:时间对比图所示。图XXX的纵轴表示了时间消耗，并以正常训练的平均耗时为单位1进行了缩放；横轴表示了不同的防御方式。其中PCA+余弦相似度的耗时是单独余弦相似度算法耗时的15倍，PCA+隔离森林耗时是单独隔离森林耗时的100倍，结合防御准确度的实验\hyperref[exp:defense_accuracy]{\ref{exp:defense_accuracy}}可以看出，虽然主成分分析可以有效地提高恶意用户的识别率，但是一方面准去率提高不如Vit-MGI，另一方面PCA会照成大量的时间开销，因此无法将其视为一种可行的解决方案。为了降低时间消耗，我们尝试使用
-
-
+实验结果如图TODO:时间对比图所示。图XXX的纵轴表示了时间消耗，并以正常训练的平均耗时为单位1进行了缩放；横轴表示了不同的防御方式。其中PCA+余弦相似度的耗时是单独余弦相似度算法耗时的15倍，PCA+隔离森林耗时是单独隔离森林耗时的100倍，结合防御准确度的实验\hyperref[exp:defense_accuracy]{\ref{exp:defense_accuracy}}可以看出，虽然主成分分析可以有效地提高恶意用户的识别率，但是一方面准去率提高不如Vit-MGI，另一方面PCA会照成大量的时间开销，因此无法将其视为一种可行的解决方案。为了降低时间消耗，我们尝试使用L. Shen等人提出的放大算法\cite{betterTogether}即最大池化算法进行数据降维，但是由放大池化+PCA+余弦相似度分析和PCA+余弦相似度分析两个实验对比，即使计算耗时减少了，但是防御效果明显变差。这说明对于参数量庞大的ViT模型来说放大池化的技术并不适用。最后，我们对比了我们的特征层提取算法，从特征层提取+PCA+余弦相似度分析的实验以及PCA+余弦相似度分析的实验对比，或者从特征层提取+PCA+隔离森林的实验以及PCA+隔离森林的实验的对比都可以看出，除了时间消耗明显减少以外，准确率也有所提升。
 
 \subsection{特征层确定}
 \label{exp:exp_layer}
 
-为了减小计算量
+为了减小恶意攻击检测所需要的计算量以及剔除对恶意用户检测不是那么有效的数据，我们进行了一系列待提取特征层的确定实验。实验方法并不困难，对于某种攻击，我们可以将这个攻击的所有层全部提取出来，对于每一层，ViT-MGI中除了特征层提取部分的防御方法进行防御，只挑选防御效果特别好的层。这样，对于一种攻击方式，我们就能得到一些候选的待提取特征层，将多种攻击所得到的层进行求交集运算，即能得对所有攻击都很敏感的层。多次进行上述实验，将每次的实验结果进行求和累计，统计每个层在多次实验中的候选次数。最后，我们对这些层按照候选总次数进行由高到低的排序，即能得到对于攻击十分敏感的层。算法的伪代码如\hyperref[alg:featureLayerSelection]{Algorithm \ref{alg:featureLayerSelection}}所示。
+
+% \begin{algorithm}
+%     \caption{Feature Layer Selection Experiment for Reducing Computational Cost of Malicious Attack Detection}
+%     \label{alg:featureLayerSelection}
+%     \begin{algorithmic}[1]
+%     \State Initialize candidate\_layers as an empty set
+    
+%     \For{each attack in attack\_methods}
+%         \State Extract all layers for the given attack
+%         \State Initialize defense\_effectiveness as an empty set
+    
+%         \For{each layer in all\_layers}
+%             \State Apply ViT-MGI defense method (excluding feature layer extraction part)
+%             \State Record defense effectiveness in defense\_effectiveness[layer]
+%         \EndFor
+    
+%         \State Select layers with the best defense effectiveness
+%         \For{each layer in selected\_layers}
+%             \If{layer not in candidate\_layers}
+%                 \State candidate\_layers[layer] = 0
+%             \EndIf
+%             \State candidate\_layers[layer] += 1
+%         \EndFor
+%     \EndFor
+    
+%     \State Find intersection of layers sensitive to all attacks as sensitive\_layers
+    
+%     \For{each experiment in multiple\_experiments}
+%         \State result = conduct\_experiment(experiment)
+%         \For{each layer in result}
+%             \If{layer not in candidate\_layers}
+%                 \State candidate\_layers[layer] = 0
+%             \EndIf
+%             \State candidate\_layers[layer] += 1
+%         \EndFor
+%     \EndFor
+    
+%     \State Sort sensitive layers by total candidate count as sorted\_sensitive\_layers
+    
+%     \State Extract and integrate gradients of sensitive layers for malicious user detection
+    
+%     \State Randomly select additional layers from non-extracted layers for integration to prevent targeted attacks
+%     \end{algorithmic}
+% \end{algorithm}
+
+
+\begin{algorithm}
+    \caption{Feature Layer Selection and Integration}
+    \label{alg:featureLayerSelection}
+    \begin{algorithmic}[1]
+        \Require $A$ - List of attack methods, $G$ - Gradients uploaded by malicious users each time
+        \Ensure $I$ - Integrated gradients for defense detection
+
+        \Function{FeatureSelect}{$A, G$}
+            \State $C \gets \left [ \right ] $
+            \For{each $G_i$ in $G$}
+                \State $C.append( \Call{SelectOnce}{A, G_i})$
+            \EndFor
+            \State $T \gets CountTimes(C)$
+            \State $SortByTimes(T)$
+            \State $I, times \gets getHighTimes(T)$
+            \State \Return $I$
+        \EndFunction
+
+        \Function{SelectOnce}{$A, G_i$}
+            \State $S \gets \left [  \right ] $
+            \For{each $a$ in $A$}
+                \State $L \gets$ extract all layers from $G_i$
+                \State $S_a \gets \emptyset$
+                \For{each $l$ in $L$}
+                    \State $acc_l \gets MGI(l)$
+                    \If{$acc_l = 100\%$}
+                        \State $S.insert(l)$
+                    \EndIf
+                \EndFor
+            \State $C \gets \bigcap\left \{ s | s\in S  \right \}$
+            \EndFor
+            \State \Return $C$
+        \EndFunction
+
+        % \Function{Extract}{$g, L_k$}
+        %     \State $\phi(g) \gets \emptyset$
+        %     \For{each $l$ in $g.layers()$}
+        %         \If{$l.name \in L_k$}
+        %             \State $\phi(g) \gets \phi(g) + l$
+        %         \EndIf
+        %     \EndFor
+        %     \State \Return $\phi(g)$
+        % \EndFunction
+
+        
+
+        % \State $L_s \gets \Call{FeatureSelect}{A}$
+        % \State $I_g \gets \Call{Integrate}{G, L_s}$
+
+    \end{algorithmic}
+\end{algorithm}
+
+这样，对于恶意用户上传的梯度，我们就可以只提取这些层的梯度后整合到一起，再进行后续的防御检测。若为了防止恶意用户针对本算法进行攻击，可以每次随机选取一些在提取名单之外的层进行整合。\footnote{忽然想到针对候选的每一层做一个识别实验，将所有层的结果按出现次数排序不知道会咋样。}
 
 
 
-Experiments:
+% Experiments:
 
-实验设置（用的xx机器，在xx跑，用的xx模型xx参数，对比的哪些攻击/防御，数据集，...）能一大段
+% 实验设置（用的xx机器，在xx跑，用的xx模型xx参数，对比的哪些攻击/防御，数据集，...）能一大段
 
-实验结果分析（分点）
+% 实验结果分析（分点）
 
-比如：
-1. 精度
-2. 速度
-3. 防御效果
-对比着给点结论。
+% 比如：
+% 1. 精度
+% 2. 速度
+% 3. 防御效果
+% 对比着给点结论。
 
-\textcolor{red}{一直跑着实验}
-（最好写的部分）
-
-
-Conclusion:
-
-摘要 + 实验结果
+% \textcolor{red}{一直跑着实验}
+% （最好写的部分）
 
 
 
-按照8页来规划内容
 
-introduction和related work这些大概两页
-
-system model，method主体部分，这些加起来可能三页
-
-实验部分两页半
-
-最后参考文献等等将近一页
 
 \section{Conclusion}
 \label{sec:conclusion}
@@ -736,207 +812,224 @@ system model，method主体部分，这些加起来可能三页
 
 总的来说，为了检测恶意用户的拜占庭攻击现象，我们提出了一种两阶段的检测方法。首先，我们提取了用户上传的梯度的敏感特征层，然后通过主成分分析（PCA）对这些数据进行降维。接着，我们使用隔离森林算法对降维后的数据进行分析，得到异常评分。最后，我们使用主观逻辑模型对每个客户端进行评分，根据评分结果筛选可信客户端，并将这些客户端的梯度加权合并到全局模型中。实验结果表明，我们的方法在检测恶意用户的拜占庭攻击方面取得了很好的效果。
 
-\section{Ease of Use}
+% Conclusion:
 
-\subsection{Maintaining the Integrity of the Specifications}
+% 摘要 + 实验结果
 
-The IEEEtran class file is used to format your paper and style the text. All margins, 
-column widths, line spaces, and text fonts are prescribed; please do not 
-alter them. You may note peculiarities. For example, the head margin
-measures proportionately more than is customary. This measurement 
-and others are deliberate, using specifications that anticipate your paper 
-as one part of the entire proceedings, and not as an independent document. 
-Please do not revise any of the current designations.
 
-\section{Prepare Your Paper Before Styling}
-Before you begin to format your paper, first write and save the content as a 
-separate text file. Complete all content and organizational editing before 
-formatting. Please note sections \ref{AA}--\ref{SCM} below for more information on 
-proofreading, spelling and grammar.
 
-Keep your text and graphic files separate until after the text has been 
-formatted and styled. Do not number text heads---{\LaTeX} will do that 
-for you.
+% 按照8页来规划内容
 
-\subsection{Abbreviations and Acronyms}\label{AA}
-Define abbreviations and acronyms the first time they are used in the text, 
-even after they have been defined in the abstract. Abbreviations such as 
-IEEE, SI, MKS, CGS, ac, dc, and rms do not have to be defined. Do not use 
-abbreviations in the title or heads unless they are unavoidable.
+% introduction和related work这些大概两页
 
-\subsection{Units}
-\begin{itemize}
-\item Use either SI (MKS) or CGS as primary units. (SI units are encouraged.) English units may be used as secondary units (in parentheses). An exception would be the use of English units as identifiers in trade, such as ``3.5-inch disk drive''.
-\item Avoid combining SI and CGS units, such as current in amperes and magnetic field in oersteds. This often leads to confusion because equations do not balance dimensionally. If you must use mixed units, clearly state the units for each quantity that you use in an equation.
-\item Do not mix complete spellings and abbreviations of units: ``Wb/m\textsuperscript{2}'' or ``webers per square meter'', not ``webers/m\textsuperscript{2}''. Spell out units when they appear in text: ``. . . a few henries'', not ``. . . a few H''.
-\item Use a zero before decimal points: ``0.25'', not ``.25''. Use ``cm\textsuperscript{3}'', not ``cc''.)
-\end{itemize}
+% system model，method主体部分，这些加起来可能三页
 
-\subsection{Equations}
-Number equations consecutively. To make your 
-equations more compact, you may use the solidus (~/~), the exp function, or 
-appropriate exponents. Italicize Roman symbols for quantities and variables, 
-but not Greek symbols. Use a long dash rather than a hyphen for a minus 
-sign. Punctuate equations with commas or periods when they are part of a 
-sentence, as in:
-\begin{equation}
-a+b=\gamma\label{eq}
-\end{equation}
+% 实验部分两页半
 
-Be sure that the 
-symbols in your equation have been defined before or immediately following 
-the equation. Use ``\eqref{eq}'', not ``Eq.~\eqref{eq}'' or ``equation \eqref{eq}'', except at 
-the beginning of a sentence: ``Equation \eqref{eq} is . . .''
+% 最后参考文献等等将近一页
 
-\subsection{\LaTeX-Specific Advice}
 
-Please use ``soft'' (e.g., \verb|\eqref{Eq}|) cross references instead
-of ``hard'' references (e.g., \verb|(1)|). That will make it possible
-to combine sections, add equations, or change the order of figures or
-citations without having to go through the file line by line.
+% \section{Ease of Use}
 
-Please don't use the \verb|{eqnarray}| equation environment. Use
-\verb|{align}| or \verb|{IEEEeqnarray}| instead. The \verb|{eqnarray}|
-environment leaves unsightly spaces around relation symbols.
+% \subsection{Maintaining the Integrity of the Specifications}
 
-Please note that the \verb|{subequations}| environment in {\LaTeX}
-will increment the main equation counter even when there are no
-equation numbers displayed. If you forget that, you might write an
-article in which the equation numbers skip from (17) to (20), causing
-the copy editors to wonder if you've discovered a new method of
-counting.
+% The IEEEtran class file is used to format your paper and style the text. All margins, 
+% column widths, line spaces, and text fonts are prescribed; please do not 
+% alter them. You may note peculiarities. For example, the head margin
+% measures proportionately more than is customary. This measurement 
+% and others are deliberate, using specifications that anticipate your paper 
+% as one part of the entire proceedings, and not as an independent document. 
+% Please do not revise any of the current designations.
 
-% {\BibTeX} does not work by magic. It doesn't get the bibliographic
-% data from thin air but from .bib files. If you use {\BibTeX} to produce a
-% bibliography you must send the .bib files. 
+% \section{Prepare Your Paper Before Styling}
+% Before you begin to format your paper, first write and save the content as a 
+% separate text file. Complete all content and organizational editing before 
+% formatting. Please note sections \ref{AA}--\ref{SCM} below for more information on 
+% proofreading, spelling and grammar.
 
-{\LaTeX} can't read your mind. If you assign the same label to a
-subsubsection and a table, you might find that Table I has been cross
-referenced as Table IV-B3. 
+% Keep your text and graphic files separate until after the text has been 
+% formatted and styled. Do not number text heads---{\LaTeX} will do that 
+% for you.
 
-{\LaTeX} does not have precognitive abilities. If you put a
-\verb|\label| command before the command that updates the counter it's
-supposed to be using, the label will pick up the last counter to be
-cross referenced instead. In particular, a \verb|\label| command
-should not go before the caption of a figure or a table.
+% \subsection{Abbreviations and Acronyms}\label{AA}
+% Define abbreviations and acronyms the first time they are used in the text, 
+% even after they have been defined in the abstract. Abbreviations such as 
+% IEEE, SI, MKS, CGS, ac, dc, and rms do not have to be defined. Do not use 
+% abbreviations in the title or heads unless they are unavoidable.
 
-Do not use \verb|\nonumber| inside the \verb|{array}| environment. It
-will not stop equation numbers inside \verb|{array}| (there won't be
-any anyway) and it might stop a wanted equation number in the
-surrounding equation.
+% \subsection{Units}
+% \begin{itemize}
+% \item Use either SI (MKS) or CGS as primary units. (SI units are encouraged.) English units may be used as secondary units (in parentheses). An exception would be the use of English units as identifiers in trade, such as ``3.5-inch disk drive''.
+% \item Avoid combining SI and CGS units, such as current in amperes and magnetic field in oersteds. This often leads to confusion because equations do not balance dimensionally. If you must use mixed units, clearly state the units for each quantity that you use in an equation.
+% \item Do not mix complete spellings and abbreviations of units: ``Wb/m\textsuperscript{2}'' or ``webers per square meter'', not ``webers/m\textsuperscript{2}''. Spell out units when they appear in text: ``. . . a few henries'', not ``. . . a few H''.
+% \item Use a zero before decimal points: ``0.25'', not ``.25''. Use ``cm\textsuperscript{3}'', not ``cc''.)
+% \end{itemize}
 
-\subsection{Some Common Mistakes}\label{SCM}
-\begin{itemize}
-\item The word ``data'' is plural, not singular.
-\item The subscript for the permeability of vacuum $\mu_{0}$, and other common scientific constants, is zero with subscript formatting, not a lowercase letter ``o''.
-\item In American English, commas, semicolons, periods, question and exclamation marks are located within quotation marks only when a complete thought or name is cited, such as a title or full quotation. When quotation marks are used, instead of a bold or italic typeface, to highlight a word or phrase, punctuation should appear outside of the quotation marks. A parenthetical phrase or statement at the end of a sentence is punctuated outside of the closing parenthesis (like this). (A parenthetical sentence is punctuated within the parentheses.)
-\item A graph within a graph is an ``inset'', not an ``insert''. The word alternatively is preferred to the word ``alternately'' (unless you really mean something that alternates).
-\item Do not use the word ``essentially'' to mean ``approximately'' or ``effectively''.
-\item In your paper title, if the words ``that uses'' can accurately replace the word ``using'', capitalize the ``u''; if not, keep using lower-cased.
-\item Be aware of the different meanings of the homophones ``affect'' and ``effect'', ``complement'' and ``compliment'', ``discreet'' and ``discrete'', ``principal'' and ``principle''.
-\item Do not confuse ``imply'' and ``infer''.
-\item The prefix ``non'' is not a word; it should be joined to the word it modifies, usually without a hyphen.
-\item There is no period after the ``et'' in the Latin abbreviation ``et al.''.
-\item The abbreviation ``i.e.'' means ``that is'', and the abbreviation ``e.g.'' means ``for example''.
-\end{itemize}
-An excellent style manual for science writers is \cite{b7}.
+% \subsection{Equations}
+% Number equations consecutively. To make your 
+% equations more compact, you may use the solidus (~/~), the exp function, or 
+% appropriate exponents. Italicize Roman symbols for quantities and variables, 
+% but not Greek symbols. Use a long dash rather than a hyphen for a minus 
+% sign. Punctuate equations with commas or periods when they are part of a 
+% sentence, as in:
+% \begin{equation}
+% a+b=\gamma\label{eq}
+% \end{equation}
 
-\subsection{Authors and Affiliations}
-\textbf{The class file is designed for, but not limited to, six authors.} A 
-minimum of one author is required for all conference articles. Author names 
-should be listed starting from left to right and then moving down to the 
-next line. This is the author sequence that will be used in future citations 
-and by indexing services. Names should not be listed in columns nor group by 
-affiliation. Please keep your affiliations as succinct as possible (for 
-example, do not differentiate among departments of the same organization).
+% Be sure that the 
+% symbols in your equation have been defined before or immediately following 
+% the equation. Use ``\eqref{eq}'', not ``Eq.~\eqref{eq}'' or ``equation \eqref{eq}'', except at 
+% the beginning of a sentence: ``Equation \eqref{eq} is . . .''
 
-\subsection{Identify the Headings}
-Headings, or heads, are organizational devices that guide the reader through 
-your paper. There are two types: component heads and text heads.
+% \subsection{\LaTeX-Specific Advice}
 
-Component heads identify the different components of your paper and are not 
-topically subordinate to each other. Examples include Acknowledgments and 
-References and, for these, the correct style to use is ``Heading 5''. Use 
-``figure caption'' for your Figure captions, and ``table head'' for your 
-table title. Run-in heads, such as ``Abstract'', will require you to apply a 
-style (in this case, italic) in addition to the style provided by the drop 
-down menu to differentiate the head from the text.
+% Please use ``soft'' (e.g., \verb|\eqref{Eq}|) cross references instead
+% of ``hard'' references (e.g., \verb|(1)|). That will make it possible
+% to combine sections, add equations, or change the order of figures or
+% citations without having to go through the file line by line.
 
-Text heads organize the topics on a relational, hierarchical basis. For 
-example, the paper title is the primary text head because all subsequent 
-material relates and elaborates on this one topic. If there are two or more 
-sub-topics, the next level head (uppercase Roman numerals) should be used 
-and, conversely, if there are not at least two sub-topics, then no subheads 
-should be introduced.
+% Please don't use the \verb|{eqnarray}| equation environment. Use
+% \verb|{align}| or \verb|{IEEEeqnarray}| instead. The \verb|{eqnarray}|
+% environment leaves unsightly spaces around relation symbols.
 
-\subsection{Figures and Tables}
-\paragraph{Positioning Figures and Tables} Place figures and tables at the top and 
-bottom of columns. Avoid placing them in the middle of columns. Large 
-figures and tables may span across both columns. Figure captions should be 
-below the figures; table heads should appear above the tables. Insert 
-figures and tables after they are cited in the text. Use the abbreviation 
-``Fig.~\ref{fig}'', even at the beginning of a sentence.
+% Please note that the \verb|{subequations}| environment in {\LaTeX}
+% will increment the main equation counter even when there are no
+% equation numbers displayed. If you forget that, you might write an
+% article in which the equation numbers skip from (17) to (20), causing
+% the copy editors to wonder if you've discovered a new method of
+% counting.
 
-\begin{table}[htbp]
-\caption{Table Type Styles}
-\begin{center}
-\begin{tabular}{|c|c|c|c|}
-\hline
-\textbf{Table}&\multicolumn{3}{|c|}{\textbf{Table Column Head}} \\
-\cline{2-4} 
-\textbf{Head} & \textbf{\textit{Table column subhead}}& \textbf{\textit{Subhead}}& \textbf{\textit{Subhead}} \\
-\hline
-copy& More table copy$^{\mathrm{a}}$& &  \\
-\hline
-\multicolumn{4}{l}{$^{\mathrm{a}}$Sample of a Table footnote.}
-\end{tabular}
-\label{tab1}
-\end{center}
-\end{table}
+% % {\BibTeX} does not work by magic. It doesn't get the bibliographic
+% % data from thin air but from .bib files. If you use {\BibTeX} to produce a
+% % bibliography you must send the .bib files. 
 
-% \begin{figure}[htbp]
-% \centerline{\includegraphics{fig1.png}}
-% \caption{Example of a figure caption.}
-% \label{fig}
-% \end{figure}
+% {\LaTeX} can't read your mind. If you assign the same label to a
+% subsubsection and a table, you might find that Table I has been cross
+% referenced as Table IV-B3. 
 
-Figure Labels: Use 8 point Times New Roman for Figure labels. Use words 
-rather than symbols or abbreviations when writing Figure axis labels to 
-avoid confusing the reader. As an example, write the quantity 
-``Magnetization'', or ``Magnetization, M'', not just ``M''. If including 
-units in the label, present them within parentheses. Do not label axes only 
-with units. In the example, write ``Magnetization (A/m)'' or ``Magnetization 
-\{A[m(1)]\}'', not just ``A/m''. Do not label axes with a ratio of 
-quantities and units. For example, write ``Temperature (K)'', not 
-``Temperature/K''.
+% {\LaTeX} does not have precognitive abilities. If you put a
+% \verb|\label| command before the command that updates the counter it's
+% supposed to be using, the label will pick up the last counter to be
+% cross referenced instead. In particular, a \verb|\label| command
+% should not go before the caption of a figure or a table.
 
-\section*{Acknowledgment}
+% Do not use \verb|\nonumber| inside the \verb|{array}| environment. It
+% will not stop equation numbers inside \verb|{array}| (there won't be
+% any anyway) and it might stop a wanted equation number in the
+% surrounding equation.
 
-The preferred spelling of the word ``acknowledgment'' in America is without 
-an ``e'' after the ``g''. Avoid the stilted expression ``one of us (R. B. 
-G.) thanks $\ldots$''. Instead, try ``R. B. G. thanks$\ldots$''. Put sponsor 
-acknowledgments in the unnumbered footnote on the first page.
+% \subsection{Some Common Mistakes}\label{SCM}
+% \begin{itemize}
+% \item The word ``data'' is plural, not singular.
+% \item The subscript for the permeability of vacuum $\mu_{0}$, and other common scientific constants, is zero with subscript formatting, not a lowercase letter ``o''.
+% \item In American English, commas, semicolons, periods, question and exclamation marks are located within quotation marks only when a complete thought or name is cited, such as a title or full quotation. When quotation marks are used, instead of a bold or italic typeface, to highlight a word or phrase, punctuation should appear outside of the quotation marks. A parenthetical phrase or statement at the end of a sentence is punctuated outside of the closing parenthesis (like this). (A parenthetical sentence is punctuated within the parentheses.)
+% \item A graph within a graph is an ``inset'', not an ``insert''. The word alternatively is preferred to the word ``alternately'' (unless you really mean something that alternates).
+% \item Do not use the word ``essentially'' to mean ``approximately'' or ``effectively''.
+% \item In your paper title, if the words ``that uses'' can accurately replace the word ``using'', capitalize the ``u''; if not, keep using lower-cased.
+% \item Be aware of the different meanings of the homophones ``affect'' and ``effect'', ``complement'' and ``compliment'', ``discreet'' and ``discrete'', ``principal'' and ``principle''.
+% \item Do not confuse ``imply'' and ``infer''.
+% \item The prefix ``non'' is not a word; it should be joined to the word it modifies, usually without a hyphen.
+% \item There is no period after the ``et'' in the Latin abbreviation ``et al.''.
+% \item The abbreviation ``i.e.'' means ``that is'', and the abbreviation ``e.g.'' means ``for example''.
+% \end{itemize}
+% An excellent style manual for science writers is \cite{b7}.
 
-\section*{References}
+% \subsection{Authors and Affiliations}
+% \textbf{The class file is designed for, but not limited to, six authors.} A 
+% minimum of one author is required for all conference articles. Author names 
+% should be listed starting from left to right and then moving down to the 
+% next line. This is the author sequence that will be used in future citations 
+% and by indexing services. Names should not be listed in columns nor group by 
+% affiliation. Please keep your affiliations as succinct as possible (for 
+% example, do not differentiate among departments of the same organization).
 
-Please number citations consecutively within brackets \cite{maxwell1892}. The 
-sentence punctuation follows the bracket \cite{b2}. Refer simply to the reference 
-number, as in \cite{b3}---do not use ``Ref. \cite{b3}'' or ``reference \cite{b3}'' except at 
-the beginning of a sentence: ``Reference \cite{b3} was the first $\ldots$''
+% \subsection{Identify the Headings}
+% Headings, or heads, are organizational devices that guide the reader through 
+% your paper. There are two types: component heads and text heads.
 
-Number footnotes separately in superscripts. Place the actual footnote at 
-the bottom of the column in which it was cited. Do not put footnotes in the 
-abstract or reference list. Use letters for table footnotes.
+% Component heads identify the different components of your paper and are not 
+% topically subordinate to each other. Examples include Acknowledgments and 
+% References and, for these, the correct style to use is ``Heading 5''. Use 
+% ``figure caption'' for your Figure captions, and ``table head'' for your 
+% table title. Run-in heads, such as ``Abstract'', will require you to apply a 
+% style (in this case, italic) in addition to the style provided by the drop 
+% down menu to differentiate the head from the text.
 
-Unless there are six authors or more give all authors' names; do not use 
-``et al.''. Papers that have not been published, even if they have been 
-submitted for publication, should be cited as ``unpublished'' \cite{b4}. Papers 
-that have been accepted for publication should be cited as ``in press'' \cite{b5}. 
-Capitalize only the first word in a paper title, except for proper nouns and 
-element symbols.
+% Text heads organize the topics on a relational, hierarchical basis. For 
+% example, the paper title is the primary text head because all subsequent 
+% material relates and elaborates on this one topic. If there are two or more 
+% sub-topics, the next level head (uppercase Roman numerals) should be used 
+% and, conversely, if there are not at least two sub-topics, then no subheads 
+% should be introduced.
 
-For papers published in translation journals, please give the English 
-citation first, followed by the original foreign-language citation \cite{b6}.
+% \subsection{Figures and Tables}
+% \paragraph{Positioning Figures and Tables} Place figures and tables at the top and 
+% bottom of columns. Avoid placing them in the middle of columns. Large 
+% figures and tables may span across both columns. Figure captions should be 
+% below the figures; table heads should appear above the tables. Insert 
+% figures and tables after they are cited in the text. Use the abbreviation 
+% ``Fig.~\ref{fig}'', even at the beginning of a sentence.
+
+% \begin{table}[htbp]
+% \caption{Table Type Styles}
+% \begin{center}
+% \begin{tabular}{|c|c|c|c|}
+% \hline
+% \textbf{Table}&\multicolumn{3}{|c|}{\textbf{Table Column Head}} \\
+% \cline{2-4} 
+% \textbf{Head} & \textbf{\textit{Table column subhead}}& \textbf{\textit{Subhead}}& \textbf{\textit{Subhead}} \\
+% \hline
+% copy& More table copy$^{\mathrm{a}}$& &  \\
+% \hline
+% \multicolumn{4}{l}{$^{\mathrm{a}}$Sample of a Table footnote.}
+% \end{tabular}
+% \label{tab1}
+% \end{center}
+% \end{table}
+
+% % \begin{figure}[htbp]
+% % \centerline{\includegraphics{fig1.png}}
+% % \caption{Example of a figure caption.}
+% % \label{fig}
+% % \end{figure}
+
+% Figure Labels: Use 8 point Times New Roman for Figure labels. Use words 
+% rather than symbols or abbreviations when writing Figure axis labels to 
+% avoid confusing the reader. As an example, write the quantity 
+% ``Magnetization'', or ``Magnetization, M'', not just ``M''. If including 
+% units in the label, present them within parentheses. Do not label axes only 
+% with units. In the example, write ``Magnetization (A/m)'' or ``Magnetization 
+% \{A[m(1)]\}'', not just ``A/m''. Do not label axes with a ratio of 
+% quantities and units. For example, write ``Temperature (K)'', not 
+% ``Temperature/K''.
+
+% \section*{Acknowledgment}
+
+% The preferred spelling of the word ``acknowledgment'' in America is without 
+% an ``e'' after the ``g''. Avoid the stilted expression ``one of us (R. B. 
+% G.) thanks $\ldots$''. Instead, try ``R. B. G. thanks$\ldots$''. Put sponsor 
+% acknowledgments in the unnumbered footnote on the first page.
+
+% \section*{References}
+
+% Please number citations consecutively within brackets \cite{maxwell1892}. The 
+% sentence punctuation follows the bracket \cite{b2}. Refer simply to the reference 
+% number, as in \cite{b3}---do not use ``Ref. \cite{b3}'' or ``reference \cite{b3}'' except at 
+% the beginning of a sentence: ``Reference \cite{b3} was the first $\ldots$''
+
+% Number footnotes separately in superscripts. Place the actual footnote at 
+% the bottom of the column in which it was cited. Do not put footnotes in the 
+% abstract or reference list. Use letters for table footnotes.
+
+% Unless there are six authors or more give all authors' names; do not use 
+% ``et al.''. Papers that have not been published, even if they have been 
+% submitted for publication, should be cited as ``unpublished'' \cite{b4}. Papers 
+% that have been accepted for publication should be cited as ``in press'' \cite{b5}. 
+% Capitalize only the first word in a paper title, except for proper nouns and 
+% element symbols.
+
+% For papers published in translation journals, please give the English 
+% citation first, followed by the original foreign-language citation \cite{b6}.
 
 % \begin{thebibliography}{00}  % 花括号中的 00 决定了在文献编号中所需要的宽度
 % \bibitem{b1} G. Eason, B. Noble, and I. N. Sneddon, ``On certain integrals of Lipschitz-Hankel type involving products of Bessel functions,'' Phil. Trans. Roy. Soc. London, vol. A247, pp. 529--551, April 1955.
@@ -950,8 +1043,8 @@ citation first, followed by the original foreign-language citation \cite{b6}.
 \bibliographystyle{IEEEtran}
 \bibliography{references}
 % \printbibliography % 打印参考文献
-\vspace{12pt}
-\color{red}
-IEEE conference templates contain guidance text for composing and formatting conference papers. Please ensure that all template text is removed from your conference paper prior to submission to the conference. Failure to remove the template text from your paper may result in your paper not being published.
+% \vspace{12pt}
+% \color{red}
+% IEEE conference templates contain guidance text for composing and formatting conference papers. Please ensure that all template text is removed from your conference paper prior to submission to the conference. Failure to remove the template text from your paper may result in your paper not being published.
 
 \end{document}
