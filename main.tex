@@ -30,6 +30,7 @@
 \usepackage{textcomp}
 \usepackage{xcolor}
 \def\figGradAscentAttack{0.5\textwidth}
+\def\figBackdoorAttack{0.5\textwidth}
 % \usepackage{svg}
 % \def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
 %     T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
@@ -625,8 +626,28 @@ Calibration Plot（校准曲线）展示的是预测概率和实际概率的一�
 \subsubsection{\textbf{标签翻转攻击}}
 \label{exp:attack:label}
 
-为了验证标签翻转攻击的有效性，我们同样先选取$20\%$的客户端作为恶意客户端进行标签翻转攻击，并且不设置防御手段。标签翻转攻击的攻击方式为，篡改本地数据的标签为一个错误的标签。例如，
+为了验证标签翻转攻击的有效性，我们同样先选取$20\%$的客户端作为恶意客户端进行标签翻转攻击，并且不设置防御手段。标签翻转攻击的攻击方式为，篡改本地数据的标签为一个错误的标签。例如CIFAR-10数据集有10种标签，假设恶意客户端想让所有标签本来是0的数据被预测成1，因此它将自己本地所有的0标签全部修改为1。
 
+TODO: 想想标签翻转实验应该怎么说。
+
+实验结果表明，虽然只有$20\%$的客户端篡改了$10\%$的标签量，但不加防御的话原本应被预测为0的标签有$95\%$都被错误地预测成了1。这说明标签反转的攻击也是有效的。
+
+\subsubsection{\textbf{后门植入攻击}}
+\label{exp:attack:backdoor}
+
+为了验证后门植入攻击的有效性，同样选取$20\%$的客户端作为恶意客户端进行后门植入攻击，且不设置防御手段。每个恶意客户端在本地训练之前，对自己的数据进行处理，例如将每张图片的左下角3x3的像素标记为1。这样在训练过程中，模型会逐渐学习到，当左下角3x3的像素为1时，预测结果应该是某个特定的标签1。若客户端不进行防御检测，则经过一定轮次的训练后，这一特征就被整合进了全局模型中。当恶意客户端想要让训练好的全局模型将任意一张图片识别为标签1时，只需要将这张图片的左下角3x3的像素修改为1。这一肉眼难以发现的更改却会导致模型的预测结果发生很大的变化。
+
+\begin{figure}[htbp]
+    \centerline{\includegraphics[width=\figBackdoorAttack]{pics/003-backdoorAttack.pdf}}
+    % \centering
+    % \includesvg[width=0.5\textwidth]{pics/001-gradAttack-attackRate.pdf}
+    \caption{backdoor attack}
+    \label{fig:backdoorAttack}
+\end{figure}
+
+图\hyperref[fig:backdoorAttack]{\ref{fig:backdoorAttack}}显示了不加防御的情况下，$20\%$恶意客户端进行后门植入攻击的效果，其中每个恶意客户端都将自己图像的左下角3x3的像素标记为了1。蓝色的是模型的准确率曲线，对比\hyperref[fig:gradAscent]{\ref{fig:gradAscent}}中正常训练的蓝色曲线可以看出，后门攻击十分隐蔽，对模型总的准确率没有太大的影响。由于中央服务器无法预测恶意用户的后门植入方式，因此若不对用户上传的梯度进行检测则很察觉到攻击的发生。图\hyperref[fig:backdoorAttack]{\ref{fig:backdoorAttack}}中橘色曲线显示的是随着轮次的变化，后门植入的成功率。即将多张篡改后的图片输入到全局模型时，模型预测结果为标签1的概率。可以看出，随着轮次的增加，后门植入的成功率呈现逐渐上升趋势，最高达到了$96.88\%$。图\hyperref[fig:backdoorAttack]{\ref{fig:backdoorAttack}}中绿色的曲线是被篡改的图片的预测准确率，可以看出，随着模型的训练过程，被篡改图片的预测正确率首先呈现逐渐上升的趋势；但是随着训练轮次的增加，后门逐渐被植入到全局模型中，这些图片越来越多地被预测为标签1。这说明后门攻击也是有效的。
+
+总的来说，实验\hyperref[exp:attack]{\ref{exp:attack}}表明，梯度上升攻击、标签翻转攻击以及后门植入攻击都是有效的。
 
 \subsection{特征层确定}
 \label{exp:exp_layer}
