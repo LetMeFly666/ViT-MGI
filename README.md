@@ -2,7 +2,7 @@
  * @Author: LetMeFly
  * @Date: 2024-07-05 21:09:55
  * @LastEditors: LetMeFly
- * @LastEditTime: 2024-07-11 21:41:18
+ * @LastEditTime: 2024-07-13 18:55:04
 -->
 # 頑張って
 
@@ -25,3 +25,14 @@ emm，VsCode连接远程服务器的时候Latex插件的默认工作路径是```
 ```
 
 TODO: un ignore PDF
+
+
+** Conference Paper **
+Before submitting the final camera ready copy, remember to:
+
+ 1. Manually equalize the lengths of two columns on the last page
+ of your paper;
+
+ 2. Ensure that any PostScript and/or PDF output post-processing
+ uses only Type 1 fonts and that every step in the generation
+ process uses the appropriate paper size.

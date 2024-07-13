@@ -22,6 +22,9 @@
 \usepackage{algorithm}
 \usepackage{algorithmicx}
 \usepackage{algpseudocode}
+% \usepackage{multirow}  % 表格-合并单元格
+% \usepackage{booktabs}  % 提供更美观的表格线
+\usepackage{makecell}  % 提供加粗表格线的功能。
 \renewcommand{\algorithmicrequire}{\textbf{Input:}}
 \renewcommand{\algorithmicensure}{\textbf{Output:}}
 % \newcommand{\FUNCTION}[1]{\STATE \textbf{function} \textsc{#1}}
@@ -29,9 +32,13 @@
 \usepackage{graphicx}
 \usepackage{textcomp}
 \usepackage{xcolor}
+\def\figTotalScene{\textwidth}
 \def\figGradAscentAttack{0.5\textwidth}
 \def\figLabelFlip{0.5\textwidth}
 \def\figBackdoorAttack{0.5\textwidth}
+\def\figGradAscentAttackDefense{0.5\textwidth}
+\def\figLabelFlipDefense{0.5\textwidth}
+\def\figBackdoorAttackDefense{0.5\textwidth}
 % \usepackage{svg}
 % \def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
 %     T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
@@ -63,9 +70,9 @@
 
 % 标题
 \title{ViT-MGI: Context-aware Lightweight Malicious Gradient Identification for Federated Vision Transformer Systems against Poisoning Attacks\\
-{\footnotesize \textsuperscript{*}Note: Sub-titles are not captured in Xplore and
-should not be used}
-\thanks{Identify applicable funding agency here. If none, delete this.}
+% {\footnotesize \textsuperscript{*}Note: Sub-titles are not captured in Xplore and
+% should not be used}
+% \thanks{Identify applicable funding agency here. If none, delete this.}
 }
 
 \author{\IEEEauthorblockN{1\textsuperscript{st} Given Name Surname}
@@ -114,15 +121,15 @@ email address or ORCID}
 
 % 结果表明，当前方法对于恶意用户的识别率、恶意用户的识别效率，以及程序自身的鲁棒性都有所提升。我们将其命名为FLDefinder\textcolor{red}{（名字待定）}并发布了其源代码，以方便该领域的未来研究：\href{https://github.com/LetMeFly666/FLDefinder}{https://github.com/LetMeFly666/FLDefinder}\textcolor{red}{（论文投稿前此仓库为Private状态不可访问）}。
 
-随着视觉大模型的不断发展，模型训练时需要越来越多的数据量。因此需要联邦学习的ViT模型(Federated ViT)，在数据不离开多个客户端的前提下进行模型训练，同时捕捉复杂的全局特征\footnote{相比于简单的CNN等，ViT可以更好地捕捉全局信息}。例如FeSTA通过分割学习的ViT模型进行COVID-19的胸部X光片检测，保留数据隐私的同时在多个数据集上实现了性能提升\cite{federatedViT_example}。但是，在实际的应用场景中，可能会存在恶意攻击者攻击污染全局模型的问题。有的攻击者会篡改本地训练出的梯度数据，从而扰乱聚合后的全局模型的效果；有的攻击者会篡改数据集的标签，例如常见的标签翻转\cite{tailAttack_SuchAsLabelFlip}；还有的攻击者会采用更加隐蔽的后门攻击，在训练过程中设计难以被识别的触发器从而达到插入后门的效果\cite{backdoor_001}。
+随着视觉大模型的不断发展，模型训练时需要越来越大的数据量。因此需要联邦学习的ViT模型(Federated ViT)，在数据不离开多个客户端的前提下进行模型训练，同时捕捉复杂的全局特征\footnote{相比于简单的CNN等，ViT可以更好地捕捉全局信息}。例如FeSTA通过分割学习的ViT模型进行COVID-19的胸部X光片检测，保留数据隐私的同时在多个数据集上实现了性能提升\cite{federatedViT_example}。然而，在实际的应用场景中，各式各样的攻击对联邦学习带来了很大的问题。例如，有的攻击者会篡改本地训练出的梯度数据，从而扰乱聚合后的全局模型的效果；有的攻击者会篡改数据集的标签，例如常见的标签翻转，来诱导模型对特定事物造成错误的判断\cite{tailAttack_SuchAsLabelFlip}；还有的攻击者会采用更加隐蔽的后门攻击，在训练过程中设计难以被识别的触发器从而达到插入后门的效果\cite{backdoor_001}。
 
-现已提出了很多防御机制，有通过在服务器上计算每个模型更新与其最近更新之间的欧氏距离之和来选择聚合模型的Krum算法和拓展的multi-Krum算法\cite{aggregation_Krum}，有选择中值或排除边缘值后的平均值作为全局模型的中值算法和裁剪平均算法\cite{aggregation_MedianTrimmedMean}，也有使用主成分分析(Principal Component Analysis, PCA)来检测恶意用户的算法\cite{federatedPCA}，以及通过解决最大团问题(Maximum CliqueProblem, MCP)从而无需无需恶意用户数量这一先验知识的Sniper方案\cite{aggregation_Sniper}。这些数据都能在不同程度上解决恶意用户的攻击问题，但是它们都普遍存在安全和效率冲突的问题。即，安全性较高的算法计算复杂度普遍较高，而计算效率高的算法其安全性未必能得到很好的保证。Fedteratred ViT下这些方法存在效率低、不鲁棒等缺陷。很小的ViT-B/16模型也有86百万级别的参数，相比于参数级别为百万甚至十万的传统CNN模型，即使是线性复杂度的安全检测方法，恶意攻击的检测耗时也要提升几十倍甚至几百倍\footnote{这一句在说参数量大所以原有防御方案效率低}。在庞大的ViT模型的参数中有很多不是那么敏感的成分，这些部分恶意用户于正常用户的区别一般不大，从而可能会降低恶意检测的鲁棒性\footnote{这一句在说参数散多所以原有防御方案鲁棒性差}。
+针对这些攻击，现已提出了很多防御机制，有通过在服务器上计算每个模型更新与其最近更新之间的欧氏距离之和来决定是否聚合模型更新的Krum算法和拓展的multi-Krum算法\cite{aggregation_Krum}，有选择中值或排除边缘值后的平均值作为全局模型的中值算法和裁剪平均算法\cite{aggregation_MedianTrimmedMean}，也有使用主成分分析(Principal Component Analysis, PCA)来检测恶意用户的算法\cite{federatedPCA}，以及通过解决最大团问题(Maximum CliqueProblem, MCP)从而无需恶意用户数量这一先验知识的Sniper方案\cite{aggregation_Sniper}。这些数据都能在不同程度上解决恶意用户的攻击问题，但在Fedteratred ViT场景下这些方法普遍存在效率低、鲁棒性差等缺陷。原因在于很小的ViT-B/16模型也有千万级别的参数，相比于参数级别为百万甚至十万的传统CNN模型，即使是线性复杂度的安全检测方法，在处理Vit场景下的恶意攻击的耗时也要提升几十倍甚至几百倍\footnote{这一句在说参数量大所以原有防御方案效率低}。我们注意到在庞大的ViT模型中，存在大量不活跃的神经元，这些神经元在恶意用户和正常用户之间的差异不明显，从而降低了恶意攻击检测的效率和鲁棒性。\footnote{这一句在说参数散多所以原有防御方案鲁棒性差}。
 
-In this paper，我们提出了一种针对ViT的两阶段的上下文感知轻量级恶意梯度识别方法来提升恶意梯度检测时的效率和鲁棒性。通过放大池化技术\footnote{最终也有可能会决定使用PCA来分析出主成分}和特征层提取技术，在减少计算量的同时去除无效的梯度信息，从而在提升了检测效率的同时提升了恶意检测的鲁棒性。Specifically，对于用户上传上来的梯度信息，首先进行特征层提取，保留对恶意检测有效信息的同时降低数据维度。接着PCA算法对数据进行再次降维和提取，将数据量下降到原来的4\%\footnote{这个值是目前最佳的实验结果，后续可能会变，记得回来修改}，去除无用信息并保留有效信息，同时为后续算法降低了需要处理的数据量大小。随后我们使用隔离森林算法随机挑选剩下梯度中的300\footnote{具体数值同样待定}个特征，从而鉴别恶意用户和良性用户。由于已经使用过主成分分析算法，因此隔离森林算法的输入数据特征都比较明显，因此可以纯随机挑选要计算的维度。最后，我们使用主观逻辑模型\cite{Subjective_Logic_Model}对用户评分并在聚合的过程中附以权重，这样使得聚合结果更加有效的同时减少了由于随机导致的错误封禁\footnote{因为多次都错误封禁一个恶意用户的概率会指数级别的减小}。这样，在ViT这种具有大量参数的模型下，也能够进行很好的联邦学习训练并杜绝可能的潜在的攻击。
+In this paper，我们提出了一种针对ViT的两阶段的上下文感知轻量级恶意梯度识别方法来提升检测恶意用户的效率和鲁棒性。我们通过特征层提取和主成分分析算法（PCA）去除无效的梯度信息，从而在提升检测效率的同时提升了检测的鲁棒性。Specifically，对于用户上传上来的梯度信息，模型首先进行特征层提取，保留有效信息的同时降低数据维度。接着使用PCA算法对数据进行再次降维。两次降维之后，我们成功在不降低检测准确率的情况下将数据维度下降到原来的0.4\%。随后我们使用隔离森林算法依据提取出的梯度特征鉴别恶意用户和良性用户。最后，我们使用主观逻辑模型\cite{Subjective_Logic_Model}进行时域累计的用户评分并在聚合梯度信息的过程中加以考虑，这样使得判断结果更好的同时减少了由于随机森林的随机性而导致的错误判定\footnote{因为多次都错误封禁一个恶意用户的概率会指数级别的减小}。这样，在ViT这种具有大量参数的模型下，我们的模型也能够进行很好的联邦学习训练并杜绝可能的潜在的攻击。
 
-我们在CIFAR-10、CIFAR-100、xxx\footnote{待确认}上做了有关模型效率以及有关识别鲁棒性的实验，在处理时间上相比先进的xx\footnote{待确认，找个最近提出的但复杂度较高的算法}算法降低了80\%。模型鲁棒性方面，单纯的隔离森林的识别准确率非常低，这是由梯度中有大量的接近0的值所导致的。而对于使用放大池化来减少计算量并增强鲁棒性的算法\cite{betterTogether}，虽然能极大程度地减少计算量，但在ViT的拜占庭攻击下对鲁棒性会起到相反的效果。相比于单纯的PCA算法，我们的识别准确率由70\%提升到了95\%。
+我们在CIFAR-10、MNIST、OrganAMNIST等数据集上做了有关模型效率以及有关识别鲁棒性的实验，结果显示在处理时间上，我们的模型比先进的PCA方法降低了大约70\%。此外模型在准确率和F1分数上较PCA方法都有较大提升。同时，我们对比了池化技术来减少计算量并增强鲁棒性的算法，结果显示，相较于池化方法，我们的方法在效率和鲁棒性方面均有较大优势\cite{betterTogether}。
 
-我们将其命名为ViT-MGI并发布了其源代码，以方便该领域的未来研究：\href{https://github.com/LetMeFly666/FLDefinder}{https://github.com/LetMeFly666/FLDefinder}\footnote{论文投稿前此仓库为Private状态不可访问}。
+我们将模型命名为ViT-MGI并发布了其源代码，以方便该领域的未来研究：\href{https://github.com/LetMeFly666/FLDefinder}{https://github.com/LetMeFly666/FLDefinder}\footnote{论文投稿前此仓库为Private状态不可访问}。
 
 % 下面是关于摘要的大纲
 
@@ -143,7 +150,7 @@ In this paper，我们提出了一种针对ViT的两阶段的上下文感知轻�
 
 \begin{IEEEkeywords}
 
-Federated Learning, Gradient Analysis, Malicious User Detection, Subjective Logic Model\footnote{关键词待定}
+Federated Learning, Gradient Analysis, Malicious User Detection, Subjective Logic Model, Feature Layer Extraction
 \end{IEEEkeywords}
 
 \section{Introduction}
@@ -158,11 +165,11 @@ Federated Learning, Gradient Analysis, Malicious User Detection, Subjective Logi
 
 联邦学习中一个流行的训练模型是Transformer\cite{transformer}，Transformer模型引入了自注意力机制（self-attention mechanism），能够在处理输入序列时捕捉长距离依赖关系，从而显著提高了模型的性能和并行处理能力，并且能够有效地被运用在翻译\cite{transformer_translation}、音频分类\cite{transformer_audioClassification}、计算机视觉(ViT)\cite{transformer_vision}等多个领域。联邦学习中对ViT进行训练或微调引起了业界和学术界的广泛兴趣\cite{transformer_gotInterest}，该系列模型需要大量的设计以及强大的计算资源，因此在训练过程中需要特别注意保护模型的完整性。\footnote{这段Intro参考Mitigating Adversarial写的}
 
-假设存在一些恶意客户端，在客户端向服务器发送训练得到的梯度之前，首先对梯度进行更改，例如对梯度取反，从而严重破环全局模型的训练质量。或者会存在一些恶意客户端，篡改本地数据，诱导中央服务器学到一些错误特征从而达到植入后门的效果\footnote{这里要看最终是否实现了backdoor的攻防}。这些行为都会严重影响最终的训练结果，甚至会造成一些安全性的问题。
+假设存在一些恶意客户端，在客户端向服务器发送训练得到的梯度之前，首先对梯度进行更改，例如对梯度取反，从而严重破环全局模型的训练质量。或者会存在一些恶意客户端，篡改本地数据，诱导中央服务器学到一些错误特征从而达到植入后门的效果。这些行为都会严重影响最终的训练结果，甚至会造成一些安全性的问题。
 
-In this work，我们专注于对针对恶意用户上传恶意梯度从而攻击服务器模型进行系统的防御。图1\footnote{\textcolor{red}{TODO:} 画一张小图，可能不画了到最后}描述了在正常训练中存在梯度上升攻击的恶意用户的情况。图的左侧是参与训练的客户端，它们首先接收中央服务器广播下发的全局模型，然后使用本地数据对模型进行一定量的训练，之后再将训练得到的梯度变化汇总到中央服务器上，从而完成一轮总的训练。假设在参与训练的客户端中出现了一些恶意用户，它们出于一定的目的想要干扰中央服务器的模型训练结果。于是它们在将训练得到的梯度变化上传到中央服务器之前，先对这些梯度进行一些修改操作，例如将梯度取反等，从而试图下降总模型的训练效果。
+In this work，我们专注于对针对恶意用户上传恶意梯度从而攻击服务器模型进行系统的防御。图\hyperref[fig:totalScene]{\ref{fig:totalScene}}描述了在正常训练中存在梯度上升攻击的恶意用户的情况。图的下方是参与训练的客户端，它们首先接收中央服务器广播下发的全局模型，然后使用本地数据对模型进行一定量的训练，之后再将训练得到的梯度变化汇总到中央服务器上，从而完成一轮总的训练。假设在参与训练的客户端中出现了一些恶意用户（如图\hyperref[fig:totalScene]{\ref{fig:totalScene}}中的ViT-I），它们出于一定的目的想要干扰中央服务器的模型训练结果。于是它们在将训练得到的梯度变化上传到中央服务器之前，先对这些梯度进行一些修改操作，例如将梯度取反等，从而试图下降总模型的训练效果。
 
-In this Paper，我们提出了ViT-MGI：对于如图所示的恶意用户的攻击行为，ViT-MGT是一种有效的防御手段。它首先对模型上传上来的梯度进行主成分萃取操作，减少后续识别所需数据量的同时，成功剔除了大量无效的信息。这些“无效”信息是由于ViT模型的体积较大所导致的，对于单次训练，大量（例如ViT-B/16具有86百万级别的参数量）的梯度变化中，有很多梯度的变化几乎为0。如果不进行主成分萃取操作，这些对于攻击识别几乎无效的大量数据不仅会增加后续计算的复杂度，还会增加攻击者和正常参与者梯度之间的相似程度。在进行主成分萃取以及后续的识别时，我们只关注ViT模型的patch\_embed层、attn层以及mlp层\footnote{待定}，因为我们通过实验I\footnote{记得最后写好实验后增加引用链接}得知，存在梯度上升、标签翻转、后门植入等常见的攻击时，这些层的变化最为敏感，而其他层变化普遍较小，甚至有几乎全0的层变化的存在。经过一系列的处理，剩下的就只有我们所关注的敏感的少量的梯度变化了。最后，使用异常检测手段例如隔离森林，就能轻松准确地识别出恶意攻击的存在。考虑到实际训练过程中可能会存在很多随机因素，因此可能会出现一定的错误识别现象，即一些正常用户的梯度偶尔可能会和恶意用户较为相似，从而导致此轮次被错误识别为恶意行为用户，我们使用主观逻辑模型来对每个用户评分，依据用户权重来聚合模型的同时，也减少了由于随机因素导致的错误封禁。正常用户单次被识别为恶意的概率很小，多次连续被识别为恶意的概率更是会呈指数级别地减小。
+In this Paper，我们提出了ViT-MGI：对于如图所示的恶意用户的攻击行为，ViT-MGT是一种有效的防御手段。它首先对模型上传上来的梯度进行主成分萃取操作，减少后续识别所需数据量的同时，成功剔除了大量无效的信息。这些“无效”信息是由于ViT模型的体积较大所导致的，对于单次训练，大量（例如ViT-B/16具有86百万级别的参数量）的梯度变化中，有很多梯度的变化几乎为0。如果不进行主成分萃取操作，这些对于攻击识别几乎无效的大量数据不仅会增加后续计算的复杂度，还会增加攻击者和正常参与者梯度之间的相似程度。在进行主成分萃取以及后续的识别时，我们只关注ViT模型中一些对于攻击比较敏感的层，因为我们通过实验\hyperref[exp:exp_layer]{\ref{exp:exp_layer}}得知，存在梯度上升、标签翻转、后门植入等常见的甚至未知的攻击时，这些层的变化最为敏感，而其他层变化普遍较小，甚至有几乎全0的层变化的存在。经过一系列的处理，剩下的就只有我们所关注的敏感的少量的梯度变化了。最后，使用异常检测手段例如隔离森林，就能轻松准确地识别出恶意攻击的存在。考虑到实际训练过程中可能会存在很多随机因素，因此可能会出现一定的错误识别现象，即一些正常用户的梯度偶尔可能会和恶意用户较为相似，从而导致此轮次被错误识别为恶意行为用户，我们使用主观逻辑模型来对每个用户评分，依据用户权重来聚合模型的同时，也减少了由于随机因素导致的错误封禁。正常用户单次被识别为恶意的概率很小，多次连续被识别为恶意的概率更是会呈指数级别地减小。
 
 Our main contributions are as follows:
 
@@ -170,6 +177,7 @@ Our main contributions are as follows:
     \item 我们证明，在针对ViT这种体积较大的模型时，可以使用特征层提取的方式来降低数据维度并提升恶意梯度的识别效率。
     \item 我们的ViT-MGI能够结合多轮训练结果跟随并感知恶意用户的行为，从而提升了整体的鲁棒性，具有较高的检测准确率，在多种攻击下都能在6轮次以内找出并封禁所有恶意客户端。
     \item 我们的ViT-MGI能够在较高的效率下完成恶意客户端的识别。
+    \item 我们能够在多达$30\%$攻击者进行不明显攻击时有效识别恶意攻击者。
     \item 我们设计了一系列巧妙的实验证明了ViT-MGI的有效性。
 \end{enumerate}
 
@@ -292,10 +300,16 @@ The rest of the paper is as follows. \hyperref[sec:related]{§\ref{sec:related}}
 
 我们首先在\hyperref[sec:method_basic]{§\ref{sec:method_basic}}部分解释ViT-MGI的基本流程，然后在\hyperref[sec:method_layer]{§\ref{sec:method_layer}}部分介绍特征层提取的具体实现步骤。接着，我们会在\hyperref[sec:method_PCA]{§\ref{sec:method_PCA}}介绍主成分分析的具体实现方法及其原理，并在\hyperref[sec:method_forest]{§\ref{sec:method_forest}}部分介绍隔离森林是如何工作的。最后，我们将在\hyperref[sec:method_subjective]{§\ref{sec:method_subjective}}部分介绍如何使用主观逻辑模型来评估客户端的可信度。
 
-\subsection{基本流程}
+\subsection{Overviwe}
 \label{sec:method_basic}
 
-图二\footnote{TODO: 待画图}\footnote{subsectiond “基本流程”也可以修改为“overview”}展示了ViT-MGI算法的整个流程。首先，ViT-MGI收集各个客户端上传上来的梯度变化结果，然后根据\hyperref[exp:exp_layer]{§\ref{exp:exp_layer}}得出的结论将攻击识别所关注的层提取出来。如图三\footnote{TODO: 待画图：特征层提取}所示，对于某个客户端$c_i$，我们将其上传到中央服务器的梯度记为$g_i$，ViT-MGI首先将$g_i$中的mtta.hidden层、jsj.iiuio层\footnote{待确定}等全部提取出来重新拼接到一个向量中并记为$\phi(g_i)$，之后使用主成分分析算法对这些数据中的主成分进行分析。
+\begin{figure*}[htbp]
+    \centerline{\includegraphics[width=\figTotalScene]{pics/000-totalScene.pdf}}
+    \caption{ViT Total Scene}
+    \label{fig:totalScene}
+\end{figure*}
+
+图\hyperref[fig:totalScene]{\ref{fig:totalScene}}展示了ViT-MGI算法的整个流程。首先，ViT-MGI收集各个客户端上传上来的梯度变化结果，然后根据\hyperref[exp:exp_layer]{§\ref{exp:exp_layer}}得出的结论将攻击识别所关注的层提取出来。如图三\footnote{TODO: 待画图：特征层提取}所示，对于某个客户端$c_i$，我们将其上传到中央服务器的梯度记为$g_i$，ViT-MGI首先将$g_i$中的encoder层5的attention.attention.key.bias等全部提取出来重新拼接到一个向量中并记为$\phi(g_i)$，之后使用主成分分析算法对这些数据中的主成分进行分析。
 
 对于提取特征层之后的权重$\phi(g_i)$，我们使用主成分分析算法对其进行二次降维，将降维之后的权重记为$\phi'(g_i)$。主成分分析通过线性变换将高维数据投影到低维空间，保留数据中最重要的变化信息。通过这种方式，ViT-MGI算法能够在保留数据主要信息的同时，显著减少数据的维度，从而提高后续攻击检测算法的效率和准确性。
 
@@ -306,9 +320,9 @@ The rest of the paper is as follows. \hyperref[sec:related]{§\ref{sec:related}}
 \subsection{特征层提取}
 \label{sec:method_layer}
 
-如图三\footnote{TODO: 待画图：特征层提取}所示，对于某个客户端$c_i$，其上传到中央服务器的梯度变化数量为$85806346$个。将其上传到中央服务器的梯度记为$g_i$，ViT-MGI首先将$g_i$中的mtta.hidden层、jsj.iiuio层\footnote{待确定}等全部提取出来，之后将其重新拼接到一个向量中。我们将这些提取出来的更加有效的数据记为$\phi(g_i)$，则经过特征层提取这一步的操作后，每个客户端的参数数量将由$g_i$的$85806346$个减少到$\phi(g_i)$的$12500$个。
+就模型ViT-B/16而言，对于某个客户端$c_i$，其上传到中央服务器的梯度变化数量为$85806346$个。将其上传到中央服务器的梯度记为$g_i$，ViT-MGI首先将通过实验\hyperref[exp:exp_layer]{§\ref{exp:exp_layer}}得到的对于攻击敏感的层全部提取出来，之后将其重新拼接到一个向量中。我们将这些提取出来的更加有效的数据记为$\phi(g_i)$，则经过特征层提取这一步的操作后，每个客户端的参数数量将由$g_i$的$85806346$个减少到$\phi(g_i)$的$\frac18$左右。
 
-这些特征层是由我们经过一系列实验得到的。在实验\hyperref[exp:exp_layer]{§\ref{exp:exp_layer}}中，我们将ViT模型划分为了$2048$\footnote{待确定}个层，其中每个层大约平均就只有几十万个参数。
+这些特征层是由我们经过一系列实验得到的。在实验\hyperref[exp:exp_layer]{§\ref{exp:exp_layer}}中，我们将ViT模型划分为了$200$个层，其中每个层大约平均就只有几十万个参数。
 
 % \begin{algorithm}
 %     \caption{特征层提取}
@@ -338,7 +352,7 @@ The rest of the paper is as follows. \hyperref[sec:related]{§\ref{sec:related}}
             \State $\phi(g_i)\gets\emptyset$
             \For{$l\in g_i.layers()$}
                 \If{$l.name \in L_{keep}$}
-                    \State $\phi(g_i) += l$
+                    \State $\phi(g_i).append(l)$
                 \EndIf
             \EndFor
             \State \Return $\phi(g_i)$
@@ -562,7 +576,7 @@ PCA是一种常用的降维技术，通过将高维数据投影到一个低维�
 % 存储：SSD，提供高速数据读写支持
 % 为了确保实验结果的可靠性和再现性，我们使用了标准的数据集，包括MNIST数据集和一个大型工业产品推荐数据集。实验中使用的具体硬件配置能够提供充足的计算资源，支持大规模深度学习模型的训练和复杂算法的测试。
 
-我们的实验在一台操作系统为Ubuntu 20.04.3 LTS的计算机上进行，CPU为Intel i9-10940X 28核；内存为128GB DDR4；显卡为2张NVIDIA GeForce RTX 3090，显存各 24GB。我们实验使用的模型为ViT-B/16，并在ViT-L/16、ViT-H/14上进行了验证。我们实验使用的数据集为CIFAR-10，同时在MNIST、OrganAMNIST上进行了验证。对于攻击的方式，我们验证了包括属于拜占庭攻击的梯度上升攻击、标签翻转攻击以及属于非拜占庭攻击的后门植入攻击等多种攻击方式。关于防御方式，我们使用并对比了ViT-MGI、PCA、隔离森林、池化放大\cite{betterTogether}+PCA、池化放大+隔离森林，以及常用的或最新的余弦相似度计算、Fang算法以及FLTrust算法。最终证实了我们算法的有效性。
+我们的实验在一台操作系统为Ubuntu 20.04.3 LTS的计算机上进行，CPU为Intel i9-10940X 28核；内存为128GB DDR4；显卡为2张NVIDIA GeForce RTX 3090，显存各 24GB。我们实验使用的模型为ViT-B/16，并在ViT-L/16、ViT-H/14上进行了验证。我们实验使用的数据集为CIFAR-10，同时在MNIST、OrganAMNIST上进行了验证。对于攻击的方式，我们验证了包括属于拜占庭攻击的梯度上升攻击、标签翻转攻击以及属于非拜占庭攻击的后门植入攻击等多种攻击方式。关于防御方式，我们使用并对比了ViT-MGI、PCA、隔离森林、池化放大\cite{betterTogether}+PCA、池化放大+隔离森林，以及常用的或最新的余弦相似度计算、Fang算法以及FLTrust算法。最终证实了我们算法的有效性。在我们的开源仓库中保留了ViT-MGI研究过程中的每次的实验记录与结果。
 
 \subsection{攻击有效性实验}
 \label{exp:attack}
@@ -582,7 +596,7 @@ PCA是一种常用的降维技术，通过将高维数据投影到一个低维�
     \label{fig:gradAscent}
 \end{figure}
 
-这是因为，假设每个客户端的数据质量均匀分布、训练效果预期一直，那么每个客户端对于模型准确率的贡献的期望值都是相同的。将这个期望值记为$E$，则正常情况下所有客户端对模型的总贡献期望为$\frac{E\times num}{num}=E$。若其中有$20\%$的客户端将自己的梯度变化量取反，则单个恶意客户端对模型准确率的贡献的期望值是$-E$，所有客户端对模型的总贡献期望为$\frac{E\times num\times(1-20\%)+(-E)\times num\times 20\%}{num} = 0.6E$。同理，若每个客户端将自己的梯度变化量乘以$-2$，则单个客户端的贡献期望为$-2E$，所有客户端贡献总期望为$0.4E$。若单个恶意客户端将自己梯度乘以$-3$，则总贡献期望为$0.2E$。若单个恶意客户端将自己的梯度变化量乘以$-4$，则总贡献期望为$0$。由这个对比试验的结果图TODO:可以看出，梯度上升攻击是有效的。
+这是因为，假设每个客户端的数据质量均匀分布、训练效果预期一直，那么每个客户端对于模型准确率的贡献的期望值都是相同的。将这个期望值记为$E$，则正常情况下所有客户端对模型的总贡献期望为$\frac{E\times num}{num}=E$。若其中有$20\%$的客户端将自己的梯度变化量取反，则单个恶意客户端对模型准确率的贡献的期望值是$-E$，所有客户端对模型的总贡献期望为$\frac{E\times num\times(1-20\%)+(-E)\times num\times 20\%}{num} = 0.6E$。同理，若每个客户端将自己的梯度变化量乘以$-2$，则单个客户端的贡献期望为$-2E$，所有客户端贡献总期望为$0.4E$。若单个恶意客户端将自己梯度乘以$-3$，则总贡献期望为$0.2E$。若单个恶意客户端将自己的梯度变化量乘以$-4$，则总贡献期望为$0$。由图\hyperref[fig:gradAscent]{\ref{fig:gradAscent}}所示的对比试验结果可以看出，梯度上升攻击是有效的。
 
 \subsubsection{\textbf{标签翻转攻击}}
 \label{exp:attack:label}
@@ -622,6 +636,34 @@ PCA是一种常用的降维技术，通过将高维数据投影到一个低维�
 % 余弦相似度分析、PCA+余弦相似度分析、特征层提取+PCA+余弦相似度分析、池化放大+PCA+余弦相似度分析；隔离森林、PCA+隔离森林、特征层提取+PCA+隔离森林、池化放大+隔离森林；ViT-MGI。
 
 TODO:防御成功性实验：比如进行1000次训练，我们的防御效果。500次在两轮次内全部抓到，...。没有多抓漏抓的情况。
+\subsubsection{\textbf{防御有效性实验}}
+\label{exp:defenseEffectiveness}
+
+为了证明我们的防御是有效的，我们在上述三种攻击实验的基础上增加了我们的ViT-MGI防御。
+
+\begin{figure}[htbp]
+    \centerline{\includegraphics[width=\figGradAscentAttackDefense]{pics/004-gradAttack-attackRate=1-withDefense.pdf}}
+    \caption{grad ascent attack and defense}
+    \label{fig:gradAscentDefense}
+\end{figure}
+
+如图\hyperref[fig:gradAscentDefense]{\ref{fig:gradAscentDefense}}所示展示了有$20\%$的恶意客户端进行强度为$1$的梯度上升攻击时的防御效果。蓝色的曲线表示没有攻击者时的准确率随轮次变化的曲线，绿色的表示有攻击者且不进行防御时的准确率变化，而橘色的则表示有攻击者且有ViT-MGI防御时的准确率变化。从图中可以看出，有攻击者而不防御时，模型准确率不如没有攻击者时的准确率。而加上ViT-MGI防御之后，ViT-MGI经过几轮次确定出恶意用户，很快模型的准确率就达到了没有攻击者时候的水平。这说明ViT-MGI是有效的。虽然有攻击但不防御时最终准确率和没有攻击时的差距不是很大，但这是由于攻击强度较低导致的。能够在较低的攻击强度下检测到攻击者并进行防御更能体现ViT-MGI的有效性。
+
+\begin{figure}[htbp]
+    \centerline{\includegraphics[width=\figLabelFlipDefense]{pics/005-LabelFlippingAttack-withDefense.pdf}}
+    \caption{label flipping attack and defense}
+    \label{fig:labelFlipDefense}
+\end{figure}
+
+如图\hyperref[fig:labelFlipDefense]{\ref{fig:labelFlipDefense}}所示展示了有$20\%$的恶意客户端进行标签翻转攻击时的防御效果，攻击方式和\hyperref[exp:attack:label]{\ref{exp:attack:label}}中所描述的一致。蓝色的曲线代表有攻击者但不加防御时的准确率随轮次变化的曲线，绿色的表示有攻击者但加上ViT-MGI防御时的准确率结果。橙色的是没有防御的情况下标签翻转攻击的成功率，而红色的曲线则表示加上ViT-MGI防御时标签翻转攻击成功率。可以看出，若不加防御，标签翻转攻击会导致模型准确率下降，且最终导致有大约$20\%$的标签被错误的识别成目标标签。而加上防御之后，标签攻击的称功率几乎为零，偶尔出现的几个被错误识别成目标标签的情况可能是由模型的总准确率无法达到$100\%$所导致的。这说明ViT-MGI对标签翻转攻击的防御是有效的。
+
+\begin{figure}[htbp]
+    \centerline{\includegraphics[width=\figBackdoorAttackDefense]{pics/006-backdoorAttack-WithDefense.pdf}}
+    \caption{backdoor attack and defense}
+    \label{fig:backdoorAttackDefense}
+\end{figure}
+
+如图\hyperref[fig:backdoorAttackDefense]{\ref{fig:backdoorAttackDefense}}所示展示了有$20\%$的恶意客户端进后门植入攻击时的防御效果，攻击方式和\hyperref[exp:attack:backdoor]{\ref{exp:attack:backdoor}}中所描述的一致。其中蓝色的曲线、绿色的曲线、紫色的曲线分别代表有攻击但没有防御时的模型准确率、后门植入攻击成功率、带有后门的图像的识别准确率；而曾色、红色、棕色的曲线分别代表有防御时的模型准确率、后门植入攻击成功率、带有后门的图像的识别准确率。由紫色曲线和棕色曲线可以看出，后门攻击若不加防御，则对于植入后门的图片的预测准确率很低，而加上ViT-MGI后带有后门的图像的准确率也能接近模型总水平；由绿色曲线和红色曲线能更加清晰地看出ViT-MGI的防御效果，若不加防御则植入后门的图片的成功率能稳定在$70\%$左右，而加上ViT-MGI的防御后植入后门的图片的成功率几乎恒定为$0\%$，偶尔几次被错误识别成目标标签的情况很可能是由于模型准确率无法达到$100\%$所导致的。这说明ViT-MGI对后门植入攻击的防御是有效的。
 
 \subsubsection{\textbf{防御准确度衡量}}
 \label{exp:defense_accuracy}
@@ -648,27 +690,143 @@ TODO:防御成功性实验：比如进行1000次训练，我们的防御效果�
     \text{F1 Score} = \frac{2 \times \text{Precision} \times \text{Recall}}{\text{Precision} + \text{Recall}}
     \]
 
-4. 假阳性率 (False Positive Rate, FPR): 假阳性率衡量的是实际正常客户端中被错误识别为恶意客户端的比例。
-    \[
-    \text{FPR} = \frac{FP}{FP + TN}
-    \]
+% 4. 假阳性率 (False Positive Rate, FPR): 假阳性率衡量的是实际正常客户端中被错误识别为恶意客户端的比例。
+%     \[
+%     \text{FPR} = \frac{FP}{FP + TN}
+%     \]
 
-5. 假阴性率 (False Negative Rate, FNR): 假阴性率衡量的是实际恶意客户端中被错误识别为正常客户端的比例。
-    \[
-    \text{FNR} = \frac{FN}{TP + FN}
-    \]
+% 5. 假阴性率 (False Negative Rate, FNR): 假阴性率衡量的是实际恶意客户端中被错误识别为正常客户端的比例。
+%     \[
+%     \text{FNR} = \frac{FN}{TP + FN}
+%     \]
 
-6. 准确率 (Accuracy): 准确率衡量的是所有客户端中被正确识别的比例。
+4. 准确率 (Accuracy): 准确率衡量的是所有客户端中被正确识别的比例。
     \[
     \text{Accuracy} = \frac{TP + TN}{TP + TN + FP + FN}
     \]
 
-7. ROC曲线 (ROC Curve): ROC曲线是以假阳性率为横轴，真阳性率（即召回率）为纵轴绘制的曲线，用来评价分类器的性能。
-    - AUC值 (Area Under Curve): AUC值是ROC曲线下的面积，数值越接近1，说明分类器性能越好。
+% 7. ROC曲线 (ROC Curve): ROC曲线是以假阳性率为横轴，真阳性率（即召回率）为纵轴绘制的曲线，用来评价分类器的性能。
+%     - AUC值 (Area Under Curve): AUC值是ROC曲线下的面积，数值越接近1，说明分类器性能越好。
 
 % 由图\hyperref[fig:backdoorAttack]{\ref{fig:backdoorAttack}}可以看出，后门植入攻击能够在几乎不影响模型准确率的情况下进行，其十分难以被察觉。随着时间的推移，可能会出现越来越多的新型攻击方式，其同样很难被发掘。
 
+对于梯度上升攻击，攻击者梯度乘以的倍率的绝对值越大则攻击效果越好；对于标签翻转攻击和后门植入攻击，篡改的数据集比例越大则攻击效果越好；但攻击效果更好的同时就越容易被检测出来。对于恶意客户端的比例，更大的攻击者占比会导致更难被算法识别。
+
+% \begin{table}[htbp]
+%     \caption{Grad Ascent Defense Result}
+%     \begin{center}
+%     \begin{tabular}{|c|c|c|c|c|c|}
+%     \hline
+%     \textbf{Defend Method} & \textbf{Recall} & \textbf{Precision} & \textbf{F1 Score} & \textbf{Accuracy} & \textbf{Time(s)} \\
+%     \hline 
+%     \textbf{Head} & \textbf{\textit{Table column subhead}}& \textbf{\textit{Subhead}}& \textbf{\textit{Subhead}} \\
+%     \hline
+%     copy& More table copy$^{\mathrm{a}}$& &  \\
+%     \hline
+%     \end{tabular}
+%     \label{tab1}
+%     \end{center}
+% \end{table}
+
+\begin{table}[htbp]
+    \caption{Grad Ascent Defense Result}
+    \vspace{-10pt}  % 这个是我加的，要不然标头与表格离得太远了
+    \begin{center}
+    \resizebox{\linewidth}{!}{
+    \begin{tabular}{|c|c|c|c|c|c|}
+    \hline
+    \textbf{Defend Method} & \textbf{Recall} & \textbf{Precision} & \textbf{F1 Score} & \textbf{Accuracy} & \textbf{Time(s)} \\
+    \Xhline{3\arrayrulewidth}
+    Both-layer & 1.0 & 1.0 & 1.0 & 1.0 & 261 \\
+    \hline
+    Both-only & 0.992 & 1.0 & 0.996 & 0.994 & 1012 \\
+    \hline
+    Both-pooling & 0.992 & 0.996 & 0.994 & 0.991 & 605 \\
+    \Xhline{3\arrayrulewidth}
+    PCA-layer & 0.988 & 0.969 & 0.978 & 0.966 & 307 \\
+    \hline
+    PCA-only & 0.98 & 0.951 & 0.965 & 0.944 & 991 \\
+    \hline
+    PCA-pooling & 0.961 & 0.904 & 0.932 & 0.887 & 593 \\
+    \Xhline{3\arrayrulewidth}
+    Forest-layer & 0.984 & 0.86 & 0.918 & 0.859 & 463 \\
+    \hline
+    Forest-pooling & 0.922 & 0.814 & 0.865 & 0.769 & 313 \\
+    \hline
+    \end{tabular}}
+    \label{tab:gradAscent}
+    \end{center}
+\end{table}
+
+表\hyperref[tab:gradAscent]{\ref{tab:gradAscent}}展示了各种防御算法针对梯度上升攻击的恶意客户端识别结果。其中Defend Method中，前缀代表防御方式，后缀代表数据提取方式。其中前缀有PCA、Forest、以及Both三种，PCA代表主成分分析加余弦相似度检测，Forest代表隔离森林检测，Both代表ViT-MGI中使用的先进行主成分分析再进行隔离森林的检测方式；而后缀有layer、pooling以及none三种，分别代表通过提取特征层的方式、放大池化的方式以及不进行数据提取操作者三种方式。若参数量较大的ViT模型下若不经过数据提取操作直接应用隔离森林算法，则会造成大量的时间及内存消耗，我们这台\hyperref[exp:settings]{\ref{exp:settings}}中提到的只有128G内存的机器无法满足纯粹的隔离森林算法，因此面对数据量较大的ViT模型时，有理由认为单纯的隔离森林不是一种有效的防御检测方法。
+
+不论是使用PCA+余弦相似度检测还是使用PCA+隔离森林，可以发现较新的放大池化\cite{betterTogether}算法在面对数据量较大的ViT模型时，都会导致识别效果变坏。而不论是使用PCA+余弦相似度检测还是使用PCA+隔离森林还是使用隔离森林算法，使用我们发现的特征层提取算法都能提升识别准确度。
+
+\begin{table}[htbp]
+    \caption{Grad Ascent Defense Result  TODO:}
+    \vspace{-10pt} % 减少标题和表格之间的间距
+    \begin{center}
+    \resizebox{\linewidth}{!}{
+    \begin{tabular}{|c|c|c|c|c|c|}
+    \hline
+    \textbf{Defend Method} & \textbf{Recall} & \textbf{Precision} & \textbf{F1 Score} & \textbf{Accuracy} & \textbf{Time(s)} \\
+    \Xhline{3\arrayrulewidth}
+    Both-layer & 0.991 & 1.0 & 0.995 & 0.994 & 273 \\
+    \hline
+    Both-only & 0.991 & 1.0 & 0.995 & 0.994 & 964 \\
+    \hline
+    Both-pooling & 0.987 & 0.974 & 0.98 & 0.972 & 579 \\
+    \Xhline{3\arrayrulewidth}
+    PCA-layer & 1.0 & 0.896 & 0.945 & 0.919 & 346 \\
+    \hline
+    PCA-only & 0.987 & 0.867 & 0.923 & 0.884 & 1017 \\
+    \hline
+    PCA-pooling & 0.955 & 0.823 & 0.884 & 0.825 & 608 \\
+    \Xhline{3\arrayrulewidth}
+    Forest-layer & 0.991 & 0.844 & 0.912 & 0.866 & 472 \\
+    \hline
+    Forest-pooling & 0.973 & 0.829 & 0.895 & 0.841 & 327 \\
+    \hline
+    \end{tabular}}
+    \label{tab:labelFlip}
+    \end{center}
+\end{table}
+
+\begin{table}[htbp]
+    \caption{Grad Ascent Defense Result}
+    \vspace{-10pt} % 减少标题和表格之间的间距
+    \begin{center}
+    \resizebox{\linewidth}{!}{
+    \begin{tabular}{|c|c|c|c|c|c|}
+    \hline
+    \textbf{Defend Method} & \textbf{Recall} & \textbf{Precision} & \textbf{F1 Score} & \textbf{Accuracy} & \textbf{Time(s)} \\
+    \Xhline{3\arrayrulewidth}
+    Both-layer & 0.969 & 0.995 & 0.982 & 0.975 & 269 \\
+    \hline
+    Both-only & 0.982 & 0.952 & 0.967 & 0.953 & 1041 \\
+    \hline
+    Both-pooling & 0.955 & 0.982 & 0.968 & 0.956 & 623 \\
+    \Xhline{3\arrayrulewidth}
+    PCA-layer & 0.996 & 0.861 & 0.924 & 0.884 & 316 \\
+    \hline
+    PCA-only & 0.987 & 0.847 & 0.912 & 0.866 & 955 \\
+    \hline
+    PCA-pooling & 0.991 & 0.838 & 0.908 & 0.859 & 586 \\
+    \Xhline{3\arrayrulewidth}
+    Forest-layer & 0.996 & 0.772 & 0.87 & 0.791 & 471 \\
+    \hline
+    Forest-pooling & 0.951 & 0.801 & 0.87 & 0.8 & 352 \\
+    \hline
+    \end{tabular}}
+    \label{tab:backdoor}
+    \end{center}
+\end{table}
+
+表\hyperref[tab:labelFlip]{\ref{tab:labelFlip}}和表\hyperref[tab:backdoor]{\ref{tab:backdoor}}分别表示了标签翻转攻击和后门植入攻击时的各种算法防御效果对比，其中标签翻转攻击以及后门植入攻击都有$30\%$的攻击者，其中后门植入攻击的攻击者只将本地$35\%$的数据进行了后门植入处理。若后门攻击时每个恶意客户端都将本地$100\%$的数据进行后门植入，则上述方法都能较容易地发现并识别恶意客户端。因此我们降低了攻击者本地数据的篡改比例，以增加识别难度。结果发现，和表\hyperref[tab:gradAscent]{\ref{tab:gradAscent}}的结果类似，放大池化算法都只能降低计算量，同时降低识别精度。而我们的特征层提取算法能够在降低计算量的同时聚合有效信息，使得后续计算效果更加准确。
+
 \subsubsection{\textbf{防御速度衡量}}
+
+由不进行数据提取即后缀为only的两个实验可以看出，不论使用何种算法都会消耗大量的时间，这对于平均耗时只有165秒的训练过程来说是无法接受的。
 
 我们在相同环境、相同训练参数的情况下分别进行了上述实验，并统计了正常训练耗时、以及应用上各种防御方式后的总耗时。将防御方式的耗时减去正常训练的平均耗时，即可视为各种防御方式所带来的额外的时间开销。
 
@@ -801,7 +959,6 @@ TODO:防御成功性实验：比如进行1000次训练，我们的防御效果�
 
 \section{Conclusion}
 \label{sec:conclusion}
-
 % 单独PCA太慢又不准，单独隔离森林纯乱抓（因为无效数据太多了），池化（最大池、平均池）+PCA、池化+隔离森林都只能提升计算效率，但是准确率会下降很多。
 
 % 最终发现提取特征层后，先进行PCA降维，再进行隔离森林，结合上主观逻辑模型，效果最好。
