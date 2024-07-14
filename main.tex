@@ -25,6 +25,7 @@
 % \usepackage{multirow}  % 表格-合并单元格
 % \usepackage{booktabs}  % 提供更美观的表格线
 \usepackage{makecell}  % 提供加粗表格线的功能。
+\renewcommand{\thefootnote}{\fnsymbol{footnote}}
 \renewcommand{\algorithmicrequire}{\textbf{Input:}}
 \renewcommand{\algorithmicensure}{\textbf{Output:}}
 % \newcommand{\FUNCTION}[1]{\STATE \textbf{function} \textsc{#1}}
@@ -75,44 +76,65 @@
 % \thanks{Identify applicable funding agency here. If none, delete this.}
 }
 
-\author{\IEEEauthorblockN{1\textsuperscript{st} Given Name Surname}
-\IEEEauthorblockA{\textit{dept. name of organization (of Aff.)} \\
-\textit{name of organization (of Aff.)}\\
-City, Country \\
-email address or ORCID}
-\and
-\IEEEauthorblockN{2\textsuperscript{nd} Given Name Surname}
-\IEEEauthorblockA{\textit{dept. name of organization (of Aff.)} \\
-\textit{name of organization (of Aff.)}\\
-City, Country \\
-email address or ORCID}
-\and
-\IEEEauthorblockN{3\textsuperscript{rd} Given Name Surname}
-\IEEEauthorblockA{\textit{dept. name of organization (of Aff.)} \\
-\textit{name of organization (of Aff.)}\\
-City, Country \\
-email address or ORCID}
-\and
-\IEEEauthorblockN{4\textsuperscript{th} Given Name Surname}
-\IEEEauthorblockA{\textit{dept. name of organization (of Aff.)} \\
-\textit{name of organization (of Aff.)}\\
-City, Country \\
-email address or ORCID}
-\and
-\IEEEauthorblockN{5\textsuperscript{th} Given Name Surname}
-\IEEEauthorblockA{\textit{dept. name of organization (of Aff.)} \\
-\textit{name of organization (of Aff.)}\\
-City, Country \\
-email address or ORCID}
-\and
-\IEEEauthorblockN{6\textsuperscript{th} Given Name Surname}
-\IEEEauthorblockA{\textit{dept. name of organization (of Aff.)} \\
-\textit{name of organization (of Aff.)}\\
-City, Country \\
-email address or ORCID}
+\author{
+
+\IEEEauthorblockN{
+    Shujie Yang\href{https://orcid.org/0000-0002-9597-2659}{\includegraphics[width=8pt]{pics/orcid.png}}$^1$, 
+    Tengfei Li\href{https://orcid.org/0000-0001-5412-8198}{\includegraphics[width=8pt]{pics/orcid.png}}$^1$, 
+    % Zan Zhou\href{https://orcid.org/0000-0003-2388-2280}{\includegraphics[width=8pt]{pics/orcid.png}}$^1$\footnotemark[1], 
+    Zan Zhou\href{https://orcid.org/0000-0003-2388-2280}{\includegraphics[width=8pt]{pics/orcid.png}}$^1$\footnotemark\textsuperscript{\hyperref[fn:corresponding]{*}},
+    Su Yao\href{https://orcid.org/0000-0001-5165-2787}{\includegraphics[width=8pt]{pics/orcid.png}}$^2$, 
+    Tianyu Xu\href{https://orcid.org/0009-0001-5694-476X}{\includegraphics[width=8pt]{pics/orcid.png}}$^1$,
+    Bo Wang\href{https://orcid.org/0009-0004-7889-5390}{\includegraphics[width=8pt]{pics/orcid.png}}$^1$
+}
+\IEEEauthorblockA{\textit{$^1$School of Computer Science, Beijing University of Posts and Telecommunications, Beijing, China}\\
+\textit{$^2$Beijing National Research Center for Information Science and Technology, Tsinghua University, Beijing, China}
+}
+
+% \and
+
+% \IEEEauthorblockN{1\textsuperscript{st} Shujie Yang}
+% \IEEEauthorblockA{\textit{School of Computer Science} \\
+% \textit{BUPT}\\
+% Beijing, China \\
+% \href{https://orcid.org/0000-0002-9597-2659}{0000-0002-9597-2659\includegraphics[width=8pt]{pics/orcid.png}}}
+% \and
+% \IEEEauthorblockN{2\textsuperscript{nd} Given Name Surname}
+% \IEEEauthorblockA{\textit{dept. name of organization (of Aff.)} \\
+% \textit{name of organization (of Aff.)}\\
+% City, Country \\
+% email address or ORCID}
+% \and
+% \IEEEauthorblockN{3\textsuperscript{rd} Given Name Surname}
+% \IEEEauthorblockA{\textit{dept. name of organization (of Aff.)} \\
+% \textit{name of organization (of Aff.)}\\
+% City, Country \\
+% email address or ORCID}
+% \and
+% \IEEEauthorblockN{4\textsuperscript{th} Given Name Surname}
+% \IEEEauthorblockA{\textit{dept. name of organization (of Aff.)} \\
+% \textit{name of organization (of Aff.)}\\
+% City, Country \\
+% email address or ORCID}
+% \and
+% \IEEEauthorblockN{5\textsuperscript{th} Given Name Surname}
+% \IEEEauthorblockA{\textit{dept. name of organization (of Aff.)} \\
+% \textit{name of organization (of Aff.)}\\
+% City, Country \\
+% email address or ORCID}
+% \and
+% \IEEEauthorblockN{6\textsuperscript{th} Given Name Surname}
+% \IEEEauthorblockA{\textit{dept. name of organization (of Aff.)} \\
+% \textit{name of organization (of Aff.)}\\
+% City, Country \\
+% email address or ORCID}
+
 }
 
 \maketitle
+
+% \footnotetext[1]{Corresponding author. Email: zan.zhou@example.com}
+\footnotetext[1]{Corresponding author:\label{fn:corresponding} \href{mailto:zan.zhou@bupt.edu.cn}{zan.zhou@bupt.edu.cn}}
 
 % 摘要
 \begin{abstract}
@@ -123,21 +145,27 @@ email address or ORCID}
 
 % 随着视觉大模型的不断发展，模型训练时需要越来越大的数据量。因此需要联邦学习的ViT模型(Federated ViT)，在数据不离开多个客户端的前提下进行模型训练，同时捕捉复杂的全局特征\footnote{相比于简单的CNN等，ViT可以更好地捕捉全局信息}。例如FeSTA通过分割学习的ViT模型进行COVID-19的胸部X光片检测，保留数据隐私的同时在多个数据集上实现了性能提升\cite{federatedViT_example}。然而，在实际的应用场景中，各式各样的攻击对联邦学习带来了很大的问题。例如，有的攻击者会篡改本地训练出的梯度数据，从而扰乱聚合后的全局模型的效果；有的攻击者会篡改数据集的标签，例如常见的标签翻转，来诱导模型对特定事物造成错误的判断\cite{tailAttack_SuchAsLabelFlip}；还有的攻击者会采用更加隐蔽的后门攻击，在训练过程中设计难以被识别的触发器从而达到插入后门的效果\cite{backdoor_001}。
 
-With the continuous development of large vision models, model training requires increasingly large datasets. Therefore, Federated Learning for Vision Transformer models (Federated ViT) is needed to train models without data leaving multiple clients, while capturing complex global features. For example, FeSTA uses a Federated ViT model for COVID-19 chest X-ray detection, enhancing performance across multiple datasets while preserving data privacy\cite{federatedViT_example}. However, in practical applications, various attacks pose significant challenges to federated learning. For instance, some attackers may tamper with locally trained gradient data, thereby disrupting the effectiveness of the aggregated global model; some attackers may alter dataset labels, such as the common label-flipping attack, to mislead the model into making incorrect judgments on specific matters\cite{tailAttack_SuchAsLabelFlip}; and others may employ more covert backdoor attacks, designing triggers during training that are difficult to detect, thus achieving the insertion of backdoors\cite{backdoor_001}.
+% With the continuous development of large vision models, model training requires increasingly large datasets. Therefore, Federated Learning for Vision Transformer models (Federated ViT) is needed to train models without data leaving multiple clients, while capturing complex global features. For example, FeSTA uses a Federated ViT model for COVID-19 chest X-ray detection, enhancing performance across multiple datasets while preserving data privacy\cite{federatedViT_example}. However, in practical applications, various attacks pose significant challenges to federated learning. For instance, some attackers may tamper with locally trained gradient data, thereby disrupting the effectiveness of the aggregated global model; some attackers may alter dataset labels, such as the common label-flipping attack, to mislead the model into making incorrect judgments on specific matters\cite{tailAttack_SuchAsLabelFlip}; and others may employ more covert backdoor attacks, designing triggers during training that are difficult to detect, thus achieving the insertion of backdoors\cite{backdoor_001}.
 
-% 针对这些攻击，已有多种防御机制被提出，包括Krum算法、multi-Krum算法\cite{aggregation_Krum}、中值算法、裁剪平均算法\cite{aggregation_MedianTrimmedMean}、Principal Component Analysis(PCA)\cite{federatedPCA}和Sniper方案\cite{aggregation_Sniper}等。这些方法在一定程度上能解决恶意用户的攻击问题，但在Federated ViT场景下普遍存在效率低、鲁棒性差的缺陷。ViT模型的参数量巨大，导致现有防御方案在处理ViT场景下的恶意攻击时耗时显著增加。此外，ViT模型中大量不活跃的神经元在恶意用户和正常用户之间差异不明显，从而降低了检测效率和鲁棒性。
+% % 针对这些攻击，已有多种防御机制被提出，包括Krum算法、multi-Krum算法\cite{aggregation_Krum}、中值算法、裁剪平均算法\cite{aggregation_MedianTrimmedMean}、Principal Component Analysis(PCA)\cite{federatedPCA}和Sniper方案\cite{aggregation_Sniper}等。这些方法在一定程度上能解决恶意用户的攻击问题，但在Federated ViT场景下普遍存在效率低、鲁棒性差的缺陷。ViT模型的参数量巨大，导致现有防御方案在处理ViT场景下的恶意攻击时耗时显著增加。此外，ViT模型中大量不活跃的神经元在恶意用户和正常用户之间差异不明显，从而降低了检测效率和鲁棒性。
 
-To counter these attacks, various defense mechanisms have been proposed, including the Krum algorithm, multi-Krum algorithm\cite{aggregation_Krum}, median algorithm, trimmed mean algorithm\cite{aggregation_MedianTrimmedMean}, Principal Component Analysis (PCA)\cite{federatedPCA}, and the Sniper scheme\cite{aggregation_Sniper}. These methods can partially address malicious user attacks, but they generally exhibit low efficiency and poor robustness in Federated ViT scenarios. The vast number of parameters in ViT models leads to significantly increased processing time for existing defense schemes when dealing with malicious attacks in ViT contexts. Furthermore, the large number of inactive neurons in ViT models show minimal differences between malicious and benign users, thereby reducing detection efficiency and robustness.
+% To counter these attacks, various defense mechanisms have been proposed, including the Krum algorithm, multi-Krum algorithm\cite{aggregation_Krum}, median algorithm, trimmed mean algorithm\cite{aggregation_MedianTrimmedMean}, Principal Component Analysis (PCA)\cite{federatedPCA}, and the Sniper scheme\cite{aggregation_Sniper}. These methods can partially address malicious user attacks, but they generally exhibit low efficiency and poor robustness in Federated ViT scenarios. The vast number of parameters in ViT models leads to significantly increased processing time for existing defense schemes when dealing with malicious attacks in ViT contexts. Furthermore, the large number of inactive neurons in ViT models show minimal differences between malicious and benign users, thereby reducing detection efficiency and robustness.
 
-% In this paper，我们提出了一种针对ViT的两阶段的上下文感知轻量级恶意梯度识别方法来提升检测恶意用户的效率和鲁棒性。我们通过特征层提取和主成分分析算法（PCA）去除无效的梯度信息，从而在提升检测效率的同时提升了检测的鲁棒性。Specifically，对于用户上传上来的梯度信息，模型首先进行特征层提取，保留有效信息的同时降低数据维度。接着使用PCA算法对数据进行再次降维。两次降维之后，我们成功在不降低检测准确率的情况下将数据维度下降到原来的0.4\%。随后我们使用隔离森林算法依据提取出的梯度特征鉴别恶意用户和良性用户。最后，我们使用主观逻辑模型\cite{Subjective_Logic_Model}进行时域累计的用户评分并在聚合梯度信息的过程中加以考虑，这样使得判断结果更好的同时减少了由于随机森林的随机性而导致的错误判定\footnote{因为多次都错误封禁一个恶意用户的概率会指数级别的减小}。这样，在ViT这种具有大量参数的模型下，我们的模型也能够进行很好的联邦学习训练并杜绝可能的潜在的攻击。
+% % In this paper，我们提出了一种针对ViT的两阶段的上下文感知轻量级恶意梯度识别方法来提升检测恶意用户的效率和鲁棒性。我们通过特征层提取和主成分分析算法（PCA）去除无效的梯度信息，从而在提升检测效率的同时提升了检测的鲁棒性。Specifically，对于用户上传上来的梯度信息，模型首先进行特征层提取，保留有效信息的同时降低数据维度。接着使用PCA算法对数据进行再次降维。两次降维之后，我们成功在不降低检测准确率的情况下将数据维度下降到原来的0.4\%。随后我们使用隔离森林算法依据提取出的梯度特征鉴别恶意用户和良性用户。最后，我们使用主观逻辑模型\cite{Subjective_Logic_Model}进行时域累计的用户评分并在聚合梯度信息的过程中加以考虑，这样使得判断结果更好的同时减少了由于随机森林的随机性而导致的错误判定\footnote{因为多次都错误封禁一个恶意用户的概率会指数级别的减小}。这样，在ViT这种具有大量参数的模型下，我们的模型也能够进行很好的联邦学习训练并杜绝可能的潜在的攻击。
 
-In this paper, we propose a two-stage, context-aware lightweight malicious gradient identification method specifically for ViT to improve the efficiency and robustness of malicious user detection. By using feature layer extraction and Principal Component Analysis, we eliminate invalid gradient information, thereby enhancing both detection efficiency and robustness. Specifically, for the gradient information uploaded by users, the model first performs feature layer extraction to retain useful information while reducing data dimensions. Then, PCA is used to further reduce the dimensions. After these two stages of dimensionality reduction, we successfully reduced the data dimensions to 0.4\% of the original without compromising detection accuracy. Next, we use the Isolation Forest algorithm to distinguish between malicious and benign users based on the extracted gradient features. Finally, we employ a Subjective Logic Model\cite{Subjective_Logic_Model} to perform temporal accumulation of user scores and consider these scores during gradient aggregation. This approach not only improves the accuracy of judgments but also reduces erroneous identifications caused by the randomness of the Isolation Forest. Thus, even with the large number of parameters in ViT models, our method ensures effective federated learning training and mitigates potential attacks.
+% In this paper, we propose a two-stage, context-aware lightweight malicious gradient identification method specifically for ViT to improve the efficiency and robustness of malicious user detection. By using feature layer extraction and Principal Component Analysis, we eliminate invalid gradient information, thereby enhancing both detection efficiency and robustness. Specifically, for the gradient information uploaded by users, the model first performs feature layer extraction to retain useful information while reducing data dimensions. Then, PCA is used to further reduce the dimensions. After these two stages of dimensionality reduction, we successfully reduced the data dimensions to 0.4\% of the original without compromising detection accuracy. Next, we use the Isolation Forest algorithm to distinguish between malicious and benign users based on the extracted gradient features. Finally, we employ a Subjective Logic Model\cite{Subjective_Logic_Model} to perform temporal accumulation of user scores and consider these scores during gradient aggregation. This approach not only improves the accuracy of judgments but also reduces erroneous identifications caused by the randomness of the Isolation Forest. Thus, even with the large number of parameters in ViT models, our method ensures effective federated learning training and mitigates potential attacks.
 
-% 我们在CIFAR-10、MNIST、OrganAMNIST等数据集上做了有关模型效率以及有关识别鲁棒性的实验，结果显示在处理时间上，我们的模型比先进的PCA方法降低了大约70\%。此外模型在准确率和F1分数上较PCA方法都有较大提升。同时，我们对比了池化技术来减少计算量并增强鲁棒性的算法，结果显示，相较于池化方法，我们的方法在效率和鲁棒性方面均有较大优势\cite{betterTogether}。
+% % 我们在CIFAR-10、MNIST、OrganAMNIST等数据集上做了有关模型效率以及有关识别鲁棒性的实验，结果显示在处理时间上，我们的模型比先进的PCA方法降低了大约70\%。此外模型在准确率和F1分数上较PCA方法都有较大提升。同时，我们对比了池化技术来减少计算量并增强鲁棒性的算法，结果显示，相较于池化方法，我们的方法在效率和鲁棒性方面均有较大优势\cite{betterTogether}。
 
-% 我们将模型命名为ViT-MGI并发布了其源代码，以方便该领域的未来研究：\href{https://github.com/LetMeFly666/FLDefinder}{https://github.com/LetMeFly666/FLDefinder}\footnote{论文投稿前此仓库为Private状态不可访问}。
+% % 我们将模型命名为ViT-MGI并发布了其源代码，以方便该领域的未来研究：\href{https://github.com/LetMeFly666/FLDefinder}{https://github.com/LetMeFly666/FLDefinder}\footnote{论文投稿前此仓库为Private状态不可访问}。
 
-We conducted experiments on datasets such as CIFAR-10, MNIST, and OrganAMNIST to evaluate the efficiency and robustness of our model. The results show that our model reduces processing time by approximately 70\% compared to the advanced PCA method. Moreover, our model significantly improves accuracy and F1 scores compared to the PCA method. Additionally, we compared pooling techniques aimed at reducing computational load and enhancing robustness. The results indicate that our method offers substantial advantages in both efficiency and robustness compared to pooling methods\cite{betterTogether}.
+% We conducted experiments on datasets such as CIFAR-10, MNIST, and OrganAMNIST to evaluate the efficiency and robustness of our model. The results show that our model reduces processing time by approximately 70\% compared to the advanced PCA method. Moreover, our model significantly improves accuracy and F1 scores compared to the PCA method. Additionally, we compared pooling techniques aimed at reducing computational load and enhancing robustness. The results indicate that our method offers substantial advantages in both efficiency and robustness compared to pooling methods\cite{betterTogether}.
+
+With the continuous development of large vision models, training requires increasingly large datasets. Federated Learning for Vision Transformer models (Federated ViT) is needed to train models without data leaving multiple clients while capturing complex global features. However, various attacks, such as tampering with gradient data, label-flipping, and backdoor attacks, pose significant challenges to federated learning. Existing defense mechanisms like the Krum algorithm, PCA, and Sniper scheme exhibit low efficiency and poor robustness in Federated ViT scenarios due to the vast number of parameters and inactive neurons.
+
+This paper proposes a two-stage, context-aware lightweight malicious gradient identification method for ViT to improve the efficiency and robustness of malicious user detection. By using feature layer extraction and Principal Component Analysis (PCA), we eliminate invalid gradient information, enhancing both detection efficiency and robustness. We reduced data dimensions to 0.4\% of the original without compromising detection accuracy. The Isolation Forest algorithm distinguishes between malicious and benign users based on extracted gradient features, and a Subjective Logic Model performs temporal accumulation of user scores to improve accuracy and reduce erroneous identifications.
+
+Experiments on CIFAR-10, MNIST, and OrganAMNIST datasets show that our model reduces processing time by approximately 70\% compared to advanced PCA methods, while significantly improving accuracy and F1 scores. Additionally, our method offers substantial advantages in both efficiency and robustness compared to pooling techniques aimed at reducing computational load.
 
 We have named our model ViT-MGI and released its source code to facilitate future research in this field: \href{https://github.com/LetMeFly666/FLDefinder}{https://github.com/LetMeFly666/FLDefinder}.
 
@@ -171,33 +199,43 @@ Federated Learning, Gradient Analysis, Malicious User Detection, Subjective Logi
 
 % \textcolor{red}{上一段其实是抄的BetterTogether}
 
-% 如今，边缘设备的激增使得数据量爆炸式增长\cite{edgeComputing_explosiveGrowth}，数据隐私的重要性也正显得越来越重要。2024年，全球大约75\%的人口将受到现代隐私法规的保护。这些法规的扩展推动了隐私实践的实施，并且大型企业在数据隐私方面的年均预算预计将超过250万美元\cite{dataPrivacyIsEncreasing}。为了解决这一问题，一种越来越流行的方式是使用联邦学习\cite{useFL2solve}。联邦学习（Federated Learning, FL）是一种分布式机器学习方法，旨在在多个分散的数据源上进行协作训练，同时避免将数据集中存储。FL由McMahan等人于2016年提出，通过在客户端设备上进行本地模型训练，并仅上传模型更新到中央服务器进行聚合，从而保护数据隐私和安全。一旦聚合，服务器将更新后的模型广播回所有客户端。节点将在本地更新其模型，并使用更新后的模型与新一批本地数据进行下一轮本地训练。这种方法不仅减少了数据传输的需求，还能在不暴露原始数据的情况下，利用分散的数据源提高模型性能\cite{FLGenesisArticle}\footnote{这段Intro参考Mitigating Adversarial写的}。
+% % 如今，边缘设备的激增使得数据量爆炸式增长\cite{edgeComputing_explosiveGrowth}，数据隐私的重要性也正显得越来越重要。2024年，全球大约75\%的人口将受到现代隐私法规的保护。这些法规的扩展推动了隐私实践的实施，并且大型企业在数据隐私方面的年均预算预计将超过250万美元\cite{dataPrivacyIsEncreasing}。为了解决这一问题，一种越来越流行的方式是使用联邦学习\cite{useFL2solve}。联邦学习（Federated Learning, FL）是一种分布式机器学习方法，旨在在多个分散的数据源上进行协作训练，同时避免将数据集中存储。FL由McMahan等人于2016年提出，通过在客户端设备上进行本地模型训练，并仅上传模型更新到中央服务器进行聚合，从而保护数据隐私和安全。一旦聚合，服务器将更新后的模型广播回所有客户端。节点将在本地更新其模型，并使用更新后的模型与新一批本地数据进行下一轮本地训练。这种方法不仅减少了数据传输的需求，还能在不暴露原始数据的情况下，利用分散的数据源提高模型性能\cite{FLGenesisArticle}\footnote{这段Intro参考Mitigating Adversarial写的}。
 
-The surge in edge devices has led to an explosive growth in data volume\cite{edgeComputing_explosiveGrowth}, making data privacy increasingly important. By 2024, approximately 75\% of the global population will be protected by modern privacy regulations. These regulations are driving the implementation of privacy practices, with large companies expected to allocate over \$2.5 million annually to data privacy\cite{dataPrivacyIsEncreasing}. To address this issue, an increasingly popular approach is the use of Federated Learning (FL)\cite{useFL2solve}. Federated Learning is a distributed machine learning method designed to collaboratively train models across multiple decentralized data sources while avoiding centralized data storage. Proposed by McMahan et al. in 2016, FL involves local model training on client devices, with only the model updates being uploaded to a central server for aggregation, thereby safeguarding data privacy and security. Once aggregated, the server broadcasts the updated model back to all clients. The clients then update their local models and use the updated model with a new batch of local data for the next round of training. This approach not only reduces the need for data transmission but also leverages decentralized data sources to improve model performance without exposing the original data\cite{FLGenesisArticle}.
+% The surge in edge devices has led to an explosive growth in data volume\cite{edgeComputing_explosiveGrowth}, making data privacy increasingly important. By 2024, approximately 75\% of the global population will be protected by modern privacy regulations. These regulations are driving the implementation of privacy practices, with large companies expected to allocate over \$2.5 million annually to data privacy\cite{dataPrivacyIsEncreasing}. To address this issue, an increasingly popular approach is the use of Federated Learning (FL)\cite{useFL2solve}. Federated Learning is a distributed machine learning method designed to collaboratively train models across multiple decentralized data sources while avoiding centralized data storage. Proposed by McMahan et al. in 2016, FL involves local model training on client devices, with only the model updates being uploaded to a central server for aggregation, thereby safeguarding data privacy and security. Once aggregated, the server broadcasts the updated model back to all clients. The clients then update their local models and use the updated model with a new batch of local data for the next round of training. This approach not only reduces the need for data transmission but also leverages decentralized data sources to improve model performance without exposing the original data\cite{FLGenesisArticle}.
 
-% 联邦学习中一个流行的训练模型是Transformer\cite{transformer}，Transformer模型引入了自注意力机制（self-attention mechanism），能够在处理输入序列时捕捉长距离依赖关系，从而显著提高了模型的性能和并行处理能力，并且能够有效地被运用在翻译\cite{transformer_translation}、音频分类\cite{transformer_audioClassification}、计算机视觉(ViT)\cite{transformer_vision}等多个领域。联邦学习中对ViT进行训练或微调引起了业界和学术界的广泛兴趣\cite{transformer_gotInterest}，该系列模型需要大量的设计以及强大的计算资源，因此在训练过程中需要特别注意保护模型的完整性。\footnote{这段Intro参考Mitigating Adversarial写的}
+% % 联邦学习中一个流行的训练模型是Transformer\cite{transformer}，Transformer模型引入了自注意力机制（self-attention mechanism），能够在处理输入序列时捕捉长距离依赖关系，从而显著提高了模型的性能和并行处理能力，并且能够有效地被运用在翻译\cite{transformer_translation}、音频分类\cite{transformer_audioClassification}、计算机视觉(ViT)\cite{transformer_vision}等多个领域。联邦学习中对ViT进行训练或微调引起了业界和学术界的广泛兴趣\cite{transformer_gotInterest}，该系列模型需要大量的设计以及强大的计算资源，因此在训练过程中需要特别注意保护模型的完整性。\footnote{这段Intro参考Mitigating Adversarial写的}
 
-A popular training model in federated learning is the Transformer\cite{transformer}, which introduces the self-attention mechanism. This mechanism captures long-range dependencies when processing input sequences, significantly enhancing the model's performance and parallel processing capabilities. The Transformer model has been effectively applied in various fields, including translation\cite{transformer_translation}, audio classification\cite{transformer_audioClassification}, and computer vision (Vision Transformer)\cite{transformer_vision}. Training or fine-tuning ViT models in federated learning has garnered extensive interest from both industry and academia\cite{transformer_gotInterest}. These models require extensive design and powerful computational resources, making it crucial to ensure the integrity of the model during the training process.
+% A popular training model in federated learning is the Transformer\cite{transformer}, which introduces the self-attention mechanism. This mechanism captures long-range dependencies when processing input sequences, significantly enhancing the model's performance and parallel processing capabilities. The Transformer model has been effectively applied in various fields, including translation\cite{transformer_translation}, audio classification\cite{transformer_audioClassification}, and computer vision (Vision Transformer)\cite{transformer_vision}. Training or fine-tuning ViT models in federated learning has garnered extensive interest from both industry and academia\cite{transformer_gotInterest}. These models require extensive design and powerful computational resources, making it crucial to ensure the integrity of the model during the training process.
 
-% Suppose there are some malicious clients，在客户端向服务器发送训练得到的梯度之前，首先对梯度进行更改，例如对梯度取反，从而严重破环全局模型的训练质量。或者会存在一些恶意客户端，篡改本地数据，诱导中央服务器学到一些错误特征从而达到植入后门的效果。这些行为都会严重影响最终的训练结果，甚至会造成一些安全性的问题。
+% % Suppose there are some malicious clients，在客户端向服务器发送训练得到的梯度之前，首先对梯度进行更改，例如对梯度取反，从而严重破环全局模型的训练质量。或者会存在一些恶意客户端，篡改本地数据，诱导中央服务器学到一些错误特征从而达到植入后门的效果。这些行为都会严重影响最终的训练结果，甚至会造成一些安全性的问题。
 
-Suppose there are some malicious clients. Before sending the locally trained gradients to the server, these clients alter the gradients, such as by reversing their values, thereby severely compromising the training quality of the global model. Additionally, some malicious clients might tamper with local data to mislead the central server into learning incorrect features, effectively inserting a backdoor into the model. These actions can significantly impact the final training results and potentially introduce serious security issues.
+% Suppose there are some malicious clients. Before sending the locally trained gradients to the server, these clients alter the gradients, such as by reversing their values, thereby severely compromising the training quality of the global model. Additionally, some malicious clients might tamper with local data to mislead the central server into learning incorrect features, effectively inserting a backdoor into the model. These actions can significantly impact the final training results and potentially introduce serious security issues.
 
-% 针对这些攻击，现已提出了很多防御机制，有通过在服务器上计算每个模型更新与其最近更新之间的欧氏距离之和来决定是否聚合模型更新的Krum算法和拓展的multi-Krum算法\cite{aggregation_Krum}，有选择中值或排除边缘值后的平均值作为全局模型的中值算法和裁剪平均算法\cite{aggregation_MedianTrimmedMean}，也有使用主成分分析(Principal Component Analysis, PCA)来检测恶意用户的算法\cite{federatedPCA}，以及通过解决最大团问题(Maximum CliqueProblem, MCP)从而无需恶意用户数量这一先验知识的Sniper方案\cite{aggregation_Sniper}。这些数据都能在不同程度上解决恶意用户的攻击问题，但在Fedteratred ViT场景下这些方法普遍存在效率低、鲁棒性差等缺陷。原因在于很小的ViT-B/16模型也有千万级别的参数，相比于参数级别为百万甚至十万的传统CNN模型，即使是线性复杂度的安全检测方法，在处理Vit场景下的恶意攻击的耗时也要提升几十倍甚至几百倍\footnote{这一句在说参数量大所以原有防御方案效率低}。我们注意到在庞大的ViT模型中，存在大量不活跃的神经元，这些神经元在恶意用户和正常用户之间的差异不明显，从而降低了恶意攻击检测的效率和鲁棒性。\footnote{这一句在说参数散多所以原有防御方案鲁棒性差}。
+% % 针对这些攻击，现已提出了很多防御机制，有通过在服务器上计算每个模型更新与其最近更新之间的欧氏距离之和来决定是否聚合模型更新的Krum算法和拓展的multi-Krum算法\cite{aggregation_Krum}，有选择中值或排除边缘值后的平均值作为全局模型的中值算法和裁剪平均算法\cite{aggregation_MedianTrimmedMean}，也有使用主成分分析(Principal Component Analysis, PCA)来检测恶意用户的算法\cite{federatedPCA}，以及通过解决最大团问题(Maximum CliqueProblem, MCP)从而无需恶意用户数量这一先验知识的Sniper方案\cite{aggregation_Sniper}。这些数据都能在不同程度上解决恶意用户的攻击问题，但在Fedteratred ViT场景下这些方法普遍存在效率低、鲁棒性差等缺陷。原因在于很小的ViT-B/16模型也有千万级别的参数，相比于参数级别为百万甚至十万的传统CNN模型，即使是线性复杂度的安全检测方法，在处理Vit场景下的恶意攻击的耗时也要提升几十倍甚至几百倍\footnote{这一句在说参数量大所以原有防御方案效率低}。我们注意到在庞大的ViT模型中，存在大量不活跃的神经元，这些神经元在恶意用户和正常用户之间的差异不明显，从而降低了恶意攻击检测的效率和鲁棒性。\footnote{这一句在说参数散多所以原有防御方案鲁棒性差}。
 
-To counter these attacks, many defense mechanisms have been proposed. The Krum algorithm and its extension, the multi-Krum algorithm\cite{aggregation_Krum}, calculate the sum of Euclidean distances between each model update and its nearest updates to decide whether to aggregate the model updates. The median algorithm and trimmed mean algorithm select the median or the mean after excluding outliers as the global model\cite{aggregation_MedianTrimmedMean}. Principal Component Analysis has also been used to detect malicious users\cite{federatedPCA}, and the Sniper scheme addresses the problem by solving the Maximum Clique Problem\cite{aggregation_Sniper}, which does not require prior knowledge of the number of malicious users. While these methods can address malicious user attacks to varying degrees, they generally suffer from low efficiency and poor robustness in Federated ViT scenarios. The reason is that even a small ViT-B/16 model has tens of millions of parameters, compared to the millions or hundreds of thousands of parameters in traditional CNN models. Even security detection methods with linear complexity require dozens to hundreds of times more processing time when dealing with malicious attacks in ViT scenarios. We observe that in large ViT models, there are many inactive neurons whose differences between malicious and benign users are not apparent, reducing the efficiency and robustness of malicious attack detection.
+% To counter these attacks, many defense mechanisms have been proposed. The Krum algorithm and its extension, the multi-Krum algorithm\cite{aggregation_Krum}, calculate the sum of Euclidean distances between each model update and its nearest updates to decide whether to aggregate the model updates. The median algorithm and trimmed mean algorithm select the median or the mean after excluding outliers as the global model\cite{aggregation_MedianTrimmedMean}. Principal Component Analysis has also been used to detect malicious users\cite{federatedPCA}, and the Sniper scheme addresses the problem by solving the Maximum Clique Problem\cite{aggregation_Sniper}, which does not require prior knowledge of the number of malicious users. While these methods can address malicious user attacks to varying degrees, they generally suffer from low efficiency and poor robustness in Federated ViT scenarios. The reason is that even a small ViT-B/16 model has tens of millions of parameters, compared to the millions or hundreds of thousands of parameters in traditional CNN models. Even security detection methods with linear complexity require dozens to hundreds of times more processing time when dealing with malicious attacks in ViT scenarios. We observe that in large ViT models, there are many inactive neurons whose differences between malicious and benign users are not apparent, reducing the efficiency and robustness of malicious attack detection.
 
-% In this work，我们专注于对针对恶意用户上传恶意梯度从而攻击服务器模型的行为进行系统的防御。图\hyperref[fig:totalScene]{\ref{fig:totalScene}}描述了在正常训练中存在梯度上升攻击的恶意用户的情况。图的下方是参与训练的客户端，它们首先接收中央服务器广播下发的全局模型，然后使用本地数据对模型进行一定量的训练，之后再将训练得到的梯度变化汇总到中央服务器上，从而完成一轮总的训练。假设在参与训练的客户端中出现了一些恶意用户（如图\hyperref[fig:totalScene]{\ref{fig:totalScene}}中的ViT-I），它们出于一定的目的想要干扰中央服务器的模型训练结果。于是它们在将训练得到的梯度变化上传到中央服务器之前，先对这些梯度进行一些修改操作，例如将梯度取反等，从而试图下降总模型的训练效果。
+% % In this work，我们专注于对针对恶意用户上传恶意梯度从而攻击服务器模型的行为进行系统的防御。图\hyperref[fig:totalScene]{\ref{fig:totalScene}}描述了在正常训练中存在梯度上升攻击的恶意用户的情况。图的下方是参与训练的客户端，它们首先接收中央服务器广播下发的全局模型，然后使用本地数据对模型进行一定量的训练，之后再将训练得到的梯度变化汇总到中央服务器上，从而完成一轮总的训练。假设在参与训练的客户端中出现了一些恶意用户（如图\hyperref[fig:totalScene]{\ref{fig:totalScene}}中的ViT-I），它们出于一定的目的想要干扰中央服务器的模型训练结果。于是它们在将训练得到的梯度变化上传到中央服务器之前，先对这些梯度进行一些修改操作，例如将梯度取反等，从而试图下降总模型的训练效果。
 
-In this work, we focus on systematically defending against behaviors where malicious users upload malicious gradients to attack the server model. Figure \hyperref[fig:totalScene]{\ref{fig:totalScene}} illustrates the scenario where malicious users perform gradient ascent attacks during normal training. The bottom part of the figure shows the participating clients, which first receive the global model broadcasted by the central server, then train the model using their local data, and finally upload the resulting gradient changes back to the central server to complete one round of training. Suppose some malicious users are among the participating clients (e.g., ViT-I in Figure \hyperref[fig:totalScene]{\ref{fig:totalScene}}). They aim to disrupt the central server's model training. Before uploading the locally trained gradients, they modify these gradients, such as reversing them, in an attempt to degrade the overall model's training performance.
+% In this work, we focus on systematically defending against behaviors where malicious users upload malicious gradients to attack the server model. Figure \hyperref[fig:totalScene]{\ref{fig:totalScene}} illustrates the scenario where malicious users perform gradient ascent attacks during normal training. The bottom part of the figure shows the participating clients, which first receive the global model broadcasted by the central server, then train the model using their local data, and finally upload the resulting gradient changes back to the central server to complete one round of training. Suppose some malicious users are among the participating clients (e.g., ViT-I in Figure \hyperref[fig:totalScene]{\ref{fig:totalScene}}). They aim to disrupt the central server's model training. Before uploading the locally trained gradients, they modify these gradients, such as reversing them, in an attempt to degrade the overall model's training performance.
 
-% In this Paper，我们提出了ViT-MGI：对于如图所示的恶意用户的攻击行为，ViT-MGT是一种有效的防御手段。它首先对模型上传上来的梯度进行特征层提取和主成分分析操作，减少后续识别所需数据量的同时，成功剔除了大量无效的信息。这些“无效”信息是由于ViT模型的体积较大所导致的，对于单次训练，大量（例如ViT-B/16具有86百万级别的参数量）的梯度变化中，有很多梯度的变化几乎为0。如果不进行降维操作，这些对于攻击识别几乎无效的大量数据不仅会增加后续计算的复杂度，还会增加攻击者和正常参与者梯度之间的相似程度。在进行主成分分析以及后续的识别时，我们只关注ViT模型中一些对于攻击比较敏感的层，因为我们通过实验\hyperref[exp:exp_layer]{\ref{exp:exp_layer}}得知，存在梯度上升、标签翻转、后门植入等常见的甚至未知的攻击时，这些层的变化最为敏感，而其他层变化普遍较小，甚至几乎为0。经过降维处理后就只剩下敏感的少量的权重变化了。最后，使用异常检测手段例如隔离森林，就能轻松准确地识别出恶意攻击的存在。考虑到实际训练过程中可能会存在很多随机因素，因此可能会出现一定的错误识别现象，即一些正常用户的梯度偶尔可能会和恶意用户较为相似，从而导致此轮次被错误识别为恶意行为用户，我们使用主观逻辑模型来对每个用户评分并在聚合梯度信息的过程中加以考虑，显著减少了由于随机因素导致的错误封禁。
+% % In this Paper，我们提出了ViT-MGI：对于如图所示的恶意用户的攻击行为，ViT-MGT是一种有效的防御手段。它首先对模型上传上来的梯度进行特征层提取和主成分分析操作，减少后续识别所需数据量的同时，成功剔除了大量无效的信息。这些“无效”信息是由于ViT模型的体积较大所导致的，对于单次训练，大量（例如ViT-B/16具有86百万级别的参数量）的梯度变化中，有很多梯度的变化几乎为0。如果不进行降维操作，这些对于攻击识别几乎无效的大量数据不仅会增加后续计算的复杂度，还会增加攻击者和正常参与者梯度之间的相似程度。在进行主成分分析以及后续的识别时，我们只关注ViT模型中一些对于攻击比较敏感的层，因为我们通过实验\hyperref[exp:exp_layer]{\ref{exp:exp_layer}}得知，存在梯度上升、标签翻转、后门植入等常见的甚至未知的攻击时，这些层的变化最为敏感，而其他层变化普遍较小，甚至几乎为0。经过降维处理后就只剩下敏感的少量的权重变化了。最后，使用异常检测手段例如隔离森林，就能轻松准确地识别出恶意攻击的存在。考虑到实际训练过程中可能会存在很多随机因素，因此可能会出现一定的错误识别现象，即一些正常用户的梯度偶尔可能会和恶意用户较为相似，从而导致此轮次被错误识别为恶意行为用户，我们使用主观逻辑模型来对每个用户评分并在聚合梯度信息的过程中加以考虑，显著减少了由于随机因素导致的错误封禁。
 
-In this paper, we propose ViT-MGI: an effective defense mechanism against the malicious user attacks depicted in the figure\hyperref[fig:totalScene]{\ref{fig:totalScene}}. ViT-MGI first performs feature layer extraction and principal component analysis on the gradients uploaded by the model. This reduces the amount of data needed for subsequent identification while successfully eliminating a large amount of redundant information. These "redundant" pieces of information arise due to the large size of the ViT model. For instance, in a single training instance, a vast number of gradient changes (e.g., the ViT-B/16 model has 86 million parameters) are nearly zero. Without dimensionality reduction, these largely ineffective data points for attack detection not only increase the complexity of subsequent computations but also heighten the similarity between the gradients of attackers and legitimate participants.
+% In this paper, we propose ViT-MGI: an effective defense mechanism against the malicious user attacks depicted in the figure\hyperref[fig:totalScene]{\ref{fig:totalScene}}. ViT-MGI first performs feature layer extraction and principal component analysis on the gradients uploaded by the model. This reduces the amount of data needed for subsequent identification while successfully eliminating a large amount of redundant information. These "redundant" pieces of information arise due to the large size of the ViT model. For instance, in a single training instance, a vast number of gradient changes (e.g., the ViT-B/16 model has 86 million parameters) are nearly zero. Without dimensionality reduction, these largely ineffective data points for attack detection not only increase the complexity of subsequent computations but also heighten the similarity between the gradients of attackers and legitimate participants.
 
-During PCA and subsequent identification, we focus only on layers of the ViT model that are particularly sensitive to attacks. Our experiments \hyperref[exp:exp_layer]{\ref{exp:exp_layer}} show that these layers exhibit the most significant changes under common and even unknown attacks, such as gradient ascent, label flipping, and backdoor insertion, while other layers exhibit minimal or almost zero changes. After dimensionality reduction, only a small number of sensitive weight changes remain. Finally, we employ anomaly detection methods, such as Isolation Forest, to accurately identify the presence of malicious attacks.
+% During PCA and subsequent identification, we focus only on layers of the ViT model that are particularly sensitive to attacks. Our experiments \hyperref[exp:exp_layer]{\ref{exp:exp_layer}} show that these layers exhibit the most significant changes under common and even unknown attacks, such as gradient ascent, label flipping, and backdoor insertion, while other layers exhibit minimal or almost zero changes. After dimensionality reduction, only a small number of sensitive weight changes remain. Finally, we employ anomaly detection methods, such as Isolation Forest, to accurately identify the presence of malicious attacks.
 
-Given that random factors might exist during actual training, leading to some instances where normal users' gradients occasionally resemble those of malicious users, we use a subjective logic model to score each user. This scoring is considered during gradient aggregation, significantly reducing the likelihood of false bans due to random factors.
+% Given that random factors might exist during actual training, leading to some instances where normal users' gradients occasionally resemble those of malicious users, we use a subjective logic model to score each user. This scoring is considered during gradient aggregation, significantly reducing the likelihood of false bans due to random factors.
+
+The surge in edge devices has led to explosive data growth, making data privacy increasingly important\cite{edgeComputing_explosiveGrowth}. By 2024, approximately 75\% of the global population will be protected by modern privacy regulations, driving large companies to allocate significant resources to data privacy. Federated Learning (FL) addresses this issue by enabling collaborative model training across decentralized data sources while avoiding centralized data storage\cite{useFL2solve}. Proposed by McMahan et al. in 2016, FL involves local model training on client devices, with only model updates uploaded to a central server for aggregation, thus safeguarding data privacy\cite{FLGenesisArticle}.
+
+A popular training model in FL is the Transformer, which introduces the self-attention mechanism to capture long-range dependencies, significantly enhancing performance and parallel processing capabilities\cite{transformer}. The Vision Transformer (ViT) has been effectively applied in various fields, including translation\cite{transformer_translation}, audio classification\cite{transformer_audioClassification}, and computer vision\cite{transformer_vision}. Training ViT models in FL is of great interest to both industry and academia\cite{transformer_gotInterest}, requiring extensive design and computational resources to ensure model integrity.
+
+However, malicious clients can significantly compromise the global model by tampering with locally trained gradients or altering local data to mislead the central server. These actions introduce security issues and degrade training quality. To counter such attacks, various defense mechanisms have been proposed, including the Krum algorithm, PCA, and Sniper scheme\cite{aggregation_Krum, aggregation_MedianTrimmedMean, federatedPCA, aggregation_Sniper}. These methods, however, exhibit low efficiency and robustness in Federated ViT scenarios due to the large number of parameters and inactive neurons in ViT models.
+
+This paper proposes ViT-MGI, a two-stage, context-aware lightweight malicious gradient identification method to improve the efficiency and robustness of malicious user detection in ViT. ViT-MGI uses feature layer extraction and PCA to eliminate invalid gradient information, enhancing detection efficiency and robustness. Experiments show that our model reduces data dimensions to 0.4\% of the original without compromising detection accuracy. The Isolation Forest algorithm distinguishes between malicious and benign users based on extracted gradient features, and a Subjective Logic Model performs temporal accumulation of user scores to improve accuracy and reduce erroneous identifications. This approach ensures effective federated learning training and mitigates potential attacks, even with the large number of parameters in ViT models.
+
+Our experiments on CIFAR-10, MNIST, and OrganAMNIST datasets demonstrate that ViT-MGI reduces processing time by approximately 70\% compared to advanced PCA methods while significantly improving accuracy and F1 scores. This method also offers substantial advantages in both efficiency and robustness compared to pooling techniques aimed at reducing computational load.
 
 Our main contributions are as follows:
 
@@ -370,19 +408,25 @@ We first explain the basic process of ViT-MGI in \hyperref[sec:method_basic]{§\
 
 % 图\hyperref[fig:totalScene]{\ref{fig:totalScene}}展示了ViT-MGI算法的整个流程。首先，ViT-MGI收集各个客户端上传上来的梯度变化结果，然后根据\hyperref[exp:exp_layer]{§\ref{exp:exp_layer}}得出的结论将攻击识别所关注的层提取出来。如图\hyperref[fig:totalScene]{\ref{fig:totalScene}}所示，对于某个客户端$c_i$，我们将其上传到中央服务器的梯度记为$g_i$，ViT-MGI首先将$g_i$中的encoder层5的attention.attention.key.bias等全部提取出来重新拼接到一个向量中并记为$\phi(g_i)$，之后使用主成分分析算法对这些数据中的主成分进行分析。
 
-Figure \hyperref[fig:totalScene]{\ref{fig:totalScene}} illustrates the entire process of the ViT-MGI algorithm. First, ViT-MGI collects the gradient updates uploaded by various clients and then extracts the layers of interest for attack detection based on the conclusions derived in \hyperref[exp:exp_layer]{§\ref{exp:exp_layer}}. As shown in Figure \hyperref[fig:totalScene]{\ref{fig:totalScene}}, for a given client $c_i$, we denote the gradient uploaded to the central server as $g_i$. ViT-MGI initially extracts all elements such as the attention.attention.key.bias from encoder layer 5 within $g_i$, reassembling them into a vector denoted as $\phi(g_i)$. Next, it applies the principal component analysis (PCA) algorithm to analyze the principal components within this data.
+% Figure \hyperref[fig:totalScene]{\ref{fig:totalScene}} illustrates the entire process of the ViT-MGI algorithm. First, ViT-MGI collects the gradient updates uploaded by various clients and then extracts the layers of interest for attack detection based on the conclusions derived in \hyperref[exp:exp_layer]{§\ref{exp:exp_layer}}. As shown in Figure \hyperref[fig:totalScene]{\ref{fig:totalScene}}, for a given client $c_i$, we denote the gradient uploaded to the central server as $g_i$. ViT-MGI initially extracts all elements such as the attention.attention.key.bias from encoder layer 5 within $g_i$, reassembling them into a vector denoted as $\phi(g_i)$. Next, it applies the principal component analysis (PCA) algorithm to analyze the principal components within this data.
 
-% 对于提取特征层之后的权重$\phi(g_i)$，我们使用主成分分析算法对其进行二次降维，将降维之后的权重记为$\phi'(g_i)$。主成分分析通过线性变换将高维数据投影到低维空间，保留数据中最重要的变化信息。通过这种方式，ViT-MGI算法能够在保留数据主要信息的同时，显著减少数据的维度，从而提高后续攻击检测算法的效率和准确性。
+% % 对于提取特征层之后的权重$\phi(g_i)$，我们使用主成分分析算法对其进行二次降维，将降维之后的权重记为$\phi'(g_i)$。主成分分析通过线性变换将高维数据投影到低维空间，保留数据中最重要的变化信息。通过这种方式，ViT-MGI算法能够在保留数据主要信息的同时，显著减少数据的维度，从而提高后续攻击检测算法的效率和准确性。
 
-% 接下来，使用隔离森林算法对降维后的数据进行分析。隔离森林算法通过随机选择特征和分割值来构建树结构，以便有效地隔离数据点。对每个客户端的降维数据 $\phi'(g_i)$ 进行隔离森林分析，得到异常评分 $s_i$，用于识别潜在的恶意客户端。具体来说，隔离森林算法会计算每个数据点被隔离的平均路径长度，异常数据点的路径长度通常较短。
+% % 接下来，使用隔离森林算法对降维后的数据进行分析。隔离森林算法通过随机选择特征和分割值来构建树结构，以便有效地隔离数据点。对每个客户端的降维数据 $\phi'(g_i)$ 进行隔离森林分析，得到异常评分 $s_i$，用于识别潜在的恶意客户端。具体来说，隔离森林算法会计算每个数据点被隔离的平均路径长度，异常数据点的路径长度通常较短。
 
-% 最后，采用主观逻辑模型对每个客户端进行评分。主观逻辑模型根据客户端的历史行为和当前表现，计算其可信度评分 $\sigma_i$。评分结果用于筛选可信客户端，并将这些客户端的梯度加权合并到全局模型中。
+% % 最后，采用主观逻辑模型对每个客户端进行评分。主观逻辑模型根据客户端的历史行为和当前表现，计算其可信度评分 $\sigma_i$。评分结果用于筛选可信客户端，并将这些客户端的梯度加权合并到全局模型中。
 
-For the extracted feature weights $\phi(g_i)$, we apply the PCA algorithm for a second round of dimensionality reduction, resulting in the reduced weights denoted as $\phi'(g_i)$. PCA performs a linear transformation to project high-dimensional data into a lower-dimensional space, preserving the most significant variations in the data. This approach allows the ViT-MGI algorithm to retain the essential information while significantly reducing the data's dimensionality, thereby improving the efficiency and accuracy of subsequent attack detection algorithms.
+% For the extracted feature weights $\phi(g_i)$, we apply the PCA algorithm for a second round of dimensionality reduction, resulting in the reduced weights denoted as $\phi'(g_i)$. PCA performs a linear transformation to project high-dimensional data into a lower-dimensional space, preserving the most significant variations in the data. This approach allows the ViT-MGI algorithm to retain the essential information while significantly reducing the data's dimensionality, thereby improving the efficiency and accuracy of subsequent attack detection algorithms.
 
-Next, the reduced data is analyzed using the isolation forest algorithm. The isolation forest algorithm constructs a tree structure by randomly selecting features and split values to effectively isolate data points. Each client’s reduced data $\phi'(g_i)$ is analyzed using the isolation forest to obtain an anomaly score $s_i$, which is used to identify potential malicious clients. Specifically, the isolation forest algorithm calculates the average path length required to isolate each data point, with anomalous data points typically having shorter path lengths.
+% Next, the reduced data is analyzed using the isolation forest algorithm. The isolation forest algorithm constructs a tree structure by randomly selecting features and split values to effectively isolate data points. Each client’s reduced data $\phi'(g_i)$ is analyzed using the isolation forest to obtain an anomaly score $s_i$, which is used to identify potential malicious clients. Specifically, the isolation forest algorithm calculates the average path length required to isolate each data point, with anomalous data points typically having shorter path lengths.
 
-Finally, a subjective logic model is employed to score each client. The subjective logic model evaluates the trustworthiness score $\sigma_i$ of each client based on their historical behavior and current performance. These scores are used to filter trustworthy clients, and the gradients of these clients are weighted and aggregated into the global model.
+% Finally, a subjective logic model is employed to score each client. The subjective logic model evaluates the trustworthiness score $\sigma_i$ of each client based on their historical behavior and current performance. These scores are used to filter trustworthy clients, and the gradients of these clients are weighted and aggregated into the global model.
+
+Figure \hyperref[fig:totalScene]{\ref{fig:totalScene}} illustrates the entire process of the ViT-MGI algorithm. ViT-MGI first collects gradient updates from various clients and extracts the layers of interest for attack detection based on the conclusions in \hyperref[fig:totalScene]{\ref{fig:totalScene}}. For a given client $c_i$, the gradient uploaded to the central server is denoted as $g_i$. ViT-MGI extracts elements like attention.attention.key.bias from encoder layer 5 within $g_i$, reassembling them into a vector denoted as $\phi(g_i)$. It then applies principal component analysis (PCA) to analyze the principal components within this data.
+
+For the extracted feature weights $\phi(g_i)$, PCA is applied for dimensionality reduction, resulting in reduced weights denoted as $\phi'(g_i)$. Then, the reduced data is analyzed using the isolation forest algorithm. Each client’s reduced data $\phi'(g_i)$ is analyzed to obtain an anomaly score $s_i$, identifying potential malicious clients. The isolation forest calculates the average path length to isolate each data point.
+
+Finally, a subjective logic model evaluates the trustworthiness score $\sigma_i$ of each client based on historical behavior and current performance. These scores filter trustworthy clients, whose gradients are then weighted and aggregated into the global model.
 
 % \subsection{特征层提取}
 \subsection{Feature Layer Extraction}
@@ -455,49 +499,63 @@ These feature layers are identified through a series of experiments. In experime
 \subsection{Principal Component Analysis}
 \label{sec:method_PCA}
 
-% 在完成特征层提取后，我们得到了每个客户端上传的特征向量$\phi(g_i)$。为了进一步简化数据结构并保留主要信息，ViT-MGI算法使用主成分分析对这些特征向量进行处理。
+% % 在完成特征层提取后，我们得到了每个客户端上传的特征向量$\phi(g_i)$。为了进一步简化数据结构并保留主要信息，ViT-MGI算法使用主成分分析对这些特征向量进行处理。
 
-After completing the feature layer extraction, we obtain the feature vectors $\phi(g_i)$ uploaded by each client. To further simplify the data structure and retain the primary information, the ViT-MGI algorithm employs Principal Component Analysis (PCA) to process these feature vectors.
+% After completing the feature layer extraction, we obtain the feature vectors $\phi(g_i)$ uploaded by each client. To further simplify the data structure and retain the primary information, the ViT-MGI algorithm employs Principal Component Analysis (PCA) to process these feature vectors.
 
-% PCA是一种常用的降维技术，通过将高维数据投影到一个低维空间中，保留数据中最重要的变化信息。具体来说，PCA通过线性变换将数据转化为一组新的不相关变量，这些变量称为主成分。主成分按其解释的方差大小排序，前几个主成分保留了数据中的主要信息，从而减少了数据维度。
+% % PCA是一种常用的降维技术，通过将高维数据投影到一个低维空间中，保留数据中最重要的变化信息。具体来说，PCA通过线性变换将数据转化为一组新的不相关变量，这些变量称为主成分。主成分按其解释的方差大小排序，前几个主成分保留了数据中的主要信息，从而减少了数据维度。
 
-% 对于每个客户端的特征向量$\phi(g_i)$，我们首先对其进行中心化处理，即减去其均值：
+% % 对于每个客户端的特征向量$\phi(g_i)$，我们首先对其进行中心化处理，即减去其均值：
 
-% \[
-% \phi(g_i) = \phi(g_i) - \bar{\phi}
-% \]
+% % \[
+% % \phi(g_i) = \phi(g_i) - \bar{\phi}
+% % \]
 
-% 其中，$\bar{\phi}$是所有客户端上传的特征向量的均值。接下来，计算协方差矩阵：
+% % 其中，$\bar{\phi}$是所有客户端上传的特征向量的均值。接下来，计算协方差矩阵：
 
-% \[
-% \mathbf{C} = \frac{1}{N} \sum_{i=1}^N \phi(g_i) \phi(g_i)^T
-% \]
+% % \[
+% % \mathbf{C} = \frac{1}{N} \sum_{i=1}^N \phi(g_i) \phi(g_i)^T
+% % \]
 
-% 然后，对协方差矩阵$\mathbf{C}$进行特征值分解，得到特征值和特征向量：
+% % 然后，对协方差矩阵$\mathbf{C}$进行特征值分解，得到特征值和特征向量：
 
-% \[
-% \mathbf{C} = \mathbf{V} \mathbf{\Lambda} \mathbf{V}^T
-% \]
+% % \[
+% % \mathbf{C} = \mathbf{V} \mathbf{\Lambda} \mathbf{V}^T
+% % \]
 
-% 其中，$\mathbf{\Lambda}$是对角矩阵，其对角元素是协方差矩阵的特征值，$\mathbf{V}$是特征向量矩阵。特征向量矩阵$\mathbf{V}$的每一列是一个主成分的方向。我们选择前$r$个最大的特征值对应的特征向量构成的子空间：
+% % 其中，$\mathbf{\Lambda}$是对角矩阵，其对角元素是协方差矩阵的特征值，$\mathbf{V}$是特征向量矩阵。特征向量矩阵$\mathbf{V}$的每一列是一个主成分的方向。我们选择前$r$个最大的特征值对应的特征向量构成的子空间：
 
-% \[
-% \mathbf{V}_r = [\mathbf{v}_1, \mathbf{v}_2, \ldots, \mathbf{v}_r]
-% \]
+% % \[
+% % \mathbf{V}_r = [\mathbf{v}_1, \mathbf{v}_2, \ldots, \mathbf{v}_r]
+% % \]
 
-% 将原始数据投影到该子空间中，得到降维后的数据：
+% % 将原始数据投影到该子空间中，得到降维后的数据：
 
-% \[
-% \phi'(g_i) = \mathbf{V}_r^T \phi(g_i)
-% \]
+% % \[
+% % \phi'(g_i) = \mathbf{V}_r^T \phi(g_i)
+% % \]
 
-% PCA是一种常用的降维技术，通过线性变换将高维数据投影到低维空间中，保留数据中最重要的变化信息。对于每个客户端的特征向量，我们首先进行中心化处理，然后计算协方差矩阵，并进行特征值分解，选择前几个最大的特征值对应的特征向量构成的子空间，将原始数据投影到该子空间中，得到降维后的数据，从而提高后续攻击检测算法的效率和准确性。
+% % PCA是一种常用的降维技术，通过线性变换将高维数据投影到低维空间中，保留数据中最重要的变化信息。对于每个客户端的特征向量，我们首先进行中心化处理，然后计算协方差矩阵，并进行特征值分解，选择前几个最大的特征值对应的特征向量构成的子空间，将原始数据投影到该子空间中，得到降维后的数据，从而提高后续攻击检测算法的效率和准确性。
 
-PCA is a commonly used dimensionality reduction technique that projects high-dimensional data into a low-dimensional space through linear transformation, retaining the most significant variation information in the data. For each client's feature vector, we first perform centralization, then calculate the covariance matrix, and perform eigenvalue decomposition. We select the subspace formed by the eigenvectors corresponding to the largest eigenvalues and project the original data into this subspace to obtain the reduced-dimension data, thereby improving the efficiency and accuracy of subsequent attack detection algorithms.
+% PCA is a commonly used dimensionality reduction technique that projects high-dimensional data into a low-dimensional space through linear transformation, retaining the most significant variation information in the data. For each client's feature vector, we first perform centralization, then calculate the covariance matrix, and perform eigenvalue decomposition. We select the subspace formed by the eigenvectors corresponding to the largest eigenvalues and project the original data into this subspace to obtain the reduced-dimension data, thereby improving the efficiency and accuracy of subsequent attack detection algorithms.
 
-% 通过这种方式，ViT-MGI算法能够在保留数据主要信息的同时，显著减少数据的维度，从而提高后续攻击检测算法的效率和准确性。
+% % 通过这种方式，ViT-MGI算法能够在保留数据主要信息的同时，显著减少数据的维度，从而提高后续攻击检测算法的效率和准确性。
 
-In this way, the ViT-MGI algorithm can significantly reduce the dimensionality of the data while retaining the main information, thereby improving the efficiency and accuracy of subsequent attack detection algorithms.
+% In this way, the ViT-MGI algorithm can significantly reduce the dimensionality of the data while retaining the main information, thereby improving the efficiency and accuracy of subsequent attack detection algorithms.
+
+% After feature layer extraction, we obtain the feature vectors $\phi(g_i)$ from each client. The ViT-MGI algorithm then uses Principal Component Analysis (PCA) to simplify the data structure while retaining primary information.
+
+% PCA is a dimensionality reduction technique that projects high-dimensional data into a low-dimensional space, capturing the most significant variations. For each client's feature vector, we centralize the data, compute the covariance matrix, and perform eigenvalue decomposition. We select the subspace formed by the eigenvectors with the largest eigenvalues, projecting the original data into this subspace to obtain reduced-dimension data.
+
+% This process significantly reduces data dimensionality while retaining essential information, thus enhancing the efficiency and accuracy of subsequent attack detection algorithms.
+
+% After feature layer extraction, we obtain the feature vectors $\phi(g_i)$ from each client. The ViT-MGI algorithm then employs Principal Component Analysis (PCA) to simplify the data structure while retaining primary information.
+
+% PCA reduces dimensionality by projecting high-dimensional data into a lower-dimensional space, capturing significant variations. For each client's feature vector, we centralize the data, compute the covariance matrix, and perform eigenvalue decomposition. We then project the original data into the subspace formed by the eigenvectors with the largest eigenvalues, obtaining reduced-dimension data.
+
+% This process retains essential information while significantly reducing data dimensionality, enhancing the efficiency and accuracy of subsequent attack detection algorithms.
+
+After feature layer extraction, the ViT-MGI algorithm uses PCA to simplify the data structure while retaining primary information. PCA reduces dimensionality by projecting high-dimensional data into a lower-dimensional space, capturing significant variations. This process retains essential information and enhances the efficiency and accuracy of subsequent attack detection algorithms.
 
 % \subsection{隔离森林}
 \subsection{Isolation Forest}
@@ -505,27 +563,35 @@ In this way, the ViT-MGI algorithm can significantly reduce the dimensionality o
 
 % 在完成主成分分析（PCA）后，我们得到了降维后的数据$\phi'(g_i)$。为了识别潜在的恶意客户端，ViT-MGI算法使用隔离森林（Isolation Forest）算法对这些降维后的数据进行异常检测。
 
-After completing the Principal Component Analysis (PCA), we obtain the dimensionally reduced data $\phi'(g_i)$. To identify potential malicious clients, the ViT-MGI algorithm uses the Isolation Forest algorithm to perform anomaly detection on these reduced data.
+% After completing the PCA, we obtain the dimensionally reduced data $\phi'(g_i)$. To identify potential malicious clients, the ViT-MGI algorithm uses the Isolation Forest algorithm to perform anomaly detection on these reduced data.
 
-% 隔离森林是一种基于树结构的无监督异常检测算法，其核心思想是通过随机选择特征和分割值构建树结构，以便有效地隔离数据点。异常数据点通常更容易被隔离，因为它们在树结构中的路径长度较短。具体来说，隔离森林算法的步骤如下：
+% % 隔离森林是一种基于树结构的无监督异常检测算法，其核心思想是通过随机选择特征和分割值构建树结构，以便有效地隔离数据点。异常数据点通常更容易被隔离，因为它们在树结构中的路径长度较短。具体来说，隔离森林算法的步骤如下：
 
-% 1. 构建森林：首先，随机选择一个子样本集，并从中构建多棵隔离树（iTree）。每棵树通过随机选择特征和分割点来分割数据，直到所有数据点都被完全隔离，或者达到预定的最大树深度。
+% % 1. 构建森林：首先，随机选择一个子样本集，并从中构建多棵隔离树（iTree）。每棵树通过随机选择特征和分割点来分割数据，直到所有数据点都被完全隔离，或者达到预定的最大树深度。
 
-% 2. 计算路径长度：对于每个数据点，计算其在每棵树中的路径长度，即从根节点到叶节点的距离。异常数据点的平均路径长度较短，因为它们更容易被隔离。
+% % 2. 计算路径长度：对于每个数据点，计算其在每棵树中的路径长度，即从根节点到叶节点的距离。异常数据点的平均路径长度较短，因为它们更容易被隔离。
 
-% 3. 计算异常评分：根据路径长度计算每个数据点的异常评分。具体来说，假设数据点$x$在隔离树中的平均路径长度为$h(x)$，则其异常评分$s(x)$定义为：
-%    \[
-%    s(x) = 2^{-\frac{h(x)}{c(n)}}
-%    \]
-% 其中，$c(n)$是一个调整因子，$n$为数据集的样本数量。异常评分$s(x)$越接近1，表示数据点越可能是异常点。
+% % 3. 计算异常评分：根据路径长度计算每个数据点的异常评分。具体来说，假设数据点$x$在隔离树中的平均路径长度为$h(x)$，则其异常评分$s(x)$定义为：
+% %    \[
+% %    s(x) = 2^{-\frac{h(x)}{c(n)}}
+% %    \]
+% % 其中，$c(n)$是一个调整因子，$n$为数据集的样本数量。异常评分$s(x)$越接近1，表示数据点越可能是异常点。
 
-% 隔离森林是一种基于树结构的无监督异常检测算法，通过随机选择特征和分割值构建多棵树，计算每个数据点在树中的路径长度，并根据路径长度计算异常评分，评分越高表示数据点越可能是异常点。
+% % 隔离森林是一种基于树结构的无监督异常检测算法，通过随机选择特征和分割值构建多棵树，计算每个数据点在树中的路径长度，并根据路径长度计算异常评分，评分越高表示数据点越可能是异常点。
 
-Isolation Forest is an unsupervised anomaly detection algorithm based on tree structures. It constructs multiple trees by randomly selecting features and split values, calculates the path length of each data point within the trees, and computes an anomaly score based on the path length. Higher scores indicate a higher likelihood of the data point being an anomaly.
+% Isolation Forest is an unsupervised anomaly detection algorithm based on tree structures. It constructs multiple trees by randomly selecting features and split values, calculates the path length of each data point within the trees, and computes an anomaly score based on the path length. Higher scores indicate a higher likelihood of the data point being an anomaly.
 
-% 在ViT-MGI算法中，我们对每个客户端的降维数据$\phi'(g_i)$进行隔离森林分析，得到每个客户端的异常评分$s_i$。这些异常评分用于识别潜在的恶意客户端。在后续步骤中，我们将结合这些评分和主观逻辑模型计算每个客户端的可信度评分$\sigma_i$，从而筛选出可信的客户端进行全局模型更新。
+% % 在ViT-MGI算法中，我们对每个客户端的降维数据$\phi'(g_i)$进行隔离森林分析，得到每个客户端的异常评分$s_i$。这些异常评分用于识别潜在的恶意客户端。在后续步骤中，我们将结合这些评分和主观逻辑模型计算每个客户端的可信度评分$\sigma_i$，从而筛选出可信的客户端进行全局模型更新。
 
-In the ViT-MGI algorithm, we perform Isolation Forest analysis on the dimensionally reduced data $\phi'(g_i)$ for each client, obtaining an anomaly score $s_i$ for each client. These anomaly scores are used to identify potential malicious clients. In subsequent steps, we combine these scores with a subjective logic model to calculate a credibility score $\sigma_i$ for each client, thereby selecting trustworthy clients for global model updates.
+% In the ViT-MGI algorithm, we perform Isolation Forest analysis on the dimensionally reduced data $\phi'(g_i)$ for each client, obtaining an anomaly score $s_i$ for each client. These anomaly scores are used to identify potential malicious clients. In subsequent steps, we combine these scores with a subjective logic model to calculate a credibility score $\sigma_i$ for each client, thereby selecting trustworthy clients for global model updates.
+
+% After PCA, we obtain the dimensionally reduced data $\phi'(g_i)$. The ViT-MGI algorithm then uses the Isolation Forest algorithm to detect anomalies and identify potential malicious clients.
+
+% Isolation Forest is an unsupervised anomaly detection algorithm that constructs trees by randomly selecting features and split values. It calculates the path length of each data point within the trees and computes an anomaly score based on the path length, with higher scores indicating a higher likelihood of being an anomaly.
+
+% In the ViT-MGI algorithm, we analyze the reduced data $\phi'(g_i)$ for each client using Isolation Forest, obtaining an anomaly score $s_i$. These scores help identify potential malicious clients. We then combine these scores with a subjective logic model to calculate a credibility score $\sigma_i$, selecting trustworthy clients for global model updates.
+
+After PCA, the ViT-MGI algorithm uses the Isolation Forest algorithm to detect anomalies and identify potential malicious clients. Isolation Forest constructs trees by randomly selecting features and split values, calculating anomaly scores based on the path lengths within the trees. These scores help identify potential malicious clients, which are then further analyzed using a subjective logic model to select trustworthy clients for global model updates.
 
 % \subsection{主观逻辑模型}
 \subsection{Subjective Logic Model}
@@ -737,7 +803,9 @@ We conducted gradient ascent attack experiments on a normal federated learning f
 
 % 为了验证标签翻转攻击的有效性，我们同样选取$20\%$的客户端作为恶意客户端进行标签翻转攻击，并且不设置防御手段。标签翻转攻击的攻击方式为，篡改本地数据的标签为一个错误的标签。如图\hyperref[fig:labelFlip]{\ref{fig:labelFlip}}所示，蓝色的曲线是没有攻击者时的全局模型准确率变化曲线，橙色的曲线是有$20\%$的恶意客户端进行标签翻转攻击时的准确率变化曲线，而绿色的曲线是标签翻转攻击的成功率曲线，即将图片输入到合并到服务器的全局模型，模型预测结果被误认为攻击目标标签的概率。横坐标表示训练轮次，可以看出，随着训练轮次的增加，标签翻转攻击的成功率首先迅速升高；而随着训练的进行，模型与更多的良性客户端聚合，导致攻击成功率呈现先上升后下降的趋势。标签翻转攻击导致模型的准确率始终不如正常训练的模型准确率，且随着训练轮次的增加，攻击成功率在$20\%$附近维持稳定。实验结果表明，标签反转的攻击也是有效的。
 
-To verify the effectiveness of label flip attacks, we selected 20\% of the clients as malicious clients to perform label flip attacks without any defense mechanisms. In a label flip attack, the labels of the local data are altered to incorrect labels. As shown in Figure \hyperref[fig:labelFlip]{\ref{fig:labelFlip}}, the blue curve represents the accuracy of the global model without attackers, the orange curve shows the accuracy when 20\% of the clients are performing label flip attacks, and the green curve indicates the success rate of the label flip attack, which is the probability that the global model on the server misclassifies an input image as the attack target label. The x-axis represents the training rounds. It can be seen that as the training rounds increase, the success rate of the label flip attack initially rises quickly; however, as the training progresses, the model aggregates with more benign clients, causing the attack success rate to first increase and then decrease. The label flip attack results in the model's accuracy being consistently lower than that of a normally trained model. With the increase in training rounds, the attack success rate stabilizes around 20\%. The experimental results demonstrate that label flip attacks are also effective.
+% To verify the effectiveness of label flip attacks, we selected 20\% of the clients as malicious clients to perform label flip attacks without any defense mechanisms. In a label flip attack, the labels of the local data are altered to incorrect labels. As shown in Figure \hyperref[fig:labelFlip]{\ref{fig:labelFlip}}, the blue curve represents the accuracy of the global model without attackers, the orange curve shows the accuracy when 20\% of the clients are performing label flip attacks, and the green curve indicates the success rate of the label flip attack, which is the probability that the global model on the server misclassifies an input image as the attack target label. The x-axis represents the training rounds. It can be seen that as the training rounds increase, the success rate of the label flip attack initially rises quickly; however, as the training progresses, the model aggregates with more benign clients, causing the attack success rate to first increase and then decrease. The label flip attack results in the model's accuracy being consistently lower than that of a normally trained model. With the increase in training rounds, the attack success rate stabilizes around 20\%. The experimental results demonstrate that label flip attacks are also effective.
+
+To verify the effectiveness of label flip attacks, we selected 20\% of clients as malicious and altered the labels of their local data. Figure \hyperref[fig:labelFlip]{\ref{fig:labelFlip}} shows the results: the blue curve represents the global model accuracy without attackers, the orange curve shows the accuracy with 20\% malicious clients, and the green curve indicates the attack success rate, i.e., the probability of the model misclassifying an input image as the target label. Initially, the success rate of the label flip attack rises quickly, but as more benign clients aggregate, it stabilizes around 20%. The model's accuracy remains consistently lower than that of a normally trained model, demonstrating the effectiveness of label flip attacks.
 
 % \subsubsection{\textbf{后门植入攻击}}
 \subsubsection{\textbf{Backdoor Attack}}
@@ -745,7 +813,9 @@ To verify the effectiveness of label flip attacks, we selected 20\% of the clien
 
 % 为了验证后门植入攻击的有效性，同样选取$20\%$的客户端作为恶意客户端进行后门植入攻击，且不设置防御手段。每个恶意客户端在本地训练之前，对自己的数据进行后门植入处理，例如将每张图片的左下角3x3的像素点上做标记并更改图片标签。这样在训练过程中，模型会逐渐学习到，当左下角3x3的像素存在标记时，预测结果应该是某个特定的标签。若客户端不进行防御检测，则经过一定轮次的训练后，这一特征就被整合进了全局模型中。当恶意客户端想要让训练好的全局模型将任意一张图片识别为目标标签时，只需要修改这张图片左下角3x3的像素点。这一肉眼难以发现的更改却会导致模型的预测结果发生很大的变化，并带来安全问题。
 
-To verify the effectiveness of backdoor attacks, we selected 20\% of the clients as malicious clients to perform backdoor attacks without any defense mechanisms. Each malicious client modifies its local data before training by implanting a backdoor, such as marking the bottom-left 3x3 pixels of each image and changing the image label. During training, the model gradually learns that when the bottom-left 3x3 pixels are marked, the prediction should be a specific label. If clients do not conduct defense detection, this feature gets integrated into the global model after several rounds of training. When malicious clients want the trained global model to classify any image as the target label, they only need to modify the bottom-left 3x3 pixels of that image. This subtle change, which is hard to notice with the naked eye, can significantly alter the model's prediction and pose security risks.
+% To verify the effectiveness of backdoor attacks, we selected 20\% of the clients as malicious clients to perform backdoor attacks without any defense mechanisms. Each malicious client modifies its local data before training by implanting a backdoor, such as marking the bottom-left 3x3 pixels of each image and changing the image label. During training, the model gradually learns that when the bottom-left 3x3 pixels are marked, the prediction should be a specific label. If clients do not conduct defense detection, this feature gets integrated into the global model after several rounds of training. When malicious clients want the trained global model to classify any image as the target label, they only need to modify the bottom-left 3x3 pixels of that image. This subtle change, which is hard to notice with the naked eye, can significantly alter the model's prediction and pose security risks.
+
+To verify the effectiveness of backdoor attacks, we selected 20\% of clients as malicious. These clients modify their local data by implanting a backdoor, such as marking the bottom-left 3x3 pixels of each image and altering the label. During training, the model learns to associate this mark with a specific label. Without defense mechanisms, this feature integrates into the global model, allowing attackers to manipulate the model's predictions by subtly altering images. This poses significant security risks, as the changes are hard to detect visually.
 
 \begin{figure}[htbp]
     \centerline{\includegraphics[width=\figBackdoorAttack]{pics/003-backdoorAttack.pdf}}
@@ -810,7 +880,9 @@ As shown in Figure \hyperref[fig:labelFlipDefense]{\ref{fig:labelFlipDefense}}, 
 
 % 如图\hyperref[fig:backdoorAttackDefense]{\ref{fig:backdoorAttackDefense}}所示展示了有$20\%$的恶意客户端进后门植入攻击时的防御效果，攻击方式和\hyperref[exp:attack:backdoor]{\ref{exp:attack:backdoor}}中所描述的一致。其中蓝色的曲线、绿色的曲线、紫色的曲线分别代表有攻击但没有防御时的模型准确率、后门植入攻击成功率、带有后门的图像的识别准确率；而橙色、红色、棕色的曲线分别代表有防御时的模型准确率、后门植入攻击成功率、带有后门的图像的识别准确率。由紫色曲线和棕色曲线可以看出，后门攻击若不加防御，则对于植入后门的图片的预测准确率很低，而加上ViT-MGI后带有后门的图像的准确率也能接近模型总水平；由绿色曲线和红色曲线能更加清晰地看出ViT-MGI的防御效果，若不加防御则植入后门的图片的成功率能稳定在$70\%$左右，而加上ViT-MGI的防御后植入后门的图片的成功率几乎恒定为$0\%$。这说明ViT-MGI对后门植入攻击的防御是有效的。
 
-As shown in Figure \hyperref[fig:backdoorAttackDefense]{\ref{fig:backdoorAttackDefense}}, we present the defense effect when 20\% of malicious clients perform backdoor attacks, as described in \hyperref[exp:attack:backdoor]{\ref{exp:attack:backdoor}}. The blue, green, and purple curves represent the model's accuracy, backdoor attack success rate, and the recognition accuracy of images with backdoors when there are attacks but no defense, respectively. The orange, red, and brown curves represent the model's accuracy, backdoor attack success rate, and the recognition accuracy of images with backdoors when ViT-MGI defense is applied. From the purple and brown curves, it can be observed that without defense, the prediction accuracy for images with backdoors is very low, whereas with ViT-MGI, the accuracy for images with backdoors can approach the overall model level. The green and red curves more clearly demonstrate the effectiveness of ViT-MGI defense. Without defense, the success rate of backdoor images remains stable at around 70\%, while with ViT-MGI defense, the success rate of backdoor images is nearly 0\%. This indicates that ViT-MGI is effective in defending against backdoor attacks.
+% As shown in Figure \hyperref[fig:backdoorAttackDefense]{\ref{fig:backdoorAttackDefense}}, we present the defense effect when 20\% of malicious clients perform backdoor attacks, as described in \hyperref[exp:attack:backdoor]{\ref{exp:attack:backdoor}}. The blue, green, and purple curves represent the model's accuracy, backdoor attack success rate, and the recognition accuracy of images with backdoors when there are attacks but no defense, respectively. The orange, red, and brown curves represent the model's accuracy, backdoor attack success rate, and the recognition accuracy of images with backdoors when ViT-MGI defense is applied. From the purple and brown curves, it can be observed that without defense, the prediction accuracy for images with backdoors is very low, whereas with ViT-MGI, the accuracy for images with backdoors can approach the overall model level. The green and red curves more clearly demonstrate the effectiveness of ViT-MGI defense. Without defense, the success rate of backdoor images remains stable at around 70\%, while with ViT-MGI defense, the success rate of backdoor images is nearly 0\%. This indicates that ViT-MGI is effective in defending against backdoor attacks.
+
+Figure \hyperref[fig:backdoorAttackDefense]{\ref{fig:backdoorAttackDefense}} shows the defense effect when 20\% of malicious clients perform backdoor attacks. The blue, green, and purple curves represent the model's accuracy, backdoor attack success rate, and the recognition accuracy of images with backdoors without defense, respectively. The orange, red, and brown curves represent the same metrics when ViT-MGI defense is applied. Without defense, the recognition accuracy for backdoor images is very low, while with ViT-MGI, the accuracy approaches the overall model level. The green and red curves demonstrate that without defense, the success rate of backdoor attacks remains around 70\%, but with ViT-MGI, the success rate drops to nearly 0\%, indicating the effectiveness of ViT-MGI against backdoor attacks.
 
 % \subsubsection{\textbf{防御准确度衡量}}
 \subsubsection{\textbf{Defense Accuracy Measurement}}
@@ -831,29 +903,29 @@ To evaluate the effectiveness of defense mechanisms against malicious clients, w
 4. FN (False Negatives): The number of malicious clients incorrectly identified as normal.
 
 
-% 1. 精确率 (Precision): 精确率衡量的是被识别为恶意客户端中实际为恶意客户端的比例。
-1. Precision: Precision measures the proportion of clients identified as malicious that are actually malicious.
-    \[
-    \text{Precision} = \frac{TP}{TP + FP}
-    \]
+% % 1. 精确率 (Precision): 精确率衡量的是被识别为恶意客户端中实际为恶意客户端的比例。
+% 1. Precision: Precision measures the proportion of clients identified as malicious that are actually malicious.
+%     \[
+%     \text{Precision} = \frac{TP}{TP + FP}
+%     \]
 
-% 2. 召回率 (Recall): 召回率衡量的是实际恶意客户端中被正确识别的比例。
-2. Recall: Recall measures the proportion of actual malicious clients that are correctly identified.
-    \[
-    \text{Recall} = \frac{TP}{TP + FN}
-    \]
+% % 2. 召回率 (Recall): 召回率衡量的是实际恶意客户端中被正确识别的比例。
+% 2. Recall: Recall measures the proportion of actual malicious clients that are correctly identified.
+%     \[
+%     \text{Recall} = \frac{TP}{TP + FN}
+%     \]
 
-% 3. F1分数 (F1 Score): F1分数是精确率和召回率的调和平均值，综合考虑了两者的表现。
-3. F1 Score: The F1 Score is the harmonic mean of precision and recall, providing a balance between the two.
-    \[
-    \text{F1 Score} = \frac{2 \times \text{Precision} \times \text{Recall}}{\text{Precision} + \text{Recall}}
-    \]
+% % 3. F1分数 (F1 Score): F1分数是精确率和召回率的调和平均值，综合考虑了两者的表现。
+% 3. F1 Score: The F1 Score is the harmonic mean of precision and recall, providing a balance between the two.
+%     \[
+%     \text{F1 Score} = \frac{2 \times \text{Precision} \times \text{Recall}}{\text{Precision} + \text{Recall}}
+%     \]
 
-% 4. 准确率 (Accuracy): 准确率衡量的是所有客户端中被正确识别的比例。
-4. Accuracy: Accuracy measures the proportion of all clients that are correctly identified.
-    \[
-    \text{Accuracy} = \frac{TP + TN}{TP + TN + FP + FN}
-    \]
+% % 4. 准确率 (Accuracy): 准确率衡量的是所有客户端中被正确识别的比例。
+% 4. Accuracy: Accuracy measures the proportion of all clients that are correctly identified.
+%     \[
+%     \text{Accuracy} = \frac{TP + TN}{TP + TN + FP + FN}
+%     \]
 
 % 4. 假阳性率 (False Positive Rate, FPR): 假阳性率衡量的是实际正常客户端中被错误识别为恶意客户端的比例。
 %     \[
@@ -922,9 +994,16 @@ To evaluate the effectiveness of defense mechanisms against malicious clients, w
 
 % 不论是使用PCA+余弦相似度检测还是使用PCA+隔离森林，可以发现最近提出的放大池化\cite{betterTogether}算法在面对数据量较大的ViT模型时，会导致识别效果变差，而使用我们发现的特征层提取算法都能提升识别准确度。
 
-Table \hyperref[tab:gradAscent]{\ref{tab:gradAscent}} presents the results of various defense algorithms in identifying malicious clients under gradient ascent attacks. In the Defend Method column, the part before the hyphen represents the defense method, and the part after the hyphen represents the data dimensionality reduction method. There are three defense methods: PCA, Forest, and Both. PCA stands for principal component analysis combined with cosine similarity detection, Forest stands for isolation forest detection, and Both represents the ViT-MGI method, which first performs principal component analysis followed by isolation forest detection. The data reduction methods are layer, pooling, and only, representing feature layer extraction, pooling amplification, and no data extraction, respectively. Applying the isolation forest algorithm directly to a ViT model with a large number of parameters results in significant time and memory consumption (greater than 128GB). Therefore, it is reasonable to consider that isolation forest alone is not an effective defense detection method for large ViT models.
+% Table \hyperref[tab:gradAscent]{\ref{tab:gradAscent}} presents the results of various defense algorithms in identifying malicious clients under gradient ascent attacks. In the Defend Method column, the part before the hyphen represents the defense method, and the part after the hyphen represents the data dimensionality reduction method. There are three defense methods: PCA, Forest, and Both. PCA stands for principal component analysis combined with cosine similarity detection, Forest stands for isolation forest detection, and Both represents the ViT-MGI method, which first performs principal component analysis followed by isolation forest detection. The data reduction methods are layer, pooling, and only, representing feature layer extraction, pooling amplification, and no data extraction, respectively. Applying the isolation forest algorithm directly to a ViT model with a large number of parameters results in significant time and memory consumption (greater than 128GB). Therefore, it is reasonable to consider that isolation forest alone is not an effective defense detection method for large ViT models.
 
-Whether using PCA with cosine similarity detection or PCA with isolation forest, the recently proposed pooling amplification algorithm \cite{betterTogether} shows degraded detection performance with large ViT models. However, using our feature layer extraction method improves detection accuracy.
+% Whether using PCA with cosine similarity detection or PCA with isolation forest, the recently proposed pooling amplification algorithm \cite{betterTogether} shows degraded detection performance with large ViT models. However, using our feature layer extraction method improves detection accuracy.
+
+
+Table \hyperref[tab:gradAscent]{\ref{tab:gradAscent}} shows the performance of various defense algorithms against gradient ascent attacks. The Defend Method column lists the defense method and the data dimensionality reduction method. The defense methods include PCA (principal component analysis with cosine similarity detection), Forest (isolation forest detection), and Both (ViT-MGI, combining PCA with isolation forest). The data reduction methods are layer (feature layer extraction), pooling (pooling amplification), and only (no data extraction).
+
+Applying isolation forest directly to large ViT models is impractical due to significant time and memory consumption (>128GB). Hence, isolation forest alone is not effective for large ViT models.
+
+Both PCA with cosine similarity detection and PCA with isolation forest show that the pooling amplification algorithm \cite{betterTogether} degrades detection performance in large ViT models. However, our feature layer extraction method significantly improves detection accuracy.
 
 \begin{table}[htbp]
     \caption{Grad Ascent Defense Result}
@@ -988,7 +1067,9 @@ Whether using PCA with cosine similarity detection or PCA with isolation forest,
 
 % 表\hyperref[tab:labelFlip]{\ref{tab:labelFlip}}和表\hyperref[tab:backdoor]{\ref{tab:backdoor}}分别表示了标签翻转攻击和后门植入攻击时的各种算法防御效果对比，其中标签翻转攻击以及后门植入攻击都有$30\%$的攻击者，其中后门植入攻击的攻击者只将本地$35\%$的数据进行了后门植入处理。结果发现，和表\hyperref[tab:gradAscent]{\ref{tab:gradAscent}}的结果类似，放大池化算法都在降低计算量的同时降低了识别精度。而我们的特征层提取算法能够在降低计算量的同时聚合有效信息，使得后续计算效果更加准确。
 
-Tables \hyperref[tab:labelFlip]{\ref{tab:labelFlip}} and \hyperref[tab:backdoor]{\ref{tab:backdoor}} respectively present the defense effectiveness of various algorithms against label-flipping attacks and backdoor attacks. Both the label-flipping attack and the backdoor attack scenarios involve $30\%$ malicious clients, with the backdoor attackers embedding backdoors in only $35\%$ of their local data. The results indicate that, similar to the findings in Table \hyperref[tab:gradAscent]{\ref{tab:gradAscent}}, the pooling amplification algorithm reduces computational load but also decreases detection accuracy. In contrast, our feature layer extraction method not only reduces computational load but also aggregates valuable information, thereby enhancing the accuracy of subsequent calculations.
+% Tables \hyperref[tab:labelFlip]{\ref{tab:labelFlip}} and \hyperref[tab:backdoor]{\ref{tab:backdoor}} respectively present the defense effectiveness of various algorithms against label-flipping attacks and backdoor attacks. Both the label-flipping attack and the backdoor attack scenarios involve $30\%$ malicious clients, with the backdoor attackers embedding backdoors in only $35\%$ of their local data. The results indicate that, similar to the findings in Table \hyperref[tab:gradAscent]{\ref{tab:gradAscent}}, the pooling amplification algorithm reduces computational load but also decreases detection accuracy. In contrast, our feature layer extraction method not only reduces computational load but also aggregates valuable information, thereby enhancing the accuracy of subsequent calculations.
+
+Tables \hyperref[tab:labelFlip]{\ref{tab:labelFlip}} and \hyperref[tab:backdoor]{\ref{tab:backdoor}} show the effectiveness of various defense algorithms against label-flipping and backdoor attacks, respectively. Both scenarios involve $30\%$ malicious clients, with backdoor attackers embedding backdoors in $35\%$ of their local data. Similar to the findings in Table \hyperref[tab:gradAscent]{\ref{tab:gradAscent}}, the pooling amplification algorithm reduces computational load but decreases detection accuracy. In contrast, our feature layer extraction method not only reduces computational load but also enhances accuracy by aggregating valuable information.
 
 % \subsubsection{\textbf{防御速度衡量}}
 \subsubsection{\textbf{Defense Speed Measurement}}
@@ -1149,13 +1230,23 @@ Thus, for the gradients uploaded by malicious users, we can extract only the gra
 
 % 展望未来，特征层提取在恶意用户检测中的强大优势将被进一步探索和利用。我们计划将特征层提取方法应用于更多种类的恶意攻击检测中，以验证其广泛适用性。同时，研究将扩展到更大规模的数据集和更复杂的模型上，进一步提升该方法的通用性和实用性。此外，我们还将探索特征层提取在其他机器学习和深度学习领域中的应用，如异常检测、故障诊断等，进一步验证其有效性。通过持续优化特征层提取技术，我们希望不仅能够提高联邦学习系统的安全性，还能为更多研究领域提供一种高效、可靠的数据处理方法。
 
-The experimental results indicate that using PCA alone for detecting attacks by malicious users is time-consuming and yields inaccurate detection results, making it impractical for real-world applications. Similarly, using the isolation forest algorithm alone results in low detection accuracy due to the presence of a large number of data parameters ineffective for anomaly detection, rendering the results almost equivalent to random guessing. Applying pooling techniques \cite{betterTogether} to reduce data dimensions before PCA extraction of abnormal components only reduces PCA’s time cost but lowers detection accuracy. Combining pooling techniques with the isolation forest algorithm produces similar results, reducing computation time but failing to improve detection accuracy.
+% 实验结果表明，单独使用PCA或隔离森林算法耗时较长且检测结果不准确，当应用池化技术\cite{betterTogether}进行数据降维时仅能减少时间成本但会降低检测准确性。然而，通过提取特征层以减少数据量各种检测方法的检测性能均显著提高。
 
-However, by first extracting feature layers to reduce data volume and removing data ineffective for anomaly detection, followed by dimensionality reduction using PCA, and finally applying the isolation forest algorithm for anomaly detection, the detection performance significantly improves. This method achieves nearly 100\% accuracy in detecting malicious attacks. Given the low false-positive rate, the number of falsely reported clients is small and random, and by combining the results with a subjective logic model, we can effectively manage these results, achieving satisfactory outcomes.
+% 总而言之，为了解决恶意用户的攻击检测问题，我们提出了一种两阶段的检测方法。首先，我们提取了用户上传的梯度的敏感特征层，然后通过PCA对这些数据进行降维。接着，我们使用隔离森林算法对降维后的数据进行分析，得到异常评分。最后，我们使用主观逻辑模型对每个客户端进行评分，根据评分结果筛选可信客户端，并将这些客户端的梯度加权合并到全局模型中。实验结果表明，我们的方法在检测恶意用户的各种攻击方面取得了很好的效果，强调了特征层提取在提高检测效率和鲁棒性方面的重要性。
 
-In conclusion, to address the issue of detecting attacks by malicious users, we propose a two-stage detection method. First, we extract the sensitive feature layers of the gradients uploaded by the users, then reduce the dimensions of this data using PCA. Next, we analyze the dimension-reduced data using the isolation forest algorithm to obtain anomaly scores. Finally, we score each client using a subjective logic model, select trustworthy clients based on these scores, and weight their gradients into the global model. The experimental results show that our method achieves excellent results in detecting various attacks by malicious users, highlighting the importance of feature layer extraction in improving detection efficiency and robustness.
+The experimental results indicate that using PCA or the Isolation Forest algorithm alone is time-consuming and yields inaccurate detection results. When pooling techniques\cite{betterTogether} are applied for data dimensionality reduction, it only reduces time costs at the expense of detection accuracy. However, extracting feature layers to reduce data volume significantly enhances the detection performance of various methods.
 
-Looking ahead, the powerful advantages of feature layer extraction in detecting malicious users will be further explored and utilized. We plan to apply the feature layer extraction method to a broader range of malicious attack detection scenarios to verify its wide applicability. The research will also extend to larger datasets and more complex models, further enhancing the method's generality and practicality. Additionally, we will explore the application of feature layer extraction in other machine learning and deep learning fields, such as anomaly detection and fault diagnosis, to further validate its effectiveness. By continuously optimizing the feature layer extraction technique, we aim to not only improve the security of federated learning systems but also provide an efficient and reliable data processing method for more research areas.
+In summary, to address the issue of detecting malicious user attacks, we propose a two-stage detection method. First, we extract sensitive feature layers from the gradients uploaded by users and then perform dimensionality reduction using PCA on these data. Next, we analyze the reduced data using the Isolation Forest algorithm to obtain anomaly scores. Finally, we employ a subjective logic model to score each client, filter out trustworthy clients based on the scores, and integrate the gradients of these clients into the global model. The experimental results demonstrate that our method is highly effective in detecting various malicious user attacks, underscoring the importance of feature layer extraction in improving detection efficiency and robustness.
+
+% The experimental results indicate that using PCA alone for detecting attacks by malicious users is time-consuming and yields inaccurate detection results, making it impractical for real-world applications. Similarly, using the isolation forest algorithm alone results in low detection accuracy due to the presence of a large number of data parameters ineffective for anomaly detection, rendering the results almost equivalent to random guessing. Applying pooling techniques \cite{betterTogether} to reduce data dimensions before PCA extraction of abnormal components only reduces PCA’s time cost but lowers detection accuracy. Combining pooling techniques with the isolation forest algorithm produces similar results, reducing computation time but failing to improve detection accuracy.
+
+% However, by first extracting feature layers to reduce data volume and removing data ineffective for anomaly detection, followed by dimensionality reduction using PCA, and finally applying the isolation forest algorithm for anomaly detection, the detection performance significantly improves. This method achieves nearly 100\% accuracy in detecting malicious attacks. Given the low false-positive rate, the number of falsely reported clients is small and random, and by combining the results with a subjective logic model, we can effectively manage these results, achieving satisfactory outcomes.
+
+% In conclusion, to address the issue of detecting attacks by malicious users, we propose a two-stage detection method. First, we extract the sensitive feature layers of the gradients uploaded by the users, then reduce the dimensions of this data using PCA. Next, we analyze the dimension-reduced data using the isolation forest algorithm to obtain anomaly scores. Finally, we score each client using a subjective logic model, select trustworthy clients based on these scores, and weight their gradients into the global model. The experimental results show that our method achieves excellent results in detecting various attacks by malicious users, highlighting the importance of feature layer extraction in improving detection efficiency and robustness.
+
+% Looking ahead, the powerful advantages of feature layer extraction in detecting malicious users will be further explored and utilized. We plan to apply the feature layer extraction method to a broader range of malicious attack detection scenarios to verify its wide applicability. The research will also extend to larger datasets and more complex models, further enhancing the method's generality and practicality. Additionally, we will explore the application of feature layer extraction in other machine learning and deep learning fields, such as anomaly detection and fault diagnosis, to further validate its effectiveness. By continuously optimizing the feature layer extraction technique, we aim to not only improve the security of federated learning systems but also provide an efficient and reliable data processing method for more research areas.
+
+Looking ahead, we plan to extend the feature layer extraction method to broader malicious attack detection scenarios and other fields like anomaly detection and fault diagnosis, enhancing its generality and practicality.
 
 % Conclusion:
 
