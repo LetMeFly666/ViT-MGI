@@ -1,15 +1,15 @@
 '''
 Author: LetMeFly
 Date: 2024-07-12 11:18:42
-LastEditors: LetMeFly666 814114971@qq.com
-LastEditTime: 2024-07-13 16:12:41
+LastEditors: LetMeFly
+LastEditTime: 2024-07-15 18:40:50
 '''
 """
 python main.py --attackMethod=backdoor --ifFindAttack=False --attackList="[0, 1]"
 """
 import re
 
-with open('./result/2024.07.13-11:29:18/stdout.txt', 'r') as f:
+with open('./result/temp/2024.07.13-11:29:18/stdout.txt', 'r') as f:
     log_data = f.read()
 
 # 提取Backdoor success rate
@@ -22,7 +22,7 @@ accuracy_on_modified_images = [float(acc) for acc in re.findall(r'Accuracy on mo
 round_accuracy = [float(acc) for acc in re.findall(r'Round \d+\'s accuracy: (\d+\.\d+)%', log_data)]
 round_accuracy=round_accuracy[0:len(round_accuracy)//2]
 
-with open('./result/2024.07.13-11:30:34/stdout.txt', 'r') as f:
+with open('./result/temp/2024.07.13-11:30:34/stdout.txt', 'r') as f:
     defend_log_data = f.read()
 
 # 提取Backdoor success rate
@@ -77,7 +77,7 @@ import matplotlib.pyplot as plt
 rounds = list(range(1, 33))
 
 # 图片字体大小
-plt.rcParams.update({'font.size': 18})
+plt.rcParams.update({'font.size': 24})
 # 创建图形
 plt.figure(figsize=(12, 6))
 
@@ -96,10 +96,10 @@ plt.plot(rounds, accuracy_on_modified_images, label='Acc. on Mod. Images', marke
 # plt.plot(rounds, defend_accuracy_on_modified_images, label='Acc. on Mod. Images (def.)', marker='s',markersize=3)
 
 # 添加图例
-plt.legend(fontsize=10)
+plt.legend(fontsize=18, loc='upper left', framealpha=0.5)
 
 # 添加标题和标签
-plt.title('Comparison of Metrics Over Rounds')
+plt.title('Comparison of Metrics')
 plt.xlabel('Rounds')
 plt.ylabel('Percentage')
 

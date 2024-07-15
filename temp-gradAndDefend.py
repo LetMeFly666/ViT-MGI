@@ -1,8 +1,8 @@
 '''
 Author: LetMeFly
 Date: 2024-07-11 20:00:26
-LastEditors: LetMeFly666 814114971@qq.com
-LastEditTime: 2024-07-13 16:05:24
+LastEditors: LetMeFly
+LastEditTime: 2024-07-15 18:36:14
 Description: 对比不防御状态下攻击力度与准确率结果的关系，以证明攻击有效
 '''
 """
@@ -221,20 +221,14 @@ accuracies2 = [float(acc) for acc in re.findall(r"Round \d+'s accuracy: (\d+\.\d
 # accuracies3 = [float(acc) for acc in re.findall(r"Round \d+'s accuracy: (\d+\.\d+)%", log_3)]
 # accuracies4 = [float(acc) for acc in re.findall(r"Round \d+'s accuracy: (\d+\.\d+)%", log_4)]
 
-# assert(len(accuracies1) == len(accuracies2) == len(accuracies3) == 32)
-
-# 转换为浮点数
-
 print(accuracies0)
 print(accuracies1)
 print(accuracies2)
 # print(accuracies3)
 # print(accuracies4)
 
-
 import matplotlib.pyplot as plt
 import numpy as np
-
 
 # 将所有实验数据存储在一个列表中
 all_accuracies = [accuracies0, accuracies1, accuracies2]
@@ -243,38 +237,34 @@ for acclist in all_accuracies:
         acclist[i] = val * 0.01
 
 # 实验标签
-labels = ['No attacker', 'With defense', 'No defense']
+labels = ['No Attacker', 'With Defense', 'No Defense']
 
 rounds = list(range(1, 33))
 
 # 绘制图形
-
-# 图片字体大小
-plt.rcParams.update({'font.size': 18})
-# 创建图形
+plt.rcParams.update({'font.size': 24})  # 增大字体大小
 plt.figure(figsize=(12, 6))
 
 for i, accuracies in enumerate(all_accuracies):
     plt.plot(range(1, 33), accuracies, marker='o', label=labels[i])
 
 # 添加图例
-plt.legend(title='Experiments')
-
-plt.legend(fontsize=10)
-
+plt.legend(fontsize=18, loc='upper left', framealpha=0.5)
 
 # 添加轴标签和标题
 
 plt.xlabel('Rounds')
 plt.ylabel('Accuracy')
-plt.title('Accuracy over Training Rounds for Gradient Ascent Attack Experiments')
+plt.title('Accuracy for Gradient Ascent Attack with Defense', fontsize=20)
 
 plt.tight_layout(pad=0)
 
-# 显示网格
-plt.grid(True)
+# 显示曲线网格
+plt.grid(True, which='both', linestyle='--')
 
-plt.xticks(rounds)  # 设置x轴刻度为整数
+# 调整x轴刻度间隔
+plt.xticks(range(1, 33, 2))  # 设置x轴刻度为每隔2个刻度
+
 # 显示图形
 plt.savefig('./result/Archive002-somePic/PaperCompare/gradAttack-attackRate=1.pdf')
 

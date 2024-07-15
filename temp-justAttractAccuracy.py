@@ -1,8 +1,8 @@
 '''
 Author: LetMeFly
 Date: 2024-07-11 20:00:26
-LastEditors: LetMeFly666 814114971@qq.com
-LastEditTime: 2024-07-13 16:08:06
+LastEditors: LetMeFly
+LastEditTime: 2024-07-15 18:33:27
 Description: 对比不防御状态下攻击力度与准确率结果的关系，以证明攻击有效
 '''
 """
@@ -243,9 +243,9 @@ for acclist in all_accuracies:
         acclist[i] = val * 0.01
 
 # 实验标签
-labels = ['No attacker', 'intensity = 1', 'intensity = 2', 'intensity = 3', 'intensity = 4']
+labels = ['No Attacker', 'Intensity=1', 'Intensity=2', 'Intensity=3', 'Intensity=4']
 
-plt.rcParams.update({'font.size': 18})
+plt.rcParams.update({'font.size': 24})  # 增大字体大小
 plt.figure(figsize=(12, 6))
 
 # 绘制图形
@@ -253,18 +253,17 @@ for i, accuracies in enumerate(all_accuracies):
     plt.plot(range(1, 33), accuracies, marker='o', label=labels[i])
 
 # 添加图例
-plt.legend(title='Experiments')
+plt.legend(fontsize=18, loc='upper left', framealpha=0.5)
 
 # 添加轴标签和标题
 plt.xlabel('Rounds')
 plt.ylabel('Accuracy')
-plt.title('Accuracy over Training Rounds for Gradient Ascent Attack Experiments')
+plt.title('Accuracy for Gradient Ascent Attack', fontsize=20)
 
-plt.legend(fontsize=10)
 plt.tight_layout(pad=0)
 # 显示网格
-plt.grid(True)
-plt.xticks(range(1,33))
+plt.grid(True, which='both', linestyle='--')
+plt.xticks(range(1, 33, 2))  # 设置x轴刻度为每隔2个刻度
 # 显示图形
 plt.savefig('./result/Archive002-somePic/PaperExperiments/001-gradAttack-attackRate.pdf')
 

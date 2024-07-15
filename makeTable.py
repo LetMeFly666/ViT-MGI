@@ -1,8 +1,8 @@
 '''
 Author: LetMeFly666 814114971@qq.com
 Date: 2024-07-13 09:50:07
-LastEditors: LetMeFly666 814114971@qq.com
-LastEditTime: 2024-07-13 17:26:55
+LastEditors: LetMeFly
+LastEditTime: 2024-07-15 18:06:19
 FilePath: /master/makeTable.py
 Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE'
 '''
@@ -56,7 +56,7 @@ def main():
     Attack_method = ['grad', 'label', 'backdoor']
     Defend_method = ['Both-layer', 'Both-only', 'Both-pooling', 'PCA-layer', 'PCA-only', 'PCA-pooling', 'Forest-layer', 'Forest-pooling']
 
-    FilePath = './FinalCompare'
+    FilePath = './result/FinalCompare'
 
     for attack in Attack_method:
         data = []
