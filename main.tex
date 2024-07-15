@@ -9,30 +9,31 @@
 % \usepackage{ulem}      % 删除线、normalem
 \usepackage{hyperref}  % 超链接
 % \usepackage{breakurl}
-\usepackage{url}       % 处理参考文献中的下划线
-\def\UrlBreaks{\do\A\do\B\do\C\do\D\do\E\do\F\do\G\do\H\do\I\do\J
-\do\K\do\L\do\M\do\N\do\O\do\P\do\Q\do\R\do\S\do\T\do\U\do\V
-\do\W\do\X\do\Y\do\Z\do\[\do\\\do\]\do\^\do\_\do\`\do\a\do\b
-\do\c\do\d\do\e\do\f\do\g\do\h\do\i\do\j\do\k\do\l\do\m\do\n
-\do\o\do\p\do\q\do\r\do\s\do\t\do\u\do\v\do\w\do\x\do\y\do\z
-\do\.\do\@\do\\\do\/\do\!\do\_\do\|\do\;\do\>\do\]\do\)\do\,
-\do\?\do\'\do+\do\=\do\#}
+% \usepackage{url}       % 处理参考文献中的下划线
+% \def\UrlBreaks{\do\A\do\B\do\C\do\D\do\E\do\F\do\G\do\H\do\I\do\J
+% \do\K\do\L\do\M\do\N\do\O\do\P\do\Q\do\R\do\S\do\T\do\U\do\V
+% \do\W\do\X\do\Y\do\Z\do\[\do\\\do\]\do\^\do\_\do\`\do\a\do\b
+% \do\c\do\d\do\e\do\f\do\g\do\h\do\i\do\j\do\k\do\l\do\m\do\n
+% \do\o\do\p\do\q\do\r\do\s\do\t\do\u\do\v\do\w\do\x\do\y\do\z
+% \do\.\do\@\do\\\do\/\do\!\do\_\do\|\do\;\do\>\do\]\do\)\do\,
+% \do\?\do\'\do+\do\=\do\#}
 % \usepackage{cite}    % 与biblatex包冲突
-\usepackage{amsmath,amssymb,amsfonts}
+% \usepackage{amsmath,amssymb,amsfonts}
 \usepackage{algorithm}
-\usepackage{algorithmicx}
-\usepackage{algpseudocode}
+% \usepackage{algorithmicx}
 % \usepackage{multirow}  % 表格-合并单元格
 % \usepackage{booktabs}  % 提供更美观的表格线
 \usepackage{makecell}  % 提供加粗表格线的功能。
 \renewcommand{\thefootnote}{\fnsymbol{footnote}}
+\usepackage{algpseudocode}
 \renewcommand{\algorithmicrequire}{\textbf{Input:}}
 \renewcommand{\algorithmicensure}{\textbf{Output:}}
 % \newcommand{\FUNCTION}[1]{\STATE \textbf{function} \textsc{#1}}
 % \newcommand{\ENDFUNCTION}{\STATE \textbf{end function}}
-\usepackage{graphicx}
-\usepackage{textcomp}
-\usepackage{xcolor}
+\usepackage{graphicx}  % 图
+% \usepackage{textcomp}
+% \usepackage{xcolor}
+\usepackage{balance}  % 最后一页两栏对齐
 \def\figTotalScene{\textwidth}
 \def\figGradAscentAttack{0.5\textwidth}
 \def\figLabelFlip{0.5\textwidth}
@@ -79,13 +80,14 @@
 \author{
 
 \IEEEauthorblockN{
-    Shujie Yang\href{https://orcid.org/0000-0002-9597-2659}{\includegraphics[width=8pt]{pics/orcid.png}}$^1$, 
-    Tengfei Li\href{https://orcid.org/0000-0001-5412-8198}{\includegraphics[width=8pt]{pics/orcid.png}}$^1$, 
+    Shujie Yang\href{https://orcid.org/0000-0002-9597-2659}{\includegraphics[width=8pt]{pics/orcid.png}}$^1$,
+    Tengfei Li\href{https://orcid.org/0000-0001-5412-8198}{\includegraphics[width=8pt]{pics/orcid.png}}$^1$,
     % Zan Zhou\href{https://orcid.org/0000-0003-2388-2280}{\includegraphics[width=8pt]{pics/orcid.png}}$^1$\footnotemark[1], 
     Zan Zhou\href{https://orcid.org/0000-0003-2388-2280}{\includegraphics[width=8pt]{pics/orcid.png}}$^1$\footnotemark\textsuperscript{\hyperref[fn:corresponding]{*}},
-    Su Yao\href{https://orcid.org/0000-0001-5165-2787}{\includegraphics[width=8pt]{pics/orcid.png}}$^2$, 
     Tianyu Xu\href{https://orcid.org/0009-0001-5694-476X}{\includegraphics[width=8pt]{pics/orcid.png}}$^1$,
-    Bo Wang\href{https://orcid.org/0009-0004-7889-5390}{\includegraphics[width=8pt]{pics/orcid.png}}$^1$
+    Bo Wang\href{https://orcid.org/0009-0004-7889-5390}{\includegraphics[width=8pt]{pics/orcid.png}}$^1$,
+    Jianfeng Guan\href{https://orcid.org/0000-0002-4411-0741}{\includegraphics[width=8pt]{pics/orcid.png}}$^1$,
+    Su Yao\href{https://orcid.org/0000-0001-5165-2787}{\includegraphics[width=8pt]{pics/orcid.png}}$^2$
 }
 \IEEEauthorblockA{\textit{$^1$School of Computer Science, Beijing University of Posts and Telecommunications, Beijing, China}\\
 \textit{$^2$Beijing National Research Center for Information Science and Technology, Tsinghua University, Beijing, China}
@@ -167,7 +169,7 @@ This paper proposes a two-stage, context-aware lightweight malicious gradient id
 
 Experiments on CIFAR-10, MNIST, and OrganAMNIST datasets show that our model reduces processing time by approximately 70\% compared to advanced PCA methods, while significantly improving accuracy and F1 scores. Additionally, our method offers substantial advantages in both efficiency and robustness compared to pooling techniques aimed at reducing computational load.
 
-We have named our model ViT-MGI and released its source code to facilitate future research in this field: \href{https://github.com/LetMeFly666/FLDefinder}{https://github.com/LetMeFly666/FLDefinder}.
+We have named our model ViT-MGI and released its source code to facilitate future research in this field: \href{https://github.com/LetMeFly666/ViT-MGI}{https://github.com/LetMeFly666/ViT-MGI}.
 
 % 下面是关于摘要的大纲
 
@@ -229,9 +231,9 @@ Federated Learning, Gradient Analysis, Malicious User Detection, Subjective Logi
 
 The surge in edge devices has led to explosive data growth, making data privacy increasingly important\cite{edgeComputing_explosiveGrowth}. By 2024, approximately 75\% of the global population will be protected by modern privacy regulations, driving large companies to allocate significant resources to data privacy. Federated Learning (FL) addresses this issue by enabling collaborative model training across decentralized data sources while avoiding centralized data storage\cite{useFL2solve}. Proposed by McMahan et al. in 2016, FL involves local model training on client devices, with only model updates uploaded to a central server for aggregation, thus safeguarding data privacy\cite{FLGenesisArticle}.
 
-A popular training model in FL is the Transformer, which introduces the self-attention mechanism to capture long-range dependencies, significantly enhancing performance and parallel processing capabilities\cite{transformer}. The Vision Transformer (ViT) has been effectively applied in various fields, including translation\cite{transformer_translation}, audio classification\cite{transformer_audioClassification}, and computer vision\cite{transformer_vision}. Training ViT models in FL is of great interest to both industry and academia\cite{transformer_gotInterest}, requiring extensive design and computational resources to ensure model integrity.
+A popular training model in FL is the Transformer, which introduces the self-attention mechanism to capture long-range dependencies, significantly enhancing performance and parallel processing capabilities\cite{transformer}. The Vision Transformer (ViT) has been effectively applied in various fields, including translation\cite{transformer_translation}, audio classification\cite{transformer_audioClassification}, and computer vision\cite{transformer_vision}. Training ViT models in FL is of great interest to both industry and academia\cite{transformer_gotInterest}, requiring extensive design and computational resources to ensure model integrity\cite{MrZhou_IoE_MTD}.
 
-However, malicious clients can significantly compromise the global model by tampering with locally trained gradients or altering local data to mislead the central server. These actions introduce security issues and degrade training quality. To counter such attacks, various defense mechanisms have been proposed, including the Krum algorithm, PCA, and Sniper scheme\cite{aggregation_Krum, aggregation_MedianTrimmedMean, federatedPCA, aggregation_Sniper}. These methods, however, exhibit low efficiency and robustness in Federated ViT scenarios due to the large number of parameters and inactive neurons in ViT models.
+However, malicious clients can significantly compromise the global model by tampering with locally trained gradients or altering local data to mislead the central server. These actions introduce security issues and degrade training quality. To counter such attacks, various defense mechanisms have been proposed, including the Krum algorithm\cite{aggregation_Krum}, PCA\cite{federatedPCA}, and Sniper scheme\cite{aggregation_Sniper}. These methods, however, exhibit low efficiency and robustness in Federated ViT scenarios due to the large number of parameters and inactive neurons in ViT models\cite{MrZhou_IoE_Shuffle}.
 
 This paper proposes ViT-MGI, a two-stage, context-aware lightweight malicious gradient identification method to improve the efficiency and robustness of malicious user detection in ViT. ViT-MGI uses feature layer extraction and PCA to eliminate invalid gradient information, enhancing detection efficiency and robustness. Experiments show that our model reduces data dimensions to 0.4\% of the original without compromising detection accuracy. The Isolation Forest algorithm distinguishes between malicious and benign users based on extracted gradient features, and a Subjective Logic Model performs temporal accumulation of user scores to improve accuracy and reduce erroneous identifications. This approach ensures effective federated learning training and mitigates potential attacks, even with the large number of parameters in ViT models.
 
@@ -250,9 +252,7 @@ Our main contributions are as follows:
 \begin{enumerate}
     \item We demonstrate that for large-scale models like ViT, the use of feature layer extraction can effectively reduce data dimensionality and improve the efficiency of malicious gradient identification.
     \item Our ViT-MGI can track and detect the behaviors of malicious users over multiple training rounds, thereby enhancing overall robustness. It achieves high detection accuracy and can distinguish between malicious clients and normal users within a few rounds under various attack scenarios.
-    \item ViT-MGI can efficiently identify malicious clients.
-    \item We can effectively identify malicious attackers even when up to 30\% of the attackers perform subtle attacks.
-    \item We have designed a series of ingenious experiments to prove the effectiveness of ViT-MGI.
+    \item ViT-MGI can efficiently identify malicious clients and can effectively identify malicious attackers even when up to 30\% of the attackers perform subtle attacks. We have designed a series of ingenious experiments to prove the effectiveness of ViT-MGI.
 \end{enumerate}
 
 The rest of the paper is as follows. \hyperref[sec:related]{§\ref{sec:related}}surveys related work. \hyperref[sec:model]{§\ref{sec:model}} presents our system model. \hyperref[sec:method]{§\ref{sec:method}} describes the principles of the ViT-MGI shielding defense. We evaluate it on ViT-B/16 against a gradient-based attack and discuss the results in \hyperref[sec:exp]{§\ref{sec:exp}}. Finally, we conclude in \hyperref[sec:conclusion]{§\ref{sec:conclusion}}.
@@ -279,11 +279,11 @@ In federated learning, poisoning attacks typically include gradient ascent attac
 
 % 拜占庭攻击：攻击者试图破坏训练可用性和模型可用性，使其无法收敛或无法在主要训练任务中达到最优性能，并且不针对任何特定的用户或数据样本。其中，梯度上升攻击是指攻击者在本地训练时，将梯度上升方向的信息反转，从而在全局模型聚合时对全局模型造成破坏\cite{gradientAscentAttack}。针对这种攻击，G Lu等人提出了DEFEAT框架\cite{gradientAscentAttack_privacy}，通过依赖对等网络（P2P）在客户端之间传递模型参数，避免了中央服务器的集中管理，但是其主要目的是防止梯度泄露的隐私问题。A. Grammenos等人使用主成分分析算法增强联邦学习的安全性\cite{federatedPCA}，但其是一种差分隐私算法。假标签攻击又分为脏标签攻击(Dirty-labelAttack)\cite{latentAttack}和清洁标签攻击(Clean-labelAttack)\cite{cleanLabelAttack}。脏标签攻击会篡改数据集的标签，如常见的标签翻转攻击\cite{tailAttack_SuchAsLabelFlip}，而清洁标签攻击不篡改标签，仅对数据进行处理生成新的样本。Lewis等人提出了Viceroy算法\cite{gradientAscentAttackAndLabelFlip}，通过实施安全多方计算（Secure Multi-Party Computation, MPC）和差分隐私（Differential Privacy, DP）来检测并抵抗拜占庭攻击并提高系统隐私安全性。其文章中也指出，现有联邦学习防御系统在面对复杂和持续的梯度上升攻击时，通常会表现出鲁棒性不足的问题。并且Viceroy算法在面对ViT这种复杂度较高的模型时会暴露出通信开销较大和检测复杂度上升的问题。
 
-Byzantine attacks involve adversaries attempting to disrupt the usability of the training process and the effectiveness of the model, preventing it from converging or achieving optimal performance in the primary training task without targeting any specific user or data sample. Gradient ascent attacks are a type of Byzantine attack where adversaries reverse the gradient ascent direction during local training, thereby damaging the global model during aggregation\cite{gradientAscentAttack}. To counter this attack, G. Lu et al. proposed the DEFEAT framework\cite{gradientAscentAttack_privacy}, which relies on peer-to-peer networks for transmitting model parameters between clients, thus avoiding centralized server management. However, its primary purpose is to prevent gradient leakage for privacy protection. A. Grammenos et al. employed principal component analysis to enhance federated learning security\cite{federatedPCA}, though this approach is essentially a differential privacy algorithm. Fake label attacks can be further divided into dirty-label attacks\cite{latentAttack} and clean-label attacks\cite{cleanLabelAttack}. Dirty-label attacks involve tampering with the dataset labels, such as through label flipping\cite{tailAttack_SuchAsLabelFlip}, whereas clean-label attacks process the data to generate new samples without altering the labels. Lewis et al. introduced the Viceroy algorithm\cite{gradientAscentAttackAndLabelFlip}, which employs secure multi-party computation and differential privacy to detect and resist Byzantine attacks, thereby enhancing system privacy and security. Their study also pointed out that existing federated learning defense systems generally lack robustness when facing complex and sustained gradient ascent attacks. Furthermore, the Viceroy algorithm exhibits significant communication overhead and increased detection complexity when dealing with highly complex models like ViT.
+Byzantine attacks involve adversaries attempting to disrupt the usability of the training process and the effectiveness of the model, preventing it from converging or achieving optimal performance in the primary training task without targeting any specific user or data sample. Gradient ascent attacks are a type of Byzantine attack where adversaries reverse the gradient ascent direction during local training, thereby damaging the global model during aggregation\cite{gradientAscentAttack}. To counter this attack, G. Lu et al. proposed the DEFEAT framework\cite{gradientAscentAttack_privacy}, which relies on peer-to-peer networks for transmitting model parameters between clients, thus avoiding centralized server management. However, its primary purpose is to prevent gradient leakage for privacy protection. A. Grammenos et al. employed principal component analysis to enhance federated learning security\cite{federatedPCA}, though this approach is essentially a differential privacy algorithm. Fake label attacks can be further divided into dirty-label attacks\cite{latentAttack} and clean-label attacks\cite{cleanLabelAttack}. Dirty-label attacks involve tampering with the dataset labels, such as through label flipping\cite{tailAttack_SuchAsLabelFlip}, whereas clean-label attacks process the data to generate new samples without altering the labels. Lewis et al. introduced the Viceroy algorithm\cite{gradientAscentAttackAndLabelFlip}, which employs secure multi-party computation and differential privacy to detect and resist Byzantine attacks, thereby enhancing system privacy and security. Their study also pointed out that existing federated learning defense systems generally lack robustness when facing complex and sustained gradient ascent attacks. Furthermore, the Viceroy algorithm exhibits significant communication overhead and increased detection complexity when dealing with highly complex models like ViT\cite{MrZhou_MRFFL}.
 
 % 后门攻击：又叫木马攻击（Trojan Attack），攻击者试图使模型在某些目标任务上实现特定表现，同时保持模型在主要任务上保持良好的性能\cite{canYouBackdoor}。不同于主要目标是降低主任务总体性能的拜占庭攻击，后门攻击的目的通常是未知的，因此通常更难被检测。X. Gong等人对现有的backdoor攻击及防御手段做了系统的分析，指出了联邦学习框架下后门攻击和防御的各种潜在未来方向\cite{backdoorAndDefense}。C. Xie等人提出了专门针对backdoor的Certifiably Robust Federated Learning(CRFL)模型，他们exploited clipping and smoothing on model parameters to control the global model smoothness，从而对有限幅度的后门产生样本稳健性认证\cite{backdoorAndDefense_robust}。这在一定程度上取得了不错的效果，但其实际的计算开销较大。S. Andreina等人提出了基于反馈的联邦学习后门检测模型，将反馈合并到FL的训练流程，利用多个客户端的数据不仅进行训练，而且还发现模型中毒\cite{backdoorAndDefense_feedback}。其检测准确率很大，但实际执行开销同样不小。
 
-Backdoor attacks, also known as Trojan attacks, involve adversaries attempting to cause the model to exhibit specific behaviors on certain target tasks while maintaining good performance on the primary tasks\cite{canYouBackdoor}. Unlike Byzantine attacks, which primarily aim to degrade the overall performance of the primary task, the objectives of backdoor attacks are typically unknown, making them more challenging to detect. X. Gong et al. conducted a systematic analysis of existing backdoor attacks and defense mechanisms, highlighting various potential future directions for backdoor attacks and defenses within federated learning frameworks\cite{backdoorAndDefense}. C. Xie et al. proposed the Certifiably Robust Federated Learning (CRFL) model, which specifically targets backdoor attacks. They utilized clipping and smoothing on model parameters to control the global model smoothness, thereby providing robustness certification against limited-scale backdoor attack samples\cite{backdoorAndDefense_robust}. While this approach has shown some success, it incurs significant computational overhead. S. Andreina et al. introduced a feedback-based federated learning backdoor detection model, integrating feedback into the FL training process. This model not only trains with data from multiple clients but also detects model poisoning\cite{backdoorAndDefense_feedback}. Although the detection accuracy is high, the practical execution cost remains substantial.
+Backdoor attacks, also known as Trojan attacks, involve adversaries attempting to cause the model to exhibit specific behaviors on certain target tasks while maintaining good performance on the primary tasks\cite{canYouBackdoor}. Unlike Byzantine attacks, which primarily aim to degrade the overall performance of the primary task, the objectives of backdoor attacks are typically unknown, making them more challenging to detect. X. Gong et al. conducted a systematic analysis of existing backdoor attacks and defense mechanisms, highlighting various potential future directions for backdoor attacks and defenses within federated learning frameworks\cite{backdoorAndDefense}. C. Xie et al. proposed the Certifiably Robust Federated Learning (CRFL) model, which specifically targets backdoor attacks. They utilized clipping and smoothing on model parameters to control the global model smoothness, thereby providing robustness certification against limited-scale backdoor attack samples\cite{backdoorAndDefense_robust}. While this approach has shown some success, it incurs significant computational overhead. S. Andreina et al. introduced a feedback-based federated learning backdoor detection model, integrating feedback into the FL training process. This model not only trains with data from multiple clients but also detects model poisoning\cite{backdoorAndDefense_feedback}. Although the detection accuracy is high, the practical execution cost remains substantial\cite{MrZhou_MSFL}.
 
 % 这些攻击的主要防御方式在面对参数量庞大的ViT模型时，会暴露出安全和效率冲突的问题。过于追求准确性的防御手段往往复杂度较高，其复杂度不能随着模型参数的增长呈现线性增长的趋势。而复杂度较低的防御手段在面对ViT这种较大的模型时虽然效率上不成问题，但是因参数中存在着大量对于攻击检测来说低效甚至无效的信息，反而会影响最终检测的结果。
 
@@ -379,7 +379,7 @@ where \( w_i \) is the weight of the \( i \)-th client, determined by its trust 
 
 % （建模） 
 
-% 一部分是FL ViT场景 （一张图\footnote{\textcolor{red}{TODO:} 场景图}，至少包含←这个，可包含攻击）  数学定义之类的   可参考别人描述
+% 一部分是FL ViT场景 （一张图\footnote{\textcolor{red}{TODO} 场景图}，至少包含←这个，可包含攻击）  数学定义之类的   可参考别人描述
 
 % （也可放参数表，\textcolor{red}{一般不放}）
 
@@ -402,9 +402,13 @@ We first explain the basic process of ViT-MGI in \hyperref[sec:method_basic]{§\
 
 \begin{figure*}[htbp]
     \centerline{\includegraphics[width=\figTotalScene]{pics/000-totalScene.pdf}}
+    \vspace{-10px}  % 这里是我加的，减少图片和文字之间的间距
     \caption{ViT Total Scene}
     \label{fig:totalScene}
+    \vspace{-20px}
 \end{figure*}
+
+% \vspace{-50px}
 
 % 图\hyperref[fig:totalScene]{\ref{fig:totalScene}}展示了ViT-MGI算法的整个流程。首先，ViT-MGI收集各个客户端上传上来的梯度变化结果，然后根据\hyperref[exp:exp_layer]{§\ref{exp:exp_layer}}得出的结论将攻击识别所关注的层提取出来。如图\hyperref[fig:totalScene]{\ref{fig:totalScene}}所示，对于某个客户端$c_i$，我们将其上传到中央服务器的梯度记为$g_i$，ViT-MGI首先将$g_i$中的encoder层5的attention.attention.key.bias等全部提取出来重新拼接到一个向量中并记为$\phi(g_i)$，之后使用主成分分析算法对这些数据中的主成分进行分析。
 
@@ -438,7 +442,7 @@ Finally, a subjective logic model evaluates the trustworthiness score $\sigma_i$
 
 For the ViT-B/16 model, the number of gradient changes uploaded to the central server by a client $c_i$ is 85,806,346. Denoting the gradients uploaded to the central server as $g_i$, ViT-MGI first extracts all layers sensitive to attacks based on experiments described in \hyperref[exp:exp_layer]{§\ref{exp:exp_layer}}, and then reassembles these extracted layers into a single vector. We denote these more effective extracted data as $\phi(g_i)$. After the feature layer extraction step, the number of parameters for each client is reduced from 85,806,346 in $g_i$ to approximately $\frac1{10}$ in $\phi(g_i)$. The specific extraction method is shown in \hyperref[alg:layerExtra]{Algorithm \ref{alg:layerExtra}}.
 
-These feature layers are identified through a series of experiments. In experiment \hyperref[exp:exp_layer]{§\ref{exp:exp_layer}}, we divided the ViT model into 200 layers, with each layer averaging only a few hundred thousand parameters.
+These feature layers are identified through a series of experiments. In experiment \hyperref[exp:exp_layer]{§\ref{exp:exp_layer}}, we divided the ViT model into 200 layers, with each layer averaging only a few hundred thousand parameters using \hyperref[alg:featureLayerSelection]{Algorithm \ref{alg:featureLayerSelection}}.
 
 % \begin{algorithm}
 %     \caption{特征层提取}
@@ -494,48 +498,148 @@ These feature layers are identified through a series of experiments. In experime
     \end{algorithmic}
 \end{algorithm}
 
+\begin{algorithm}
+    % \caption{Feature Layer Selection and Integration}
+    \caption{Effective Feature Layers Identification}
+    \label{alg:featureLayerSelection}
+    \begin{algorithmic}[1]
+        \Require $A$ - List of attack methods, $G$ - Gradients uploaded by malicious users each time
+        \Ensure $I$ - Integrated gradients for defense detection
+
+        \Function{FeatureSelect}{$A, G$}
+            \State $C \gets \left [ \ \right ] $
+            \For{each $G_i$ in $G$}
+                \State $C.append( \Call{SelectOnce}{A, G_i})$
+            \EndFor
+            \State $T \gets CountTimes(C)$
+            \State $SortByTimes(T)$
+            \State $I, times \gets getHighTimes(T)$
+            \State \Return $I$
+        \EndFunction
+
+        \Function{SelectOnce}{$A, G_i$}
+            \State $S \gets \left [ \ \right ] $
+            \For{each $a$ in $A$}
+                \State $L \gets$ extract all layers from $G_i$
+                \State $S_a \gets \emptyset$
+                \For{each $l$ in $L$}
+                    \State $acc_l \gets MGI(l)$
+                    \If{$acc_l = 100\%$}
+                        \State $S.insert(l)$
+                    \EndIf
+                \EndFor
+            \State $C \gets \bigcap\left \{ s | s\in S  \right \}$
+            \EndFor
+            \State \Return $C$
+        \EndFunction
+
+        % \Function{Extract}{$g, L_k$}
+        %     \State $\phi(g) \gets \emptyset$
+        %     \For{each $l$ in $g.layers()$}
+        %         \If{$l.name \in L_k$}
+        %             \State $\phi(g) \gets \phi(g) + l$
+        %         \EndIf
+        %     \EndFor
+        %     \State \Return $\phi(g)$
+        % \EndFunction
+
+        
+
+        % \State $L_s \gets \Call{FeatureSelect}{A}$
+        % \State $I_g \gets \Call{Integrate}{G, L_s}$
+
+    \end{algorithmic}
+\end{algorithm}
 
 % \subsection{主成分分析}
 \subsection{Principal Component Analysis}
 \label{sec:method_PCA}
 
-% % 在完成特征层提取后，我们得到了每个客户端上传的特征向量$\phi(g_i)$。为了进一步简化数据结构并保留主要信息，ViT-MGI算法使用主成分分析对这些特征向量进行处理。
+% 在完成特征层提取后，我们得到了每个客户端上传的特征向量$\phi(g_i)$。为了进一步简化数据结构并保留主要信息，ViT-MGI算法使用主成分分析对这些特征向量进行处理。
 
 % After completing the feature layer extraction, we obtain the feature vectors $\phi(g_i)$ uploaded by each client. To further simplify the data structure and retain the primary information, the ViT-MGI algorithm employs Principal Component Analysis (PCA) to process these feature vectors.
 
-% % PCA是一种常用的降维技术，通过将高维数据投影到一个低维空间中，保留数据中最重要的变化信息。具体来说，PCA通过线性变换将数据转化为一组新的不相关变量，这些变量称为主成分。主成分按其解释的方差大小排序，前几个主成分保留了数据中的主要信息，从而减少了数据维度。
+After feature layer extraction, the ViT-MGI algorithm uses PCA to simplify the data structure while retaining primary information.
+
+% PCA是一种常用的降维技术，通过将高维数据投影到一个低维空间中，保留数据中最重要的变化信息。具体来说，PCA通过线性变换将数据转化为一组新的不相关变量，这些变量称为主成分。主成分按其解释的方差大小排序，前几个主成分保留了数据中的主要信息，从而减少了数据维度。
 
 % % 对于每个客户端的特征向量$\phi(g_i)$，我们首先对其进行中心化处理，即减去其均值：
 
-% % \[
-% % \phi(g_i) = \phi(g_i) - \bar{\phi}
-% % \]
+% For each client's feature vector $\phi(g_i)$, we first perform centering by subtracting its mean:
+
+% \[
+% \phi(g_i) = \phi(g_i) - \bar{\phi}
+% \]
 
 % % 其中，$\bar{\phi}$是所有客户端上传的特征向量的均值。接下来，计算协方差矩阵：
 
-% % \[
-% % \mathbf{C} = \frac{1}{N} \sum_{i=1}^N \phi(g_i) \phi(g_i)^T
-% % \]
+% where $\bar{\phi}$ is the mean of the feature vectors uploaded by all clients. Next, we compute the covariance matrix:
+
+% \[
+% \mathbf{C} = \frac{1}{N} \sum_{i=1}^N \phi(g_i) \phi(g_i)^T
+% \]
 
 % % 然后，对协方差矩阵$\mathbf{C}$进行特征值分解，得到特征值和特征向量：
 
-% % \[
-% % \mathbf{C} = \mathbf{V} \mathbf{\Lambda} \mathbf{V}^T
-% % \]
+% Then, we perform eigenvalue decomposition on the covariance matrix $\mathbf{C}$ to obtain the eigenvalues and eigenvectors:
+
+% \[
+% \mathbf{C} = \mathbf{V} \mathbf{\Lambda} \mathbf{V}^T
+% \]
 
 % % 其中，$\mathbf{\Lambda}$是对角矩阵，其对角元素是协方差矩阵的特征值，$\mathbf{V}$是特征向量矩阵。特征向量矩阵$\mathbf{V}$的每一列是一个主成分的方向。我们选择前$r$个最大的特征值对应的特征向量构成的子空间：
 
-% % \[
-% % \mathbf{V}_r = [\mathbf{v}_1, \mathbf{v}_2, \ldots, \mathbf{v}_r]
-% % \]
+% where $\mathbf{\Lambda}$ is a diagonal matrix with the eigenvalues of the covariance matrix as its diagonal elements, and $\mathbf{V}$ is the eigenvector matrix. Each column of the eigenvector matrix $\mathbf{V}$ represents the direction of a principal component. We select the subspace formed by the top $r$ eigenvectors corresponding to the largest eigenvalues:
+
+% \[
+% \mathbf{V}_r = [\mathbf{v}_1, \mathbf{v}_2, \ldots, \mathbf{v}_r]
+% \]
 
 % % 将原始数据投影到该子空间中，得到降维后的数据：
 
-% % \[
-% % \phi'(g_i) = \mathbf{V}_r^T \phi(g_i)
-% % \]
+% Project the original data onto this subspace to obtain the dimension-reduced data:
 
-% % PCA是一种常用的降维技术，通过线性变换将高维数据投影到低维空间中，保留数据中最重要的变化信息。对于每个客户端的特征向量，我们首先进行中心化处理，然后计算协方差矩阵，并进行特征值分解，选择前几个最大的特征值对应的特征向量构成的子空间，将原始数据投影到该子空间中，得到降维后的数据，从而提高后续攻击检测算法的效率和准确性。
+% \[
+% \phi'(g_i) = \mathbf{V}_r^T \phi(g_i)
+% \]
+
+% 对于每个客户端的特征向量$\phi(g_i)$，我们首先对其进行中心化处理，即减去其均值：
+
+% For each client's feature vector $\phi(g_i)$, we first perform centering by subtracting its mean:
+
+% \[
+% \phi(g_i) = \phi(g_i) - \bar{\phi}
+% \]
+
+% where $\bar{\phi}$ is the mean of the feature vectors uploaded by all clients. Next, we compute the covariance matrix:
+
+% \[
+% \mathbf{C} = \frac{1}{N} \sum_{i=1}^N \phi(g_i) \phi(g_i)^T
+% \]
+
+% Then, we perform eigenvalue decomposition on the covariance matrix $\mathbf{C}$ to obtain the eigenvalues and eigenvectors:
+
+% \[
+% \mathbf{C} = \mathbf{V} \mathbf{\Lambda} \mathbf{V}^T
+% \]
+
+% where $\mathbf{\Lambda}$ is a diagonal matrix with the eigenvalues of the covariance matrix as its diagonal elements, and $\mathbf{V}$ is the eigenvector matrix. Each column of the eigenvector matrix $\mathbf{V}$ represents the direction of a principal component. We select the subspace formed by the top $r$ eigenvectors corresponding to the largest eigenvalues:
+
+% \[
+% \mathbf{V}_r = [\mathbf{v}_1, \mathbf{v}_2, \ldots, \mathbf{v}_r]
+% \]
+
+% Project the original data onto this subspace to obtain the dimension-reduced data:
+
+% \[
+% \phi'(g_i) = \mathbf{V}_r^T \phi(g_i)
+% \]
+
+
+For each client's feature vector $\phi(g_i)$, we first perform centering by subtracting its mean, i.e., $\phi(g_i) = \phi(g_i) - \bar{\phi}$, where $\bar{\phi}$ is the mean of the feature vectors uploaded by all clients. Next, we compute the covariance matrix: $\mathbf{C} = \frac{1}{N} \sum_{i=1}^N \phi(g_i) \phi(g_i)^T$. Then, we perform eigenvalue decomposition on the covariance matrix $\mathbf{C}$ to obtain the eigenvalues and eigenvectors: $\mathbf{C} = \mathbf{V} \mathbf{\Lambda} \mathbf{V}^T$, where $\mathbf{\Lambda}$ is a diagonal matrix with the eigenvalues of the covariance matrix as its diagonal elements, and $\mathbf{V}$ is the eigenvector matrix. Each column of the eigenvector matrix $\mathbf{V}$ represents the direction of a principal component. We select the subspace formed by the top $r$ eigenvectors corresponding to the largest eigenvalues: $\mathbf{V}_r = [\mathbf{v}_1, \mathbf{v}_2, \ldots, \mathbf{v}_r]$. Project the original data onto this subspace to obtain the dimension-reduced data: $\phi'(g_i) = \mathbf{V}_r^T \phi(g_i)$.
+
+
+% PCA是一种常用的降维技术，通过线性变换将高维数据投影到低维空间中，保留数据中最重要的变化信息。对于每个客户端的特征向量，我们首先进行中心化处理，然后计算协方差矩阵，并进行特征值分解，选择前几个最大的特征值对应的特征向量构成的子空间，将原始数据投影到该子空间中，得到降维后的数据，从而提高后续攻击检测算法的效率和准确性。
 
 % PCA is a commonly used dimensionality reduction technique that projects high-dimensional data into a low-dimensional space through linear transformation, retaining the most significant variation information in the data. For each client's feature vector, we first perform centralization, then calculate the covariance matrix, and perform eigenvalue decomposition. We select the subspace formed by the eigenvectors corresponding to the largest eigenvalues and project the original data into this subspace to obtain the reduced-dimension data, thereby improving the efficiency and accuracy of subsequent attack detection algorithms.
 
@@ -555,7 +659,9 @@ These feature layers are identified through a series of experiments. In experime
 
 % This process retains essential information while significantly reducing data dimensionality, enhancing the efficiency and accuracy of subsequent attack detection algorithms.
 
-After feature layer extraction, the ViT-MGI algorithm uses PCA to simplify the data structure while retaining primary information. PCA reduces dimensionality by projecting high-dimensional data into a lower-dimensional space, capturing significant variations. This process retains essential information and enhances the efficiency and accuracy of subsequent attack detection algorithms.
+% After feature layer extraction, the ViT-MGI algorithm uses PCA to simplify the data structure while retaining primary information. PCA reduces dimensionality by projecting high-dimensional data into a lower-dimensional space, capturing significant variations. This process retains essential information and enhances the efficiency and accuracy of subsequent attack detection algorithms.
+
+This process retains essential information and enhances the efficiency and accuracy of subsequent attack detection algorithms.
 
 % \subsection{隔离森林}
 \subsection{Isolation Forest}
@@ -591,7 +697,33 @@ After feature layer extraction, the ViT-MGI algorithm uses PCA to simplify the d
 
 % In the ViT-MGI algorithm, we analyze the reduced data $\phi'(g_i)$ for each client using Isolation Forest, obtaining an anomaly score $s_i$. These scores help identify potential malicious clients. We then combine these scores with a subjective logic model to calculate a credibility score $\sigma_i$, selecting trustworthy clients for global model updates.
 
-After PCA, the ViT-MGI algorithm uses the Isolation Forest algorithm to detect anomalies and identify potential malicious clients. Isolation Forest constructs trees by randomly selecting features and split values, calculating anomaly scores based on the path lengths within the trees. These scores help identify potential malicious clients, which are then further analyzed using a subjective logic model to select trustworthy clients for global model updates.
+% After PCA, the ViT-MGI algorithm uses the Isolation Forest algorithm to detect anomalies and identify potential malicious clients. Isolation Forest constructs trees by randomly selecting features and split values, calculating anomaly scores based on the path lengths within the trees. These scores help identify potential malicious clients, which are then further analyzed using a subjective logic model to select trustworthy clients for global model updates.
+
+After PCA, the ViT-MGI algorithm uses the Isolation Forest algorithm to detect anomalies and identify potential malicious clients. 
+
+% 隔离森林是一种基于树结构的无监督异常检测算法，通过随机选择特征和分割值构建多棵树，计算每个数据点在树中的路径长度，并根据路径长度计算异常评分，评分越高表示数据点越可能是异常点。算法的步骤如下：
+
+Isolation Forest is an unsupervised anomaly detection algorithm based on a tree structure. It constructs multiple trees by randomly selecting features and split values, calculates the path length of each data point in the trees, and determines anomaly scores based on the path lengths. Higher scores indicate a greater likelihood that the data point is an anomaly. The steps of the algorithm are as follows:
+
+% 1. 构建森林：首先，随机选择一个子样本集，并从中构建多棵隔离树（iTree）。每棵树通过随机选择特征和分割点来分割数据，直到所有数据点都被完全隔离，或者达到预定的最大树深度。
+
+1. Forest Construction: First, a random subset of the sample is selected, and multiple isolation trees (iTrees) are constructed from this subset. Each tree splits the data by randomly selecting features and split points until all data points are completely isolated or a predefined maximum tree depth is reached.
+
+% 2. 计算路径长度：对于每个数据点，计算其在每棵树中的路径长度，即从根节点到叶节点的距离。异常数据点的平均路径长度较短，因为它们更容易被隔离。
+
+2. Path Length Calculation: For each data point, the path length in each tree is calculated, which is the distance from the root node to the leaf node. Anomalous data points tend to have shorter average path lengths because they are easier to isolate.
+
+% 3. 计算异常评分：根据路径长度计算每个数据点的异常评分。具体来说，假设数据点$x$在隔离树中的平均路径长度为$h(x)$，则其异常评分$s(x)$定义为：
+
+3. Anomaly Score Calculation: The anomaly score of each data point is calculated based on its path length. Specifically, if the average path length of a data point $x$ in the isolation trees is $h(x)$, its anomaly score $s(x)$ is defined as:
+   \[
+   s(x) = 2^{-\frac{h(x)}{c(n)}}
+   \]
+where $c(n)$ is a normalization factor, and $n$ is the number of samples in the dataset. An anomaly score $s(x)$ closer to 1 indicates a higher likelihood that the data point is an anomaly.
+% 其中，$c(n)$是一个调整因子，$n$为数据集的样本数量。异常评分$s(x)$越接近1，表示数据点越可能是异常点。
+
+These scores help identify potential malicious clients, which are then further analyzed using a subjective logic model to select trustworthy clients for global model updates.
+
 
 % \subsection{主观逻辑模型}
 \subsection{Subjective Logic Model}
@@ -599,7 +731,7 @@ After PCA, the ViT-MGI algorithm uses the Isolation Forest algorithm to detect a
 
 % 在使用隔离森林算法对降维后的数据进行异常检测并获得每个客户端的异常评分$s_i$之后，ViT-MGI算法进一步采用主观逻辑模型（Subjective Logic Model, SLM）来计算每个客户端的可信度评分$\sigma_i$。
 
-After performing anomaly detection on the dimensionally reduced data using the Isolation Forest algorithm and obtaining an anomaly score $s_i$ for each client, the ViT-MGI algorithm further employs the Subjective Logic Model (SLM) to calculate a credibility score $\sigma_i$ for each client.
+After performing anomaly detection on the dimensionally reduced data using the Isolation Forest algorithm and obtaining an anomaly score $s_i$ for each client, the ViT-MGI algorithm further employs the Subjective Logic Model\cite{Subjective_Logic_Model} to calculate a credibility score $\sigma_i$ for each client.
 
 % 主观逻辑模型是一种用于处理不确定性和主观意见的数学框架，通过结合历史行为和当前表现来计算每个客户端的可信度评分。具体来说，主观逻辑模型使用信任度（belief）、不信任度（disbelief）和不确定度（uncertainty）三个参数来表示可信度评分。对于每个客户端$c_i$，这些参数可以根据其历史行为和异常评分来计算。
 
@@ -623,7 +755,9 @@ After performing anomaly detection on the dimensionally reduced data using the I
 
 % 主观逻辑模型通过结合信任度、不信任度和不确定度三个参数，根据客户端的历史行为和当前表现计算其可信度评分，从而筛选出可信的客户端进行全局模型更新。
 
-The Subjective Logic Model\cite{Subjective_Logic_Model} calculates the trustworthiness score of each client by combining three parameters: belief, disbelief, and uncertainty, based on the client's historical behavior and current performance. This score is then used to select trustworthy clients for updating the global model.
+% The Subjective Logic Model\cite{Subjective_Logic_Model} calculates the trustworthiness score of each client by combining three parameters: belief, disbelief, and uncertainty, based on the client's historical behavior and current performance. This score is then used to select trustworthy clients for updating the global model.
+
+The Subjective Logic Model is a mathematical framework used to handle uncertainty and subjective opinions by combining historical behavior and current performance to calculate the trust score of each client. First, for each client $c_i$, the belief $b_i$, disbelief $d_i$, and uncertainty $u_i$ are initialized based on historical data. Then, the trust parameters are updated based on the client's performance in the current round. Assuming the anomaly score of client $c_i$ in round $t$ is $s_i(t)$, the trust parameters are updated using the formulas: $b_i(t) = \frac{b_i(t-1) \times (1 - s_i(t))}{b_i(t-1) + d_i(t-1) + u_i(t-1)}$, $d_i(t) = \frac{d_i(t-1) \times s_i(t)}{b_i(t-1) + d_i(t-1) + u_i(t-1)}$, and $u_i(t) = \frac{u_i(t-1)}{b_i(t-1) + d_i(t-1) + u_i(t-1)}$. Next, the overall trust score $\sigma_i(t)$ for each client is calculated based on the updated trust parameters using the formula $\sigma_i(t) = \frac{b_i(t)}{b_i(t) + d_i(t) + u_i(t)}$. Finally, the gradients $\Delta \theta_i$ uploaded by the clients are weighted by their trust scores $\sigma_i(t)$ to aggregate and update the global model parameters $\theta$ using the formula $\theta \leftarrow \theta - \eta \sum_{i=1}^N \sigma_i(t) \Delta \theta_i$.
 
 % 通过主观逻辑模型，ViT-MGI算法能够更有效地识别并筛选出可信的客户端，确保全局模型的鲁棒性和准确性。
 
@@ -674,9 +808,9 @@ Through the Subjective Logic Model, the ViT-MGI algorithm can more effectively i
 
 % (也是总分，技术上是怎么实现的)
 
-% \textcolor{red}{TODO:} 总的方案图
+% \textcolor{red}{TODO} 总的方案图
 
-% \textcolor{red}{TODO:} 能体现细节的图
+% \textcolor{red}{TODO} 能体现细节的图
 
 % （至少一张图，可2张3张，一张大的(总的方案图)，可加小(细节)图）
 
@@ -784,7 +918,8 @@ To conduct further experiments, we first established a framework for federated l
     \centerline{\includegraphics[width=\figGradAscentAttack]{pics/001-gradAttack-attackRate.pdf}}
     % \centering
     % \includesvg[width=0.5\textwidth]{pics/001-gradAttack-attackRate.pdf}
-    \caption{grad ascent attack}
+    \vspace{-10px}  % 这里是我加的，减少图片和文字之间的间距
+    \caption{Grad ascent attack\vspace{-8px}}
     \label{fig:gradAscent}
 \end{figure}
 
@@ -797,7 +932,8 @@ We conducted gradient ascent attack experiments on a normal federated learning f
 
 \begin{figure}[htbp]
     \centerline{\includegraphics[width=\figLabelFlip]{pics/002-LabelFlippingAttack-attackRate.pdf}}
-    \caption{label flip attack}
+    \vspace{-10px}  % 这里是我加的，减少图片和文字之间的间距
+    \caption{Label flip attack\vspace{-8px}}
     \label{fig:labelFlip}
 \end{figure}
 
@@ -805,7 +941,10 @@ We conducted gradient ascent attack experiments on a normal federated learning f
 
 % To verify the effectiveness of label flip attacks, we selected 20\% of the clients as malicious clients to perform label flip attacks without any defense mechanisms. In a label flip attack, the labels of the local data are altered to incorrect labels. As shown in Figure \hyperref[fig:labelFlip]{\ref{fig:labelFlip}}, the blue curve represents the accuracy of the global model without attackers, the orange curve shows the accuracy when 20\% of the clients are performing label flip attacks, and the green curve indicates the success rate of the label flip attack, which is the probability that the global model on the server misclassifies an input image as the attack target label. The x-axis represents the training rounds. It can be seen that as the training rounds increase, the success rate of the label flip attack initially rises quickly; however, as the training progresses, the model aggregates with more benign clients, causing the attack success rate to first increase and then decrease. The label flip attack results in the model's accuracy being consistently lower than that of a normally trained model. With the increase in training rounds, the attack success rate stabilizes around 20\%. The experimental results demonstrate that label flip attacks are also effective.
 
-To verify the effectiveness of label flip attacks, we selected 20\% of clients as malicious and altered the labels of their local data. Figure \hyperref[fig:labelFlip]{\ref{fig:labelFlip}} shows the results: the blue curve represents the global model accuracy without attackers, the orange curve shows the accuracy with 20\% malicious clients, and the green curve indicates the attack success rate, i.e., the probability of the model misclassifying an input image as the target label. Initially, the success rate of the label flip attack rises quickly, but as more benign clients aggregate, it stabilizes around 20%. The model's accuracy remains consistently lower than that of a normally trained model, demonstrating the effectiveness of label flip attacks.
+% To verify the effectiveness of label flip attacks, we selected 20\% of clients as malicious and altered the labels of their local data. Figure \hyperref[fig:labelFlip]{\ref{fig:labelFlip}} shows the results: the blue curve represents the global model accuracy without attackers, the orange curve shows the accuracy with 20\% malicious clients, and the green curve indicates the attack success rate, i.e., the probability of the model misclassifying an input image as the target label. Initially, the success rate of the label flip attack rises quickly, but as more benign clients aggregate, it stabilizes around 20\%. The model's accuracy remains consistently lower than that of a normally trained model, demonstrating the effectiveness of label flip attacks.
+
+
+To verify the effectiveness of label flip attacks, we selected 20\% of clients as malicious and altered their local data labels. Figure \hyperref[fig:labelFlip]{\ref{fig:labelFlip}} shows the results: the blue curve represents global model accuracy without attackers, the orange curve shows accuracy with 20\% malicious clients, and the green curve indicates the attack success rate. Initially, the success rate rises quickly, then stabilizes around 20\% as more benign clients aggregate. The model's accuracy remains consistently lower than that of a normally trained model, demonstrating the effectiveness of label flip attacks.
 
 % \subsubsection{\textbf{后门植入攻击}}
 \subsubsection{\textbf{Backdoor Attack}}
@@ -821,7 +960,8 @@ To verify the effectiveness of backdoor attacks, we selected 20\% of clients as 
     \centerline{\includegraphics[width=\figBackdoorAttack]{pics/003-backdoorAttack.pdf}}
     % \centering
     % \includesvg[width=0.5\textwidth]{pics/001-gradAttack-attackRate.pdf}
-    \caption{backdoor attack}
+    \vspace{-10px}  % 这里是我加的，减少图片和文字之间的间距
+    \caption{Backdoor attack\vspace{-8px}}
     \label{fig:backdoorAttack}
 \end{figure}
 
@@ -842,7 +982,7 @@ Overall, the experiments in \hyperref[exp:attack]{\ref{exp:attack}} demonstrate 
 
 % 余弦相似度分析、PCA+余弦相似度分析、特征层提取+PCA+余弦相似度分析、池化放大+PCA+余弦相似度分析；隔离森林、PCA+隔离森林、特征层提取+PCA+隔离森林、池化放大+隔离森林；ViT-MGI。
 
-% TODO:防御成功性实验：比如进行1000次训练，我们的防御效果。500次在两轮次内全部抓到，...。没有多抓漏抓的情况。
+% TODO 防御成功性实验：比如进行1000次训练，我们的防御效果。500次在两轮次内全部抓到，...。没有多抓漏抓的情况。
 
 % \subsubsection{\textbf{防御有效性实验}}
 \subsubsection{\textbf{Defense Effectiveness Experiment}}
@@ -854,7 +994,8 @@ To demonstrate the effectiveness of our defense, we incorporated our ViT-MGI def
 
 \begin{figure}[htbp]
     \centerline{\includegraphics[width=\figGradAscentAttackDefense]{pics/004-gradAttack-attackRate=1-withDefense.pdf}}
-    \caption{grad ascent attack and defense}
+    \vspace{-10px}  % 这里是我加的，减少图片和文字之间的间距
+    \caption{Grad ascent attack and defense\vspace{-8px}}
     \label{fig:gradAscentDefense}
 \end{figure}
 
@@ -864,7 +1005,8 @@ As shown in Figure \hyperref[fig:gradAscentDefense]{\ref{fig:gradAscentDefense}}
 
 \begin{figure}[htbp]
     \centerline{\includegraphics[width=\figLabelFlipDefense]{pics/005-LabelFlippingAttack-withDefense.pdf}}
-    \caption{label flipping attack and defense}
+    \vspace{-10px}  % 这里是我加的，减少图片和文字之间的间距
+    \caption{Label flipping attack and defense\vspace{-8px}}
     \label{fig:labelFlipDefense}
 \end{figure}
 
@@ -874,8 +1016,9 @@ As shown in Figure \hyperref[fig:labelFlipDefense]{\ref{fig:labelFlipDefense}}, 
 
 \begin{figure}[htbp]
     \centerline{\includegraphics[width=\figBackdoorAttackDefense]{pics/006-backdoorAttack-WithDefense.pdf}}
-    \caption{backdoor attack and defense}
-    \label{fig:backdoorAttackDefense}
+    \vspace{-10px}  % 这里是我加的，减少图片和文字之间的间距
+    \caption{Backdoor attack and defense\vspace{-8px}}
+    \label{fig:backdoorAttackDefense}    
 \end{figure}
 
 % 如图\hyperref[fig:backdoorAttackDefense]{\ref{fig:backdoorAttackDefense}}所示展示了有$20\%$的恶意客户端进后门植入攻击时的防御效果，攻击方式和\hyperref[exp:attack:backdoor]{\ref{exp:attack:backdoor}}中所描述的一致。其中蓝色的曲线、绿色的曲线、紫色的曲线分别代表有攻击但没有防御时的模型准确率、后门植入攻击成功率、带有后门的图像的识别准确率；而橙色、红色、棕色的曲线分别代表有防御时的模型准确率、后门植入攻击成功率、带有后门的图像的识别准确率。由紫色曲线和棕色曲线可以看出，后门攻击若不加防御，则对于植入后门的图片的预测准确率很低，而加上ViT-MGI后带有后门的图像的准确率也能接近模型总水平；由绿色曲线和红色曲线能更加清晰地看出ViT-MGI的防御效果，若不加防御则植入后门的图片的成功率能稳定在$70\%$左右，而加上ViT-MGI的防御后植入后门的图片的成功率几乎恒定为$0\%$。这说明ViT-MGI对后门植入攻击的防御是有效的。
@@ -962,7 +1105,7 @@ To evaluate the effectiveness of defense mechanisms against malicious clients, w
 
 \begin{table}[htbp]
     \caption{Grad Ascent Defense Result}
-    % \vspace{-10pt}  % 这个是我加的，要不然标头与表格离得太远了
+    \vspace{-18pt}  % 这个是我加的，要不然标头与表格离得太远了
     \begin{center}
     \resizebox{\linewidth}{!}{
     \begin{tabular}{|c|c|c|c|c|c|}
@@ -988,6 +1131,7 @@ To evaluate the effectiveness of defense mechanisms against malicious clients, w
     \end{tabular}}
     \label{tab:gradAscent}
     \end{center}
+    \vspace{-10px}
 \end{table}
 
 % 表\hyperref[tab:gradAscent]{\ref{tab:gradAscent}}展示了各种防御算法针对梯度上升攻击的恶意客户端识别结果。其中Defend Method中，hyphen前代表防御方式，hyphen后代表数据降维方式。其中hyphen前有PCA、Forest、以及Both三种，PCA代表主成分分析加余弦相似度检测，Forest代表隔离森林检测，Both代表ViT-MGI中使用的先进行主成分分析再进行隔离森林的检测方式；而hyphen后有layer、pooling以及only三种，分别代表通过提取特征层的方式、放大池化的方式以及不进行数据提取操作者三种方式。若参数量较大的ViT模型直接应用隔离森林算法，则会造成大量的时间及内存消耗（$> 128GB$），因此面对数据量较大的ViT模型时，有理由认为单纯的隔离森林不是一种有效的防御检测方法。
@@ -998,16 +1142,17 @@ To evaluate the effectiveness of defense mechanisms against malicious clients, w
 
 % Whether using PCA with cosine similarity detection or PCA with isolation forest, the recently proposed pooling amplification algorithm \cite{betterTogether} shows degraded detection performance with large ViT models. However, using our feature layer extraction method improves detection accuracy.
 
+% \vspace{-20px}  % TODO 可能要删
 
 Table \hyperref[tab:gradAscent]{\ref{tab:gradAscent}} shows the performance of various defense algorithms against gradient ascent attacks. The Defend Method column lists the defense method and the data dimensionality reduction method. The defense methods include PCA (principal component analysis with cosine similarity detection), Forest (isolation forest detection), and Both (ViT-MGI, combining PCA with isolation forest). The data reduction methods are layer (feature layer extraction), pooling (pooling amplification), and only (no data extraction).
 
-Applying isolation forest directly to large ViT models is impractical due to significant time and memory consumption (>128GB). Hence, isolation forest alone is not effective for large ViT models.
+Applying isolation forest directly to ViT is impractical due to significant and memory consumption ($>128GB$). Hence, isolation forest alone is not effective for large ViT models.
 
 Both PCA with cosine similarity detection and PCA with isolation forest show that the pooling amplification algorithm \cite{betterTogether} degrades detection performance in large ViT models. However, our feature layer extraction method significantly improves detection accuracy.
 
 \begin{table}[htbp]
-    \caption{Grad Ascent Defense Result}
-    % \vspace{-10pt} % 减少标题和表格之间的间距
+    \caption{Label Flip Defense Result}
+    \vspace{-18pt}  % 这个是我加的，要不然标头与表格离得太远了
     \begin{center}
     \resizebox{\linewidth}{!}{
     \begin{tabular}{|c|c|c|c|c|c|}
@@ -1033,11 +1178,13 @@ Both PCA with cosine similarity detection and PCA with isolation forest show tha
     \end{tabular}}
     \label{tab:labelFlip}
     \end{center}
+    \vspace{-10px}
 \end{table}
 
 \begin{table}[htbp]
-    \caption{Grad Ascent Defense Result}
-    % \vspace{-10pt} % 减少标题和表格之间的间距
+    % \vspace{-18pt}  % 注意表III的位置！如果不在表II后面了大概要注释掉这个
+    \caption{Backdoor Defense Result}
+    \vspace{-18pt}  % 这个是我加的，要不然标头与表格离得太远了
     \begin{center}
     \resizebox{\linewidth}{!}{
     \begin{tabular}{|c|c|c|c|c|c|}
@@ -1063,6 +1210,7 @@ Both PCA with cosine similarity detection and PCA with isolation forest show tha
     \end{tabular}}
     \label{tab:backdoor}
     \end{center}
+    \vspace{-10px}
 \end{table}
 
 % 表\hyperref[tab:labelFlip]{\ref{tab:labelFlip}}和表\hyperref[tab:backdoor]{\ref{tab:backdoor}}分别表示了标签翻转攻击和后门植入攻击时的各种算法防御效果对比，其中标签翻转攻击以及后门植入攻击都有$30\%$的攻击者，其中后门植入攻击的攻击者只将本地$35\%$的数据进行了后门植入处理。结果发现，和表\hyperref[tab:gradAscent]{\ref{tab:gradAscent}}的结果类似，放大池化算法都在降低计算量的同时降低了识别精度。而我们的特征层提取算法能够在降低计算量的同时聚合有效信息，使得后续计算效果更加准确。
@@ -1078,7 +1226,11 @@ Tables \hyperref[tab:labelFlip]{\ref{tab:labelFlip}} and \hyperref[tab:backdoor]
 
 % 我们在相同环境、相同训练参数的情况下分别进行了上述实验，并统计了正常训练耗时、以及应用上各种防御方式后的总耗时。由表\hyperref[tab:gradAscent]{\ref{tab:gradAscent}}-表\hyperref[tab:backdoor]{\ref{tab:backdoor}}可以看出，我们的方案在效率和鲁棒性方面都有更好的表现。
 
-From the experiments where no data dimensionality reduction was performed, it is evident that regardless of the algorithm used, a substantial amount of time is consumed, which is unacceptable for a training process that typically takes only 165 seconds on average.
+% From the experiments where no data dimensionality reduction was performed, it is evident that regardless of the algorithm used, a substantial amount of time is consumed, which is unacceptable for a training process that typically takes only 165 seconds on average.
+
+% From the experiments without data dimensionality reduction, it is evident that regardless of the algorithm, the substantial time consumed is unacceptable for a training process that typically takes only 165 seconds on average.
+
+From the experiments where no data dimensionality reduction was performed, it is evident that regardless of the algorithm used, the substantial amount of time consumed is unacceptable for a training process that typically takes only 165 seconds on average.
 
 We conducted the aforementioned experiments under the same environment and training parameters and recorded the normal training time and the total time with various defense methods applied. As shown in Tables \hyperref[tab:gradAscent]{\ref{tab:gradAscent}} through \hyperref[tab:backdoor]{\ref{tab:backdoor}}, our approach demonstrates superior performance in both efficiency and robustness.
 
@@ -1133,59 +1285,6 @@ To reduce the computational load required for detecting malicious attacks and to
 %     \State Randomly select additional layers from non-extracted layers for integration to prevent targeted attacks
 %     \end{algorithmic}
 % \end{algorithm}
-
-
-\begin{algorithm}
-    \caption{Feature Layer Selection and Integration}
-    \label{alg:featureLayerSelection}
-    \begin{algorithmic}[1]
-        \Require $A$ - List of attack methods, $G$ - Gradients uploaded by malicious users each time
-        \Ensure $I$ - Integrated gradients for defense detection
-
-        \Function{FeatureSelect}{$A, G$}
-            \State $C \gets \left [ \right ] $
-            \For{each $G_i$ in $G$}
-                \State $C.append( \Call{SelectOnce}{A, G_i})$
-            \EndFor
-            \State $T \gets CountTimes(C)$
-            \State $SortByTimes(T)$
-            \State $I, times \gets getHighTimes(T)$
-            \State \Return $I$
-        \EndFunction
-
-        \Function{SelectOnce}{$A, G_i$}
-            \State $S \gets \left [  \right ] $
-            \For{each $a$ in $A$}
-                \State $L \gets$ extract all layers from $G_i$
-                \State $S_a \gets \emptyset$
-                \For{each $l$ in $L$}
-                    \State $acc_l \gets MGI(l)$
-                    \If{$acc_l = 100\%$}
-                        \State $S.insert(l)$
-                    \EndIf
-                \EndFor
-            \State $C \gets \bigcap\left \{ s | s\in S  \right \}$
-            \EndFor
-            \State \Return $C$
-        \EndFunction
-
-        % \Function{Extract}{$g, L_k$}
-        %     \State $\phi(g) \gets \emptyset$
-        %     \For{each $l$ in $g.layers()$}
-        %         \If{$l.name \in L_k$}
-        %             \State $\phi(g) \gets \phi(g) + l$
-        %         \EndIf
-        %     \EndFor
-        %     \State \Return $\phi(g)$
-        % \EndFunction
-
-        
-
-        % \State $L_s \gets \Call{FeatureSelect}{A}$
-        % \State $I_g \gets \Call{Integrate}{G, L_s}$
-
-    \end{algorithmic}
-\end{algorithm}
 
 % 这样，对于恶意用户上传的梯度，我们就可以只提取这些层的梯度后整合到一起，再进行后续的防御检测。为了防止恶意用户针对本算法进行攻击，可以每次随机选取一些在提取名单之外的层进行整合。% \footnote{忽然想到针对候选的每一层做一个识别实验，将所有层的结果按出现次数排序不知道会咋样。}
 
@@ -1248,11 +1347,15 @@ In summary, to address the issue of detecting malicious user attacks, we propose
 
 Looking ahead, we plan to extend the feature layer extraction method to broader malicious attack detection scenarios and other fields like anomaly detection and fault diagnosis, enhancing its generality and practicality.
 
+% Looking ahead, we plan to extend the feature layer extraction method to broader malicious attack detection scenarios and explore its application in fields like anomaly detection and fault diagnosis, thereby enhancing its generality and practicality.
+
 % Conclusion:
 
 % 摘要 + 实验结果
 
+\section{Acknowledgment}
 
+This work was supported by China Postdoctoral Science Foundation (grant No. 2024M750259), Beijing Natural Science Foundation (grant No. 4244084), National Natural Science Foundation of China (grant No. 62394322).
 
 % 按照8页来规划内容
 
@@ -1476,8 +1579,10 @@ Looking ahead, we plan to extend the feature layer extraction method to broader 
 % \bibitem{b6} Y. Yorozu, M. Hirano, K. Oka, and Y. Tagawa, ``Electron spectroscopy studies on magneto-optical media and plastic substrate interface,'' IEEE Transl. J. Magn. Japan, vol. 2, pp. 740--741, August 1987 [Digests 9th Annual Conf. Magnetics Japan, p. 301, 1982].
 % \bibitem{b7} M. Young, The Technical Writer's Handbook. Mill Valley, CA: University Science, 1989.
 % \end{thebibliography}
+\balance
 \bibliographystyle{IEEEtran}
 \bibliography{references}
+% \balance
 % \printbibliography % 打印参考文献
 % \vspace{12pt}
 % \color{red}

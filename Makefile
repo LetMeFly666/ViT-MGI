@@ -33,10 +33,10 @@ $(PDF): $(TEX) $(CLS) $(BIB)
 	rm -rf $(TEMP_DIRS)
 	# /usr/local/texlive/2024/bin/x86_64-linux/latexmk -xelatex -shell-escape main.tex
 	
-	/usr/local/texlive/2024/bin/x86_64-linux/xelatex $(TEX)
+	/usr/local/texlive/2024/bin/x86_64-linux/pdflatex $(TEX)
 	/usr/local/texlive/2024/bin/x86_64-linux/bibtex main
-	/usr/local/texlive/2024/bin/x86_64-linux/xelatex $(TEX)
-	/usr/local/texlive/2024/bin/x86_64-linux/xelatex $(TEX)
+	/usr/local/texlive/2024/bin/x86_64-linux/pdflatex $(TEX)
+	/usr/local/texlive/2024/bin/x86_64-linux/pdflatex $(TEX)
 	# chmod a+rw $(TEMP_FILES)
 	find . -maxdepth 1 -type f \( -name "$(AUX)" -o -name "$(DVI)" -o -name "$(LOG)" -o -name "$(PDF)" -o -name "$(LOG2)" \) -exec chmod a+rw {} \;
 

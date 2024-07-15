@@ -2,7 +2,7 @@
  * @Author: LetMeFly
  * @Date: 2024-07-05 21:09:55
  * @LastEditors: LetMeFly
- * @LastEditTime: 2024-07-13 18:55:04
+ * @LastEditTime: 2024-07-15 15:17:07
 -->
 # 頑張って
 
@@ -36,3 +36,13 @@ Before submitting the final camera ready copy, remember to:
  2. Ensure that any PostScript and/or PDF output post-processing
  uses only Type 1 fonts and that every step in the generation
  process uses the appropriate paper size.
+
+To change:
+
+<!-- 0. 再引几篇 -->
+<!-- 1. PCA介绍那些太单薄了 -->
+2. 图可以压缩，每张图保持一样格式
+<!-- 3. contribution  合并合并 -->
+4. 什么格式都应该统一
+5. 图 grid(False)
+<!-- 6. 特征层提取的算法移动到METHODOLOGY -->
