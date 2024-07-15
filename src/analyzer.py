@@ -120,7 +120,7 @@ class GradientAnalyzer:
             else:
                 useful_grads_list.append(idx)
         
-        print("Anomalous gradients:", anomalous_grads_list)
+        # print("Anomalous gradients:", anomalous_grads_list)
         self.ban_history.append(anomalous_grads_list)
         print(f"Forest End | {getNow()}")
         return useful_grads_list, anomalous_grads_list, anomaly_scores, sorted_indices
@@ -130,9 +130,9 @@ class GradientAnalyzer:
         anomalous_grads_list = []
         
         # Perform PCA on all gradients
-        print(f"PCA Begin | {getNow()}")
+        # print(f"PCA Begin | {getNow()}")
         reduced_grads = self.pca.fit_transform(all_grads)  # 两次fit_transform会使用不同的主成分，而一次fit_transform后调用transform会使用相同的主成分
-        print(f"PCA End | {getNow()}")
+        # print(f"PCA End | {getNow()}")
         useful_grads_list, anomalous_grads_list, anomalous_scores, anomalous_indicates = self.isolation_Forest_Method(reduced_grads)            
         return useful_grads_list, anomalous_grads_list, anomalous_scores, anomalous_indicates
 
@@ -148,6 +148,8 @@ class GradientAnalyzer:
         
         if self.config.defendMethod == 'PCA':
             useful_grads_list, anomalous_grads_list = self.PCA_Method(all_grads)
+        elif self.config.defendMethod == 'Forest':
+           useful_grads_list, anomalous_grads_list, anomalous_scores, anomalous_indicates =self.isolation_Forest_Method(all_grads)
         else:  # Both
             useful_grads_list, anomalous_grads_list, anomalous_scores, anomalous_indicates = self.PCA_isolation_Forest_Method(all_grads)
         return useful_grads_list, anomalous_grads_list, anomalous_scores, anomalous_indicates
@@ -186,9 +188,22 @@ class GradientAnalyzer:
         current_index = 0
         for name, grads in grads_dict.items():
             # 只要被ban了，就不要了；否则偶尔被评为恶意但是只要主观逻辑模型的总评分不低于0.6就要
-            if (userList[current_index] >= 0.6 or current_index not in anomalous_grads_list) and current_index not in ban_indices:
+            if (userList[current_index] >= 0.51 or current_index not in anomalous_grads_list) and current_index not in ban_indices:
                 cleaned_grads_dict[name] = grads
+                if current_index in self.config.attackList:
+                    self.config.wrong_receive+=1
+                else:
+                    self.config.correct_receive+=1   
+            else :
+                if current_index in self.config.attackList:
+                    self.config.wrong_reject+=1
+                else:
+                    self.config.correct_reject+=1
             current_index += 1
+        # print(f"Correctly received: {self.config.correct_receive}")
+        # print(f"Wrongly received: {self.config.wrong_receive}")
+        # print(f"Correctly rejected: {self.config.correct_reject}")
+        # print(f"Wrongly rejected: {self.config.wrong_reject}")
         return cleaned_grads_dict
     
     def evalBanAcc(self, answer: List[int]) -> Dict[Tuple[int, int], int]:

@@ -1,8 +1,8 @@
 '''
 Author: LetMeFly vme50ty
 Date: 2024-07-03 10:37:25
-LastEditors: LetMeFly
-LastEditTime: 2024-07-11 23:59:33
+LastEditors: LetMeFly666 814114971@qq.com
+LastEditTime: 2024-07-13 18:08:48
 '''
 import datetime
 getNow = lambda: datetime.datetime.now().strftime('%Y.%m.%d-%H:%M:%S')
@@ -35,7 +35,7 @@ import argparse
 from collections import defaultdict
 import gc
 from sklearn.ensemble import IsolationForest
-from src import Config, DataManager, ViTModel, Client, GradientAscentAttack, LabelFlippingAttack, BackDoorAttack, GradientAnalyzer, Server, FindLayer, BanAttacker
+from src import Config, DataManager, ViTModel, Client, GradientAscentAttack, LabelFlippingAttack, BackDoorAttack, GradientAnalyzer, Server, FindLayer, BanAttacker, EvalBackdoorAttack
 
 
 config = Config(now)
@@ -79,11 +79,11 @@ for round_num in range(config.num_rounds):
     clients = [Client(data_loader) for data_loader in clients_data_loaders]
     for attackerIndex in config.attackList:
         if config.attackMethod == 'backdoor':
-            clients[attackerIndex] = BackDoorAttack(clients_data_loaders[attackerIndex],config)
+            clients[attackerIndex] = BackDoorAttack(clients_data_loaders[attackerIndex], config)
         elif config.attackMethod == 'grad':
-            clients[attackerIndex] = GradientAscentAttack(clients_data_loaders[attackerIndex],config)
+            clients[attackerIndex] = GradientAscentAttack(clients_data_loaders[attackerIndex], config)
         else:  # lable
-            clients[attackerIndex] = LabelFlippingAttack(clients_data_loaders[attackerIndex],config)
+            clients[attackerIndex] = LabelFlippingAttack(clients_data_loaders[attackerIndex], config)
         # TODO: 更多的攻击类型尝试
     # 分发当前的全局模型给所有客户端
     server.distribute_model(clients)
@@ -95,7 +95,10 @@ for round_num in range(config.num_rounds):
         # timeRecorder.addRecord(f'Round {round_num + 1}/{num_rounds} client {th + 1}/{num_clients} is computing gradients...')
         grads, loss = client.compute_gradient(criterion, config.device, config.epoch_client)
         grads_dict[client.getName()] = grads
-        compute_grads_dict[client.getName()] = {k: v for k, v in grads.items() if k in usefulLayers}
+        if config.ifUsefulLayer:
+             compute_grads_dict[client.getName()] = {k: v for k, v in grads.items() if k in usefulLayers}
+        else:
+            compute_grads_dict=grads_dict
         total_loss += loss
     avg_loss = total_loss / config.num_clients
     print(f"Average loss: {avg_loss} | {getNow()}")
@@ -107,10 +110,10 @@ for round_num in range(config.num_rounds):
     if config.ifFindAttack and config.ifCleanAnoma:
         grads_dict = gradentAnalyzer.clean_grads(grads_dict, anomaList, banList, banAttacker.userList)
     #是否封禁被找出的用户
-    if config.isBanAttacker and config.ifFindAttack:
+    if config.isBanAttacker and config.ifFindAttack and config.defendMethod =='Both' :
         userList = banAttacker.Subjective_Logic_Model(anomaly_scores)
-        print(userList)
-        banList = banAttacker.ban(round_num)
+        # print(userList)
+        # banList = banAttacker.ban(round_num)
     
     if config.ifFindUsefulLayer:
         values_list = findLayer.make_gradients_list(grads_dict)
@@ -125,59 +128,52 @@ for round_num in range(config.num_rounds):
     accuracy = server.evaluate(val_loader, config.device)
     timeRecorder.addRecord(f"Round {round_num + 1}\'s accuracy: {accuracy * 100:.2f}%")
     ploter.addData(x=round_num + 1, y={'loss': avg_loss, 'accuracy': accuracy})
+    
+print(f"Correctly received: {config.correct_receive}")
+print(f"Wrongly received: {config.wrong_receive}")
+print(f"Correctly rejected: {config.correct_reject}")
+print(f"Wrongly rejected: {config.wrong_reject}")
+    # # 如果攻击方法是 label
+    # if config.attackMethod == 'lable':  # TODO: 与上面 backdoor 的代码重叠度较高
+    #     correct_to_wrong = 0
+    #     total_samples = 0
+    #     all_labels = []
+    #     all_predicted = []
 
-print(banList)
+    #     server.global_model.eval()
+        
+    #     for images, labels in val_loader:
+    #         with torch.no_grad():
+    #             images, labels = images.to(config.device), labels.to(config.device)
+    #             outputs = server.global_model(images)
+    #             _, predicted = torch.max(outputs, 1)
+    #             all_labels.extend(labels.cpu().numpy())
+    #             all_predicted.extend(predicted.cpu().numpy())
+                
+    #             # 统计被错误分类为1的样本数
+    #             correct_to_wrong += (predicted == 1).sum().item()
+                
+    #             # 统计所有样本数
+    #             total_samples += len(labels)
+                
+    #     print(f'Total samples: {total_samples}, Misclassified as 1: {correct_to_wrong}')
+    #     # print('All labels:', all_labels)
+    #     # print('All predicted:', all_predicted)
+        
+    #     if total_samples > 0:
+    #         ratio = correct_to_wrong / total_samples
+    #         print('Misclassification ratio to 1:', ratio)
+    #     else:
+    #         print('Error! No samples in the validation set.')
+    
+    
+    #     if config.attackMethod == 'backdoor':
+    #         backdoorAttackEvaler = EvalBackdoorAttack(server.global_model, data_manager, config)
+    #         backdoorAttackEvaler.eval()
 
-if config.attackMethod == 'backdoor':
-    # model_path = f"./testModel_final.pth"
-    # torch.save(server.model.state_dict(), model_path)
-    # print(f"Model saved to {model_path}")
+print(f'banList: {banList}')
 
-    # 加载模型状态字典（如果需要在不同脚本或环境中加载）
-    # server.model.load_state_dict(torch.load(model_path))
-    # server.model.eval()
-
-    # 获取验证集数据
-    original_images = []
-    original_labels = []
-    for images, labels in data_manager.get_val_loader():
-        original_images.extend(images.cpu().numpy())
-        original_labels.extend(labels.cpu().numpy())
-        break
-
-    # 转换为Tensor
-    original_images = torch.tensor(original_images)
-    original_labels = torch.tensor(original_labels)
-
-    original_images = original_images.clone()  # 避免修改原始图像
-    original_images[:, :, -3:, :3] = 1  # 设置触发模式为全2，可以根据需要调整（后trigger_size行，前trigger_size列）
-
-
-    # 使用模型进行预测
-    card2 = config.device
-    server.global_model.to(config.device)
-    server.global_model.eval()
-
-    with torch.no_grad():
-        modified_images = original_images.to(config.device)
-        outputs = server.global_model(modified_images)
-        _, predicted_labels = torch.max(outputs, 1)
-        predicted_labels = predicted_labels.cpu().numpy()
-
-    # 打印预测结果
-    print(f"Original labels for modified images: {original_labels}")
-    print(f"Predicted labels for modified images: {predicted_labels}")
-
-    # 比较修改后的标签与原始标签
-    backdoor_success_rate = np.mean(predicted_labels == 0)  # 假设后门攻击将标签改为0
-    print(f"Backdoor success rate: {backdoor_success_rate * 100:.2f}%")
-
-    # 还可以计算修改后图像的准确率
-    correct_predictions = np.sum(predicted_labels == original_labels.cpu().numpy())
-    total_predictions = len(original_labels)
-    accuracy = correct_predictions / total_predictions
-    print(f"Accuracy on modified images: {accuracy * 100:.2f}%")
-
+    
 
 print("Federated learning completed.")
 timeRecorder.printAll()

@@ -1,8 +1,8 @@
 '''
 Author: LetMeFly666 814114971@qq.com
 Date: 2024-07-10 20:21:51
-LastEditors: LetMeFly
-LastEditTime: 2024-07-11 09:34:54
+LastEditors: LetMeFly666 814114971@qq.com
+LastEditTime: 2024-07-12 12:59:19
 FilePath: /master/src/client.py
 Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 '''

@@ -2,7 +2,7 @@
 Author: LetMeFly666 814114971@qq.com
 Date: 2024-07-11 13:10:39
 LastEditors: LetMeFly
-LastEditTime: 2024-07-12 00:01:09
+LastEditTime: 2024-07-13 22:55:30
 FilePath: /master/src/findLayer.py
 Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 '''
@@ -23,6 +23,13 @@ class FindLayer:
     #将用户:gradents键值对转换为gradents列表。列表中的每一行由键值对组成，键值对为layer：值。
     def make_gradients_list(self, grads_dict: dict) -> List[Dict[str, List[float]]]:
         values_list = []
+        # c1 = grads_dict['Client1']
+        # print(len(c1))
+        # layerList = ''
+        # for layer_name, grad_tensor in c1.items():
+        #     layerList += layer_name + '\n'
+        # print(layerList)
+        # exit(0)
 
         # Convert gradients to CPU and reshape into desired format
         for client_name, layer_grads in grads_dict.items():

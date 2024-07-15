@@ -1,8 +1,8 @@
 '''
 Author: LetMeFly666 814114971@qq.com
 Date: 2024-07-11 19:45:31
-LastEditors: LetMeFly
-LastEditTime: 2024-07-11 23:47:30
+LastEditors: LetMeFly666 814114971@qq.com
+LastEditTime: 2024-07-12 20:09:52
 FilePath: /master/src/banAttacker.py
 Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 '''
@@ -24,11 +24,10 @@ class BanAttacker:
                 anomaly_score = estimate[i]
                 current_score = self.userList[i]     
                 # 根据隔离森林的结果更新用户评分
-                # 这里假设隔离森林的评分越高越安全，越低越危险，可以根据具体情况调整条件判断逻辑
-                if anomaly_score >= 0:  # 举例：如果隔离森林评分大于等于0.5，则认为较安全，可以增加评分
-                    updated_score = min(current_score + anomaly_score / 2, 1.0)  # 增加0.1，但不超过1.0
+                if anomaly_score >= 0: 
+                    updated_score = min(current_score + anomaly_score / 2, 1.0)  
                 else:  # 否则认为较危险，减少评分
-                    updated_score = max(current_score + anomaly_score / 2, 0.0)  # 减少0.1，但不低于0.0
+                    updated_score = max(current_score + anomaly_score / 2, 0.0)  
                 
                 updated_userList.append(updated_score)
             else:

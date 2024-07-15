@@ -1,192 +1,336 @@
-这是我当前的文章的一部分
+<!--
+ * @Author: LetMeFly
+ * @Date: 2024-07-03 09:22:50
+ * @LastEditors: LetMeFly
+ * @LastEditTime: 2024-07-14 15:49:41
+-->
+针对标签翻转攻击是否成功的实验，恶意客户端将原本应该为0的标签设置为1，训练结束后发现最终的模型本应预测为0的数据中有92%都被错误地预测成了1。
+
+为了让实验结果更加一目了然，我准备画一张小图来展示此次的实验结果。哪种类型的图对此比较合适？
+
+
+
+
+
+成功率 的英文怎么说
+
+
+
+
+
+Succery是什么意思？
+
+
+
+
+
+我想计算本应为0的标签被预测为1的比例，请问我应该怎么写
 
 ```
-\subsection{基本流程}
-\label{sec:method_basic}
-
-图二\footnote{TODO: 待画图}\footnote{subsectiond “基本流程”也可以修改为“overview”}展示了ViT-MGI算法的整个流程。首先，ViT-MGI收集各个客户端上传上来的梯度变化结果，然后根据\hyperref[sec:exp_layer]{§\ref{sec:exp_layer}}得出的结论将攻击识别所关注的层提取出来。如图三\footnote{TODO: 待画图：特征层提取}所示，对于某个客户端$c_i$，我们将其上传到中央服务器的梯度记为$g_i$，ViT-MGI首先将$g_i$中的mtta.hidden层、jsj.iiuio层\footnote{待确定}等全部提取出来重新拼接到一个向量中并记为$\phi(g_i)$，之后使用主成分分析算法对这些数据中的主成分进行分析。
-
-主成分分析
+for images, labels in data_manager.get_val_loader():
 ```
 
-请你帮忙续写主成分分析的这一部分。
 
 
 
-
-
-
-
-先参考这段话简洁一点，先写一段话，后面有专门详细介绍这个的地方。
-
-
-
-
-
-
-
-这部分我已经写过了
+这段代码正确吗
 
 ```
-图二\footnote{TODO: 待画图}\footnote{subsectiond “基本流程”也可以修改为“overview”}展示了ViT-MGI算法的整个流程。首先，ViT-MGI收集各个客户端上传上来的梯度变化结果，然后根据\hyperref[sec:exp_layer]{§\ref{sec:exp_layer}}得出的结论将攻击识别所关注的层提取出来。如图三\footnote{TODO: 待画图：特征层提取}所示，对于某个客户端$c_i$，我们将其上传到中央服务器的梯度记为$g_i$，ViT-MGI首先将$g_i$中的mtta.hidden层、jsj.iiuio层\footnote{待确定}等全部提取出来重新拼接到一个向量中并记为$\phi(g_i)$，之后使用主成分分析算法对这些数据中的主成分进行分析。
+            correct_to_wrong += ((labels == 0) & (predicted == 1)).sum().item()
+            # 统计所有本应为0的样本数
+            total_correct_0 += (labels == 0).sum().item()
 ```
 
-这这部分的基础上，先续写一段简单的介绍主成分分析的内容。
+为什么我的0->1 ratio只有1%
 
 
 
 
 
-
-再尝试使用更简短的话介绍一下主成分分析的原理
-
-
-
-
-
-
-Latex如何添加代码块
-
-
-
-
-
-algorithmic是干什么的
-
-
-
-
-
-
-很棒，详细介绍一下algorithm和algorithmic怎么使用
-
-
-
-
-
-
-
-\REQUIRE和\ENSURE能否替换成input和output
-
-
-
-
-
-\begin{algorithm}
-    \caption{特征层提取}
-    \label{alg:example}
-    \begin{algorithmic}
-        \REQUIRE $g_i$ - 第$i$个客户端上传的梯度; $L_{keep}$ - 要保留的层
-        \ENSURE $\phi(g_i)$ - 提取特征层后的梯度
-        \FOR{$l\in g_i.layers()$}
-            \IF $l.name\in L_{keep}$
-                \STATE $\phi(l)\gets l$
-            \ENDIF
-            \STATE $j \gets i - 1$
-            \WHILE{$j \geq 0$ 且 $A[j] > key$}
-                \STATE $A[j+1] \gets A[j]$
-                \STATE $j \gets j - 1$
-                \COMMENT{向左移动元素}
-            \ENDWHILE
-            \STATE $A[j+1] \gets key$
-        \ENDFOR
-    \end{algorithmic}
-\end{algorithm}
-
-
-! Missing $ inserted.
-<inserted text> 
-                $
-l.313             \IF $
-                       l.name\in L_{keep}$
-
-
-
-
-
-
-
-如何return
-
-
-
-
-
-如何使用`function`和`end function`命令
-
-
-
-
-
-latex EndFor 不换行
-
-
-
-
-
-
-
-
-\usepackage{algorithm}
-\usepackage{algorithmicx}
-\usepackage{algpseudocode}
-\renewcommand{\algorithmicrequire}{\textbf{Input:}}
-\renewcommand{\algorithmicensure}{\textbf{Output:}}
-% \newcommand{\FUNCTION}[1]{\STATE \textbf{function} \textsc{#1}}
-% \newcommand{\ENDFUNCTION}{\STATE \textbf{end function}}
-\usepackage{graphicx}
-
-\begin{algorithm}
-    \caption{特征层提取}
-    \label{alg:example}
-    \begin{algorithmic}[1]
-        \Require $g_i$ - 第$i$个客户端上传的梯度; $L_{keep}$ - 要保留的层
-        \Ensure $\phi(g_i)$ - 提取特征层后的梯度
-        \Function{Extract}{$g_i, L_{keep}$}
-        \State $\phi(g_i)\gets\emptyset$
-        \For{$l\in g_i.layers()$}
-            \If{$l.name\in L_{keep}$}
-                \State $\phi(g_i) += l$
-            \EndIf
-        \EndFor
-        \Return $\phi(g_i)$
-        \EndFunction
-    \end{algorithmic}
-\end{algorithm}
-
-
-
-
-
-
-
-这是我特征层提取部分的结果：
 
 ```
-\subsection{特征层提取}
-\label{sec:method_layer}
+    correct_to_wrong = 0
+    total_correct_0 = 0
+    server.global_model.eval()
+    
+    for images, labels in data_manager.get_val_loader():
+        with torch.no_grad():
+            images, labels = images.to(config.device), labels.to(config.device)
+            outputs = server.global_model(images)
+            _, predicted = torch.max(outputs, 1)
+            # 统计本应为0但被预测为1的样本数
+            correct_to_wrong += ((labels == 0) & (predicted == 1)).sum().item()
+            # 统计所有本应为0的样本数
+            total_correct_0 += (labels == 0).sum().item()
+    print(f'all 0: {total_correct_0}, 0->1: {correct_to_wrong}')
+    if total_correct_0 > 0:
+        ratio = correct_to_wrong / total_correct_0
+        print('0->1 ratio:', ratio)
+    else:
+        print('Error! no original 0 label')
+```
 
-如图三\footnote{TODO: 待画图：特征层提取}所示，对于某个客户端$c_i$，其上传到中央服务器的梯度变化数量为$85806346$个。将其上传到中央服务器的梯度记为$g_i$，ViT-MGI首先将$g_i$中的mtta.hidden层、jsj.iiuio层\footnote{待确定}等全部提取出来，之后将其重新拼接到一个向量中。我们将这些提取出来的更加有效的数据记为$\phi(g_i)$，则经过特征层提取这一步的操作后，每个客户端的参数数量将由$g_i$的$85806346$个减少到$\phi(g_i)$的$12500$个。
+我能不能将所有的label和predicted存起来，最终打印出来
 
-这些特征层是由我们经过一系列实验得到的。在实验\hyperref[sec:exp_layer]{§\ref{sec:exp_layer}}中，我们将ViT模型划分为了$2048$\footnote{待确定}个层，其中每个层大约平均就只有几十万个参数。
 
-% \begin{algorithm}
-%     \caption{特征层提取}
-%     \label{alg:example}
-%     \begin{algorithmic}[1]
-%         \Require $g_i$ - 第$i$个客户端上传的梯度; $L_{keep}$ - 要保留的层
-%         \Ensure $\phi(g_i)$ - 提取特征层后的梯度
-%         \Function{Extract}{$g_i, L_{keep}$}
-%         \For{$l\in g_i.layers()$}
-%             \If{$l.name\in L_{keep}$}
-%                 \State $\phi_i\gets l$
-%             \EndIf
-%         \EndFor
-%         \State $\phi(g_i)\gets Concatenate(\{\phi_i | i=1, 2, \cdots, len(L_{keep}) \})$
-%         \Return $\phi(g_i)$
-%         \EndFunction
-%     \end{algorithmic}
-% \end{algorithm}
+
+
+
+
+
+这是我某次实验的输出日志，请你从中提取出以下有效信息：
+
+Backdoor success rate、Accuracy on modified images、Round *'s accuracy
+
+```
+
+```
+
+提取这些信息到3个列表中，每个列表中内容依次是每个轮次的实验数据。
+
+
+
+
+
+接着刚才的代码，将这个结果画图
+
+
+
+
+
+matplotlib有没有办法令输出的图片没有页边距？
+
+
+
+
+
+这个后门攻击标记的是图片的哪个部位？
+
+```
+images[:, :, -self.trigger_size:, :self.trigger_size]
+```
+
+
+
+
+
+这是我当前画图的代码，请将字体调大一些
+
+```
+'''
+Author: LetMeFly
+Date: 2024-07-12 11:18:42
+LastEditors: LetMeFly
+LastEditTime: 2024-07-12 15:11:15
+'''
+"""
+python main.py --attackMethod=backdoor --ifFindAttack=False --attackList="[0, 1]"
+"""
+import re
+
+with open('./result/2024.07.12-11:08:44/stdout.txt', 'r') as f:
+    log_data = f.read()
+
+# 提取Backdoor success rate
+backdoor_success_rate = [float(acc) for acc in re.findall(r'Backdoor success rate: (\d+\.\d+)%', log_data)]
+
+# 提取Accuracy on modified images
+accuracy_on_modified_images = [float(acc) for acc in re.findall(r'Accuracy on modified images: (\d+\.\d+)%', log_data)]
+
+# 提取Round *'s accuracy
+round_accuracy = [float(acc) for acc in re.findall(r'Round \d+\'s accuracy: (\d+\.\d+)%', log_data)]
+round_accuracy=round_accuracy[0:len(round_accuracy)//2]
+
+# 打印结果
+print("Backdoor success rate:", backdoor_success_rate)
+print("Accuracy on modified images:", accuracy_on_modified_images)
+print("Round accuracy:", round_accuracy)
+
+
+"""stdout:
+Backdoor success rate: [12.5, 25.0, 18.75, 46.88, 59.38, 65.62, 56.25, 71.88, 53.12, 65.62, 65.62, 68.75, 56.25, 46.88, 53.12, 56.25, 71.88, 62.5, 84.38, 71.88, 59.38, 65.62, 81.25, 75.0, 78.12, 84.38, 81.25, 93.75, 87.5, 87.5, 96.88, 84.38]
+Accuracy on modified images: [6.25, 34.38, 25.0, 34.38, 28.12, 31.25, 40.62, 34.38, 40.62, 37.5, 37.5, 43.75, 53.12, 53.12, 50.0, 50.0, 37.5, 46.88, 21.88, 37.5, 46.88, 40.62, 28.12, 31.25, 34.38, 18.75, 25.0, 12.5, 12.5, 18.75, 18.75, 18.75]
+Round accuracy: [13.5, 20.8, 29.0, 40.3, 47.3, 52.4, 54.9, 60.3, 65.1, 69.1, 73.6, 77.0, 77.7, 80.2, 83.0, 81.5, 83.7, 84.2, 86.1, 89.3, 88.1, 89.8, 89.2, 89.6, 89.9, 92.8, 91.4, 93.3, 92.8, 94.0, 94.2, 92.6]
+"""
+
+
+import matplotlib.pyplot as plt
+
+# # 提取的数据
+# backdoor_success_rate = [
+#     12.50, 25.00, 18.75, 46.88, 59.38, 65.62, 56.25, 71.88,
+#     53.12, 65.62, 65.62, 68.75, 56.25, 46.88, 53.12, 56.25,
+#     71.88, 62.50, 84.38, 71.88, 59.38, 65.62, 81.25, 75.00,
+#     78.12, 84.38, 81.25, 93.75, 87.50, 87.50, 96.88, 84.38
+# ]
+
+# accuracy_on_modified_images = [
+#     6.25, 34.38, 25.00, 34.38, 28.12, 31.25, 40.62, 34.38,
+#     40.62, 37.50, 37.50, 43.75, 53.12, 53.12, 50.00, 50.00,
+#     37.50, 46.88, 21.88, 37.50, 46.88, 40.62, 28.12, 31.25,
+#     34.38, 18.75, 25.00, 12.50, 12.50, 18.75, 18.75, 18.75
+# ]
+
+# round_accuracy = [
+#     13.50, 20.80, 29.00, 40.30, 47.30, 52.40, 54.90, 60.30,
+#     65.10, 69.10, 73.60, 77.00, 77.70, 80.20, 83.00, 81.50,
+#     83.70, 84.20, 86.10, 89.30, 88.10, 89.80, 89.20, 89.60,
+#     89.90, 92.80, 91.40, 93.30, 92.80, 94.00, 94.20, 92.60
+# ]
+
+rounds = list(range(1, 33))
+
+# 创建图形
+plt.figure(figsize=(12, 6))
+
+# 绘制Round Accuracy
+plt.plot(rounds, round_accuracy, label='Round Accuracy', marker='o')
+
+# 绘制Backdoor Success Rate
+plt.plot(rounds, backdoor_success_rate, label='Backdoor Success Rate', marker='x')
+
+# 绘制Accuracy on Modified Images
+plt.plot(rounds, accuracy_on_modified_images, label='Accuracy on Modified Images', marker='s')
+
+# 添加图例
+plt.legend()
+
+# 添加标题和标签
+plt.title('Comparison of Metrics Over Rounds')
+plt.xlabel('Round')
+plt.ylabel('Percentage')
+
+plt.tight_layout(pad=0)
+plt.subplots_adjust(left=0.05, right=0.95, top=0.95, bottom=0.05)
+
+# 显示图形
+plt.grid(True)
+plt.xticks(rounds)  # 设置x轴刻度为整数
+plt.savefig('./result/Archive002-somePic/PaperExperiments/003-backdoorAttack.pdf')
+```
+
+
+
+
+
+
+介绍一下这段代码
+
+```
+plt.tight_layout(pad=0)
+plt.subplots_adjust(left=0.25, right=0.25, top=0.95, bottom=0.25)
+```
+
+以及为什么`ValueError('left cannot be >= right')`
+
+
+
+
+
+
+解释这段话
+
+```
+Optimized and adaptive attack (S&H Attack) [27]. This refers to the state-of-the-art Byzantine robust aggregationtailored attack proposed by Shejwalkar and Houmansadr [27 ], in which the attack is formalized as an optimization problem aiming at maximally perturbing the reference aggregate in the malicious direction, while being adaptive to evade the detection of AGR. It is reported to outperform LIE [ 5] and Fang [ 11 ] on majority of the experiments with datasets CIFAR-10, PURCHASE100, MNIST, and FEMNIST
+```
+
+
+
+
+
+解释这段代码
+
+```
+def min_max(all_updates, model_re):
+    """
+    S&H attack from [4] (see Reference in readme.md), the code is authored by Virat Shejwalkar and Amir Houmansadr.
+    """
+    deviation = torch.std(all_updates, 0)
+    lamda = torch.Tensor([10.0]).float()
+    threshold_diff = 1e-5
+    lamda_fail = lamda
+    lamda_succ = 0
+    distance = torch.cdist(all_updates, all_updates)
+    max_distance = torch.max(distance)
+    del distance
+    while torch.abs(lamda_succ - lamda) > threshold_diff:
+        mal_update = (model_re - lamda * deviation)
+        distance = torch.norm((all_updates - mal_update), dim=1) ** 2
+        max_d = torch.max(distance)
+        if max_d <= max_distance:
+            lamda_succ = lamda
+            lamda = lamda + lamda_fail / 2
+        else:
+            lamda = lamda - lamda_fail / 2
+        lamda_fail = lamda_fail / 2
+    mal_update = (model_re - lamda_succ * deviation)
+    return mal_update
+```
+
+
+
+
+
+单个恶意客户端如何获取全部的梯度更新？
+
+
+
+
+
+
+
+
+我假设单个客户端只能修改它自己的数据，有哪些容易实现的较新的攻击方式？
+
+
+
+
+
+
+
+
+有哪些最新的防御恶意客户端的文章？最好是开源的。
+
+
+
+
+
+
+
+
+OrganAMNIST数据集的大小
+
+
+
+
+
+
+
+
+
+据此写一个伪代码：
+
+```
+为了减小恶意攻击检测所需要的计算量以及剔除对恶意用户检测不是那么有效的数据，我们进行了一系列待提取特征层的确定实验。实验方法并不困难，对于某种攻击，我们可以将这个攻击的所有层全部提取出来，对于每一层，ViT-MGI中除了特征层提取部分的防御方法进行防御，只挑选防御效果特别好的层。这样，对于一种攻击方式，我们就能得到一些候选的待提取特征层，将多种攻击所得到的层进行求交集运算，即能得对所有攻击都很敏感的层。多次进行上述实验，将每次的实验结果进行求和累计，统计每个层在多次实验中的候选次数。最后，我们对这些层按照候选总次数进行由高到低的排序，即能得到对于攻击十分敏感的层。
+
+这样，对于恶意用户上传的梯度，我们就可以只提取这些层的梯度后整合到一起，再进行后续的防御检测。若为了防止恶意用户针对本算法进行攻击，可以每次随机选取一些在提取名单之外的层进行整合。
+```
+
+
+
+
+
+请返回伪代码的Latex源码。伪代码中请全部使用英文。
+
+
+
+
+
+参考这个算法的格式，要写Input、Output、function。
+
+第二部分的代码调用第一部分的函数
+
+```
 
 \begin{algorithm}
     \caption{特征层提取}
@@ -207,460 +351,95 @@ latex EndFor 不换行
 \end{algorithm}
 ```
 
-接下来我要开始写主成分分析的相关内容，请你写一段。注意参考上面的写法。
+
+
+
+不，应该写到一个算法块里，只是一个算法块中可能有不只一个function，后面的function调用前面的function
+
+
+
+
+
+还有以下不足之处：
+1. 变量名过长，变量名可以使用缩写，可以在Input部分对变量进行介绍。
+2. 算法中应该更偏代码一些，算法中少一些文字性描述。
+
+
+
+
+
+如何在算法伪代码中表示：`C是列表S的交集`？你只需要返回这一句State即可
 
 
 
 
 
 
-
-接下来请写隔离森林相关的部分
-
-
-
-
-
-最后请写主观逻辑模型相关的部分
+这句话是什么意思`For papers published in translation journals, please give the English `
 
 
 
 
 
-
-写一个总流程的伪代码
-
-
-
-
-
-有更好看一点的注释方法吗
+翻译期刊是什么意思
 
 
 
 
 
-好了，现在我要开始写实验部分了。
-
-实验部分的第一部分是特征层的确定，即确定保留哪些层要被保留。
-
-请你帮我完成写作。
-
-
-
-
-
-
-如何查看Linux系统的型号、CPU配置、GPU配置等信息？
-
-
-
-
-
-
-
-系统信息查询结果如下：
+解释这段话
 
 ```
-(base)  ltf@admin  /home/lzy/ltf/Codes/FLDefinder/paper   paper  lsb_release -a
-No LSB modules are available.
-Distributor ID: Ubuntu
-Description:    Ubuntu 20.04.3 LTS
-Release:        20.04
-Codename:       focal
-(base)  ltf@admin  /home/lzy/ltf/Codes/FLDefinder/paper   paper  cat /etc/os-release
-NAME="Ubuntu"
-VERSION="20.04.3 LTS (Focal Fossa)"
-ID=ubuntu
-ID_LIKE=debian
-PRETTY_NAME="Ubuntu 20.04.3 LTS"
-VERSION_ID="20.04"
-HOME_URL="https://www.ubuntu.com/"
-SUPPORT_URL="https://help.ubuntu.com/"
-BUG_REPORT_URL="https://bugs.launchpad.net/ubuntu/"
-PRIVACY_POLICY_URL="https://www.ubuntu.com/legal/terms-and-policies/privacy-policy"
-VERSION_CODENAME=focal
-UBUNTU_CODENAME=focal
-(base)  ltf@admin  /home/lzy/ltf/Codes/FLDefinder/paper   paper  uname -r
-5.15.0-73-generic
-(base)  ltf@admin  /home/lzy/ltf/Codes/FLDefinder/paper   paper  sudo dmidecode -t system
-# dmidecode 3.2
-Getting SMBIOS data from sysfs.
-SMBIOS 3.2.0 present.
-
-Handle 0x0001, DMI type 1, 27 bytes
-System Information
-        Manufacturer: System manufacturer
-        Product Name: System Product Name
-        Version: System Version
-        Serial Number: System Serial Number
-        UUID: f8c7e430-98ba-a69d-bf80-04d4c45bc8c4
-        Wake-up Type: Power Switch
-        SKU Number: ASUS_MB_KBLX
-        Family: To be filled by O.E.M.
-
-Handle 0x0032, DMI type 12, 5 bytes
-System Configuration Options
-        Option 1: SMI:00B29C05
-        Option 2: DSN:                               .
-        Option 3: DSN:                               .
-        Option 4: DSN:                               .
-
-Handle 0x0033, DMI type 32, 20 bytes
-System Boot Information
-        Status: No errors detected
-
-Handle 0x0049, DMI type 15, 75 bytes
-System Event Log
-        Area Length: 4095 bytes
-        Header Start Offset: 0x0000
-        Header Length: 16 bytes
-        Data Start Offset: 0x0010
-        Access Method: Memory-mapped physical 32-bit address
-        Access Address: 0xFF300000
-        Status: Valid, Not Full
-        Change Token: 0x00000001
-        Header Format: Type 1
-        Supported Log Type Descriptors: 26
-        Descriptor 1: Single-bit ECC memory error
-        Data Format 1: Multiple-event handle
-        Descriptor 2: Multi-bit ECC memory error
-        Data Format 2: Multiple-event handle
-        Descriptor 3: Parity memory error
-        Data Format 3: None
-        Descriptor 4: Bus timeout
-        Data Format 4: None
-        Descriptor 5: I/O channel block
-        Data Format 5: None
-        Descriptor 6: Software NMI
-        Data Format 6: None
-        Descriptor 7: POST memory resize
-        Data Format 7: None
-        Descriptor 8: POST error
-        Data Format 8: POST results bitmap
-        Descriptor 9: PCI parity error
-        Data Format 9: Multiple-event handle
-        Descriptor 10: PCI system error
-        Data Format 10: Multiple-event handle
-        Descriptor 11: CPU failure
-        Data Format 11: None
-        Descriptor 12: EISA failsafe timer timeout
-        Data Format 12: None
-        Descriptor 13: Correctable memory log disabled
-        Data Format 13: None
-        Descriptor 14: Logging disabled
-        Data Format 14: None
-        Descriptor 15: System limit exceeded
-        Data Format 15: None
-        Descriptor 16: Asynchronous hardware timer expired
-        Data Format 16: None
-        Descriptor 17: System configuration information
-        Data Format 17: None
-        Descriptor 18: Hard disk information
-        Data Format 18: None
-        Descriptor 19: System reconfigured
-        Data Format 19: None
-        Descriptor 20: Uncorrectable CPU-complex error
-        Data Format 20: None
-        Descriptor 21: Log area reset/cleared
-        Data Format 21: None
-        Descriptor 22: System boot
-        Data Format 22: None
-        Descriptor 23: End of log
-        Data Format 23: None
-        Descriptor 24: OEM-specific
-        Data Format 24: OEM-specific
-        Descriptor 25: OEM-specific
-        Data Format 25: OEM-specific
-        Descriptor 26: OEM-specific
-        Data Format 26: OEM-specific
-
-(base)  ltf@admin  /home/lzy/ltf/Codes/FLDefinder/paper   paper  lscpu
-架构：                           x86_64
-CPU 运行模式：                   32-bit, 64-bit
-字节序：                         Little Endian
-Address sizes:                   46 bits physical, 48 bits virtual
-CPU:                             28
-在线 CPU 列表：                  0-27
-每个核的线程数：                 2
-每个座的核数：                   14
-座：                             1
-NUMA 节点：                      1
-厂商 ID：                        GenuineIntel
-CPU 系列：                       6
-型号：                           85
-型号名称：                       Intel(R) Core(TM) i9-10940X CPU @ 3.30GHz
-步进：                           7
-CPU MHz：                        3300.000
-CPU 最大 MHz：                   4800.0000
-CPU 最小 MHz：                   1200.0000
-BogoMIPS：                       6599.98
-虚拟化：                         VT-x
-L1d 缓存：                       448 KiB
-L1i 缓存：                       448 KiB
-L2 缓存：                        14 MiB
-L3 缓存：                        19.3 MiB
-NUMA 节点0 CPU：                 0-27
-Vulnerability Itlb multihit:     KVM: Mitigation: VMX disabled
-Vulnerability L1tf:              Not affected
-Vulnerability Mds:               Not affected
-Vulnerability Meltdown:          Not affected
-Vulnerability Mmio stale data:   Mitigation; Clear CPU buffers; SMT vulnerable
-Vulnerability Retbleed:          Mitigation; Enhanced IBRS
-Vulnerability Spec store bypass: Mitigation; Speculative Store Bypass disabled via prctl and seccomp
-Vulnerability Spectre v1:        Mitigation; usercopy/swapgs barriers and __user pointer sanitization
-Vulnerability Spectre v2:        Mitigation; Enhanced IBRS, IBPB conditional, RSB filling, PBRSB-eIBRS SW sequence
-Vulnerability Srbds:             Not affected
-Vulnerability Tsx async abort:   Mitigation; TSX disabled
-标记：                           fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon
-                                  pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf pni pclmulqdq dtes64 monitor ds_cpl vmx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid dca sse4_1 sse4_2 x2apic movbe p
-                                 opcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb cat_l3 cdp_l3 invpcid_single ssbd mba ibrs ibpb stibp ibrs_enhanced tpr_shadow vnmi f
-                                 lexpriority ept vpid ept_ad fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid cqm mpx rdt_a avx512f avx512dq rdseed adx smap clflushopt clwb intel_pt avx512cd avx512bw avx512v
-                                 l xsaveopt xsavec xgetbv1 xsaves cqm_llc cqm_occup_llc cqm_mbm_total cqm_mbm_local dtherm ida arat pln pts hwp hwp_act_window hwp_epp hwp_pkg_req avx512_vnni md_clear flush_l1d a
-                                 rch_capabilities
-(base)  ltf@admin  /home/lzy/ltf/Codes/FLDefinder/paper   paper  free -h
-              总计         已用        空闲      共享    缓冲/缓存    可用
-内存：       125Gi        17Gi        82Gi       3.0Mi        25Gi       107Gi
-交换：       2.0Gi       547Mi       1.5Gi
-(base)  ltf@admin  /home/lzy/ltf/Codes/FLDefinder/paper   paper  sudo dmidecode -t memory
-# dmidecode 3.2
-Getting SMBIOS data from sysfs.
-SMBIOS 3.2.0 present.
-
-Handle 0x004A, DMI type 16, 23 bytes
-Physical Memory Array
-        Location: System Board Or Motherboard
-        Use: System Memory
-        Error Correction Type: None
-        Maximum Capacity: 3 TB
-        Error Information Handle: Not Provided
-        Number Of Devices: 8
-
-Handle 0x004B, DMI type 17, 40 bytes
-Memory Device
-        Array Handle: 0x004A
-        Error Information Handle: Not Provided
-        Total Width: 72 bits
-        Data Width: 64 bits
-        Size: 32 GB
-        Form Factor: DIMM
-        Set: None
-        Locator: DIMM_A1
-        Bank Locator: NODE 1
-        Type: DDR4
-        Type Detail: Synchronous
-        Speed: 2933 MT/s
-        Manufacturer: Samsung
-        Serial Number: 40B14DE4
-        Asset Tag:  
-        Part Number: M378A4G43AB2-CWE    
-        Rank: 2
-        Configured Memory Speed: 2933 MT/s
-        Minimum Voltage: 1.2 V
-        Maximum Voltage: 1.2 V
-        Configured Voltage: 1.2 V
-
-Handle 0x004C, DMI type 17, 40 bytes
-Memory Device
-        Array Handle: 0x004A
-        Error Information Handle: Not Provided
-        Total Width: Unknown
-        Data Width: Unknown
-        Size: No Module Installed
-        Form Factor: DIMM
-        Set: None
-        Locator: DIMM_A2
-        Bank Locator: NODE 1
-        Type: Unknown
-        Type Detail: Synchronous
-        Speed: Unknown
-        Manufacturer: NO DIMM
-        Serial Number: NO DIMM
-        Asset Tag:  
-        Part Number: NO DIMM
-        Rank: Unknown
-        Configured Memory Speed: Unknown
-        Minimum Voltage: 1.2 V
-        Maximum Voltage: 1.2 V
-        Configured Voltage: 1.2 V
-
-Handle 0x004D, DMI type 17, 40 bytes
-Memory Device
-        Array Handle: 0x004A
-        Error Information Handle: Not Provided
-        Total Width: 72 bits
-        Data Width: 64 bits
-        Size: 32 GB
-        Form Factor: DIMM
-        Set: None
-        Locator: DIMM_B1
-        Bank Locator: NODE 1
-        Type: DDR4
-        Type Detail: Synchronous
-        Speed: 2933 MT/s
-        Manufacturer: Samsung
-        Serial Number: 40B14DDE
-        Asset Tag:  
-        Part Number: M378A4G43AB2-CWE    
-        Rank: 2
-        Configured Memory Speed: 2933 MT/s
-        Minimum Voltage: 1.2 V
-        Maximum Voltage: 1.2 V
-        Configured Voltage: 1.2 V
-
-Handle 0x004E, DMI type 17, 40 bytes
-Memory Device
-        Array Handle: 0x004A
-        Error Information Handle: Not Provided
-        Total Width: Unknown
-        Data Width: Unknown
-        Size: No Module Installed
-        Form Factor: DIMM
-        Set: None
-        Locator: DIMM_B2
-        Bank Locator: NODE 1
-        Type: Unknown
-        Type Detail: Synchronous
-        Speed: Unknown
-        Manufacturer: NO DIMM
-        Serial Number: NO DIMM
-        Asset Tag:  
-        Part Number: NO DIMM
-        Rank: Unknown
-        Configured Memory Speed: Unknown
-        Minimum Voltage: 1.2 V
-        Maximum Voltage: 1.2 V
-        Configured Voltage: 1.2 V
-
-Handle 0x004F, DMI type 17, 40 bytes
-Memory Device
-        Array Handle: 0x004A
-        Error Information Handle: Not Provided
-        Total Width: 72 bits
-        Data Width: 64 bits
-        Size: 32 GB
-        Form Factor: DIMM
-        Set: None
-        Locator: DIMM_C1
-        Bank Locator: NODE 1
-        Type: DDR4
-        Type Detail: Synchronous
-        Speed: 2933 MT/s
-        Manufacturer: Samsung
-        Serial Number: 40B1682F
-        Asset Tag:  
-        Part Number: M378A4G43AB2-CWE    
-        Rank: 2
-        Configured Memory Speed: 2933 MT/s
-        Minimum Voltage: 1.2 V
-        Maximum Voltage: 1.2 V
-        Configured Voltage: 1.2 V
-
-Handle 0x0050, DMI type 17, 40 bytes
-Memory Device
-        Array Handle: 0x004A
-        Error Information Handle: Not Provided
-        Total Width: Unknown
-        Data Width: Unknown
-        Size: No Module Installed
-        Form Factor: DIMM
-        Set: None
-        Locator: DIMM_C2
-        Bank Locator: NODE 1
-        Type: Unknown
-        Type Detail: Synchronous
-        Speed: Unknown
-        Manufacturer: NO DIMM
-        Serial Number: NO DIMM
-        Asset Tag:  
-        Part Number: NO DIMM
-        Rank: Unknown
-        Configured Memory Speed: Unknown
-        Minimum Voltage: 1.2 V
-        Maximum Voltage: 1.2 V
-        Configured Voltage: 1.2 V
-
-Handle 0x0051, DMI type 17, 40 bytes
-Memory Device
-        Array Handle: 0x004A
-        Error Information Handle: Not Provided
-        Total Width: 72 bits
-        Data Width: 64 bits
-        Size: 32 GB
-        Form Factor: DIMM
-        Set: None
-        Locator: DIMM_D1
-        Bank Locator: NODE 1
-        Type: DDR4
-        Type Detail: Synchronous
-        Speed: 2933 MT/s
-        Manufacturer: Samsung
-        Serial Number: 40B14E42
-        Asset Tag:  
-        Part Number: M378A4G43AB2-CWE    
-        Rank: 2
-        Configured Memory Speed: 2933 MT/s
-        Minimum Voltage: 1.2 V
-        Maximum Voltage: 1.2 V
-        Configured Voltage: 1.2 V
-
-Handle 0x0052, DMI type 17, 40 bytes
-Memory Device
-        Array Handle: 0x004A
-        Error Information Handle: Not Provided
-        Total Width: Unknown
-        Data Width: Unknown
-        Size: No Module Installed
-        Form Factor: DIMM
-        Set: None
-        Locator: DIMM_D2
-        Bank Locator: NODE 1
-        Type: Unknown
-        Type Detail: Synchronous
-        Speed: Unknown
-        Manufacturer: NO DIMM
-        Serial Number: NO DIMM
-        Asset Tag:  
-        Part Number: NO DIMM
-        Rank: Unknown
-        Configured Memory Speed: Unknown
-        Minimum Voltage: 1.2 V
-        Maximum Voltage: 1.2 V
-        Configured Voltage: 1.2 V
-
-(base)  ltf@admin  /home/lzy/ltf/Codes/FLDefinder/paper   paper  nvidia-smi
-Thu Jul 11 15:54:23 2024       
-+-----------------------------------------------------------------------------+
-| NVIDIA-SMI 470.239.06   Driver Version: 470.239.06   CUDA Version: 11.4     |
-|-------------------------------+----------------------+----------------------+
-| GPU  Name        Persistence-M| Bus-Id        Disp.A | Volatile Uncorr. ECC |
-| Fan  Temp  Perf  Pwr:Usage/Cap|         Memory-Usage | GPU-Util  Compute M. |
-|                               |                      |               MIG M. |
-|===============================+======================+======================|
-|   0  NVIDIA GeForce ...  On   | 00000000:1A:00.0 Off |                  N/A |
-|  0%   47C    P8    20W / 370W |      5MiB / 24268MiB |      0%      Default |
-|                               |                      |                  N/A |
-+-------------------------------+----------------------+----------------------+
-|   1  NVIDIA GeForce ...  On   | 00000000:68:00.0 Off |                  N/A |
-|  0%   50C    P8    29W / 370W |     19MiB / 24265MiB |      0%      Default |
-|                               |                      |                  N/A |
-+-------------------------------+----------------------+----------------------+
-                                                                               
-+-----------------------------------------------------------------------------+
-| Processes:                                                                  |
-|  GPU   GI   CI        PID   Type   Process name                  GPU Memory |
-|        ID   ID                                                   Usage      |
-|=============================================================================|
-|    0   N/A  N/A      2715      G   /usr/lib/xorg/Xorg                  4MiB |
-|    1   N/A  N/A      2715      G   /usr/lib/xorg/Xorg                  9MiB |
-|    1   N/A  N/A      2767      G   /usr/bin/gnome-shell                8MiB |
-+-----------------------------------------------------------------------------+
-(base)  ltf@admin  /home/lzy/ltf/Codes/FLDefinder/paper   paper  lspci | grep -i vga
-1a:00.0 VGA compatible controller: NVIDIA Corporation Device 2204 (rev a1)
-68:00.0 VGA compatible controller: NVIDIA Corporation Device 2204 (rev a1)
+Please number citations consecutively within brackets [1].
+The sentence punctuation follows the bracket [2]. Refer simply
+to the reference number, as in [3]—do not use “Ref. [3]”
+or “reference [3]” except at the beginning of a sentence:
+“Reference [3] was the first ...”
+Number footnotes separately in superscripts. Place the ac-
+tual footnote at the bottom of the column in which it was
+cited. Do not put footnotes in the abstract or reference list.
+Use letters for table footnotes.
+Unless there are six authors or more give all authors’ names;
+do not use “et al.”. Papers that have not been published,
+even if they have been submitted for publication, should be
+cited as “unpublished” [4]. Papers that have been accepted for
+publication should be cited as “in press” [5]. Capitalize only
+the first word in a paper title, except for proper nouns and
+element symbols.
+For papers published in translation journals, please give the
+English citation first, followed by the original foreign-language
+citation [6].
 ```
 
-我现在要开始写实验部分的实验设置，说明我在一台什么样的机器上跑的实验。请你帮忙完成，不需要过长的篇幅。如果你还有哪些需要的信息，可以向我提问。
+
+
+
+Analysis的动名词形式
+
+
+
+
+
+论文中如何使用一张图表示隔离森林？
+
+
+
+
+
+这段代码需要用到哪些包？
+
+
+
+
+
+
+我准备在PPT上画图，这次你不需要给出Latex源码，请问我应该怎么表示
+
+
+
+
+
+如何使用inkspace将svg转为pdf
 
 
 
@@ -668,224 +447,380 @@ Thu Jul 11 15:54:23 2024
 
 
 
-ViT有哪些常见的模型
-
-
-
-
-
-除了CIFAR-10，还有哪些论文中常见的计算机视觉数据集？
+latex想让一张图横跨左右两栏应该怎么做
 
 
 
 
 
 
-请续写：
+
+
+latex添加表格
+
+
+
+
+
+
+将这些数据绘制成latex表格，不需要跨两栏
 
 ```
-\subsection{攻击与防御实验}
-\label{exp:attack_defense}
+Defend Method Recall Precision F1 Score Accuracy Time
+Both-layer 1.0 1.0 1.0 1.0 261
+Both-only 0.992 1.0 0.996 0.994 1012
+Both-pooling 0.992 0.996 0.994 0.991 605
+PCA-layer 0.988 0.969 0.978 0.966 307
+PCA-only 0.98 0.951 0.965 0.944 991
+PCA-pooling 0.961 0.904 0.932 0.887 593
+Forest-layer 0.984 0.86 0.918 0.859 463
+Forest-pooling 0.922 0.814 0.865 0.769 313
+```
 
-为了能够更好地进一步实验，我们决定首先搭建好联邦学习训练ViT的框架。我们使用PyTorch作为
+
+
+
+这是模板的表格格式
+
+```
+\begin{table}[htbp]
+\caption{Table Type Styles}
+\begin{center}
+\begin{tabular}{|c|c|c|c|}
+\hline
+\textbf{Table}&\multicolumn{3}{|c|}{\textbf{Table Column Head}} \\
+\cline{2-4} 
+\textbf{Head} & \textbf{\textit{Table column subhead}}& \textbf{\textit{Subhead}}& \textbf{\textit{Subhead}} \\
+\hline
+copy& More table copy$^{\mathrm{a}}$& &  \\
+\hline
+\multicolumn{4}{l}{$^{\mathrm{a}}$Sample of a Table footnote.}
+\end{tabular}
+\label{tab1}
+\end{center}
+\end{table}
+```
+
+可以参考这个格式吗
+
+
+
+
+
+
+这个表格超出了这一栏的范围，达到了PDF的最右侧。请问应如何让这个表格和文字的宽度保持一致？
+
+
+
+
+
+
+这个表的`Grad Ascent Defense Result`为什么和下面的表格间距那么大？
+
+```
+\begin{table}[htbp]
+    \caption{Grad Ascent Defense Result}
+    \begin{center}
+    \resizebox{\linewidth}{!}{
+    \begin{tabular}{|c|c|c|c|c|c|}
+    \hline
+    \textbf{Defend Method} & \textbf{Recall} & \textbf{Precision} & \textbf{F1 Score} & \textbf{Accuracy} & \textbf{Time(s)} \\
+    \hline
+    Both-layer & 1.0 & 1.0 & 1.0 & 1.0 & 261 \\
+    \hline
+    Both-only & 0.992 & 1.0 & 0.996 & 0.994 & 1012 \\
+    \hline
+    Both-pooling & 0.992 & 0.996 & 0.994 & 0.991 & 605 \\
+    \hline
+    PCA-layer & 0.988 & 0.969 & 0.978 & 0.966 & 307 \\
+    \hline
+    PCA-only & 0.98 & 0.951 & 0.965 & 0.944 & 991 \\
+    \hline
+    PCA-pooling & 0.961 & 0.904 & 0.932 & 0.887 & 593 \\
+    \hline
+    Forest-layer & 0.984 & 0.86 & 0.918 & 0.859 & 463 \\
+    \hline
+    Forest-pooling & 0.922 & 0.814 & 0.865 & 0.769 & 313 \\
+    \hline
+    \end{tabular}}
+    \label{tab:gradAscent}
+    \end{center}
+\end{table}
 ```
 
 
 
 
 
-前面已经写过系统配置信息了。
-
-请直接开始写攻击与防御实验。注意，你正在写论文，注意论文的格式，最好用较为官方的话描述，尽量避免“仅仅抛出一些列表”的方式。
-
-
-
-
-
-ubuntu根据进程id查看程序执行路径
-
-
-
-
-
-如何查看进程的工作路径
+我想减少的是表格标题与带框线的表格之间的间距
 
 
 
 
 
 
+latex表格横线加粗
 
 
 
-请你从中提取出32次准确率：
+
+
+
+这是我的最终表格
 
 ```
-+- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:30 -+
-| TimeList:                                                       |
-| 00: Start | 2024.07.11-19:54:32                                 |
-| 01: init accuracy: 6.50% | 2024.07.11-19:54:40                  |
-| 02: Round 1's accuracy: 10.50% | 2024.07.11-19:54:46            |
-| 03: Round 2's accuracy: 20.60% | 2024.07.11-19:54:51            |
-| 04: Round 3's accuracy: 31.30% | 2024.07.11-19:54:56            |
-| 05: Round 4's accuracy: 43.60% | 2024.07.11-19:55:01            |
-| 06: Round 5's accuracy: 56.60% | 2024.07.11-19:55:07            |
-| 07: Round 6's accuracy: 65.40% | 2024.07.11-19:55:12            |
-| 08: Round 7's accuracy: 69.20% | 2024.07.11-19:55:17            |
-| 09: Round 8's accuracy: 74.60% | 2024.07.11-19:55:23            |
-| 10: Round 9's accuracy: 80.90% | 2024.07.11-19:55:28            |
-| 11: Round 10's accuracy: 82.40% | 2024.07.11-19:55:33           |
-| 12: Round 11's accuracy: 86.50% | 2024.07.11-19:55:39           |
-| 13: Round 12's accuracy: 87.30% | 2024.07.11-19:55:44           |
-| 14: Round 13's accuracy: 87.70% | 2024.07.11-19:55:49           |
-| 15: Round 14's accuracy: 88.00% | 2024.07.11-19:55:55           |
-| 16: Round 15's accuracy: 91.30% | 2024.07.11-19:56:00           |
-| 17: Round 16's accuracy: 91.30% | 2024.07.11-19:56:05           |
-| 18: Round 17's accuracy: 92.00% | 2024.07.11-19:56:11           |
-| 19: Round 18's accuracy: 93.40% | 2024.07.11-19:56:16           |
-| 20: Round 19's accuracy: 93.30% | 2024.07.11-19:56:21           |
-| 21: Round 20's accuracy: 93.10% | 2024.07.11-19:56:27           |
-| 22: Round 21's accuracy: 94.50% | 2024.07.11-19:56:32           |
-| 23: Round 22's accuracy: 93.30% | 2024.07.11-19:56:37           |
-| 24: Round 23's accuracy: 93.80% | 2024.07.11-19:56:42           |
-| 25: Round 24's accuracy: 95.10% | 2024.07.11-19:56:48           |
-| 26: Round 25's accuracy: 93.20% | 2024.07.11-19:56:53           |
-| 27: Round 26's accuracy: 95.50% | 2024.07.11-19:56:58           |
-| 28: Round 27's accuracy: 93.90% | 2024.07.11-19:57:04           |
-| 29: Round 28's accuracy: 95.40% | 2024.07.11-19:57:09           |
-| 30: Round 29's accuracy: 95.90% | 2024.07.11-19:57:14           |
-| 31: Round 30's accuracy: 95.10% | 2024.07.11-19:57:20           |
-| 32: Round 31's accuracy: 95.00% | 2024.07.11-19:57:25           |
-| 33: Round 32's accuracy: 96.30% | 2024.07.11-19:57:30           |
-+-----------------------------------------------------------------+
+\begin{table}[htbp]
+    \caption{Grad Ascent Defense Result}
+    \vspace{-10pt}  % 这个是我加的，要不然标头与表格离得太远了
+    \begin{center}
+    \resizebox{\linewidth}{!}{
+    \begin{tabular}{|c|c|c|c|c|c|}
+    \hline
+    \textbf{Defend Method} & \textbf{Recall} & \textbf{Precision} & \textbf{F1 Score} & \textbf{Accuracy} & \textbf{Time(s)} \\
+    \Xhline{3\arrayrulewidth}
+    Both-layer & 1.0 & 1.0 & 1.0 & 1.0 & 261 \\
+    \hline
+    Both-only & 0.992 & 1.0 & 0.996 & 0.994 & 1012 \\
+    \hline
+    Both-pooling & 0.992 & 0.996 & 0.994 & 0.991 & 605 \\
+    \Xhline{3\arrayrulewidth}
+    PCA-layer & 0.988 & 0.969 & 0.978 & 0.966 & 307 \\
+    \hline
+    PCA-only & 0.98 & 0.951 & 0.965 & 0.944 & 991 \\
+    \hline
+    PCA-pooling & 0.961 & 0.904 & 0.932 & 0.887 & 593 \\
+    \Xhline{3\arrayrulewidth}
+    Forest-layer & 0.984 & 0.86 & 0.918 & 0.859 & 463 \\
+    \hline
+    Forest-pooling & 0.922 & 0.814 & 0.865 & 0.769 & 313 \\
+    \hline
+    \end{tabular}}
+    \label{tab:gradAscent}
+    \end{center}
+\end{table}
+```
+
+请你针对以下数据再画一张表格，注意除了数据不要修改上面表格中的其他内容。
+
+```
+Defend Method Recall Precision F1 Score Accuracy Time
+Both-layer 0.991 1.0 0.995 0.994 273
+Both-only 0.991 1.0 0.995 0.994 964
+Both-pooling 0.987 0.974 0.98 0.972 579
+PCA-layer 1.0 0.896 0.945 0.919 346
+PCA-only 0.987 0.867 0.923 0.884 1017
+PCA-pooling 0.955 0.823 0.884 0.825 608
+Forest-layer 0.991 0.844 0.912 0.866 472
+Forest-pooling 0.973 0.829 0.895 0.841 327
 ```
 
 
 
 
 
-
-我有5个实验，每个实验有32个数据。我画一张图使得实验结果更加清晰。
-
-也就是说，我有5个长度为32的浮点数数组accuracies0、accuracies1、...，我希望横轴是训练轮次，纵轴是准确率，图例是攻击力度。
-
-我应该怎么画？
-
-
-
-
-
-
-
-! LaTeX Error: Cannot determine size of graphic in pics/001-gradAttack-attackRa
-te.svg (no BoundingBox).
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.611 ...hics{pics/001-gradAttack-attackRate.svg}}
-                                                  
-? 
-
-
-
-
-
-
-我\usepackage{svg}了，但是还：
+针对以下数据再画一张：
 
 ```
-\begin{figure}[htbp]
-    % \centerline{\includegraphics{pics/001-gradAttack-attackRate.svg}}
-    \centering
-    \includesvg[width=0.5\textwidth]{pics/001-gradAttack-attackRate}
-    \caption{grad ascent attack}
-    \label{fig_gradAscent}
-\end{figure}
-```
-
-```
-Package svg Warning: You didn't enable `shell escape' (or `write18')
-(svg)                so it wasn't possible to launch the Inkscape export
-(svg)                for `pics/001-gradAttack-attackRate.svg' on input line 614
-.
-
-
-! Package svg Error: File `001-gradAttack-attackRate_svg-tex.pdf' is missing.
-
-See the svg package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.614 ...extwidth]{pics/001-gradAttack-attackRate}
-                                                  
-? 
+Defend Method Recall Precision F1 Score Accuracy Time
+Both-layer 0.969 0.995 0.982 0.975 269
+Both-only 0.982 0.952 0.967 0.953 1041
+Both-pooling 0.955 0.982 0.968 0.956 623
+PCA-layer 0.996 0.861 0.924 0.884 316
+PCA-only 0.987 0.847 0.912 0.866 955
+PCA-pooling 0.991 0.838 0.908 0.859 586
+Forest-layer 0.996 0.772 0.87 0.791 471
+Forest-pooling 0.951 0.801 0.87 0.8 352
 ```
 
 
 
-
-
-
-我安装好了`inkscape`，请告诉我完整的编译流程。
-
-注意，我还有references需要编译。
-
-
-
-
-
-
-
-我在overleaf上怎么编译？
-
-
-
-
-
-
-
-我现在决定不使用SVG图片了，而决定使用`pdf`图片。
+mermaid画图，返回mermaid源码
 
 ```
-\begin{figure}[htbp]
-    \centerline{\includegraphics{pics/001-gradAttack-attackRate.pdf}}
-    \caption{grad ascent attack}
-    \label{fig_gradAscent}
-\end{figure}
-```
-
-这段代码导致PDF图片特别大，直接超出了边界。我应该怎么写？
-
-
-
-
-
-
-
-latex如何定义变量？
-
-
-
-
-
-为什么这段代码引用到的不是图1而是subsection
-
-```
-之后，我们在此基础上分别进行了不加任何防御的梯度上升攻击、标签翻转攻击以及后门植入攻击，结果发现对于梯度上升攻击，若不进行防御，则在20\%的攻击者与较小的攻击力度的情况下，模型准确率上升明显减慢。如图\hyperref[fig:gradAscent]{\ref{fig:gradAscent}}所示，攻击者的比例都是20\%。当攻击者把本地训练得到的梯度变化进行取反操作时，发现模型准确率的上升有一定程度的减缓；当攻击者把本地的梯度变化乘以$-2$后上传时，发现模型准确率的上升速率进一步下降；而当攻击者把本地梯度变化乘以$-3$再上传时，可以发现模型已经无法正常工作。
-
-\begin{figure}[htbp]
-    \label{fig:gradAscent}
-    \centerline{\includegraphics[width=\figGradAscentAttack]{pics/001-gradAttack-attackRate.pdf}}
-    % \centering
-    % \includesvg[width=0.5\textwidth]{pics/001-gradAttack-attackRate.pdf}
-    \caption{grad ascent attack}
-\end{figure}
+研究问题->研究方法
+研究方法->文献研究法
+研究方法->案例分析法
+研究方法->实验研究法
+研究方法->比较研究法
+研究方法->数据来源->预期结果
 ```
 
 
 
+graph TD
+    研究问题-->研究方法
+    研究方法-->文献研究法
+    研究方法-->案例分析法
+    研究方法-->实验研究法
+    研究方法-->比较研究法
+    研究方法-->数据来源
+    数据来源-->预期结果
+    文献研究法-->预期结果
+    实验研究法-->预期结果
+    案例分析法-->预期结果
+    比较研究法-->预期结果
 
 
-latex如何加粗
+
+
+
+
+特征层提取的英文
+
+
+
+
+
+
+
+我们的abstract为：
+
+```
+随着视觉大模型的不断发展，模型训练时需要越来越大的数据量。因此需要联邦学习的ViT模型(Federated ViT)，在数据不离开多个客户端的前提下进行模型训练，同时捕捉复杂的全局特征\footnote{相比于简单的CNN等，ViT可以更好地捕捉全局信息}。例如FeSTA通过分割学习的ViT模型进行COVID-19的胸部X光片检测，保留数据隐私的同时在多个数据集上实现了性能提升\cite{federatedViT_example}。然而，在实际的应用场景中，各式各样的攻击对联邦学习带来了很大的问题。例如，有的攻击者会篡改本地训练出的梯度数据，从而扰乱聚合后的全局模型的效果；有的攻击者会篡改数据集的标签，例如常见的标签翻转，来诱导模型对特定事物造成错误的判断\cite{tailAttack_SuchAsLabelFlip}；还有的攻击者会采用更加隐蔽的后门攻击，在训练过程中设计难以被识别的触发器从而达到插入后门的效果\cite{backdoor_001}。
+
+针对这些攻击，现已提出了很多防御机制，有通过在服务器上计算每个模型更新与其最近更新之间的欧氏距离之和来决定是否聚合模型更新的Krum算法和拓展的multi-Krum算法\cite{aggregation_Krum}，有选择中值或排除边缘值后的平均值作为全局模型的中值算法和裁剪平均算法\cite{aggregation_MedianTrimmedMean}，也有使用主成分分析(Principal Component Analysis, PCA)来检测恶意用户的算法\cite{federatedPCA}，以及通过解决最大团问题(Maximum CliqueProblem, MCP)从而无需恶意用户数量这一先验知识的Sniper方案\cite{aggregation_Sniper}。这些数据都能在不同程度上解决恶意用户的攻击问题，但在Fedteratred ViT场景下这些方法普遍存在效率低、鲁棒性差等缺陷。原因在于很小的ViT-B/16模型也有千万级别的参数，相比于参数级别为百万甚至十万的传统CNN模型，即使是线性复杂度的安全检测方法，在处理Vit场景下的恶意攻击的耗时也要提升几十倍甚至几百倍\footnote{这一句在说参数量大所以原有防御方案效率低}。我们注意到在庞大的ViT模型中，存在大量不活跃的神经元，这些神经元在恶意用户和正常用户之间的差异不明显，从而降低了恶意攻击检测的效率和鲁棒性。\footnote{这一句在说参数散多所以原有防御方案鲁棒性差}。
+
+In this paper，我们提出了一种针对ViT的两阶段的上下文感知轻量级恶意梯度识别方法来提升检测恶意用户的效率和鲁棒性。我们通过特征层提取和主成分分析算法（PCA）去除无效的梯度信息，从而在提升检测效率的同时提升了检测的鲁棒性。Specifically，对于用户上传上来的梯度信息，模型首先进行特征层提取，保留有效信息的同时降低数据维度。接着使用PCA算法对数据进行再次降维。两次降维之后，我们成功在不降低检测准确率的情况下将数据维度下降到原来的0.4\%。随后我们使用隔离森林算法依据提取出的梯度特征鉴别恶意用户和良性用户。最后，我们使用主观逻辑模型\cite{Subjective_Logic_Model}进行时域累计的用户评分并在聚合梯度信息的过程中加以考虑，这样使得判断结果更好的同时减少了由于随机森林的随机性而导致的错误判定\footnote{因为多次都错误封禁一个恶意用户的概率会指数级别的减小}。这样，在ViT这种具有大量参数的模型下，我们的模型也能够进行很好的联邦学习训练并杜绝可能的潜在的攻击。
+
+我们在CIFAR-10、MNIST、OrganAMNIST等数据集上做了有关模型效率以及有关识别鲁棒性的实验，结果显示在处理时间上，我们的模型比先进的PCA方法降低了大约70\%。此外模型在准确率和F1分数上较PCA方法都有较大提升。同时，我们对比了池化技术来减少计算量并增强鲁棒性的算法，结果显示，相较于池化方法，我们的方法在效率和鲁棒性方面均有较大优势\cite{betterTogether}。
+
+我们将模型命名为ViT-MGI并发布了其源代码，以方便该领域的未来研究：\href{https://github.com/LetMeFly666/FLDefinder}{https://github.com/LetMeFly666/FLDefinder}\footnote{论文投稿前此仓库为Private状态不可访问}。
+```
+
+我们当前的Conslusion为
+
+```
+实验结果表明，在检测恶意用户的拜占庭攻击时，若单独使用主成分分析算法，则耗时较长且检测结果不准确，无法应用到实际的项目中去。若单独使用隔离森林算法则因大量参数中包含着大量的对恶意检测无效的数据，导致检测准确性极低，甚至接近随机抓取的效果。若使用池化技术\cite{betterTogether}对数据进行降维后再进行PCA提取异常成分，则仅仅会减少PCA的时间损耗而会导致检测准确性降低。使用池化技术加上隔离森林算法则同样如此，只能减少计算耗时而无法提升检测准确率。最终发现，拜占庭攻击发生时由于ViT每层的敏感程度不同，所以可以先通过提取特征层的方式，降低数据量的同时去除对异常检测无效的数据，再通过PCA降维聚类，聚合提取异常数据，最后通过隔离森林算法进行检测，实现效果最好。这种方法的恶意攻击检测准确率几乎达到100\%，对于较低的误报率而言由于被误报的客户端数量较少且被误报的客户端很随机，因此结合上主观逻辑模型能很好地得到满意的结果。
+
+总的来说，为了检测恶意用户的拜占庭攻击现象，我们提出了一种两阶段的检测方法。首先，我们提取了用户上传的梯度的敏感特征层，然后通过主成分分析（PCA）对这些数据进行降维。接着，我们使用隔离森林算法对降维后的数据进行分析，得到异常评分。最后，我们使用主观逻辑模型对每个客户端进行评分，根据评分结果筛选可信客户端，并将这些客户端的梯度加权合并到全局模型中。实验结果表明，我们的方法在检测恶意用户的拜占庭攻击方面取得了很好的效果。
+```
+
+但是我们觉得我们的Conslusion写得不好，请你帮忙重新写一下这篇论文的Conslusion，要强调特征层提取的重要性
+
+
+
+
+
+
+
+
+本次对话请翻译上述文字为中文
+
+
+
+
+
+
+小改一下这句话，我们的做法可以不只针对拜占庭攻击
+
+
+
+
+
+
+
+这是我们的摘要
+
+```
+随着视觉大模型的不断发展，模型训练时需要越来越大的数据量。因此需要联邦学习的ViT模型(Federated ViT)，在数据不离开多个客户端的前提下进行模型训练，同时捕捉复杂的全局特征\footnote{相比于简单的CNN等，ViT可以更好地捕捉全局信息}。例如FeSTA通过分割学习的ViT模型进行COVID-19的胸部X光片检测，保留数据隐私的同时在多个数据集上实现了性能提升\cite{federatedViT_example}。然而，在实际的应用场景中，各式各样的攻击对联邦学习带来了很大的问题。例如，有的攻击者会篡改本地训练出的梯度数据，从而扰乱聚合后的全局模型的效果；有的攻击者会篡改数据集的标签，例如常见的标签翻转，来诱导模型对特定事物造成错误的判断\cite{tailAttack_SuchAsLabelFlip}；还有的攻击者会采用更加隐蔽的后门攻击，在训练过程中设计难以被识别的触发器从而达到插入后门的效果\cite{backdoor_001}。
+
+针对这些攻击，现已提出了很多防御机制，有通过在服务器上计算每个模型更新与其最近更新之间的欧氏距离之和来决定是否聚合模型更新的Krum算法和拓展的multi-Krum算法\cite{aggregation_Krum}，有选择中值或排除边缘值后的平均值作为全局模型的中值算法和裁剪平均算法\cite{aggregation_MedianTrimmedMean}，也有使用主成分分析(Principal Component Analysis, PCA)来检测恶意用户的算法\cite{federatedPCA}，以及通过解决最大团问题(Maximum CliqueProblem, MCP)从而无需恶意用户数量这一先验知识的Sniper方案\cite{aggregation_Sniper}。这些数据都能在不同程度上解决恶意用户的攻击问题，但在Fedteratred ViT场景下这些方法普遍存在效率低、鲁棒性差等缺陷。原因在于很小的ViT-B/16模型也有千万级别的参数，相比于参数级别为百万甚至十万的传统CNN模型，即使是线性复杂度的安全检测方法，在处理Vit场景下的恶意攻击的耗时也要提升几十倍甚至几百倍\footnote{这一句在说参数量大所以原有防御方案效率低}。我们注意到在庞大的ViT模型中，存在大量不活跃的神经元，这些神经元在恶意用户和正常用户之间的差异不明显，从而降低了恶意攻击检测的效率和鲁棒性。\footnote{这一句在说参数散多所以原有防御方案鲁棒性差}。
+
+In this paper，我们提出了一种针对ViT的两阶段的上下文感知轻量级恶意梯度识别方法来提升检测恶意用户的效率和鲁棒性。我们通过特征层提取和主成分分析算法（PCA）去除无效的梯度信息，从而在提升检测效率的同时提升了检测的鲁棒性。Specifically，对于用户上传上来的梯度信息，模型首先进行特征层提取，保留有效信息的同时降低数据维度。接着使用PCA算法对数据进行再次降维。两次降维之后，我们成功在不降低检测准确率的情况下将数据维度下降到原来的0.4\%。随后我们使用隔离森林算法依据提取出的梯度特征鉴别恶意用户和良性用户。最后，我们使用主观逻辑模型\cite{Subjective_Logic_Model}进行时域累计的用户评分并在聚合梯度信息的过程中加以考虑，这样使得判断结果更好的同时减少了由于随机森林的随机性而导致的错误判定\footnote{因为多次都错误封禁一个恶意用户的概率会指数级别的减小}。这样，在ViT这种具有大量参数的模型下，我们的模型也能够进行很好的联邦学习训练并杜绝可能的潜在的攻击。
+
+我们在CIFAR-10、MNIST、OrganAMNIST等数据集上做了有关模型效率以及有关识别鲁棒性的实验，结果显示在处理时间上，我们的模型比先进的PCA方法降低了大约70\%。此外模型在准确率和F1分数上较PCA方法都有较大提升。同时，我们对比了池化技术来减少计算量并增强鲁棒性的算法，结果显示，相较于池化方法，我们的方法在效率和鲁棒性方面均有较大优势\cite{betterTogether}。
+
+我们将模型命名为ViT-MGI并发布了其源代码，以方便该领域的未来研究：\href{https://github.com/LetMeFly666/FLDefinder}{https://github.com/LetMeFly666/FLDefinder}\footnote{论文投稿前此仓库为Private状态不可访问}。
+```
+
+请帮我们修改简化第二段
+
+
+
+
+
+
+
+
+```
+实验结果表明，单独使用PCA进行恶意用户的攻击检测耗时较长且检测结果不准确，难以在实际项目中应用。类似地，单独使用隔离森林算法由于存在大量对异常检测无效的数据参数，导致检测准确性较低，结果几乎等同于随机猜测。当应用池化技术\cite{betterTogether}在进行PCA提取异常成分前减少数据维度时，仅能减少PCA的时间成本，但会降低检测准确性。结合池化技术和隔离森林算法也产生相似结果，降低计算耗时却无法提高检测准确率。
+
+然而，通过先提取特征层以减少数据量，同时去除对异常检测无效的数据，再利用PCA进行降维，最终使用隔离森林算法进行异常检测，检测性能显著提高。这种方法在检测恶意攻击时几乎达到100\%的准确率。鉴于误报率较低，被误报的客户端数量少且随机，通过结合主观逻辑模型可以很好地管理这些结果，获得令人满意的效果。
+
+总而言之，为了解决恶意用户的攻击检测问题，我们提出了一种两阶段的检测方法。首先，我们提取了用户上传的梯度的敏感特征层，然后通过PCA对这些数据进行降维。接着，我们使用隔离森林算法对降维后的数据进行分析，得到异常评分。最后，我们使用主观逻辑模型对每个客户端进行评分，根据评分结果筛选可信客户端，并将这些客户端的梯度加权合并到全局模型中。实验结果表明，我们的方法在检测恶意用户的各种攻击方面取得了很好的效果，强调了特征层提取在提高检测效率和鲁棒性方面的重要性。
+```
+
+这是我们当前的Conslusion，帮忙再写一个展望融入进去。
+
+
+
+
+
+
+
+
+展望应该是和我们这篇的核心——特征层提取息息相关的，你可以着重表明：特征层提取表现出了强大的优势，未来能运用到更多的研究中去。
+
+
+
+
+
+
+
+这是我们的中文版论文，请你学习其中的内容并牢记，若学会了请回复“Yes, sir”
+
+
+
+
+
+
+
+之后我会每次给你一段其中的内容让你翻译。在翻译过程中请严格牢记并把握文章的主旨，以学术化的语言风格，避免中式英语。请时刻牢记本文主旨及研究内容，牢记这条指令。
+
+
+
+
+
+这样重新总结太长了，你的主要任务是翻译。
+
+
+
+
+牢记对话开始时我发送给你的论文原文文件的主要内容，牢记你的任务是将中文论文翻译成英文。在翻译过程中请严格牢记并把握文章的主旨，以学术化的语言风格，避免中式英语。请时刻牢记本文主旨及研究内容，牢记这条指令。
+
+
+
+
+
+如果翻译内容中有latex公式，请直接返回原来带命令的latex公式，而不是渲染后的结果。
+
+
+
+
+
+
+返回这一段的latex源码，后续翻译正常进行
+
+
+
+
+
+
+对于我给你的这段latex伪代码，你也只需要翻译成英文版latex伪代码即可，不需要解释成文字。
+
+
+
+
+
+
+
+
+对于这段话，将其重新简述一下再翻译。简述成一段话即可，不需要那么多的公式在里面。请同时返回简述后的中文版结果和英文版翻译。
+
+
+
+
+
+
+
+简述一下这部分并翻译，不用简述太多，返回中文版和英文版
