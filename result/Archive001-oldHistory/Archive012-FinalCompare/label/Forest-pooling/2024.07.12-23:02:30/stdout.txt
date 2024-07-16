@@ -1,0 +1,2185 @@
++----- main.py:15 -----+
+| 2024.07.12-23:02:30  |
++----------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -+
+| Start | 2024.07.12-23:02:34                                     |
++-----------------------------------------------------------------+
+
++- /home/lzy/.conda/envs/ltf/lib/python3.8/site-packages/torchvision/datasets/cifar.py:141 -+
+| Tisfy: Files already downloaded and verified.                                             |
++-------------------------------------------------------------------------------------------+
+
++- /home/lzy/.conda/envs/ltf/lib/python3.8/site-packages/torchvision/datasets/cifar.py:141 -+
+| Tisfy: Files already downloaded and verified.                                             |
++-------------------------------------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -+
+| init accuracy: 9.10% | 2024.07.12-23:02:49                      |
++-----------------------------------------------------------------+
+
++---------------------- main.py:104 ----------------------+
+| Average loss: 2.3661593198776245 | 2024.07.12-23:02:52  |
++---------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:41 -+
+| pooling Begin | 2024.07.12-23:02:56                        |
++------------------------------------------------------------+
+
++------------ /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:181 ------------+
+| poolsize: 1000, pooled_grads shape: (10, 85807), all_grads shape: (10, 85806346)  |
++-----------------------------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:43 -+
+| pooling End | 2024.07.12-23:03:00                          |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:147 -+
+| (10, 85807)                                                 |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:91 -+
+| Forest Begin | 2024.07.12-23:03:00                         |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:115 -+
+| Anomaly scores (from high to low):                          |
+| Index: 8, Score: 0.0357                                     |
+| Index: 7, Score: 0.0336                                     |
+| Index: 3, Score: 0.0279                                     |
+| Index: 6, Score: 0.0239                                     |
+| Index: 9, Score: 0.0195                                     |
+| Index: 2, Score: 0.0191                                     |
+| Index: 5, Score: 0.0165                                     |
+| Index: 4, Score: 0.0137                                     |
+| Index: 0, Score: 0.0060                                     |
+| Index: 1, Score: 0.0018                                     |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:123 -+
+| Anomalous gradients: []                                     |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:125 -+
+| Forest End | 2024.07.12-23:03:01                            |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:203 -+
+| Correctly received: 7                                       |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:204 -+
+| Wrongly received: 3                                         |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:205 -+
+| Correctly rejected: 0                                       |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:206 -+
+| Wrongly rejected: 0                                         |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -+
+| Round 1's accuracy: 12.80% | 2024.07.12-23:03:04                |
++-----------------------------------------------------------------+
+
++--------------------- main.py:104 ---------------------+
+| Average loss: 2.274974226951599 | 2024.07.12-23:03:06 |
++-------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:41 -+
+| pooling Begin | 2024.07.12-23:03:09                        |
++------------------------------------------------------------+
+
++------------ /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:181 ------------+
+| poolsize: 1000, pooled_grads shape: (10, 85807), all_grads shape: (10, 85806346)  |
++-----------------------------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:43 -+
+| pooling End | 2024.07.12-23:03:10                          |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:147 -+
+| (10, 85807)                                                 |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:91 -+
+| Forest Begin | 2024.07.12-23:03:10                         |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:115 -+
+| Anomaly scores (from high to low):                          |
+| Index: 0, Score: 0.0379                                     |
+| Index: 6, Score: 0.0372                                     |
+| Index: 7, Score: 0.0340                                     |
+| Index: 8, Score: 0.0307                                     |
+| Index: 4, Score: 0.0252                                     |
+| Index: 9, Score: 0.0240                                     |
+| Index: 5, Score: 0.0167                                     |
+| Index: 3, Score: 0.0148                                     |
+| Index: 2, Score: 0.0000                                     |
+| Index: 1, Score: -0.0216                                    |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:123 -+
+| Anomalous gradients: [1]                                    |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:125 -+
+| Forest End | 2024.07.12-23:03:10                            |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:203 -+
+| Correctly received: 14                                      |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:204 -+
+| Wrongly received: 5                                         |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:205 -+
+| Correctly rejected: 0                                       |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:206 -+
+| Wrongly rejected: 1                                         |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -+
+| Round 2's accuracy: 18.50% | 2024.07.12-23:03:13                |
++-----------------------------------------------------------------+
+
++--------------------- main.py:104 ---------------------+
+| Average loss: 2.218238377571106 | 2024.07.12-23:03:16 |
++-------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:41 -+
+| pooling Begin | 2024.07.12-23:03:18                        |
++------------------------------------------------------------+
+
++------------ /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:181 ------------+
+| poolsize: 1000, pooled_grads shape: (10, 85807), all_grads shape: (10, 85806346)  |
++-----------------------------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:43 -+
+| pooling End | 2024.07.12-23:03:19                          |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:147 -+
+| (10, 85807)                                                 |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:91 -+
+| Forest Begin | 2024.07.12-23:03:19                         |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:115 -+
+| Anomaly scores (from high to low):                          |
+| Index: 6, Score: 0.0361                                     |
+| Index: 3, Score: 0.0331                                     |
+| Index: 8, Score: 0.0245                                     |
+| Index: 0, Score: 0.0240                                     |
+| Index: 5, Score: 0.0211                                     |
+| Index: 2, Score: 0.0141                                     |
+| Index: 7, Score: 0.0067                                     |
+| Index: 4, Score: 0.0020                                     |
+| Index: 1, Score: 0.0001                                     |
+| Index: 9, Score: -0.0037                                    |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:123 -+
+| Anomalous gradients: [9]                                    |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:125 -+
+| Forest End | 2024.07.12-23:03:20                            |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:203 -+
+| Correctly received: 20                                      |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:204 -+
+| Wrongly received: 8                                         |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:205 -+
+| Correctly rejected: 1                                       |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:206 -+
+| Wrongly rejected: 1                                         |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -+
+| Round 3's accuracy: 28.00% | 2024.07.12-23:03:23                |
++-----------------------------------------------------------------+
+
++--------------------- main.py:104 ---------------------+
+| Average loss: 2.119987058639526 | 2024.07.12-23:03:25 |
++-------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:41 -+
+| pooling Begin | 2024.07.12-23:03:28                        |
++------------------------------------------------------------+
+
++------------ /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:181 ------------+
+| poolsize: 1000, pooled_grads shape: (10, 85807), all_grads shape: (10, 85806346)  |
++-----------------------------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:43 -+
+| pooling End | 2024.07.12-23:03:29                          |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:147 -+
+| (10, 85807)                                                 |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:91 -+
+| Forest Begin | 2024.07.12-23:03:29                         |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:115 -+
+| Anomaly scores (from high to low):                          |
+| Index: 7, Score: 0.0286                                     |
+| Index: 6, Score: 0.0210                                     |
+| Index: 8, Score: 0.0206                                     |
+| Index: 4, Score: 0.0204                                     |
+| Index: 9, Score: 0.0189                                     |
+| Index: 5, Score: 0.0180                                     |
+| Index: 1, Score: 0.0158                                     |
+| Index: 2, Score: 0.0121                                     |
+| Index: 3, Score: 0.0108                                     |
+| Index: 0, Score: 0.0080                                     |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:123 -+
+| Anomalous gradients: []                                     |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:125 -+
+| Forest End | 2024.07.12-23:03:29                            |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:203 -+
+| Correctly received: 27                                      |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:204 -+
+| Wrongly received: 11                                        |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:205 -+
+| Correctly rejected: 1                                       |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:206 -+
+| Wrongly rejected: 1                                         |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -+
+| Round 4's accuracy: 33.80% | 2024.07.12-23:03:32                |
++-----------------------------------------------------------------+
+
++---------------------- main.py:104 ----------------------+
+| Average loss: 2.0288384556770325 | 2024.07.12-23:03:35  |
++---------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:41 -+
+| pooling Begin | 2024.07.12-23:03:37                        |
++------------------------------------------------------------+
+
++------------ /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:181 ------------+
+| poolsize: 1000, pooled_grads shape: (10, 85807), all_grads shape: (10, 85806346)  |
++-----------------------------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:43 -+
+| pooling End | 2024.07.12-23:03:39                          |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:147 -+
+| (10, 85807)                                                 |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:91 -+
+| Forest Begin | 2024.07.12-23:03:39                         |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:115 -+
+| Anomaly scores (from high to low):                          |
+| Index: 9, Score: 0.0433                                     |
+| Index: 5, Score: 0.0415                                     |
+| Index: 4, Score: 0.0378                                     |
+| Index: 3, Score: 0.0332                                     |
+| Index: 7, Score: 0.0313                                     |
+| Index: 1, Score: 0.0311                                     |
+| Index: 6, Score: 0.0265                                     |
+| Index: 2, Score: 0.0202                                     |
+| Index: 0, Score: -0.0017                                    |
+| Index: 8, Score: -0.0380                                    |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:123 -+
+| Anomalous gradients: [0, 8]                                 |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:125 -+
+| Forest End | 2024.07.12-23:03:39                            |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:203 -+
+| Correctly received: 33                                      |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:204 -+
+| Wrongly received: 13                                        |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:205 -+
+| Correctly rejected: 2                                       |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:206 -+
+| Wrongly rejected: 2                                         |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -+
+| Round 5's accuracy: 46.90% | 2024.07.12-23:03:42                |
++-----------------------------------------------------------------+
+
++---------------------- main.py:104 ----------------------+
+| Average loss: 1.9731104493141174 | 2024.07.12-23:03:45  |
++---------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:41 -+
+| pooling Begin | 2024.07.12-23:03:47                        |
++------------------------------------------------------------+
+
++------------ /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:181 ------------+
+| poolsize: 1000, pooled_grads shape: (10, 85807), all_grads shape: (10, 85806346)  |
++-----------------------------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:43 -+
+| pooling End | 2024.07.12-23:03:48                          |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:147 -+
+| (10, 85807)                                                 |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:91 -+
+| Forest Begin | 2024.07.12-23:03:48                         |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:115 -+
+| Anomaly scores (from high to low):                          |
+| Index: 4, Score: 0.0301                                     |
+| Index: 6, Score: 0.0276                                     |
+| Index: 5, Score: 0.0273                                     |
+| Index: 3, Score: 0.0238                                     |
+| Index: 8, Score: 0.0238                                     |
+| Index: 9, Score: 0.0216                                     |
+| Index: 1, Score: 0.0182                                     |
+| Index: 7, Score: 0.0173                                     |
+| Index: 0, Score: 0.0126                                     |
+| Index: 2, Score: -0.0228                                    |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:123 -+
+| Anomalous gradients: [2]                                    |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:125 -+
+| Forest End | 2024.07.12-23:03:49                            |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:203 -+
+| Correctly received: 40                                      |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:204 -+
+| Wrongly received: 15                                        |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:205 -+
+| Correctly rejected: 2                                       |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:206 -+
+| Wrongly rejected: 3                                         |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -+
+| Round 6's accuracy: 54.70% | 2024.07.12-23:03:52                |
++-----------------------------------------------------------------+
+
++---------------------- main.py:104 ----------------------+
+| Average loss: 1.9507444500923157 | 2024.07.12-23:03:54  |
++---------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:41 -+
+| pooling Begin | 2024.07.12-23:03:56                        |
++------------------------------------------------------------+
+
++------------ /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:181 ------------+
+| poolsize: 1000, pooled_grads shape: (10, 85807), all_grads shape: (10, 85806346)  |
++-----------------------------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:43 -+
+| pooling End | 2024.07.12-23:03:58                          |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:147 -+
+| (10, 85807)                                                 |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:91 -+
+| Forest Begin | 2024.07.12-23:03:58                         |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:115 -+
+| Anomaly scores (from high to low):                          |
+| Index: 5, Score: 0.0403                                     |
+| Index: 3, Score: 0.0270                                     |
+| Index: 0, Score: 0.0258                                     |
+| Index: 4, Score: 0.0243                                     |
+| Index: 1, Score: 0.0202                                     |
+| Index: 2, Score: 0.0193                                     |
+| Index: 9, Score: 0.0185                                     |
+| Index: 8, Score: 0.0109                                     |
+| Index: 6, Score: 0.0108                                     |
+| Index: 7, Score: -0.0087                                    |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:123 -+
+| Anomalous gradients: [7]                                    |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:125 -+
+| Forest End | 2024.07.12-23:03:58                            |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:203 -+
+| Correctly received: 46                                      |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:204 -+
+| Wrongly received: 18                                        |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:205 -+
+| Correctly rejected: 3                                       |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:206 -+
+| Wrongly rejected: 3                                         |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -+
+| Round 7's accuracy: 59.00% | 2024.07.12-23:04:01                |
++-----------------------------------------------------------------+
+
++---------------------- main.py:104 ----------------------+
+| Average loss: 1.8863336443901062 | 2024.07.12-23:04:04  |
++---------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:41 -+
+| pooling Begin | 2024.07.12-23:04:06                        |
++------------------------------------------------------------+
+
++------------ /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:181 ------------+
+| poolsize: 1000, pooled_grads shape: (10, 85807), all_grads shape: (10, 85806346)  |
++-----------------------------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:43 -+
+| pooling End | 2024.07.12-23:04:07                          |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:147 -+
+| (10, 85807)                                                 |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:91 -+
+| Forest Begin | 2024.07.12-23:04:07                         |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:115 -+
+| Anomaly scores (from high to low):                          |
+| Index: 3, Score: 0.0414                                     |
+| Index: 6, Score: 0.0367                                     |
+| Index: 2, Score: 0.0336                                     |
+| Index: 5, Score: 0.0330                                     |
+| Index: 0, Score: 0.0297                                     |
+| Index: 9, Score: 0.0276                                     |
+| Index: 4, Score: 0.0254                                     |
+| Index: 8, Score: 0.0247                                     |
+| Index: 1, Score: 0.0049                                     |
+| Index: 7, Score: -0.0440                                    |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:123 -+
+| Anomalous gradients: [7]                                    |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:125 -+
+| Forest End | 2024.07.12-23:04:08                            |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:203 -+
+| Correctly received: 52                                      |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:204 -+
+| Wrongly received: 21                                        |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:205 -+
+| Correctly rejected: 4                                       |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:206 -+
+| Wrongly rejected: 3                                         |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -+
+| Round 8's accuracy: 65.30% | 2024.07.12-23:04:11                |
++-----------------------------------------------------------------+
+
++---------------------- main.py:104 ----------------------+
+| Average loss: 1.8259039640426635 | 2024.07.12-23:04:13  |
++---------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:41 -+
+| pooling Begin | 2024.07.12-23:04:16                        |
++------------------------------------------------------------+
+
++------------ /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:181 ------------+
+| poolsize: 1000, pooled_grads shape: (10, 85807), all_grads shape: (10, 85806346)  |
++-----------------------------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:43 -+
+| pooling End | 2024.07.12-23:04:17                          |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:147 -+
+| (10, 85807)                                                 |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:91 -+
+| Forest Begin | 2024.07.12-23:04:17                         |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:115 -+
+| Anomaly scores (from high to low):                          |
+| Index: 6, Score: 0.0356                                     |
+| Index: 2, Score: 0.0292                                     |
+| Index: 4, Score: 0.0269                                     |
+| Index: 3, Score: 0.0259                                     |
+| Index: 7, Score: 0.0247                                     |
+| Index: 8, Score: 0.0217                                     |
+| Index: 0, Score: 0.0201                                     |
+| Index: 9, Score: 0.0170                                     |
+| Index: 5, Score: 0.0158                                     |
+| Index: 1, Score: -0.0158                                    |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:123 -+
+| Anomalous gradients: [1]                                    |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:125 -+
+| Forest End | 2024.07.12-23:04:17                            |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:203 -+
+| Correctly received: 59                                      |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:204 -+
+| Wrongly received: 23                                        |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:205 -+
+| Correctly rejected: 4                                       |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:206 -+
+| Wrongly rejected: 4                                         |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -+
+| Round 9's accuracy: 70.70% | 2024.07.12-23:04:20                |
++-----------------------------------------------------------------+
+
++--------------------- main.py:104 ---------------------+
+| Average loss: 1.734300708770752 | 2024.07.12-23:04:23 |
++-------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:41 -+
+| pooling Begin | 2024.07.12-23:04:25                        |
++------------------------------------------------------------+
+
++------------ /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:181 ------------+
+| poolsize: 1000, pooled_grads shape: (10, 85807), all_grads shape: (10, 85806346)  |
++-----------------------------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:43 -+
+| pooling End | 2024.07.12-23:04:27                          |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:147 -+
+| (10, 85807)                                                 |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:91 -+
+| Forest Begin | 2024.07.12-23:04:27                         |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:115 -+
+| Anomaly scores (from high to low):                          |
+| Index: 8, Score: 0.0338                                     |
+| Index: 4, Score: 0.0306                                     |
+| Index: 3, Score: 0.0301                                     |
+| Index: 5, Score: 0.0251                                     |
+| Index: 6, Score: 0.0249                                     |
+| Index: 7, Score: 0.0136                                     |
+| Index: 2, Score: 0.0105                                     |
+| Index: 9, Score: 0.0080                                     |
+| Index: 1, Score: -0.0023                                    |
+| Index: 0, Score: -0.0030                                    |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:123 -+
+| Anomalous gradients: [0, 1]                                 |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:125 -+
+| Forest End | 2024.07.12-23:04:27                            |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:203 -+
+| Correctly received: 66                                      |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:204 -+
+| Wrongly received: 24                                        |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:205 -+
+| Correctly rejected: 4                                       |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:206 -+
+| Wrongly rejected: 6                                         |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -+
+| Round 10's accuracy: 73.80% | 2024.07.12-23:04:30               |
++-----------------------------------------------------------------+
+
++---------------------- main.py:104 ----------------------+
+| Average loss: 1.6743497967720031 | 2024.07.12-23:04:32  |
++---------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:41 -+
+| pooling Begin | 2024.07.12-23:04:35                        |
++------------------------------------------------------------+
+
++------------ /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:181 ------------+
+| poolsize: 1000, pooled_grads shape: (10, 85807), all_grads shape: (10, 85806346)  |
++-----------------------------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:43 -+
+| pooling End | 2024.07.12-23:04:36                          |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:147 -+
+| (10, 85807)                                                 |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:91 -+
+| Forest Begin | 2024.07.12-23:04:36                         |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:115 -+
+| Anomaly scores (from high to low):                          |
+| Index: 6, Score: 0.0302                                     |
+| Index: 4, Score: 0.0221                                     |
+| Index: 5, Score: 0.0219                                     |
+| Index: 9, Score: 0.0214                                     |
+| Index: 2, Score: 0.0188                                     |
+| Index: 7, Score: 0.0185                                     |
+| Index: 8, Score: 0.0179                                     |
+| Index: 3, Score: 0.0126                                     |
+| Index: 0, Score: 0.0075                                     |
+| Index: 1, Score: 0.0072                                     |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:123 -+
+| Anomalous gradients: []                                     |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:125 -+
+| Forest End | 2024.07.12-23:04:37                            |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:203 -+
+| Correctly received: 73                                      |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:204 -+
+| Wrongly received: 27                                        |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:205 -+
+| Correctly rejected: 4                                       |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:206 -+
+| Wrongly rejected: 6                                         |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -+
+| Round 11's accuracy: 78.80% | 2024.07.12-23:04:39               |
++-----------------------------------------------------------------+
+
++---------------------- main.py:104 ----------------------+
+| Average loss: 1.6987926483154296 | 2024.07.12-23:04:42  |
++---------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:41 -+
+| pooling Begin | 2024.07.12-23:04:44                        |
++------------------------------------------------------------+
+
++------------ /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:181 ------------+
+| poolsize: 1000, pooled_grads shape: (10, 85807), all_grads shape: (10, 85806346)  |
++-----------------------------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:43 -+
+| pooling End | 2024.07.12-23:04:46                          |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:147 -+
+| (10, 85807)                                                 |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:91 -+
+| Forest Begin | 2024.07.12-23:04:46                         |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:115 -+
+| Anomaly scores (from high to low):                          |
+| Index: 6, Score: 0.0380                                     |
+| Index: 5, Score: 0.0292                                     |
+| Index: 8, Score: 0.0217                                     |
+| Index: 0, Score: 0.0212                                     |
+| Index: 9, Score: 0.0159                                     |
+| Index: 7, Score: 0.0138                                     |
+| Index: 3, Score: 0.0108                                     |
+| Index: 4, Score: 0.0093                                     |
+| Index: 2, Score: 0.0082                                     |
+| Index: 1, Score: 0.0032                                     |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:123 -+
+| Anomalous gradients: []                                     |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:125 -+
+| Forest End | 2024.07.12-23:04:46                            |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:203 -+
+| Correctly received: 80                                      |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:204 -+
+| Wrongly received: 30                                        |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:205 -+
+| Correctly rejected: 4                                       |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:206 -+
+| Wrongly rejected: 6                                         |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -+
+| Round 12's accuracy: 80.00% | 2024.07.12-23:04:49               |
++-----------------------------------------------------------------+
+
++---------------------- main.py:104 ----------------------+
+| Average loss: 1.5988605618476868 | 2024.07.12-23:04:52  |
++---------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:41 -+
+| pooling Begin | 2024.07.12-23:04:54                        |
++------------------------------------------------------------+
+
++------------ /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:181 ------------+
+| poolsize: 1000, pooled_grads shape: (10, 85807), all_grads shape: (10, 85806346)  |
++-----------------------------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:43 -+
+| pooling End | 2024.07.12-23:04:55                          |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:147 -+
+| (10, 85807)                                                 |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:91 -+
+| Forest Begin | 2024.07.12-23:04:55                         |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:115 -+
+| Anomaly scores (from high to low):                          |
+| Index: 9, Score: 0.0300                                     |
+| Index: 8, Score: 0.0286                                     |
+| Index: 0, Score: 0.0283                                     |
+| Index: 6, Score: 0.0268                                     |
+| Index: 3, Score: 0.0267                                     |
+| Index: 5, Score: 0.0256                                     |
+| Index: 4, Score: 0.0209                                     |
+| Index: 7, Score: 0.0122                                     |
+| Index: 1, Score: 0.0106                                     |
+| Index: 2, Score: -0.0236                                    |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:123 -+
+| Anomalous gradients: [2]                                    |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:125 -+
+| Forest End | 2024.07.12-23:04:56                            |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:203 -+
+| Correctly received: 87                                      |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:204 -+
+| Wrongly received: 32                                        |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:205 -+
+| Correctly rejected: 4                                       |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:206 -+
+| Wrongly rejected: 7                                         |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -+
+| Round 13's accuracy: 82.10% | 2024.07.12-23:04:59               |
++-----------------------------------------------------------------+
+
++--------------------- main.py:104 ---------------------+
+| Average loss: 1.591422176361084 | 2024.07.12-23:05:01 |
++-------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:41 -+
+| pooling Begin | 2024.07.12-23:05:04                        |
++------------------------------------------------------------+
+
++------------ /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:181 ------------+
+| poolsize: 1000, pooled_grads shape: (10, 85807), all_grads shape: (10, 85806346)  |
++-----------------------------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:43 -+
+| pooling End | 2024.07.12-23:05:05                          |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:147 -+
+| (10, 85807)                                                 |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:91 -+
+| Forest Begin | 2024.07.12-23:05:05                         |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:115 -+
+| Anomaly scores (from high to low):                          |
+| Index: 8, Score: 0.0516                                     |
+| Index: 3, Score: 0.0362                                     |
+| Index: 6, Score: 0.0347                                     |
+| Index: 5, Score: 0.0334                                     |
+| Index: 1, Score: 0.0283                                     |
+| Index: 4, Score: 0.0211                                     |
+| Index: 9, Score: 0.0174                                     |
+| Index: 7, Score: 0.0154                                     |
+| Index: 2, Score: 0.0086                                     |
+| Index: 0, Score: -0.0483                                    |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:123 -+
+| Anomalous gradients: [0]                                    |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:125 -+
+| Forest End | 2024.07.12-23:05:05                            |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:203 -+
+| Correctly received: 94                                      |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:204 -+
+| Wrongly received: 34                                        |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:205 -+
+| Correctly rejected: 4                                       |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:206 -+
+| Wrongly rejected: 8                                         |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -+
+| Round 14's accuracy: 85.30% | 2024.07.12-23:05:08               |
++-----------------------------------------------------------------+
+
++--------------------- main.py:104 ---------------------+
+| Average loss: 1.570494246482849 | 2024.07.12-23:05:11 |
++-------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:41 -+
+| pooling Begin | 2024.07.12-23:05:13                        |
++------------------------------------------------------------+
+
++------------ /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:181 ------------+
+| poolsize: 1000, pooled_grads shape: (10, 85807), all_grads shape: (10, 85806346)  |
++-----------------------------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:43 -+
+| pooling End | 2024.07.12-23:05:15                          |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:147 -+
+| (10, 85807)                                                 |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:91 -+
+| Forest Begin | 2024.07.12-23:05:15                         |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:115 -+
+| Anomaly scores (from high to low):                          |
+| Index: 8, Score: 0.0399                                     |
+| Index: 9, Score: 0.0382                                     |
+| Index: 6, Score: 0.0378                                     |
+| Index: 5, Score: 0.0264                                     |
+| Index: 4, Score: 0.0255                                     |
+| Index: 2, Score: 0.0208                                     |
+| Index: 7, Score: 0.0190                                     |
+| Index: 3, Score: 0.0084                                     |
+| Index: 0, Score: -0.0031                                    |
+| Index: 1, Score: -0.0519                                    |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:123 -+
+| Anomalous gradients: [0, 1]                                 |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:125 -+
+| Forest End | 2024.07.12-23:05:15                            |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:203 -+
+| Correctly received: 101                                     |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:204 -+
+| Wrongly received: 35                                        |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:205 -+
+| Correctly rejected: 4                                       |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:206 -+
+| Wrongly rejected: 10                                        |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -+
+| Round 15's accuracy: 86.20% | 2024.07.12-23:05:18               |
++-----------------------------------------------------------------+
+
++--------------------- main.py:104 ---------------------+
+| Average loss: 1.528316354751587 | 2024.07.12-23:05:20 |
++-------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:41 -+
+| pooling Begin | 2024.07.12-23:05:23                        |
++------------------------------------------------------------+
+
++------------ /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:181 ------------+
+| poolsize: 1000, pooled_grads shape: (10, 85807), all_grads shape: (10, 85806346)  |
++-----------------------------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:43 -+
+| pooling End | 2024.07.12-23:05:24                          |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:147 -+
+| (10, 85807)                                                 |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:91 -+
+| Forest Begin | 2024.07.12-23:05:24                         |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:115 -+
+| Anomaly scores (from high to low):                          |
+| Index: 6, Score: 0.0340                                     |
+| Index: 5, Score: 0.0310                                     |
+| Index: 1, Score: 0.0309                                     |
+| Index: 4, Score: 0.0268                                     |
+| Index: 9, Score: 0.0223                                     |
+| Index: 7, Score: 0.0199                                     |
+| Index: 8, Score: 0.0169                                     |
+| Index: 3, Score: 0.0154                                     |
+| Index: 2, Score: 0.0087                                     |
+| Index: 0, Score: -0.0133                                    |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:123 -+
+| Anomalous gradients: [0]                                    |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:125 -+
+| Forest End | 2024.07.12-23:05:24                            |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:203 -+
+| Correctly received: 108                                     |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:204 -+
+| Wrongly received: 37                                        |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:205 -+
+| Correctly rejected: 4                                       |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:206 -+
+| Wrongly rejected: 11                                        |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -+
+| Round 16's accuracy: 88.30% | 2024.07.12-23:05:27               |
++-----------------------------------------------------------------+
+
++--------------------- main.py:104 ---------------------+
+| Average loss: 1.498828911781311 | 2024.07.12-23:05:30 |
++-------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:41 -+
+| pooling Begin | 2024.07.12-23:05:32                        |
++------------------------------------------------------------+
+
++------------ /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:181 ------------+
+| poolsize: 1000, pooled_grads shape: (10, 85807), all_grads shape: (10, 85806346)  |
++-----------------------------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:43 -+
+| pooling End | 2024.07.12-23:05:33                          |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:147 -+
+| (10, 85807)                                                 |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:91 -+
+| Forest Begin | 2024.07.12-23:05:33                         |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:115 -+
+| Anomaly scores (from high to low):                          |
+| Index: 5, Score: 0.0484                                     |
+| Index: 6, Score: 0.0426                                     |
+| Index: 8, Score: 0.0366                                     |
+| Index: 9, Score: 0.0343                                     |
+| Index: 7, Score: 0.0341                                     |
+| Index: 2, Score: 0.0277                                     |
+| Index: 3, Score: 0.0228                                     |
+| Index: 1, Score: -0.0113                                    |
+| Index: 4, Score: -0.0153                                    |
+| Index: 0, Score: -0.0229                                    |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:123 -+
+| Anomalous gradients: [0, 1, 4]                              |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:125 -+
+| Forest End | 2024.07.12-23:05:34                            |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:203 -+
+| Correctly received: 114                                     |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:204 -+
+| Wrongly received: 38                                        |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:205 -+
+| Correctly rejected: 5                                       |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:206 -+
+| Wrongly rejected: 13                                        |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -+
+| Round 17's accuracy: 88.20% | 2024.07.12-23:05:37               |
++-----------------------------------------------------------------+
+
++--------------------- main.py:104 ---------------------+
+| Average loss: 1.486457848548889 | 2024.07.12-23:05:39 |
++-------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:41 -+
+| pooling Begin | 2024.07.12-23:05:41                        |
++------------------------------------------------------------+
+
++------------ /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:181 ------------+
+| poolsize: 1000, pooled_grads shape: (10, 85807), all_grads shape: (10, 85806346)  |
++-----------------------------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:43 -+
+| pooling End | 2024.07.12-23:05:43                          |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:147 -+
+| (10, 85807)                                                 |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:91 -+
+| Forest Begin | 2024.07.12-23:05:43                         |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:115 -+
+| Anomaly scores (from high to low):                          |
+| Index: 4, Score: 0.0393                                     |
+| Index: 3, Score: 0.0379                                     |
+| Index: 9, Score: 0.0337                                     |
+| Index: 8, Score: 0.0320                                     |
+| Index: 5, Score: 0.0320                                     |
+| Index: 7, Score: 0.0315                                     |
+| Index: 6, Score: 0.0272                                     |
+| Index: 1, Score: -0.0120                                    |
+| Index: 2, Score: -0.0136                                    |
+| Index: 0, Score: -0.0324                                    |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:123 -+
+| Anomalous gradients: [0, 1, 2]                              |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:125 -+
+| Forest End | 2024.07.12-23:05:43                            |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:203 -+
+| Correctly received: 121                                     |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:204 -+
+| Wrongly received: 38                                        |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:205 -+
+| Correctly rejected: 5                                       |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:206 -+
+| Wrongly rejected: 16                                        |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -+
+| Round 18's accuracy: 90.60% | 2024.07.12-23:05:46               |
++-----------------------------------------------------------------+
+
++--------------------- main.py:104 ---------------------+
+| Average loss: 1.426047146320343 | 2024.07.12-23:05:49 |
++-------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:41 -+
+| pooling Begin | 2024.07.12-23:05:51                        |
++------------------------------------------------------------+
+
++------------ /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:181 ------------+
+| poolsize: 1000, pooled_grads shape: (10, 85807), all_grads shape: (10, 85806346)  |
++-----------------------------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:43 -+
+| pooling End | 2024.07.12-23:05:52                          |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:147 -+
+| (10, 85807)                                                 |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:91 -+
+| Forest Begin | 2024.07.12-23:05:52                         |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:115 -+
+| Anomaly scores (from high to low):                          |
+| Index: 9, Score: 0.0354                                     |
+| Index: 4, Score: 0.0334                                     |
+| Index: 7, Score: 0.0322                                     |
+| Index: 6, Score: 0.0312                                     |
+| Index: 2, Score: 0.0279                                     |
+| Index: 5, Score: 0.0240                                     |
+| Index: 3, Score: 0.0224                                     |
+| Index: 8, Score: 0.0094                                     |
+| Index: 0, Score: -0.0175                                    |
+| Index: 1, Score: -0.0233                                    |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:123 -+
+| Anomalous gradients: [0, 1]                                 |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:125 -+
+| Forest End | 2024.07.12-23:05:53                            |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:203 -+
+| Correctly received: 128                                     |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:204 -+
+| Wrongly received: 39                                        |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:205 -+
+| Correctly rejected: 5                                       |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:206 -+
+| Wrongly rejected: 18                                        |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -+
+| Round 19's accuracy: 90.60% | 2024.07.12-23:05:56               |
++-----------------------------------------------------------------+
+
++---------------------- main.py:104 ----------------------+
+| Average loss: 1.4822504281997682 | 2024.07.12-23:05:58  |
++---------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:41 -+
+| pooling Begin | 2024.07.12-23:06:01                        |
++------------------------------------------------------------+
+
++------------ /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:181 ------------+
+| poolsize: 1000, pooled_grads shape: (10, 85807), all_grads shape: (10, 85806346)  |
++-----------------------------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:43 -+
+| pooling End | 2024.07.12-23:06:02                          |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:147 -+
+| (10, 85807)                                                 |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:91 -+
+| Forest Begin | 2024.07.12-23:06:02                         |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:115 -+
+| Anomaly scores (from high to low):                          |
+| Index: 6, Score: 0.0495                                     |
+| Index: 7, Score: 0.0380                                     |
+| Index: 3, Score: 0.0376                                     |
+| Index: 8, Score: 0.0302                                     |
+| Index: 9, Score: 0.0270                                     |
+| Index: 4, Score: 0.0211                                     |
+| Index: 5, Score: 0.0049                                     |
+| Index: 1, Score: 0.0003                                     |
+| Index: 2, Score: -0.0165                                    |
+| Index: 0, Score: -0.0175                                    |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:123 -+
+| Anomalous gradients: [0, 2]                                 |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:125 -+
+| Forest End | 2024.07.12-23:06:02                            |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:203 -+
+| Correctly received: 135                                     |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:204 -+
+| Wrongly received: 40                                        |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:205 -+
+| Correctly rejected: 5                                       |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:206 -+
+| Wrongly rejected: 20                                        |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -+
+| Round 20's accuracy: 92.10% | 2024.07.12-23:06:05               |
++-----------------------------------------------------------------+
+
++---------------------- main.py:104 ----------------------+
+| Average loss: 1.3178796827793122 | 2024.07.12-23:06:08  |
++---------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:41 -+
+| pooling Begin | 2024.07.12-23:06:10                        |
++------------------------------------------------------------+
+
++------------ /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:181 ------------+
+| poolsize: 1000, pooled_grads shape: (10, 85807), all_grads shape: (10, 85806346)  |
++-----------------------------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:43 -+
+| pooling End | 2024.07.12-23:06:12                          |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:147 -+
+| (10, 85807)                                                 |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:91 -+
+| Forest Begin | 2024.07.12-23:06:12                         |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:115 -+
+| Anomaly scores (from high to low):                          |
+| Index: 7, Score: 0.0602                                     |
+| Index: 6, Score: 0.0498                                     |
+| Index: 8, Score: 0.0454                                     |
+| Index: 4, Score: 0.0415                                     |
+| Index: 5, Score: 0.0408                                     |
+| Index: 3, Score: 0.0401                                     |
+| Index: 9, Score: 0.0387                                     |
+| Index: 1, Score: 0.0047                                     |
+| Index: 2, Score: 0.0045                                     |
+| Index: 0, Score: -0.1011                                    |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:123 -+
+| Anomalous gradients: [0]                                    |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:125 -+
+| Forest End | 2024.07.12-23:06:12                            |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:203 -+
+| Correctly received: 142                                     |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:204 -+
+| Wrongly received: 42                                        |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:205 -+
+| Correctly rejected: 5                                       |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:206 -+
+| Wrongly rejected: 21                                        |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -+
+| Round 21's accuracy: 92.00% | 2024.07.12-23:06:15               |
++-----------------------------------------------------------------+
+
++--------------------- main.py:104 ---------------------+
+| Average loss: 1.392273622751236 | 2024.07.12-23:06:18 |
++-------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:41 -+
+| pooling Begin | 2024.07.12-23:06:20                        |
++------------------------------------------------------------+
+
++------------ /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:181 ------------+
+| poolsize: 1000, pooled_grads shape: (10, 85807), all_grads shape: (10, 85806346)  |
++-----------------------------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:43 -+
+| pooling End | 2024.07.12-23:06:21                          |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:147 -+
+| (10, 85807)                                                 |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:91 -+
+| Forest Begin | 2024.07.12-23:06:21                         |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:115 -+
+| Anomaly scores (from high to low):                          |
+| Index: 6, Score: 0.0421                                     |
+| Index: 8, Score: 0.0420                                     |
+| Index: 9, Score: 0.0408                                     |
+| Index: 3, Score: 0.0396                                     |
+| Index: 5, Score: 0.0296                                     |
+| Index: 4, Score: 0.0257                                     |
+| Index: 7, Score: 0.0025                                     |
+| Index: 1, Score: -0.0053                                    |
+| Index: 0, Score: -0.0115                                    |
+| Index: 2, Score: -0.0187                                    |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:123 -+
+| Anomalous gradients: [0, 1, 2]                              |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:125 -+
+| Forest End | 2024.07.12-23:06:22                            |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:203 -+
+| Correctly received: 149                                     |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:204 -+
+| Wrongly received: 42                                        |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:205 -+
+| Correctly rejected: 5                                       |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:206 -+
+| Wrongly rejected: 24                                        |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -+
+| Round 22's accuracy: 92.40% | 2024.07.12-23:06:25               |
++-----------------------------------------------------------------+
+
++---------------------- main.py:104 ----------------------+
+| Average loss: 1.3798471689224243 | 2024.07.12-23:06:27  |
++---------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:41 -+
+| pooling Begin | 2024.07.12-23:06:30                        |
++------------------------------------------------------------+
+
++------------ /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:181 ------------+
+| poolsize: 1000, pooled_grads shape: (10, 85807), all_grads shape: (10, 85806346)  |
++-----------------------------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:43 -+
+| pooling End | 2024.07.12-23:06:31                          |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:147 -+
+| (10, 85807)                                                 |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:91 -+
+| Forest Begin | 2024.07.12-23:06:31                         |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:115 -+
+| Anomaly scores (from high to low):                          |
+| Index: 4, Score: 0.0473                                     |
+| Index: 3, Score: 0.0402                                     |
+| Index: 9, Score: 0.0380                                     |
+| Index: 6, Score: 0.0322                                     |
+| Index: 7, Score: 0.0227                                     |
+| Index: 5, Score: 0.0195                                     |
+| Index: 8, Score: 0.0067                                     |
+| Index: 1, Score: 0.0065                                     |
+| Index: 2, Score: -0.0024                                    |
+| Index: 0, Score: -0.0425                                    |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:123 -+
+| Anomalous gradients: [0, 2]                                 |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:125 -+
+| Forest End | 2024.07.12-23:06:31                            |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:203 -+
+| Correctly received: 156                                     |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:204 -+
+| Wrongly received: 43                                        |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:205 -+
+| Correctly rejected: 5                                       |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:206 -+
+| Wrongly rejected: 26                                        |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -+
+| Round 23's accuracy: 92.90% | 2024.07.12-23:06:34               |
++-----------------------------------------------------------------+
+
++--------------------- main.py:104 ---------------------+
+| Average loss: 1.382183575630188 | 2024.07.12-23:06:37 |
++-------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:41 -+
+| pooling Begin | 2024.07.12-23:06:39                        |
++------------------------------------------------------------+
+
++------------ /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:181 ------------+
+| poolsize: 1000, pooled_grads shape: (10, 85807), all_grads shape: (10, 85806346)  |
++-----------------------------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:43 -+
+| pooling End | 2024.07.12-23:06:41                          |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:147 -+
+| (10, 85807)                                                 |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:91 -+
+| Forest Begin | 2024.07.12-23:06:41                         |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:115 -+
+| Anomaly scores (from high to low):                          |
+| Index: 6, Score: 0.0477                                     |
+| Index: 3, Score: 0.0318                                     |
+| Index: 4, Score: 0.0313                                     |
+| Index: 5, Score: 0.0312                                     |
+| Index: 8, Score: 0.0276                                     |
+| Index: 9, Score: 0.0219                                     |
+| Index: 7, Score: 0.0212                                     |
+| Index: 0, Score: 0.0049                                     |
+| Index: 1, Score: -0.0056                                    |
+| Index: 2, Score: -0.0090                                    |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:123 -+
+| Anomalous gradients: [1, 2]                                 |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:125 -+
+| Forest End | 2024.07.12-23:06:41                            |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:203 -+
+| Correctly received: 163                                     |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:204 -+
+| Wrongly received: 44                                        |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:205 -+
+| Correctly rejected: 5                                       |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:206 -+
+| Wrongly rejected: 28                                        |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -+
+| Round 24's accuracy: 94.60% | 2024.07.12-23:06:44               |
++-----------------------------------------------------------------+
+
++---------------------- main.py:104 ----------------------+
+| Average loss: 1.3186725497245788 | 2024.07.12-23:06:46  |
++---------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:41 -+
+| pooling Begin | 2024.07.12-23:06:49                        |
++------------------------------------------------------------+
+
++------------ /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:181 ------------+
+| poolsize: 1000, pooled_grads shape: (10, 85807), all_grads shape: (10, 85806346)  |
++-----------------------------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:43 -+
+| pooling End | 2024.07.12-23:06:50                          |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:147 -+
+| (10, 85807)                                                 |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:91 -+
+| Forest Begin | 2024.07.12-23:06:50                         |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:115 -+
+| Anomaly scores (from high to low):                          |
+| Index: 9, Score: 0.0505                                     |
+| Index: 7, Score: 0.0472                                     |
+| Index: 3, Score: 0.0411                                     |
+| Index: 6, Score: 0.0405                                     |
+| Index: 5, Score: 0.0380                                     |
+| Index: 4, Score: 0.0364                                     |
+| Index: 8, Score: 0.0265                                     |
+| Index: 2, Score: -0.0134                                    |
+| Index: 1, Score: -0.0179                                    |
+| Index: 0, Score: -0.0619                                    |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:123 -+
+| Anomalous gradients: [0, 1, 2]                              |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:125 -+
+| Forest End | 2024.07.12-23:06:51                            |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:203 -+
+| Correctly received: 170                                     |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:204 -+
+| Wrongly received: 44                                        |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:205 -+
+| Correctly rejected: 5                                       |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:206 -+
+| Wrongly rejected: 31                                        |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -+
+| Round 25's accuracy: 94.10% | 2024.07.12-23:06:54               |
++-----------------------------------------------------------------+
+
++---------------------- main.py:104 ----------------------+
+| Average loss: 1.3308099269866944 | 2024.07.12-23:06:56  |
++---------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:41 -+
+| pooling Begin | 2024.07.12-23:06:58                        |
++------------------------------------------------------------+
+
++------------ /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:181 ------------+
+| poolsize: 1000, pooled_grads shape: (10, 85807), all_grads shape: (10, 85806346)  |
++-----------------------------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:43 -+
+| pooling End | 2024.07.12-23:07:00                          |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:147 -+
+| (10, 85807)                                                 |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:91 -+
+| Forest Begin | 2024.07.12-23:07:00                         |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:115 -+
+| Anomaly scores (from high to low):                          |
+| Index: 6, Score: 0.0600                                     |
+| Index: 7, Score: 0.0525                                     |
+| Index: 8, Score: 0.0508                                     |
+| Index: 4, Score: 0.0463                                     |
+| Index: 9, Score: 0.0446                                     |
+| Index: 3, Score: 0.0383                                     |
+| Index: 5, Score: 0.0301                                     |
+| Index: 1, Score: -0.0327                                    |
+| Index: 0, Score: -0.0368                                    |
+| Index: 2, Score: -0.0662                                    |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:123 -+
+| Anomalous gradients: [0, 1, 2]                              |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:125 -+
+| Forest End | 2024.07.12-23:07:00                            |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:203 -+
+| Correctly received: 177                                     |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:204 -+
+| Wrongly received: 44                                        |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:205 -+
+| Correctly rejected: 5                                       |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:206 -+
+| Wrongly rejected: 34                                        |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -+
+| Round 26's accuracy: 94.00% | 2024.07.12-23:07:03               |
++-----------------------------------------------------------------+
+
++---------------------- main.py:104 ----------------------+
+| Average loss: 1.3412200331687927 | 2024.07.12-23:07:06  |
++---------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:41 -+
+| pooling Begin | 2024.07.12-23:07:08                        |
++------------------------------------------------------------+
+
++------------ /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:181 ------------+
+| poolsize: 1000, pooled_grads shape: (10, 85807), all_grads shape: (10, 85806346)  |
++-----------------------------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:43 -+
+| pooling End | 2024.07.12-23:07:09                          |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:147 -+
+| (10, 85807)                                                 |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:91 -+
+| Forest Begin | 2024.07.12-23:07:09                         |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:115 -+
+| Anomaly scores (from high to low):                          |
+| Index: 5, Score: 0.0456                                     |
+| Index: 3, Score: 0.0357                                     |
+| Index: 9, Score: 0.0350                                     |
+| Index: 8, Score: 0.0340                                     |
+| Index: 7, Score: 0.0334                                     |
+| Index: 6, Score: 0.0269                                     |
+| Index: 4, Score: 0.0196                                     |
+| Index: 2, Score: -0.0007                                    |
+| Index: 0, Score: -0.0196                                    |
+| Index: 1, Score: -0.0354                                    |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:123 -+
+| Anomalous gradients: [0, 1, 2]                              |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:125 -+
+| Forest End | 2024.07.12-23:07:10                            |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:203 -+
+| Correctly received: 184                                     |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:204 -+
+| Wrongly received: 44                                        |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:205 -+
+| Correctly rejected: 5                                       |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:206 -+
+| Wrongly rejected: 37                                        |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -+
+| Round 27's accuracy: 94.80% | 2024.07.12-23:07:13               |
++-----------------------------------------------------------------+
+
++---------------------- main.py:104 ----------------------+
+| Average loss: 1.2743700593709946 | 2024.07.12-23:07:15  |
++---------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:41 -+
+| pooling Begin | 2024.07.12-23:07:18                        |
++------------------------------------------------------------+
+
++------------ /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:181 ------------+
+| poolsize: 1000, pooled_grads shape: (10, 85807), all_grads shape: (10, 85806346)  |
++-----------------------------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:43 -+
+| pooling End | 2024.07.12-23:07:19                          |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:147 -+
+| (10, 85807)                                                 |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:91 -+
+| Forest Begin | 2024.07.12-23:07:19                         |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:115 -+
+| Anomaly scores (from high to low):                          |
+| Index: 9, Score: 0.0668                                     |
+| Index: 3, Score: 0.0523                                     |
+| Index: 8, Score: 0.0516                                     |
+| Index: 7, Score: 0.0453                                     |
+| Index: 5, Score: 0.0419                                     |
+| Index: 4, Score: 0.0388                                     |
+| Index: 0, Score: 0.0039                                     |
+| Index: 2, Score: -0.0062                                    |
+| Index: 1, Score: -0.0113                                    |
+| Index: 6, Score: -0.0685                                    |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:123 -+
+| Anomalous gradients: [1, 2, 6]                              |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:125 -+
+| Forest End | 2024.07.12-23:07:19                            |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:203 -+
+| Correctly received: 190                                     |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:204 -+
+| Wrongly received: 45                                        |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:205 -+
+| Correctly rejected: 6                                       |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:206 -+
+| Wrongly rejected: 39                                        |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -+
+| Round 28's accuracy: 94.90% | 2024.07.12-23:07:22               |
++-----------------------------------------------------------------+
+
++---------------------- main.py:104 ----------------------+
+| Average loss: 1.3837368309497833 | 2024.07.12-23:07:25  |
++---------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:41 -+
+| pooling Begin | 2024.07.12-23:07:27                        |
++------------------------------------------------------------+
+
++------------ /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:181 ------------+
+| poolsize: 1000, pooled_grads shape: (10, 85807), all_grads shape: (10, 85806346)  |
++-----------------------------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:43 -+
+| pooling End | 2024.07.12-23:07:29                          |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:147 -+
+| (10, 85807)                                                 |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:91 -+
+| Forest Begin | 2024.07.12-23:07:29                         |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:115 -+
+| Anomaly scores (from high to low):                          |
+| Index: 9, Score: 0.0571                                     |
+| Index: 5, Score: 0.0488                                     |
+| Index: 4, Score: 0.0422                                     |
+| Index: 3, Score: 0.0364                                     |
+| Index: 6, Score: 0.0253                                     |
+| Index: 8, Score: 0.0239                                     |
+| Index: 7, Score: 0.0158                                     |
+| Index: 1, Score: -0.0170                                    |
+| Index: 0, Score: -0.0235                                    |
+| Index: 2, Score: -0.0263                                    |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:123 -+
+| Anomalous gradients: [0, 1, 2]                              |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:125 -+
+| Forest End | 2024.07.12-23:07:29                            |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:203 -+
+| Correctly received: 197                                     |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:204 -+
+| Wrongly received: 45                                        |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:205 -+
+| Correctly rejected: 6                                       |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:206 -+
+| Wrongly rejected: 42                                        |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -+
+| Round 29's accuracy: 93.50% | 2024.07.12-23:07:32               |
++-----------------------------------------------------------------+
+
++---------------------- main.py:104 ----------------------+
+| Average loss: 1.2370048433542251 | 2024.07.12-23:07:34  |
++---------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:41 -+
+| pooling Begin | 2024.07.12-23:07:37                        |
++------------------------------------------------------------+
+
++------------ /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:181 ------------+
+| poolsize: 1000, pooled_grads shape: (10, 85807), all_grads shape: (10, 85806346)  |
++-----------------------------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:43 -+
+| pooling End | 2024.07.12-23:07:38                          |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:147 -+
+| (10, 85807)                                                 |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:91 -+
+| Forest Begin | 2024.07.12-23:07:38                         |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:115 -+
+| Anomaly scores (from high to low):                          |
+| Index: 9, Score: 0.0542                                     |
+| Index: 5, Score: 0.0501                                     |
+| Index: 8, Score: 0.0431                                     |
+| Index: 3, Score: 0.0429                                     |
+| Index: 7, Score: 0.0400                                     |
+| Index: 4, Score: 0.0397                                     |
+| Index: 6, Score: 0.0326                                     |
+| Index: 2, Score: -0.0024                                    |
+| Index: 1, Score: -0.0366                                    |
+| Index: 0, Score: -0.0994                                    |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:123 -+
+| Anomalous gradients: [0, 1, 2]                              |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:125 -+
+| Forest End | 2024.07.12-23:07:39                            |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:203 -+
+| Correctly received: 204                                     |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:204 -+
+| Wrongly received: 45                                        |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:205 -+
+| Correctly rejected: 6                                       |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:206 -+
+| Wrongly rejected: 45                                        |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -+
+| Round 30's accuracy: 94.40% | 2024.07.12-23:07:41               |
++-----------------------------------------------------------------+
+
++---------------------- main.py:104 ----------------------+
+| Average loss: 1.3102131903171539 | 2024.07.12-23:07:44  |
++---------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:41 -+
+| pooling Begin | 2024.07.12-23:07:46                        |
++------------------------------------------------------------+
+
++------------ /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:181 ------------+
+| poolsize: 1000, pooled_grads shape: (10, 85807), all_grads shape: (10, 85806346)  |
++-----------------------------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:43 -+
+| pooling End | 2024.07.12-23:07:48                          |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:147 -+
+| (10, 85807)                                                 |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:91 -+
+| Forest Begin | 2024.07.12-23:07:48                         |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:115 -+
+| Anomaly scores (from high to low):                          |
+| Index: 8, Score: 0.0554                                     |
+| Index: 7, Score: 0.0548                                     |
+| Index: 4, Score: 0.0488                                     |
+| Index: 9, Score: 0.0421                                     |
+| Index: 6, Score: 0.0404                                     |
+| Index: 5, Score: 0.0292                                     |
+| Index: 3, Score: 0.0173                                     |
+| Index: 2, Score: -0.0270                                    |
+| Index: 1, Score: -0.0291                                    |
+| Index: 0, Score: -0.0589                                    |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:123 -+
+| Anomalous gradients: [0, 1, 2]                              |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:125 -+
+| Forest End | 2024.07.12-23:07:48                            |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:203 -+
+| Correctly received: 211                                     |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:204 -+
+| Wrongly received: 45                                        |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:205 -+
+| Correctly rejected: 6                                       |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:206 -+
+| Wrongly rejected: 48                                        |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -+
+| Round 31's accuracy: 95.30% | 2024.07.12-23:07:51               |
++-----------------------------------------------------------------+
+
++---------------------- main.py:104 ----------------------+
+| Average loss: 1.3215766459703446 | 2024.07.12-23:07:54  |
++---------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:41 -+
+| pooling Begin | 2024.07.12-23:07:56                        |
++------------------------------------------------------------+
+
++------------ /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:181 ------------+
+| poolsize: 1000, pooled_grads shape: (10, 85807), all_grads shape: (10, 85806346)  |
++-----------------------------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:43 -+
+| pooling End | 2024.07.12-23:07:57                          |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:147 -+
+| (10, 85807)                                                 |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:91 -+
+| Forest Begin | 2024.07.12-23:07:57                         |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:115 -+
+| Anomaly scores (from high to low):                          |
+| Index: 9, Score: 0.0475                                     |
+| Index: 4, Score: 0.0475                                     |
+| Index: 5, Score: 0.0415                                     |
+| Index: 7, Score: 0.0395                                     |
+| Index: 6, Score: 0.0385                                     |
+| Index: 8, Score: 0.0331                                     |
+| Index: 3, Score: 0.0283                                     |
+| Index: 1, Score: -0.0159                                    |
+| Index: 0, Score: -0.0305                                    |
+| Index: 2, Score: -0.0776                                    |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:123 -+
+| Anomalous gradients: [0, 1, 2]                              |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:125 -+
+| Forest End | 2024.07.12-23:07:58                            |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:203 -+
+| Correctly received: 218                                     |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:204 -+
+| Wrongly received: 45                                        |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:205 -+
+| Correctly rejected: 6                                       |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:206 -+
+| Wrongly rejected: 51                                        |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -+
+| Round 32's accuracy: 95.00% | 2024.07.12-23:08:01               |
++-----------------------------------------------------------------+
+
++- main.py:169 -+
+| banList: []   |
++---------------+
+
++--------- main.py:173 ---------+
+| Federated learning completed. |
++-------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:30 -+
+| TimeList:                                                       |
+| 00: Start | 2024.07.12-23:02:34                                 |
+| 01: init accuracy: 9.10% | 2024.07.12-23:02:49                  |
+| 02: Round 1's accuracy: 12.80% | 2024.07.12-23:03:04            |
+| 03: Round 2's accuracy: 18.50% | 2024.07.12-23:03:13            |
+| 04: Round 3's accuracy: 28.00% | 2024.07.12-23:03:23            |
+| 05: Round 4's accuracy: 33.80% | 2024.07.12-23:03:32            |
+| 06: Round 5's accuracy: 46.90% | 2024.07.12-23:03:42            |
+| 07: Round 6's accuracy: 54.70% | 2024.07.12-23:03:52            |
+| 08: Round 7's accuracy: 59.00% | 2024.07.12-23:04:01            |
+| 09: Round 8's accuracy: 65.30% | 2024.07.12-23:04:11            |
+| 10: Round 9's accuracy: 70.70% | 2024.07.12-23:04:20            |
+| 11: Round 10's accuracy: 73.80% | 2024.07.12-23:04:30           |
+| 12: Round 11's accuracy: 78.80% | 2024.07.12-23:04:39           |
+| 13: Round 12's accuracy: 80.00% | 2024.07.12-23:04:49           |
+| 14: Round 13's accuracy: 82.10% | 2024.07.12-23:04:59           |
+| 15: Round 14's accuracy: 85.30% | 2024.07.12-23:05:08           |
+| 16: Round 15's accuracy: 86.20% | 2024.07.12-23:05:18           |
+| 17: Round 16's accuracy: 88.30% | 2024.07.12-23:05:27           |
+| 18: Round 17's accuracy: 88.20% | 2024.07.12-23:05:37           |
+| 19: Round 18's accuracy: 90.60% | 2024.07.12-23:05:46           |
+| 20: Round 19's accuracy: 90.60% | 2024.07.12-23:05:56           |
+| 21: Round 20's accuracy: 92.10% | 2024.07.12-23:06:05           |
+| 22: Round 21's accuracy: 92.00% | 2024.07.12-23:06:15           |
+| 23: Round 22's accuracy: 92.40% | 2024.07.12-23:06:25           |
+| 24: Round 23's accuracy: 92.90% | 2024.07.12-23:06:34           |
+| 25: Round 24's accuracy: 94.60% | 2024.07.12-23:06:44           |
+| 26: Round 25's accuracy: 94.10% | 2024.07.12-23:06:54           |
+| 27: Round 26's accuracy: 94.00% | 2024.07.12-23:07:03           |
+| 28: Round 27's accuracy: 94.80% | 2024.07.12-23:07:13           |
+| 29: Round 28's accuracy: 94.90% | 2024.07.12-23:07:22           |
+| 30: Round 29's accuracy: 93.50% | 2024.07.12-23:07:32           |
+| 31: Round 30's accuracy: 94.40% | 2024.07.12-23:07:41           |
+| 32: Round 31's accuracy: 95.30% | 2024.07.12-23:07:51           |
+| 33: Round 32's accuracy: 95.00% | 2024.07.12-23:08:01           |
++-----------------------------------------------------------------+
+
++------------------------------------------------------------------ /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:243 ------------------------------------------------------------------+
+| | 攻击者 | 攻击力度 | PCA的偏离倍数 | PCA降维后的主成分数目 | 表现 |                                                                                                                                                 |
+| |---|---|---|---|---|                                                                                                                                                                         |
+| | 3/10 | 1 | 1 | 0.04 | 32次中有：9次完全正确，6次少抓1个，7次少抓2个，4次少抓3个，2次少抓1个多抓1个，1次少抓2个多抓1个，3次少抓3个多抓1个 <br/>[((3, 0), 9), ((2, 0), 6), ((1, 0), 7), ((0, 0), 4), ((2, 1), 2), ((1, 1), 1), ((0, 1), 3)] | |
+|                                                                                                                                                                                               |
++-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+

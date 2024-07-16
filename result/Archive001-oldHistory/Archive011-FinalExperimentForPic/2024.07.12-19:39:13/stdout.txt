@@ -1,0 +1,1897 @@
++----- main.py:15 -----+
+| 2024.07.12-19:39:13  |
++----------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -+
+| Start | 2024.07.12-19:39:15                                     |
++-----------------------------------------------------------------+
+
++- /home/lzy/.conda/envs/ltf/lib/python3.8/site-packages/torchvision/datasets/cifar.py:141 -+
+| Tisfy: Files already downloaded and verified.                                             |
++-------------------------------------------------------------------------------------------+
+
++- /home/lzy/.conda/envs/ltf/lib/python3.8/site-packages/torchvision/datasets/cifar.py:141 -+
+| Tisfy: Files already downloaded and verified.                                             |
++-------------------------------------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -+
+| init accuracy: 18.20% | 2024.07.12-19:39:23                     |
++-----------------------------------------------------------------+
+
++---------------------- main.py:104 ----------------------+
+| Average loss: 2.3830092906951905 | 2024.07.12-19:39:25  |
++---------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:41 -+
+| pooling Begin | 2024.07.12-19:39:29                        |
++------------------------------------------------------------+
+
++------------ /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:179 ------------+
+| poolsize: 4, pooled_grads shape: (10, 21451587), all_grads shape: (10, 85806346)  |
++-----------------------------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:43 -+
+| pooling End | 2024.07.12-19:39:31                          |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:147 -+
+| (10, 21451587)                                              |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:64 -+
+| PCA Begin | 2024.07.12-19:39:31                            |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:66 -+
+| PCA End | 2024.07.12-19:39:40                              |
++------------------------------------------------------------+
+
++--------- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:74 ---------+
+| score: [0.05232066 0.05218378 0.00650215 0.00793441 0.01422876 0.01353972  |
+|  0.01251656 0.01837708 0.013824   0.01758176]                              |
++----------------------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:83 -+
+| [0, 1]                                                     |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:201 -+
+| Correctly received: 8                                       |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:202 -+
+| Wrongly received: 0                                         |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:203 -+
+| Correctly rejected: 0                                       |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:204 -+
+| Wrongly rejected: 2                                         |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -+
+| Round 1's accuracy: 23.90% | 2024.07.12-19:39:44                |
++-----------------------------------------------------------------+
+
++---------------------- main.py:104 ----------------------+
+| Average loss: 2.2286826848983763 | 2024.07.12-19:39:46  |
++---------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:41 -+
+| pooling Begin | 2024.07.12-19:39:50                        |
++------------------------------------------------------------+
+
++------------ /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:179 ------------+
+| poolsize: 4, pooled_grads shape: (10, 21451587), all_grads shape: (10, 85806346)  |
++-----------------------------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:43 -+
+| pooling End | 2024.07.12-19:39:52                          |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:147 -+
+| (10, 21451587)                                              |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:64 -+
+| PCA Begin | 2024.07.12-19:39:52                            |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:66 -+
+| PCA End | 2024.07.12-19:39:57                              |
++------------------------------------------------------------+
+
++--------- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:74 ---------+
+| score: [0.07007114 0.05043148 0.01312484 0.01643924 0.01146401 0.01450732  |
+|  0.01756078 0.01757696 0.01701244 0.01281704]                              |
++----------------------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:83 -+
+| [0, 1]                                                     |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:201 -+
+| Correctly received: 16                                      |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:202 -+
+| Wrongly received: 0                                         |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:203 -+
+| Correctly rejected: 0                                       |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:204 -+
+| Wrongly rejected: 4                                         |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -+
+| Round 2's accuracy: 33.30% | 2024.07.12-19:40:00                |
++-----------------------------------------------------------------+
+
++---------------------- main.py:104 ----------------------+
+| Average loss: 2.0939132928848267 | 2024.07.12-19:40:03  |
++---------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:41 -+
+| pooling Begin | 2024.07.12-19:40:09                        |
++------------------------------------------------------------+
+
++------------ /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:179 ------------+
+| poolsize: 4, pooled_grads shape: (10, 21451587), all_grads shape: (10, 85806346)  |
++-----------------------------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:43 -+
+| pooling End | 2024.07.12-19:40:13                          |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:147 -+
+| (10, 21451587)                                              |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:64 -+
+| PCA Begin | 2024.07.12-19:40:13                            |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:66 -+
+| PCA End | 2024.07.12-19:40:18                              |
++------------------------------------------------------------+
+
++--------- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:74 ---------+
+| score: [0.05247092 0.06036291 0.01529764 0.01171659 0.01108722 0.01600853  |
+|  0.01655108 0.01430477 0.01164264 0.01622537]                              |
++----------------------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:83 -+
+| [0, 1]                                                     |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:201 -+
+| Correctly received: 24                                      |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:202 -+
+| Wrongly received: 0                                         |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:203 -+
+| Correctly rejected: 0                                       |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:204 -+
+| Wrongly rejected: 6                                         |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -+
+| Round 3's accuracy: 39.60% | 2024.07.12-19:40:22                |
++-----------------------------------------------------------------+
+
++--------------------- main.py:104 ---------------------+
+| Average loss: 2.017400288581848 | 2024.07.12-19:40:24 |
++-------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:41 -+
+| pooling Begin | 2024.07.12-19:40:28                        |
++------------------------------------------------------------+
+
++------------ /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:179 ------------+
+| poolsize: 4, pooled_grads shape: (10, 21451587), all_grads shape: (10, 85806346)  |
++-----------------------------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:43 -+
+| pooling End | 2024.07.12-19:40:30                          |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:147 -+
+| (10, 21451587)                                              |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:64 -+
+| PCA Begin | 2024.07.12-19:40:30                            |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:66 -+
+| PCA End | 2024.07.12-19:40:35                              |
++------------------------------------------------------------+
+
++--------- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:74 ---------+
+| score: [0.04528007 0.05815046 0.00430305 0.01279982 0.0167678  0.01371293  |
+|  0.01731012 0.00955901 0.01306356 0.01591423]                              |
++----------------------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:83 -+
+| [0, 1]                                                     |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:201 -+
+| Correctly received: 32                                      |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:202 -+
+| Wrongly received: 0                                         |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:203 -+
+| Correctly rejected: 0                                       |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:204 -+
+| Wrongly rejected: 8                                         |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -+
+| Round 4's accuracy: 48.70% | 2024.07.12-19:40:42                |
++-----------------------------------------------------------------+
+
++---------------------- main.py:104 ----------------------+
+| Average loss: 1.8585468888282777 | 2024.07.12-19:40:48  |
++---------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:41 -+
+| pooling Begin | 2024.07.12-19:40:51                        |
++------------------------------------------------------------+
+
++------------ /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:179 ------------+
+| poolsize: 4, pooled_grads shape: (10, 21451587), all_grads shape: (10, 85806346)  |
++-----------------------------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:43 -+
+| pooling End | 2024.07.12-19:40:53                          |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:147 -+
+| (10, 21451587)                                              |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:64 -+
+| PCA Begin | 2024.07.12-19:40:53                            |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:66 -+
+| PCA End | 2024.07.12-19:40:58                              |
++------------------------------------------------------------+
+
++--------- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:74 ---------+
+| score: [0.04619439 0.05592411 0.01263306 0.01260515 0.01612831 0.01585927  |
+|  0.01055577 0.01236334 0.01458188 0.00739174]                              |
++----------------------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:83 -+
+| [0, 1]                                                     |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:201 -+
+| Correctly received: 40                                      |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:202 -+
+| Wrongly received: 0                                         |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:203 -+
+| Correctly rejected: 0                                       |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:204 -+
+| Wrongly rejected: 10                                        |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -+
+| Round 5's accuracy: 58.80% | 2024.07.12-19:41:01                |
++-----------------------------------------------------------------+
+
++---------------------- main.py:104 ----------------------+
+| Average loss: 1.7441516160964965 | 2024.07.12-19:41:04  |
++---------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:41 -+
+| pooling Begin | 2024.07.12-19:41:08                        |
++------------------------------------------------------------+
+
++------------ /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:179 ------------+
+| poolsize: 4, pooled_grads shape: (10, 21451587), all_grads shape: (10, 85806346)  |
++-----------------------------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:43 -+
+| pooling End | 2024.07.12-19:41:11                          |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:147 -+
+| (10, 21451587)                                              |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:64 -+
+| PCA Begin | 2024.07.12-19:41:11                            |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:66 -+
+| PCA End | 2024.07.12-19:41:19                              |
++------------------------------------------------------------+
+
++--------- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:74 ---------+
+| score: [0.05562334 0.05239462 0.01644644 0.01451849 0.01388477 0.00909914  |
+|  0.01336414 0.01470482 0.01461367 0.01138648]                              |
++----------------------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:83 -+
+| [0, 1]                                                     |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:201 -+
+| Correctly received: 48                                      |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:202 -+
+| Wrongly received: 0                                         |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:203 -+
+| Correctly rejected: 0                                       |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:204 -+
+| Wrongly rejected: 12                                        |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -+
+| Round 6's accuracy: 67.50% | 2024.07.12-19:41:22                |
++-----------------------------------------------------------------+
+
++---------------------- main.py:104 ----------------------+
+| Average loss: 1.7076897740364074 | 2024.07.12-19:41:24  |
++---------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:41 -+
+| pooling Begin | 2024.07.12-19:41:28                        |
++------------------------------------------------------------+
+
++------------ /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:179 ------------+
+| poolsize: 4, pooled_grads shape: (10, 21451587), all_grads shape: (10, 85806346)  |
++-----------------------------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:43 -+
+| pooling End | 2024.07.12-19:41:30                          |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:147 -+
+| (10, 21451587)                                              |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:64 -+
+| PCA Begin | 2024.07.12-19:41:30                            |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:66 -+
+| PCA End | 2024.07.12-19:41:35                              |
++------------------------------------------------------------+
+
++--------- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:74 ---------+
+| score: [0.05505062 0.05163494 0.01370103 0.01586484 0.01418736 0.01248878  |
+|  0.01427457 0.01241581 0.00903168 0.0147215 ]                              |
++----------------------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:83 -+
+| [0, 1]                                                     |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:201 -+
+| Correctly received: 56                                      |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:202 -+
+| Wrongly received: 0                                         |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:203 -+
+| Correctly rejected: 0                                       |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:204 -+
+| Wrongly rejected: 14                                        |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -+
+| Round 7's accuracy: 76.70% | 2024.07.12-19:41:38                |
++-----------------------------------------------------------------+
+
++---------------------- main.py:104 ----------------------+
+| Average loss: 1.6232458114624024 | 2024.07.12-19:41:42  |
++---------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:41 -+
+| pooling Begin | 2024.07.12-19:41:49                        |
++------------------------------------------------------------+
+
++------------ /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:179 ------------+
+| poolsize: 4, pooled_grads shape: (10, 21451587), all_grads shape: (10, 85806346)  |
++-----------------------------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:43 -+
+| pooling End | 2024.07.12-19:41:51                          |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:147 -+
+| (10, 21451587)                                              |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:64 -+
+| PCA Begin | 2024.07.12-19:41:51                            |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:66 -+
+| PCA End | 2024.07.12-19:41:56                              |
++------------------------------------------------------------+
+
++--------- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:74 ---------+
+| score: [0.05153454 0.04711308 0.00977107 0.00600156 0.01347044 0.01460973  |
+|  0.01490675 0.01012268 0.01395416 0.01581122]                              |
++----------------------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:83 -+
+| [0, 1]                                                     |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:201 -+
+| Correctly received: 64                                      |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:202 -+
+| Wrongly received: 0                                         |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:203 -+
+| Correctly rejected: 0                                       |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:204 -+
+| Wrongly rejected: 16                                        |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -+
+| Round 8's accuracy: 80.60% | 2024.07.12-19:41:59                |
++-----------------------------------------------------------------+
+
++---------------------- main.py:104 ----------------------+
+| Average loss: 1.5519212007522583 | 2024.07.12-19:42:02  |
++---------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:41 -+
+| pooling Begin | 2024.07.12-19:42:05                        |
++------------------------------------------------------------+
+
++------------ /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:179 ------------+
+| poolsize: 4, pooled_grads shape: (10, 21451587), all_grads shape: (10, 85806346)  |
++-----------------------------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:43 -+
+| pooling End | 2024.07.12-19:42:07                          |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:147 -+
+| (10, 21451587)                                              |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:64 -+
+| PCA Begin | 2024.07.12-19:42:07                            |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:66 -+
+| PCA End | 2024.07.12-19:42:13                              |
++------------------------------------------------------------+
+
++--------- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:74 ---------+
+| score: [0.05006428 0.05632748 0.01088782 0.01115161 0.01471626 0.01459634  |
+|  0.01253371 0.01160576 0.01561513 0.01528511]                              |
++----------------------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:83 -+
+| [0, 1]                                                     |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:201 -+
+| Correctly received: 72                                      |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:202 -+
+| Wrongly received: 0                                         |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:203 -+
+| Correctly rejected: 0                                       |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:204 -+
+| Wrongly rejected: 18                                        |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -+
+| Round 9's accuracy: 86.30% | 2024.07.12-19:42:22                |
++-----------------------------------------------------------------+
+
++---------------------- main.py:104 ----------------------+
+| Average loss: 1.4764428377151488 | 2024.07.12-19:42:24  |
++---------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:41 -+
+| pooling Begin | 2024.07.12-19:42:28                        |
++------------------------------------------------------------+
+
++------------ /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:179 ------------+
+| poolsize: 4, pooled_grads shape: (10, 21451587), all_grads shape: (10, 85806346)  |
++-----------------------------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:43 -+
+| pooling End | 2024.07.12-19:42:30                          |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:147 -+
+| (10, 21451587)                                              |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:64 -+
+| PCA Begin | 2024.07.12-19:42:30                            |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:66 -+
+| PCA End | 2024.07.12-19:42:35                              |
++------------------------------------------------------------+
+
++--------- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:74 ---------+
+| score: [0.04678421 0.05788867 0.01281844 0.01335121 0.01461601 0.01291316  |
+|  0.01108248 0.01009844 0.01426962 0.01552351]                              |
++----------------------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:83 -+
+| [0, 1]                                                     |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:201 -+
+| Correctly received: 80                                      |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:202 -+
+| Wrongly received: 0                                         |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:203 -+
+| Correctly rejected: 0                                       |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:204 -+
+| Wrongly rejected: 20                                        |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -+
+| Round 10's accuracy: 88.60% | 2024.07.12-19:42:38               |
++-----------------------------------------------------------------+
+
++---------------------- main.py:104 ----------------------+
+| Average loss: 1.4352928519248962 | 2024.07.12-19:42:40  |
++---------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:41 -+
+| pooling Begin | 2024.07.12-19:42:45                        |
++------------------------------------------------------------+
+
++------------ /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:179 ------------+
+| poolsize: 4, pooled_grads shape: (10, 21451587), all_grads shape: (10, 85806346)  |
++-----------------------------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:43 -+
+| pooling End | 2024.07.12-19:42:48                          |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:147 -+
+| (10, 21451587)                                              |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:64 -+
+| PCA Begin | 2024.07.12-19:42:48                            |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:66 -+
+| PCA End | 2024.07.12-19:42:56                              |
++------------------------------------------------------------+
+
++--------- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:74 ---------+
+| score: [0.05644739 0.04985814 0.01571836 0.01376919 0.01354755 0.01259818  |
+|  0.01575533 0.01454385 0.01093334 0.00943973]                              |
++----------------------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:83 -+
+| [0, 1]                                                     |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:201 -+
+| Correctly received: 88                                      |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:202 -+
+| Wrongly received: 0                                         |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:203 -+
+| Correctly rejected: 0                                       |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:204 -+
+| Wrongly rejected: 22                                        |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -+
+| Round 11's accuracy: 87.90% | 2024.07.12-19:42:59               |
++-----------------------------------------------------------------+
+
++---------------------- main.py:104 ----------------------+
+| Average loss: 1.3524895071983338 | 2024.07.12-19:43:02  |
++---------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:41 -+
+| pooling Begin | 2024.07.12-19:43:05                        |
++------------------------------------------------------------+
+
++------------ /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:179 ------------+
+| poolsize: 4, pooled_grads shape: (10, 21451587), all_grads shape: (10, 85806346)  |
++-----------------------------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:43 -+
+| pooling End | 2024.07.12-19:43:07                          |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:147 -+
+| (10, 21451587)                                              |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:64 -+
+| PCA Begin | 2024.07.12-19:43:07                            |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:66 -+
+| PCA End | 2024.07.12-19:43:12                              |
++------------------------------------------------------------+
+
++--------- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:74 ---------+
+| score: [0.05091891 0.05837423 0.01053538 0.01583104 0.01436914 0.01420361  |
+|  0.0133149  0.01426253 0.011627   0.01514955]                              |
++----------------------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:83 -+
+| [0, 1]                                                     |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:201 -+
+| Correctly received: 96                                      |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:202 -+
+| Wrongly received: 0                                         |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:203 -+
+| Correctly rejected: 0                                       |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:204 -+
+| Wrongly rejected: 24                                        |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -+
+| Round 12's accuracy: 90.30% | 2024.07.12-19:43:16               |
++-----------------------------------------------------------------+
+
++---------------------- main.py:104 ----------------------+
+| Average loss: 1.2722454011440276 | 2024.07.12-19:43:20  |
++---------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:41 -+
+| pooling Begin | 2024.07.12-19:43:26                        |
++------------------------------------------------------------+
+
++------------ /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:179 ------------+
+| poolsize: 4, pooled_grads shape: (10, 21451587), all_grads shape: (10, 85806346)  |
++-----------------------------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:43 -+
+| pooling End | 2024.07.12-19:43:28                          |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:147 -+
+| (10, 21451587)                                              |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:64 -+
+| PCA Begin | 2024.07.12-19:43:28                            |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:66 -+
+| PCA End | 2024.07.12-19:43:33                              |
++------------------------------------------------------------+
+
++--------- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:74 ---------+
+| score: [0.04908978 0.0608784  0.01440405 0.0125985  0.01474665 0.01343784  |
+|  0.01402513 0.01194123 0.01396771 0.01484706]                              |
++----------------------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:83 -+
+| [0, 1]                                                     |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:201 -+
+| Correctly received: 104                                     |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:202 -+
+| Wrongly received: 0                                         |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:203 -+
+| Correctly rejected: 0                                       |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:204 -+
+| Wrongly rejected: 26                                        |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -+
+| Round 13's accuracy: 92.40% | 2024.07.12-19:43:36               |
++-----------------------------------------------------------------+
+
++---------------------- main.py:104 ----------------------+
+| Average loss: 1.2332482159137725 | 2024.07.12-19:43:39  |
++---------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:41 -+
+| pooling Begin | 2024.07.12-19:43:42                        |
++------------------------------------------------------------+
+
++------------ /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:179 ------------+
+| poolsize: 4, pooled_grads shape: (10, 21451587), all_grads shape: (10, 85806346)  |
++-----------------------------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:43 -+
+| pooling End | 2024.07.12-19:43:44                          |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:147 -+
+| (10, 21451587)                                              |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:64 -+
+| PCA Begin | 2024.07.12-19:43:44                            |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:66 -+
+| PCA End | 2024.07.12-19:43:51                              |
++------------------------------------------------------------+
+
++--------- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:74 ---------+
+| score: [0.05651748 0.05055061 0.01336071 0.01235473 0.01198865 0.01200091  |
+|  0.01519809 0.01329469 0.01396929 0.01490102]                              |
++----------------------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:83 -+
+| [0, 1]                                                     |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:201 -+
+| Correctly received: 112                                     |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:202 -+
+| Wrongly received: 0                                         |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:203 -+
+| Correctly rejected: 0                                       |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:204 -+
+| Wrongly rejected: 28                                        |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -+
+| Round 14's accuracy: 90.60% | 2024.07.12-19:43:59               |
++-----------------------------------------------------------------+
+
++---------------------- main.py:104 ----------------------+
+| Average loss: 1.1641096472740173 | 2024.07.12-19:44:02  |
++---------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:41 -+
+| pooling Begin | 2024.07.12-19:44:05                        |
++------------------------------------------------------------+
+
++------------ /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:179 ------------+
+| poolsize: 4, pooled_grads shape: (10, 21451587), all_grads shape: (10, 85806346)  |
++-----------------------------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:43 -+
+| pooling End | 2024.07.12-19:44:07                          |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:147 -+
+| (10, 21451587)                                              |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:64 -+
+| PCA Begin | 2024.07.12-19:44:07                            |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:66 -+
+| PCA End | 2024.07.12-19:44:12                              |
++------------------------------------------------------------+
+
++--------- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:74 ---------+
+| score: [0.04646165 0.06247903 0.01399433 0.01524527 0.01087198 0.01507791  |
+|  0.01167101 0.01631501 0.01387202 0.01189317]                              |
++----------------------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:83 -+
+| [0, 1]                                                     |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:201 -+
+| Correctly received: 120                                     |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:202 -+
+| Wrongly received: 0                                         |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:203 -+
+| Correctly rejected: 0                                       |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:204 -+
+| Wrongly rejected: 30                                        |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -+
+| Round 15's accuracy: 94.10% | 2024.07.12-19:44:15               |
++-----------------------------------------------------------------+
+
++---------------------- main.py:104 ----------------------+
+| Average loss: 1.1319658935070038 | 2024.07.12-19:44:18  |
++---------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:41 -+
+| pooling Begin | 2024.07.12-19:44:23                        |
++------------------------------------------------------------+
+
++------------ /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:179 ------------+
+| poolsize: 4, pooled_grads shape: (10, 21451587), all_grads shape: (10, 85806346)  |
++-----------------------------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:43 -+
+| pooling End | 2024.07.12-19:44:27                          |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:147 -+
+| (10, 21451587)                                              |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:64 -+
+| PCA Begin | 2024.07.12-19:44:27                            |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:66 -+
+| PCA End | 2024.07.12-19:44:34                              |
++------------------------------------------------------------+
+
++--------- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:74 ---------+
+| score: [0.05236557 0.05084905 0.01269917 0.01195364 0.01223908 0.01348035  |
+|  0.01467976 0.01284852 0.01243389 0.01288022]                              |
++----------------------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:83 -+
+| [0, 1]                                                     |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:201 -+
+| Correctly received: 128                                     |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:202 -+
+| Wrongly received: 0                                         |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:203 -+
+| Correctly rejected: 0                                       |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:204 -+
+| Wrongly rejected: 32                                        |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -+
+| Round 16's accuracy: 93.60% | 2024.07.12-19:44:37               |
++-----------------------------------------------------------------+
+
++---------------------- main.py:104 ----------------------+
+| Average loss: 1.0895204365253448 | 2024.07.12-19:44:39  |
++---------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:41 -+
+| pooling Begin | 2024.07.12-19:44:43                        |
++------------------------------------------------------------+
+
++------------ /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:179 ------------+
+| poolsize: 4, pooled_grads shape: (10, 21451587), all_grads shape: (10, 85806346)  |
++-----------------------------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:43 -+
+| pooling End | 2024.07.12-19:44:45                          |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:147 -+
+| (10, 21451587)                                              |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:64 -+
+| PCA Begin | 2024.07.12-19:44:45                            |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:66 -+
+| PCA End | 2024.07.12-19:44:50                              |
++------------------------------------------------------------+
+
++--------- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:74 ---------+
+| score: [0.04152945 0.06875097 0.01434414 0.01301827 0.01532209 0.01367058  |
+|  0.01415403 0.01477005 0.01366894 0.01133232]                              |
++----------------------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:83 -+
+| [0, 1]                                                     |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:201 -+
+| Correctly received: 136                                     |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:202 -+
+| Wrongly received: 0                                         |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:203 -+
+| Correctly rejected: 0                                       |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:204 -+
+| Wrongly rejected: 34                                        |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -+
+| Round 17's accuracy: 93.00% | 2024.07.12-19:44:56               |
++-----------------------------------------------------------------+
+
++---------------------- main.py:104 ----------------------+
+| Average loss: 1.0730967283248902 | 2024.07.12-19:45:03  |
++---------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:41 -+
+| pooling Begin | 2024.07.12-19:45:07                        |
++------------------------------------------------------------+
+
++------------ /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:179 ------------+
+| poolsize: 4, pooled_grads shape: (10, 21451587), all_grads shape: (10, 85806346)  |
++-----------------------------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:43 -+
+| pooling End | 2024.07.12-19:45:09                          |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:147 -+
+| (10, 21451587)                                              |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:64 -+
+| PCA Begin | 2024.07.12-19:45:09                            |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:66 -+
+| PCA End | 2024.07.12-19:45:14                              |
++------------------------------------------------------------+
+
++--------- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:74 ---------+
+| score: [0.05698176 0.04548544 0.01345649 0.01154056 0.0101774  0.01118994  |
+|  0.01426795 0.01441311 0.01361394 0.01380783]                              |
++----------------------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:83 -+
+| [0, 1]                                                     |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:201 -+
+| Correctly received: 144                                     |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:202 -+
+| Wrongly received: 0                                         |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:203 -+
+| Correctly rejected: 0                                       |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:204 -+
+| Wrongly rejected: 36                                        |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -+
+| Round 18's accuracy: 94.80% | 2024.07.12-19:45:17               |
++-----------------------------------------------------------------+
+
++---------------------- main.py:104 ----------------------+
+| Average loss: 1.1005408227443696 | 2024.07.12-19:45:19  |
++---------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:41 -+
+| pooling Begin | 2024.07.12-19:45:23                        |
++------------------------------------------------------------+
+
++------------ /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:179 ------------+
+| poolsize: 4, pooled_grads shape: (10, 21451587), all_grads shape: (10, 85806346)  |
++-----------------------------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:43 -+
+| pooling End | 2024.07.12-19:45:26                          |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:147 -+
+| (10, 21451587)                                              |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:64 -+
+| PCA Begin | 2024.07.12-19:45:26                            |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:66 -+
+| PCA End | 2024.07.12-19:45:34                              |
++------------------------------------------------------------+
+
++-------- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:74 --------+
+| score: [0.03788263 0.0760258  0.01384543 0.01406548 0.01395688 0.0141612 |
+|  0.01503812 0.01419271 0.01346926 0.01517934]                            |
++--------------------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:83 -+
+| [1]                                                        |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:201 -+
+| Correctly received: 152                                     |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:202 -+
+| Wrongly received: 1                                         |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:203 -+
+| Correctly rejected: 0                                       |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:204 -+
+| Wrongly rejected: 37                                        |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -+
+| Round 19's accuracy: 94.20% | 2024.07.12-19:45:37               |
++-----------------------------------------------------------------+
+
++---------------------- main.py:104 ----------------------+
+| Average loss: 1.0683535039424896 | 2024.07.12-19:45:40  |
++---------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:41 -+
+| pooling Begin | 2024.07.12-19:45:43                        |
++------------------------------------------------------------+
+
++------------ /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:179 ------------+
+| poolsize: 4, pooled_grads shape: (10, 21451587), all_grads shape: (10, 85806346)  |
++-----------------------------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:43 -+
+| pooling End | 2024.07.12-19:45:45                          |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:147 -+
+| (10, 21451587)                                              |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:64 -+
+| PCA Begin | 2024.07.12-19:45:45                            |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:66 -+
+| PCA End | 2024.07.12-19:45:50                              |
++------------------------------------------------------------+
+
++--------- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:74 ---------+
+| score: [0.00120165 0.19196913 0.02470177 0.02402112 0.02477626 0.02552182  |
+|  0.02413221 0.02508844 0.02004767 0.02488149]                              |
++----------------------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:83 -+
+| [1]                                                        |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:201 -+
+| Correctly received: 160                                     |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:202 -+
+| Wrongly received: 2                                         |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:203 -+
+| Correctly rejected: 0                                       |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:204 -+
+| Wrongly rejected: 38                                        |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -+
+| Round 20's accuracy: 93.10% | 2024.07.12-19:45:53               |
++-----------------------------------------------------------------+
+
++---------------------- main.py:104 ----------------------+
+| Average loss: 1.0221285402774811 | 2024.07.12-19:45:59  |
++---------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:41 -+
+| pooling Begin | 2024.07.12-19:46:05                        |
++------------------------------------------------------------+
+
++------------ /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:179 ------------+
+| poolsize: 4, pooled_grads shape: (10, 21451587), all_grads shape: (10, 85806346)  |
++-----------------------------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:43 -+
+| pooling End | 2024.07.12-19:46:07                          |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:147 -+
+| (10, 21451587)                                              |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:64 -+
+| PCA Begin | 2024.07.12-19:46:07                            |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:66 -+
+| PCA End | 2024.07.12-19:46:12                              |
++------------------------------------------------------------+
+
++--------- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:74 ---------+
+| score: [0.08663829 0.03593497 0.01668929 0.0097614  0.0180782  0.01503163  |
+|  0.01579794 0.01763817 0.01516949 0.01440713]                              |
++----------------------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:83 -+
+| [0]                                                        |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:201 -+
+| Correctly received: 168                                     |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:202 -+
+| Wrongly received: 3                                         |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:203 -+
+| Correctly rejected: 0                                       |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:204 -+
+| Wrongly rejected: 39                                        |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -+
+| Round 21's accuracy: 94.80% | 2024.07.12-19:46:15               |
++-----------------------------------------------------------------+
+
++---------------------- main.py:104 ----------------------+
+| Average loss: 0.9508088648319244 | 2024.07.12-19:46:18  |
++---------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:41 -+
+| pooling Begin | 2024.07.12-19:46:21                        |
++------------------------------------------------------------+
+
++------------ /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:179 ------------+
+| poolsize: 4, pooled_grads shape: (10, 21451587), all_grads shape: (10, 85806346)  |
++-----------------------------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:43 -+
+| pooling End | 2024.07.12-19:46:23                          |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:147 -+
+| (10, 21451587)                                              |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:64 -+
+| PCA Begin | 2024.07.12-19:46:23                            |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:66 -+
+| PCA End | 2024.07.12-19:46:30                              |
++------------------------------------------------------------+
+
++--------- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:74 ---------+
+| score: [0.06100303 0.06052554 0.015949   0.01390142 0.01547743 0.01552252  |
+|  0.01593394 0.01480489 0.01551108 0.01442829]                              |
++----------------------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:83 -+
+| [0, 1]                                                     |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:201 -+
+| Correctly received: 176                                     |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:202 -+
+| Wrongly received: 3                                         |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:203 -+
+| Correctly rejected: 0                                       |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:204 -+
+| Wrongly rejected: 41                                        |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -+
+| Round 22's accuracy: 94.90% | 2024.07.12-19:46:38               |
++-----------------------------------------------------------------+
+
++---------------------- main.py:104 ----------------------+
+| Average loss: 0.9461300551891327 | 2024.07.12-19:46:40  |
++---------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:41 -+
+| pooling Begin | 2024.07.12-19:46:44                        |
++------------------------------------------------------------+
+
++------------ /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:179 ------------+
+| poolsize: 4, pooled_grads shape: (10, 21451587), all_grads shape: (10, 85806346)  |
++-----------------------------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:43 -+
+| pooling End | 2024.07.12-19:46:46                          |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:147 -+
+| (10, 21451587)                                              |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:64 -+
+| PCA Begin | 2024.07.12-19:46:46                            |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:66 -+
+| PCA End | 2024.07.12-19:46:51                              |
++------------------------------------------------------------+
+
++--------- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:74 ---------+
+| score: [0.05660288 0.05921498 0.01393626 0.01439354 0.01581782 0.01464049  |
+|  0.01448346 0.01474201 0.01367261 0.01413168]                              |
++----------------------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:83 -+
+| [0, 1]                                                     |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:201 -+
+| Correctly received: 184                                     |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:202 -+
+| Wrongly received: 3                                         |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:203 -+
+| Correctly rejected: 0                                       |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:204 -+
+| Wrongly rejected: 43                                        |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -+
+| Round 23's accuracy: 95.20% | 2024.07.12-19:46:54               |
++-----------------------------------------------------------------+
+
++---------------------- main.py:104 ----------------------+
+| Average loss: 0.9220485150814056 | 2024.07.12-19:46:56  |
++---------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:41 -+
+| pooling Begin | 2024.07.12-19:47:02                        |
++------------------------------------------------------------+
+
++------------ /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:179 ------------+
+| poolsize: 4, pooled_grads shape: (10, 21451587), all_grads shape: (10, 85806346)  |
++-----------------------------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:43 -+
+| pooling End | 2024.07.12-19:47:07                          |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:147 -+
+| (10, 21451587)                                              |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:64 -+
+| PCA Begin | 2024.07.12-19:47:07                            |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:66 -+
+| PCA End | 2024.07.12-19:47:12                              |
++------------------------------------------------------------+
+
++-------- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:74 --------+
+| score: [0.05828096 0.06232031 0.01478076 0.01444808 0.01527976 0.0157778 |
+|  0.01371361 0.01585833 0.01473806 0.01600489]                            |
++--------------------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:83 -+
+| [0, 1]                                                     |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:201 -+
+| Correctly received: 192                                     |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:202 -+
+| Wrongly received: 3                                         |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:203 -+
+| Correctly rejected: 0                                       |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:204 -+
+| Wrongly rejected: 45                                        |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -+
+| Round 24's accuracy: 95.60% | 2024.07.12-19:47:16               |
++-----------------------------------------------------------------+
+
++---------------------- main.py:104 ----------------------+
+| Average loss: 0.9516944319009781 | 2024.07.12-19:47:18  |
++---------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:41 -+
+| pooling Begin | 2024.07.12-19:47:22                        |
++------------------------------------------------------------+
+
++------------ /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:179 ------------+
+| poolsize: 4, pooled_grads shape: (10, 21451587), all_grads shape: (10, 85806346)  |
++-----------------------------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:43 -+
+| pooling End | 2024.07.12-19:47:24                          |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:147 -+
+| (10, 21451587)                                              |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:64 -+
+| PCA Begin | 2024.07.12-19:47:24                            |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:66 -+
+| PCA End | 2024.07.12-19:47:29                              |
++------------------------------------------------------------+
+
++--------- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:74 ---------+
+| score: [0.07785262 0.05250029 0.01658983 0.01457494 0.01828727 0.01624786  |
+|  0.01674492 0.01589413 0.0161144  0.01589957]                              |
++----------------------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:83 -+
+| [0, 1]                                                     |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:201 -+
+| Correctly received: 200                                     |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:202 -+
+| Wrongly received: 3                                         |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:203 -+
+| Correctly rejected: 0                                       |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:204 -+
+| Wrongly rejected: 47                                        |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -+
+| Round 25's accuracy: 95.30% | 2024.07.12-19:47:34               |
++-----------------------------------------------------------------+
+
++--------------------- main.py:104 ---------------------+
+| Average loss: 0.922325250506401 | 2024.07.12-19:47:41 |
++-------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:41 -+
+| pooling Begin | 2024.07.12-19:47:44                        |
++------------------------------------------------------------+
+
++------------ /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:179 ------------+
+| poolsize: 4, pooled_grads shape: (10, 21451587), all_grads shape: (10, 85806346)  |
++-----------------------------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:43 -+
+| pooling End | 2024.07.12-19:47:46                          |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:147 -+
+| (10, 21451587)                                              |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:64 -+
+| PCA Begin | 2024.07.12-19:47:46                            |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:66 -+
+| PCA End | 2024.07.12-19:47:51                              |
++------------------------------------------------------------+
+
++--------- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:74 ---------+
+| score: [0.0682467  0.04394569 0.01459382 0.01377945 0.01281882 0.01500009  |
+|  0.01376519 0.01444421 0.01328752 0.01450328]                              |
++----------------------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:83 -+
+| [0, 1]                                                     |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:201 -+
+| Correctly received: 208                                     |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:202 -+
+| Wrongly received: 3                                         |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:203 -+
+| Correctly rejected: 0                                       |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:204 -+
+| Wrongly rejected: 49                                        |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -+
+| Round 26's accuracy: 94.70% | 2024.07.12-19:47:54               |
++-----------------------------------------------------------------+
+
++--------------------- main.py:104 ---------------------+
+| Average loss: 0.895045918226242 | 2024.07.12-19:47:57 |
++-------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:41 -+
+| pooling Begin | 2024.07.12-19:48:00                        |
++------------------------------------------------------------+
+
++------------ /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:179 ------------+
+| poolsize: 4, pooled_grads shape: (10, 21451587), all_grads shape: (10, 85806346)  |
++-----------------------------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:43 -+
+| pooling End | 2024.07.12-19:48:03                          |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:147 -+
+| (10, 21451587)                                              |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:64 -+
+| PCA Begin | 2024.07.12-19:48:03                            |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:66 -+
+| PCA End | 2024.07.12-19:48:12                              |
++------------------------------------------------------------+
+
++--------- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:74 ---------+
+| score: [0.0561089  0.05821306 0.0141728  0.01372364 0.01334568 0.01367535  |
+|  0.01423636 0.01500361 0.01546997 0.01469455]                              |
++----------------------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:83 -+
+| [0, 1]                                                     |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:201 -+
+| Correctly received: 216                                     |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:202 -+
+| Wrongly received: 3                                         |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:203 -+
+| Correctly rejected: 0                                       |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:204 -+
+| Wrongly rejected: 51                                        |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -+
+| Round 27's accuracy: 95.90% | 2024.07.12-19:48:15               |
++-----------------------------------------------------------------+
+
++---------------------- main.py:104 ----------------------+
+| Average loss: 0.9510815739631653 | 2024.07.12-19:48:18  |
++---------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:41 -+
+| pooling Begin | 2024.07.12-19:48:21                        |
++------------------------------------------------------------+
+
++------------ /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:179 ------------+
+| poolsize: 4, pooled_grads shape: (10, 21451587), all_grads shape: (10, 85806346)  |
++-----------------------------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:43 -+
+| pooling End | 2024.07.12-19:48:23                          |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:147 -+
+| (10, 21451587)                                              |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:64 -+
+| PCA Begin | 2024.07.12-19:48:23                            |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:66 -+
+| PCA End | 2024.07.12-19:48:28                              |
++------------------------------------------------------------+
+
++--------- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:74 ---------+
+| score: [0.05974025 0.0612678  0.01577643 0.01468447 0.0159891  0.01358712  |
+|  0.01397493 0.01575867 0.01573576 0.01550157]                              |
++----------------------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:83 -+
+| [0, 1]                                                     |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:201 -+
+| Correctly received: 224                                     |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:202 -+
+| Wrongly received: 3                                         |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:203 -+
+| Correctly rejected: 0                                       |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:204 -+
+| Wrongly rejected: 53                                        |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -+
+| Round 28's accuracy: 94.80% | 2024.07.12-19:48:31               |
++-----------------------------------------------------------------+
+
++---------------------- main.py:104 ----------------------+
+| Average loss: 0.9791865706443786 | 2024.07.12-19:48:35  |
++---------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:41 -+
+| pooling Begin | 2024.07.12-19:48:41                        |
++------------------------------------------------------------+
+
++------------ /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:179 ------------+
+| poolsize: 4, pooled_grads shape: (10, 21451587), all_grads shape: (10, 85806346)  |
++-----------------------------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:43 -+
+| pooling End | 2024.07.12-19:48:44                          |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:147 -+
+| (10, 21451587)                                              |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:64 -+
+| PCA Begin | 2024.07.12-19:48:44                            |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:66 -+
+| PCA End | 2024.07.12-19:48:49                              |
++------------------------------------------------------------+
+
++-------- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:74 --------+
+| score: [0.07662001 0.06642513 0.01896108 0.0200566  0.01743734 0.0169195 |
+|  0.01533309 0.01818722 0.01945529 0.01669504]                            |
++--------------------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:83 -+
+| [0, 1]                                                     |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:201 -+
+| Correctly received: 232                                     |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:202 -+
+| Wrongly received: 3                                         |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:203 -+
+| Correctly rejected: 0                                       |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:204 -+
+| Wrongly rejected: 55                                        |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -+
+| Round 29's accuracy: 97.10% | 2024.07.12-19:48:52               |
++-----------------------------------------------------------------+
+
++---------------------- main.py:104 ----------------------+
+| Average loss: 0.9256991386413574 | 2024.07.12-19:48:55  |
++---------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:41 -+
+| pooling Begin | 2024.07.12-19:48:58                        |
++------------------------------------------------------------+
+
++------------ /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:179 ------------+
+| poolsize: 4, pooled_grads shape: (10, 21451587), all_grads shape: (10, 85806346)  |
++-----------------------------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:43 -+
+| pooling End | 2024.07.12-19:49:01                          |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:147 -+
+| (10, 21451587)                                              |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:64 -+
+| PCA Begin | 2024.07.12-19:49:01                            |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:66 -+
+| PCA End | 2024.07.12-19:49:06                              |
++------------------------------------------------------------+
+
++--------- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:74 ---------+
+| score: [0.07228799 0.05762758 0.01553372 0.01657365 0.01560654 0.01773884  |
+|  0.01786352 0.01350079 0.01764669 0.01545182]                              |
++----------------------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:83 -+
+| [0, 1]                                                     |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:201 -+
+| Correctly received: 240                                     |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:202 -+
+| Wrongly received: 3                                         |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:203 -+
+| Correctly rejected: 0                                       |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:204 -+
+| Wrongly rejected: 57                                        |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -+
+| Round 30's accuracy: 96.70% | 2024.07.12-19:49:14               |
++-----------------------------------------------------------------+
+
++--------------------- main.py:104 ---------------------+
+| Average loss: 0.965616551041603 | 2024.07.12-19:49:18 |
++-------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:41 -+
+| pooling Begin | 2024.07.12-19:49:22                        |
++------------------------------------------------------------+
+
++------------ /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:179 ------------+
+| poolsize: 4, pooled_grads shape: (10, 21451587), all_grads shape: (10, 85806346)  |
++-----------------------------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:43 -+
+| pooling End | 2024.07.12-19:49:23                          |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:147 -+
+| (10, 21451587)                                              |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:64 -+
+| PCA Begin | 2024.07.12-19:49:23                            |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:66 -+
+| PCA End | 2024.07.12-19:49:29                              |
++------------------------------------------------------------+
+
++--------- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:74 ---------+
+| score: [0.07634392 0.05442117 0.01412103 0.01793752 0.0163209  0.01689819  |
+|  0.01713882 0.01338081 0.01718074 0.01778708]                              |
++----------------------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:83 -+
+| [0, 1]                                                     |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:201 -+
+| Correctly received: 248                                     |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:202 -+
+| Wrongly received: 3                                         |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:203 -+
+| Correctly rejected: 0                                       |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:204 -+
+| Wrongly rejected: 59                                        |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -+
+| Round 31's accuracy: 96.50% | 2024.07.12-19:49:31               |
++-----------------------------------------------------------------+
+
++--------------------- main.py:104 ---------------------+
+| Average loss: 0.890266726911068 | 2024.07.12-19:49:34 |
++-------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:41 -+
+| pooling Begin | 2024.07.12-19:49:37                        |
++------------------------------------------------------------+
+
++------------ /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:179 ------------+
+| poolsize: 4, pooled_grads shape: (10, 21451587), all_grads shape: (10, 85806346)  |
++-----------------------------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:43 -+
+| pooling End | 2024.07.12-19:49:39                          |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:147 -+
+| (10, 21451587)                                              |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:64 -+
+| PCA Begin | 2024.07.12-19:49:39                            |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:66 -+
+| PCA End | 2024.07.12-19:49:44                              |
++------------------------------------------------------------+
+
++--------- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:74 ---------+
+| score: [0.06296221 0.06082825 0.01545992 0.01626441 0.01341392 0.01589976  |
+|  0.01582536 0.0140338  0.01517221 0.01772109]                              |
++----------------------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:83 -+
+| [0, 1]                                                     |
++------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:201 -+
+| Correctly received: 256                                     |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:202 -+
+| Wrongly received: 3                                         |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:203 -+
+| Correctly rejected: 0                                       |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:204 -+
+| Wrongly rejected: 61                                        |
++-------------------------------------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:39 -+
+| Round 32's accuracy: 96.30% | 2024.07.12-19:49:47               |
++-----------------------------------------------------------------+
+
++- main.py:169 -+
+| banList: []   |
++---------------+
+
++--------- main.py:173 ---------+
+| Federated learning completed. |
++-------------------------------+
+
++- /home/lzy/ltf/Codes/FLDefinder/master/src/utils/MyTimer.py:30 -+
+| TimeList:                                                       |
+| 00: Start | 2024.07.12-19:39:15                                 |
+| 01: init accuracy: 18.20% | 2024.07.12-19:39:23                 |
+| 02: Round 1's accuracy: 23.90% | 2024.07.12-19:39:44            |
+| 03: Round 2's accuracy: 33.30% | 2024.07.12-19:40:00            |
+| 04: Round 3's accuracy: 39.60% | 2024.07.12-19:40:22            |
+| 05: Round 4's accuracy: 48.70% | 2024.07.12-19:40:42            |
+| 06: Round 5's accuracy: 58.80% | 2024.07.12-19:41:01            |
+| 07: Round 6's accuracy: 67.50% | 2024.07.12-19:41:22            |
+| 08: Round 7's accuracy: 76.70% | 2024.07.12-19:41:38            |
+| 09: Round 8's accuracy: 80.60% | 2024.07.12-19:41:59            |
+| 10: Round 9's accuracy: 86.30% | 2024.07.12-19:42:22            |
+| 11: Round 10's accuracy: 88.60% | 2024.07.12-19:42:38           |
+| 12: Round 11's accuracy: 87.90% | 2024.07.12-19:42:59           |
+| 13: Round 12's accuracy: 90.30% | 2024.07.12-19:43:16           |
+| 14: Round 13's accuracy: 92.40% | 2024.07.12-19:43:36           |
+| 15: Round 14's accuracy: 90.60% | 2024.07.12-19:43:59           |
+| 16: Round 15's accuracy: 94.10% | 2024.07.12-19:44:15           |
+| 17: Round 16's accuracy: 93.60% | 2024.07.12-19:44:37           |
+| 18: Round 17's accuracy: 93.00% | 2024.07.12-19:44:56           |
+| 19: Round 18's accuracy: 94.80% | 2024.07.12-19:45:17           |
+| 20: Round 19's accuracy: 94.20% | 2024.07.12-19:45:37           |
+| 21: Round 20's accuracy: 93.10% | 2024.07.12-19:45:53           |
+| 22: Round 21's accuracy: 94.80% | 2024.07.12-19:46:15           |
+| 23: Round 22's accuracy: 94.90% | 2024.07.12-19:46:38           |
+| 24: Round 23's accuracy: 95.20% | 2024.07.12-19:46:54           |
+| 25: Round 24's accuracy: 95.60% | 2024.07.12-19:47:16           |
+| 26: Round 25's accuracy: 95.30% | 2024.07.12-19:47:34           |
+| 27: Round 26's accuracy: 94.70% | 2024.07.12-19:47:54           |
+| 28: Round 27's accuracy: 95.90% | 2024.07.12-19:48:15           |
+| 29: Round 28's accuracy: 94.80% | 2024.07.12-19:48:31           |
+| 30: Round 29's accuracy: 97.10% | 2024.07.12-19:48:52           |
+| 31: Round 30's accuracy: 96.70% | 2024.07.12-19:49:14           |
+| 32: Round 31's accuracy: 96.50% | 2024.07.12-19:49:31           |
+| 33: Round 32's accuracy: 96.30% | 2024.07.12-19:49:47           |
++-----------------------------------------------------------------+
+
++----------- /home/lzy/ltf/Codes/FLDefinder/master/src/analyzer.py:241 -----------+
+| | 攻击者 | 攻击力度 | PCA的偏离倍数 | PCA降维后的主成分数目 | 表现 |                                   |
+| |---|---|---|---|---|                                                           |
+| | 2/10 | 1 | 1 | 0.04 | 32次中有：29次完全正确，3次少抓1个 <br/>[((2, 0), 29), ((1, 0), 3)] | |
+|                                                                                 |
++---------------------------------------------------------------------------------+
+
