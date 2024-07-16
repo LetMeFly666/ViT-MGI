@@ -2,21 +2,21 @@
  * @Author: LetMeFly
  * @Date: 2024-05-15 17:45:43
  * @LastEditors: LetMeFly
- * @LastEditTime: 2024-07-11 15:39:45
+ * @LastEditTime: 2024-07-16 11:13:11
 -->
-# FLDefinder
+# ViT-MGI
 
 联邦学习 ViT Backdoor防御的研究。
 
 + 进度地址：[人工智能 - 联邦学习(安全性) - 自用(ProjectDoing)](https://blog.letmefly.xyz/2024/01/06/Other-AI-FL-FederatedLearning-ProjectWritingIn1month/)
-+ 分支[try0_poolAndExtra](https://github.com/LetMeFly666/FLDefinder/tree/try0_poolAndExtra)：因准确率太低，研究一半而Archive的分支
-+ 分支[try1_changeFromPelta](https://github.com/LetMeFly666/FLDefinder/tree/try1_changeFromPelta)：在[Pelta](https://github.com/queyrusi/Pelta)的代码上修改，但其代码中似乎无FL相关部分，研究一半而Archive的分支
++ 分支[try0_poolAndExtra](https://github.com/LetMeFly666/ViT-MGI/tree/try0_poolAndExtra)：因准确率太低，研究一半而Archive的分支
++ 分支[try1_changeFromPelta](https://github.com/LetMeFly666/ViT-MGI/tree/try1_changeFromPelta)：在[Pelta](https://github.com/queyrusi/Pelta)的代码上修改，但其代码中似乎无FL相关部分，研究一半而Archive的分支
 
 ## Log
 
 ### Log001 - 2024.5.14-2024.5.19
 
-暂时停止在[原有](https://github.com/LetMeFly666/FLDefinder/commit/c830b55950ba84a8dd657bbd4ecfa247c6c3e8a5)基础上继续更改，开始寻找现有的联邦学习ViT Backdoor的代码并在此基础上进行更改。
+暂时停止在[原有](https://github.com/LetMeFly666/ViT-MGI/commit/c830b55950ba84a8dd657bbd4ecfa247c6c3e8a5)基础上继续更改，开始寻找现有的联邦学习ViT Backdoor的代码并在此基础上进行更改。
 
 + <del>搜索关键词：<code>("ViT" OR "Vision Transformer") AND "Backdoor" AND ("Federated Learning" OR "FL") AND "github.com"</code>（这样Sensitivity也会被检索上）</del>
 + 搜索关键词：```"Vision Transformer" AND "Backdoor" AND ("Federated Learning" OR "FL") AND "github.com"```
@@ -98,7 +98,7 @@
 + 先写上题目和摘要（要做什么事情）
 + 之后是Intro和Related Work
 
-结果刚配置好了VsCode、overleaf(byr)、中文: [c3db3c](https://github.com/LetMeFly666/FLDefinder/tree/c3db3c6865d9a9b1cac8016fe2fadb6a3c2fbc05)
+结果刚配置好了VsCode、overleaf(byr)、中文: [c3db3c](https://github.com/LetMeFly666/ViT-MGI/tree/c3db3c6865d9a9b1cac8016fe2fadb6a3c2fbc05)
 
 ### Log009 - 2024.7.6_9:10-2024.7.6_13:40
 
@@ -235,14 +235,14 @@ attack_rate = 1
 
 池化size：4
 
-+ 实验[`2024.07.07-09:28:37-pool`](https://github.com/LetMeFly666/FLDefinder/tree/d8de1dcf1b20063607f8bfbf91810072b2ca9a1e/result/Archive001-oldHistory/Archive006-poolAndForest/2024.07.07-09:28:37-pool/stdout.txt)：抓人准确率下降，最高准确率略高
-+ 实验[`2024.07.07-09:29:04-notpool`](https://github.com/LetMeFly666/FLDefinder/tree/d8de1dcf1b20063607f8bfbf91810072b2ca9a1e/result/Archive001-oldHistory/Archive006-poolAndForest/2024.07.07-09:29:04-notpool/stdout.txt)：抓人准确率较高，最高准确率略低
++ 实验[`2024.07.07-09:28:37-pool`](https://github.com/LetMeFly666/ViT-MGI/tree/d8de1dcf1b20063607f8bfbf91810072b2ca9a1e/result/Archive001-oldHistory/Archive006-poolAndForest/2024.07.07-09:28:37-pool/stdout.txt)：抓人准确率下降，最高准确率略高
++ 实验[`2024.07.07-09:29:04-notpool`](https://github.com/LetMeFly666/ViT-MGI/tree/d8de1dcf1b20063607f8bfbf91810072b2ca9a1e/result/Archive001-oldHistory/Archive006-poolAndForest/2024.07.07-09:29:04-notpool/stdout.txt)：抓人准确率较高，最高准确率略低
 
 似乎效果并不明显。
 
 池化size：9，池化方式：mean
 
-+ 实验[`2024.07.07-10:14:39`](https://github.com/LetMeFly666/FLDefinder/tree/d8de1dcf1b20063607f8bfbf91810072b2ca9a1e/result/Archive001-oldHistory/Archive006-poolAndForest/2024.07.07-10:14:39/stdout.txt)：对比notpool，抓人准确率下降，最高准确率无优势
++ 实验[`2024.07.07-10:14:39`](https://github.com/LetMeFly666/ViT-MGI/tree/d8de1dcf1b20063607f8bfbf91810072b2ca9a1e/result/Archive001-oldHistory/Archive006-poolAndForest/2024.07.07-10:14:39/stdout.txt)：对比notpool，抓人准确率下降，最高准确率无优势
 
 #### 关于隔离森林的研究
 
@@ -532,7 +532,7 @@ device = cuda:0
 - [x] 先写个题目和摘要
 - [x] 了解一些攻防手段，例如主成分萃取/最大池化及其关系
 - [x] Un realized merge
-- [ ] 主观逻辑模型
+- [x] 主观逻辑模型
 - [ ] 他人对比
 - [ ] if-手动划分
 - [ ] 实验设计：要验证每个实验
@@ -553,17 +553,18 @@ device = cuda:0
    - [ ] **主流方法**的实验结果对比，例如COSDEN、Fang、FLTrust
    - [ ] 尝试一下非拜占庭攻击的防御效果（例如backdoor）
    - [ ] 在多个数据集上验证
-- [ ] 图
-   - [ ] System model部分一张总的场景图/Methodology部分的总的方案图
-   - [ ] Methodology部分的总的细节图
-   - [ ] 画一张提取特征层的图
-- [ ] 将中文版本翻译为英文版本并润色
+- [x] 图
+   - [x] System model部分一张总的场景图/Methodology部分的总的方案图
+   - ~~Methodology部分的总的细节图~~
+   - ~~画一张提取特征层的图~~
+- [x] 将中文版本翻译为英文版本并润色
 - [ ] IF零信任？
 - [ ] IF恶意用户检测之-检测此次梯度时参考历史梯度？
 - [ ] （暂时抛弃）难道是泛用的ViT模型不知道Cifar-10只有10个输出所以准确率一直在50%多徘徊？（非预训练）
 - [ ] （抛弃）不上传客户端的diff，而是直接上传所有客户端的参数然后在服务端求平均
 - [ ] （暂时抛弃）损失函数求模型总的损失函数
 - [ ] 最后：若非预训练模型最高准确率仍然很低，则重构时删掉使用非预训练模型的选项。因为低准确率的实验不是很能让人信服。
+- [ ] 要开始Englishify了
 
 ## End
 

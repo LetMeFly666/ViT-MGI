@@ -1,8 +1,8 @@
 '''
 Author: LetMeFly vme50ty
 Date: 2024-07-03 10:37:25
-LastEditors: LetMeFly666 814114971@qq.com
-LastEditTime: 2024-07-13 18:08:48
+LastEditors: LetMeFly
+LastEditTime: 2024-07-16 11:22:14
 '''
 import datetime
 getNow = lambda: datetime.datetime.now().strftime('%Y.%m.%d-%H:%M:%S')
@@ -40,6 +40,13 @@ from src import Config, DataManager, ViTModel, Client, GradientAscentAttack, Lab
 
 config = Config(now)
 
+if config.ifDraw:
+    from src.experiments import drawer
+    from src.experiments import makeTable
+    drawer()
+    makeTable()
+    exit(0)
+
 banAttacker = BanAttacker(config)
 
 # 初始化数据管理器
@@ -64,7 +71,7 @@ import math  # TODO: 计算真正的loss
 ploter.addData(x=0, y={'loss': math.nan, 'accuracy': accuracy})
 
 
-with open('result/UsefulLayer/merge-resut.txt', 'r') as f:
+with open('./result/Archive003-someText/UsefulLayer/merge-resut.txt', 'r') as f:
     lines = f.readlines()
     lines = [line.strip() for line in lines if line.strip()]  # 去除空行和首尾空格
 usefulLayers = set(lines)
@@ -118,6 +125,8 @@ for round_num in range(config.num_rounds):
     if config.ifFindUsefulLayer:
         values_list = findLayer.make_gradients_list(grads_dict)
         findLayer.find_useful_layer(values_list)
+        from src.experiments import aggregation
+        aggregation(0)
     
     avg_grads = server.aggregate_gradients(grads_dict)
     server.update_model(avg_grads)

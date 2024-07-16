@@ -2,9 +2,9 @@
 Author: LetMeFly666 814114971@qq.com
 Date: 2024-07-13 09:50:07
 LastEditors: LetMeFly
-LastEditTime: 2024-07-15 18:06:19
+LastEditTime: 2024-07-16 10:01:45
 FilePath: /master/makeTable.py
-Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE'
+Description: 由于本仓库的PCA是在CPU上运行的，因此同时在cuda:0和cuda:1上启用两个进程会严重降低实验性能，提升实验耗时。后续重做实验统计了执行耗时，但因paper中没有直接引用pdf格式的图表而是直接引用的数据，故没有再修改本次代码。本代码生成的table*.pdf不是最终版本
 '''
 import matplotlib.pyplot as plt
 import os
@@ -56,7 +56,7 @@ def main():
     Attack_method = ['grad', 'label', 'backdoor']
     Defend_method = ['Both-layer', 'Both-only', 'Both-pooling', 'PCA-layer', 'PCA-only', 'PCA-pooling', 'Forest-layer', 'Forest-pooling']
 
-    FilePath = './result/FinalCompare'
+    FilePath = './result/Archive001-oldHistory/Archive012-FinalCompare'
 
     for attack in Attack_method:
         data = []

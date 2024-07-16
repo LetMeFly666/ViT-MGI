@@ -2,7 +2,7 @@
 Author: LetMeFly666 814114971@qq.com
 Date: 2024-07-11 13:10:39
 LastEditors: LetMeFly
-LastEditTime: 2024-07-13 22:55:30
+LastEditTime: 2024-07-16 09:48:11
 FilePath: /master/src/findLayer.py
 Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 '''
@@ -67,6 +67,6 @@ class FindLayer:
         return self.usefulLayer
     
     def writeLayerName(self, useful_layer_names: List[str]):
-        with open(f'./result/UsefulLayer/test-{self.config.attackMethod}.txt', 'w') as f:
+        with open(f'./result/Archive003-someText/UsefulLayer/test-{self.config.attackMethod}.txt', 'w') as f:
             for layer_name in useful_layer_names:
                 f.write(layer_name + '\n')

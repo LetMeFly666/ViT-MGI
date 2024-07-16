@@ -1,3 +1,14 @@
+'''
+Author: LetMeFly
+Date: 2024-07-15 18:39:15
+LastEditors: LetMeFly
+LastEditTime: 2024-07-16 10:12:43
+Description: 整合自 竭泽而渔 的：
+  - https://github.com/LetMeFly666/ViT-MGI/blob/da3c126989348d3003392daed80c7e6d809c7d5c/temp-gradAndDefend.py
+  - https://github.com/LetMeFly666/ViT-MGI/blob/da3c126989348d3003392daed80c7e6d809c7d5c/temp-justAttractAccuracy.py
+  - https://github.com/LetMeFly666/ViT-MGI/blob/da3c126989348d3003392daed80c7e6d809c7d5c/temp-justBackdoorSuccessRate.py
+  - https://github.com/LetMeFly666/ViT-MGI/blob/da3c126989348d3003392daed80c7e6d809c7d5c/temp-justLabelsAttack.py
+'''
 import re
 
 
@@ -303,23 +314,26 @@ config = {
 }
 
 
-import matplotlib.pyplot as plt
+def main():
+    import matplotlib.pyplot as plt
 
-for experimentName in config:
-    rounds = list(range(1, 33))
-    plt.rcParams.update({'font.size': 24})
-    plt.figure(figsize=(12, 6))
-    for line in config[experimentName]['lines']:
-        plt.plot(rounds, line['data'], label=line['label'], marker=line['marker'], markersize=config[experimentName]['markersize'])
-    legendSize = config[experimentName]['legendSize'] if 'legendSize' in config[experimentName] else 18
-    plt.legend(fontsize=legendSize, loc='upper left', framealpha=0.5)
-    plt.title(config[experimentName]['title'], fontsize=20)
-    plt.xlabel('Rounds')
-    plt.ylabel('Percentage')
-    plt.tight_layout(pad=0)
-    plt.grid(True, which='both', linestyle='--')
-    plt.xticks(range(1, 33, 2))
-    plt.savefig(config[experimentName]['picname'])
-    plt.clf()
+    for experimentName in config:
+        rounds = list(range(1, 33))
+        plt.rcParams.update({'font.size': 24})
+        plt.figure(figsize=(12, 6))
+        for line in config[experimentName]['lines']:
+            plt.plot(rounds, line['data'], label=line['label'], marker=line['marker'], markersize=config[experimentName]['markersize'])
+        legendSize = config[experimentName]['legendSize'] if 'legendSize' in config[experimentName] else 18
+        plt.legend(fontsize=legendSize, loc='upper left', framealpha=0.5)
+        plt.title(config[experimentName]['title'], fontsize=20)
+        plt.xlabel('Rounds')
+        plt.ylabel('Percentage')
+        plt.tight_layout(pad=0)
+        plt.grid(True, which='both', linestyle='--')
+        plt.xticks(range(1, 33, 2))
+        plt.savefig(config[experimentName]['picname'])
+        plt.clf()
 
 
+if __name__ == '__main__':
+    main()

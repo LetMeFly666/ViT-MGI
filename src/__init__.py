@@ -2,7 +2,7 @@
 Author: LetMeFly
 Date: 2024-07-02 17:27:56
 LastEditors: LetMeFly
-LastEditTime: 2024-07-12 11:01:19
+LastEditTime: 2024-07-16 11:19:18
 '''
 from src import utils
 from src.config import Config
@@ -15,3 +15,5 @@ from src.server import Server
 from src.analyzer import GradientAnalyzer
 from src.findLayer import FindLayer
 from src.evalAttack import EvalLabelFlippingAttack, EvalBackdoorAttack
+
+from src import experiments

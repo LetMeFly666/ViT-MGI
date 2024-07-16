@@ -45,7 +45,7 @@ class GradientAnalyzer:
     
     
     def writeAnomalyScore(self, scoreList: list):
-        with open(f'./result/AnomalyScore-{self.config.device}.txt', 'a') as f:
+        with open(f'./result/Archive003-someText/AnomalyScore-{self.config.device}.txt', 'a') as f:
             try:
                 self.config.Analyzer_alreadyWriteScore
             except:
@@ -225,7 +225,7 @@ class GradientAnalyzer:
             tempList.append((key, value))
         # TODO: 改成正常的
         tempList.sort(key=lambda x: (x[0][1], -x[0][0]))
-        with open('./result/defendResult.txt', 'a') as f:
+        with open('./result/Archive003-someText/defendResult.txt', 'a') as f:
             f.write(f'{self.config.attackMethod}, {self.config.defendMethod}, {self.config.attackList} | {tempList}\n')
         for (correct, error), times in tempList:
             toSay += f'{times}次'
