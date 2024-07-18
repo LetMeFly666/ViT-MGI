@@ -2,11 +2,15 @@
  * @Author: LetMeFly
  * @Date: 2024-05-15 17:45:43
  * @LastEditors: LetMeFly
- * @LastEditTime: 2024-07-16 11:13:11
+ * @LastEditTime: 2024-07-18 16:12:23
 -->
 # ViT-MGI
 
 联邦学习 ViT Backdoor防御的研究。
+
+```
+联邦学习中可能会存在一些恶意用户对中央服务器的全局模型进行攻击，例如常见的梯度上升攻击、标签翻转攻击、后门植入攻击，以及一些可能的潜在的攻击。针对这些攻击有很多防御方法，但是针对视觉Transformer(ViT)这种参数量较大的模型，往往存在效率和安全性相冲突的问题。本文提出了一种针对ViT的联邦学习恶意用户检测方式，通过实验确定了一些对恶意攻击较敏感的特征层。对于用户上传上来的梯度变化，首先进行特征层提取，大量降低后续计算数据量，同时只保留了对于恶意攻击较为敏感的数据，便于后续识别。提取特征层之后使用主成分分析算法和隔离森林算法鉴别恶意客户端，最终使用主观逻辑模型综合用户多轮次的情况对恶意用户进行加权评分，减少了可能的误判带来的影响。我们将其命名为ViT-MGI，针对ViT模型，对比一些常用的以及先进的防御算法，ViT-MGI的识别准确度和识别效率有所提升。
+```
 
 + 进度地址：[人工智能 - 联邦学习(安全性) - 自用(ProjectDoing)](https://blog.letmefly.xyz/2024/01/06/Other-AI-FL-FederatedLearning-ProjectWritingIn1month/)
 + 分支[try0_poolAndExtra](https://github.com/LetMeFly666/ViT-MGI/tree/try0_poolAndExtra)：因准确率太低，研究一半而Archive的分支
