@@ -33,7 +33,8 @@
 \usepackage{graphicx}  % 图
 % \usepackage{textcomp}
 % \usepackage{xcolor}
-\usepackage{balance}  % 最后一页两栏对齐
+% \usepackage{balance}  % 最后一页两栏对齐
+\usepackage{flushend}  % 最后一页两栏对齐
 \def\figTotalScene{\textwidth}
 \def\figGradAscentAttack{0.5\textwidth}
 \def\figLabelFlip{0.5\textwidth}
@@ -78,19 +79,22 @@
 }
 
 \author{
-
 \IEEEauthorblockN{
     Shujie Yang\href{https://orcid.org/0000-0002-9597-2659}{\includegraphics[width=8pt]{pics/orcid.png}}$^1$,
     Tengfei Li\href{https://orcid.org/0000-0001-5412-8198}{\includegraphics[width=8pt]{pics/orcid.png}}$^1$,
     % Zan Zhou\href{https://orcid.org/0000-0003-2388-2280}{\includegraphics[width=8pt]{pics/orcid.png}}$^1$\footnotemark[1], 
     Zan Zhou\href{https://orcid.org/0000-0003-2388-2280}{\includegraphics[width=8pt]{pics/orcid.png}}$^1$\footnotemark\textsuperscript{\hyperref[fn:corresponding]{*}},
+    Hao Hao\href{https://orcid.org/0000-0003-2765-3303}{\includegraphics[width=8pt]{pics/orcid.png}}$^2$,
     Tianyu Xu\href{https://orcid.org/0009-0001-5694-476X}{\includegraphics[width=8pt]{pics/orcid.png}}$^1$,
     Bo Wang\href{https://orcid.org/0009-0004-7889-5390}{\includegraphics[width=8pt]{pics/orcid.png}}$^1$,
     Jianfeng Guan\href{https://orcid.org/0000-0002-4411-0741}{\includegraphics[width=8pt]{pics/orcid.png}}$^1$,
-    Su Yao\href{https://orcid.org/0000-0001-5165-2787}{\includegraphics[width=8pt]{pics/orcid.png}}$^2$
+    Su Yao\href{https://orcid.org/0000-0001-5165-2787}{\includegraphics[width=8pt]{pics/orcid.png}}$^3$
 }
-\IEEEauthorblockA{\textit{$^1$School of Computer Science, Beijing University of Posts and Telecommunications, Beijing, China}\\
-\textit{$^2$Beijing National Research Center for Information Science and Technology, Tsinghua University, Beijing, China}
+\IEEEauthorblockA{
+    \textit{$^1$School of Computer Science, Beijing University of Posts and Telecommunications, Beijing, China}\\
+    \textit{$^2$Shandong Academy of Sciences \& National Supercomputing Center in Jinan, China}\\
+    \textit{$^3$Beijing National Research Center for Information Science and Technology, Tsinghua University, Beijing, China}
+}
 }
 
 % \and
@@ -131,7 +135,6 @@
 % City, Country \\
 % email address or ORCID}
 
-}
 
 \maketitle
 
@@ -1219,6 +1222,8 @@ Both PCA with cosine similarity detection and PCA with isolation forest show tha
 
 Tables \hyperref[tab:labelFlip]{\ref{tab:labelFlip}} and \hyperref[tab:backdoor]{\ref{tab:backdoor}} show the effectiveness of various defense algorithms against label-flipping and backdoor attacks, respectively. Both scenarios involve $30\%$ malicious clients, with backdoor attackers embedding backdoors in $35\%$ of their local data. Similar to the findings in Table \hyperref[tab:gradAscent]{\ref{tab:gradAscent}}, the pooling amplification algorithm reduces computational load but decreases detection accuracy. In contrast, our feature layer extraction method not only reduces computational load but also enhances accuracy by aggregating valuable information.
 
+% \vspace{-5em}  % 这里要么太少(≤5)没变化，要么太大(>6)直接和上一段重合了
+
 % \subsubsection{\textbf{防御速度衡量}}
 \subsubsection{\textbf{Defense Speed Measurement}}
 
@@ -1229,6 +1234,8 @@ Tables \hyperref[tab:labelFlip]{\ref{tab:labelFlip}} and \hyperref[tab:backdoor]
 % From the experiments where no data dimensionality reduction was performed, it is evident that regardless of the algorithm used, a substantial amount of time is consumed, which is unacceptable for a training process that typically takes only 165 seconds on average.
 
 % From the experiments without data dimensionality reduction, it is evident that regardless of the algorithm, the substantial time consumed is unacceptable for a training process that typically takes only 165 seconds on average.
+
+% \vspace{-10em}  % 这里加了也没用
 
 From the experiments where no data dimensionality reduction was performed, it is evident that regardless of the algorithm used, the substantial amount of time consumed is unacceptable for a training process that typically takes only 165 seconds on average.
 
@@ -1579,7 +1586,7 @@ This work was supported by China Postdoctoral Science Foundation (grant No. 2024
 % \bibitem{b6} Y. Yorozu, M. Hirano, K. Oka, and Y. Tagawa, ``Electron spectroscopy studies on magneto-optical media and plastic substrate interface,'' IEEE Transl. J. Magn. Japan, vol. 2, pp. 740--741, August 1987 [Digests 9th Annual Conf. Magnetics Japan, p. 301, 1982].
 % \bibitem{b7} M. Young, The Technical Writer's Handbook. Mill Valley, CA: University Science, 1989.
 % \end{thebibliography}
-\balance
+% \balance  % 又加了一位作者后，balance无法对齐最后两栏，右边参考文献比左边多几行。
 \bibliographystyle{IEEEtran}
 \bibliography{references}
 % \balance
