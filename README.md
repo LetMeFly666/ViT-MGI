@@ -2,9 +2,91 @@
  * @Author: LetMeFly
  * @Date: 2024-05-15 17:45:43
  * @LastEditors: LetMeFly
- * @LastEditTime: 2024-07-18 16:12:23
+ * @LastEditTime: 2024-08-26 10:57:51
 -->
 # ViT-MGI
+
+ViT-MGI: Context-aware Lightweight Malicious Gradient Identification for Federated Vision Transformer Systems against Poisoning Attacks
+
+## Preface
+
+This is paper submitted to [UIC 2024](https://www.ieee-smart-world.org/2024/uic/).
+
+You can get the paper at[Github Release](https://github.com/LetMeFly666/ViT-MGI/releases/tag/v.p.1.0.chinese.finish). The final version now is [v.p.2.3.1](https://github.com/LetMeFly666/ViT-MGI/releases/download/v.p.1.0.chinese.finish/v.p.2.3.1.final.before.deadline.add1author.pdf).
+
+The repository retains all the exploration records and experimental results from the process of writing the paper.
+
+## How to use
+
+1. Set up the python environment and make sure the torch and so on is installed.
+2. Clone the Code of branch master and download dataset and models into `./data`.
+
+   Such as:
+
+   ```
+   .
+   ├── data
+   │   ├── cifar-10-batches-py
+   │   │   ├── batches.meta
+   │   │   ├── data_batch_1
+   │   │   ├── data_batch_2
+   │   │   ├── data_batch_3
+   │   │   ├── data_batch_4
+   │   │   ├── data_batch_5
+   │   │   ├── readme.html
+   │   │   └── test_batch
+   │   ├── cifar-10-python.tar.gz
+   │   ├── models -> /home/lzy/ltf/dataset/ensembleModels/downloaded   
+   │   │   ├── BiT-M-R101x3-Run0.tar
+   │   │   └── ViT-L_16cifar10run0_15K_checkpoint.bin
+   │   └── vit_base_patch16_224 -> /home/lzy/ltf/dataset/vit_base_patch16_224
+   │       ├── config.json
+   │       └── pytorch_model.bin
+   ├── main.py
+   ├── README.md
+   ├── result
+   └── src
+   ```
+
+3. Just start by using `python main.py`.
+
+   You can modified [`./src/config.py`](https://github.com/LetMeFly666/ViT-MGI/blob/9bbf4dc8ffcc16e2eef06c030e3676583fd84e65/src/config.py#L15-L40) for more options.
+
+   You can also use the command line such as `python main.py --num_rounds=32 --attackList="[0, 1, 2]"` to overwrite the config.py.
+
+   The meanlings of supported config are as follows:
+
+   | Parameter             | Default Value                     | Description                                                                                         |
+   |-----------------------|-----------------------------------|-----------------------------------------------------------------------------------------------------|
+   | `num_clients`         | `10`                              | Number of clients                                                                                    |
+   | `batch_size`          | `32`                              | Number of images per batch                                                                          |
+   | `num_rounds`          | `32`                              | Total number of rounds                                                                              |
+   | `epoch_client`        | `1`                               | Number of epochs per client                                                                         |
+   | `datasize_perclient`  | `32`                              | Data size per client                                                                                |
+   | `datasize_valide`     | `1000`                            | Size of validation dataset                                                                          |
+   | `learning_rate`       | `0.001`                           | Learning rate                                                                                       |
+   | `ifFindUsefulLayer`   | `False`                           | Whether to experiment to find useful layers                                                         |
+   | `ifDraw`              | `False`                           | Whether to draw only (if `True`, all other experiments are skipped)                                  |
+   | `ifFindAttack`        | `True`                            | Whether to identify attackers                                                                       |
+   | `ifCleanAnoma`        | `True`                            | Whether to clean anomalous data detected by PCA                                                     |
+   | `isBanAttacker`       | `True`                            | Whether to ban malicious users                                                                      |
+   | `defendMethod`        | `'Both'`                          | Defense method: `PCA`, `Forest`, or `Both` (using PCA and Isolation Forest)                          |
+   | `PCA_rate`            | `1`                               | Multiplication factor for PCA deviation                                                             |
+   | `PCA_nComponents`     | `0.04`                            | Number of principal components after PCA dimensionality reduction                                   |
+   | `forest_nEstimators`  | `300`                             | Number of estimators in the Random Forest                                                           |
+   | `attackList`          | `[0, 1, 2]`                       | List of malicious client indices                                                                    |
+   | `attack_rate`         | `1`                               | Intensity of gradient ascent attack                                                                 |
+   | `attackMethod`        | `'grad'`                          | Attack method: `grad`, `label`, or `backdoor`                                                       |
+   | `ifPooling`           | `False`                           | Whether to perform pooling                                                                          |
+   | `ifUsefulLayer`       | `True`                            | Whether to use only useful layers (whether to extract feature layers)                               |
+   | `poolsize`            | `1000`                            | Pool size for each `grad` in the `grads` array (maximum value among `n` numbers)                    |
+   | `pooltype`            | `'Max'`                           | Pooling method: `Mean` or `Max` (mean or max pooling)                                               |
+   | `ifPretrained`        | `True`                            | Whether to use a pretrained model                                                                   |
+   | `isprintScore`        | `False`                           | Whether to print score ranking                                                                      |
+   | `device`              | `torch.device("cuda:0" if torch.cuda.is_available() else "cpu")` | Device to use for computation (`cuda` if available, otherwise `cpu`)                               |
+
+
+## Original
 
 联邦学习 ViT Backdoor防御的研究。
 
