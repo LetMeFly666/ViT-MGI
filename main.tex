@@ -84,16 +84,19 @@
     Tengfei Li\href{https://orcid.org/0000-0001-5412-8198}{\includegraphics[width=8pt]{pics/orcid.png}}$^1$,
     % Zan Zhou\href{https://orcid.org/0000-0003-2388-2280}{\includegraphics[width=8pt]{pics/orcid.png}}$^1$\footnotemark[1], 
     Zan Zhou\href{https://orcid.org/0000-0003-2388-2280}{\includegraphics[width=8pt]{pics/orcid.png}}$^1$\footnotemark\textsuperscript{\hyperref[fn:corresponding]{*}},
-    Hao Hao\href{https://orcid.org/0000-0003-2765-3303}{\includegraphics[width=8pt]{pics/orcid.png}}$^2$,
+    Hao Hao\href{https://orcid.org/0000-0003-2765-3303}{\includegraphics[width=8pt]{pics/orcid.png}}$^2$ \\
     Tianyu Xu\href{https://orcid.org/0009-0001-5694-476X}{\includegraphics[width=8pt]{pics/orcid.png}}$^1$,
     Bo Wang\href{https://orcid.org/0009-0004-7889-5390}{\includegraphics[width=8pt]{pics/orcid.png}}$^1$,
     Jianfeng Guan\href{https://orcid.org/0000-0002-4411-0741}{\includegraphics[width=8pt]{pics/orcid.png}}$^1$,
-    Su Yao\href{https://orcid.org/0000-0001-5165-2787}{\includegraphics[width=8pt]{pics/orcid.png}}$^3$
+    Tianhang Zhou\href{https://orcid.org/0000-0002-4007-9935}{\includegraphics[width=8pt]{pics/orcid.png}}$^3$\footnotemark\textsuperscript{\hyperref[fn:corresponding]{*}},
+    Su Yao\href{https://orcid.org/0000-0001-5165-2787}{\includegraphics[width=8pt]{pics/orcid.png}}$^4$
 }
 \IEEEauthorblockA{
     \textit{$^1$School of Computer Science, Beijing University of Posts and Telecommunications, Beijing, China}\\
     \textit{$^2$Shandong Academy of Sciences \& National Supercomputing Center in Jinan, China}\\
-    \textit{$^3$Beijing National Research Center for Information Science and Technology, Tsinghua University, Beijing, China}
+    \textit{$^3$College of Carbon Neutrality Future Technology, State Key Laboratory of Heavy Oil Processing,}\\
+    \textit{China University of Petroleum (Beijing), Beijing 102249, China}\\
+    \textit{$^4$Beijing National Research Center for Information Science and Technology, Tsinghua University, Beijing, China}
 }
 }
 
@@ -139,7 +142,7 @@
 \maketitle
 
 % \footnotetext[1]{Corresponding author. Email: zan.zhou@example.com}
-\footnotetext[1]{Corresponding author:\label{fn:corresponding} \href{mailto:zan.zhou@bupt.edu.cn}{zan.zhou@bupt.edu.cn}}
+\footnotetext[1]{Corresponding author:\label{fn:corresponding} \href{mailto:zan.zhou@bupt.edu.cn}{zan.zhou@bupt.edu.cn}, \href{mailto:zhouth@cup.edu.cn}{zhouth@cup.edu.cn}}
 
 % 摘要
 \begin{abstract}
@@ -400,7 +403,7 @@ where \( w_i \) is the weight of the \( i \)-th client, determined by its trust 
 
 We first explain the basic process of ViT-MGI in \hyperref[sec:method_basic]{§\ref{sec:method_basic}}, followed by a detailed implementation of feature layer extraction in \hyperref[sec:method_layer]{§\ref{sec:method_layer}}. Next, we describe the specific implementation and principles of PCA in \hyperref[sec:method_PCA]{§\ref{sec:method_PCA}} and explain how the isolation forest works in \hyperref[sec:method_forest]{§\ref{sec:method_forest}}. Finally, we will introduce how to use the subjective logic model to evaluate the trustworthiness of clients in \hyperref[sec:method_subjective]{§\ref{sec:method_subjective}}.
 
-\subsection{Overviwe}
+\subsection{Overview}
 \label{sec:method_basic}
 
 \begin{figure*}[htbp]
@@ -1340,9 +1343,7 @@ Thus, for the gradients uploaded by malicious users, we can extract only the gra
 
 % 总而言之，为了解决恶意用户的攻击检测问题，我们提出了一种两阶段的检测方法。首先，我们提取了用户上传的梯度的敏感特征层，然后通过PCA对这些数据进行降维。接着，我们使用隔离森林算法对降维后的数据进行分析，得到异常评分。最后，我们使用主观逻辑模型对每个客户端进行评分，根据评分结果筛选可信客户端，并将这些客户端的梯度加权合并到全局模型中。实验结果表明，我们的方法在检测恶意用户的各种攻击方面取得了很好的效果，强调了特征层提取在提高检测效率和鲁棒性方面的重要性。
 
-The experimental results indicate that using PCA or the Isolation Forest algorithm alone is time-consuming and yields inaccurate detection results. When pooling techniques\cite{betterTogether} are applied for data dimensionality reduction, it only reduces time costs at the expense of detection accuracy. However, extracting feature layers to reduce data volume significantly enhances the detection performance of various methods.
-
-In summary, to address the issue of detecting malicious user attacks, we propose a two-stage detection method. First, we extract sensitive feature layers from the gradients uploaded by users and then perform dimensionality reduction using PCA on these data. Next, we analyze the reduced data using the Isolation Forest algorithm to obtain anomaly scores. Finally, we employ a subjective logic model to score each client, filter out trustworthy clients based on the scores, and integrate the gradients of these clients into the global model. The experimental results demonstrate that our method is highly effective in detecting various malicious user attacks, underscoring the importance of feature layer extraction in improving detection efficiency and robustness.
+The experimental results indicate that using PCA or the Isolation Forest algorithm alone is time-consuming and yields inaccurate detection results. When pooling techniques\cite{betterTogether} are applied for data dimensionality reduction, it only reduces time costs at the expense of detection accuracy. However, extracting feature layers to reduce data volume significantly enhances the detection performance of various methods.In summary, to address the issue of detecting malicious user attacks, we propose a two-stage detection method. First, we extract sensitive feature layers from the gradients uploaded by users and then perform dimensionality reduction using PCA on these data. Next, we analyze the reduced data using the Isolation Forest algorithm to obtain anomaly scores. Finally, we employ a subjective logic model to score each client, filter out trustworthy clients based on the scores, and integrate the gradients of these clients into the global model. The experimental results demonstrate that our method is highly effective in detecting various malicious user attacks, underscoring the importance of feature layer extraction in improving detection efficiency and robustness.Looking ahead, we plan to extend the feature layer extraction method to broader malicious attack detection scenarios and other fields like anomaly detection and fault diagnosis, enhancing its generality and practicality.
 
 % The experimental results indicate that using PCA alone for detecting attacks by malicious users is time-consuming and yields inaccurate detection results, making it impractical for real-world applications. Similarly, using the isolation forest algorithm alone results in low detection accuracy due to the presence of a large number of data parameters ineffective for anomaly detection, rendering the results almost equivalent to random guessing. Applying pooling techniques \cite{betterTogether} to reduce data dimensions before PCA extraction of abnormal components only reduces PCA’s time cost but lowers detection accuracy. Combining pooling techniques with the isolation forest algorithm produces similar results, reducing computation time but failing to improve detection accuracy.
 
@@ -1352,8 +1353,6 @@ In summary, to address the issue of detecting malicious user attacks, we propose
 
 % Looking ahead, the powerful advantages of feature layer extraction in detecting malicious users will be further explored and utilized. We plan to apply the feature layer extraction method to a broader range of malicious attack detection scenarios to verify its wide applicability. The research will also extend to larger datasets and more complex models, further enhancing the method's generality and practicality. Additionally, we will explore the application of feature layer extraction in other machine learning and deep learning fields, such as anomaly detection and fault diagnosis, to further validate its effectiveness. By continuously optimizing the feature layer extraction technique, we aim to not only improve the security of federated learning systems but also provide an efficient and reliable data processing method for more research areas.
 
-Looking ahead, we plan to extend the feature layer extraction method to broader malicious attack detection scenarios and other fields like anomaly detection and fault diagnosis, enhancing its generality and practicality.
-
 % Looking ahead, we plan to extend the feature layer extraction method to broader malicious attack detection scenarios and explore its application in fields like anomaly detection and fault diagnosis, thereby enhancing its generality and practicality.
 
 % Conclusion:
@@ -1362,7 +1361,7 @@ Looking ahead, we plan to extend the feature layer extraction method to broader 
 
 \section{Acknowledgment}
 
-This work was supported by China Postdoctoral Science Foundation (grant No. 2024M750259), Beijing Natural Science Foundation (grant No. 4244084), National Natural Science Foundation of China (grant No. 62394322).
+This work was supported by China Postdoctoral Science Foundation (grant No. 2024M750259), Beijing Natural Science Foundation (grant No. 4244084), National Natural Science Foundation of China (grant No. 62401075, 62394322).
 
 % 按照8页来规划内容
 
