@@ -2,7 +2,7 @@
  * @Author: LetMeFly
  * @Date: 2024-05-15 17:45:43
  * @LastEditors: LetMeFly
- * @LastEditTime: 2024-08-26 10:57:51
+ * @LastEditTime: 2024-11-07 10:07:20
 -->
 # ViT-MGI
 
@@ -12,7 +12,7 @@ ViT-MGI: Context-aware Lightweight Malicious Gradient Identification for Federat
 
 This is paper submitted to [UIC 2024](https://www.ieee-smart-world.org/2024/uic/).
 
-You can get the paper at[Github Release](https://github.com/LetMeFly666/ViT-MGI/releases/tag/v.p.1.0.chinese.finish). The final version now is [v.p.2.3.1](https://github.com/LetMeFly666/ViT-MGI/releases/download/v.p.1.0.chinese.finish/v.p.2.3.1.final.before.deadline.add1author.pdf).
+You can get the paper at[Github Release](https://github.com/LetMeFly666/ViT-MGI/releases/tag/v.p.3.0.final). The final version now is [v.p.3.0.final](https://github.com/LetMeFly666/ViT-MGI/releases/download/v.p.3.0.final/v.p.3.0.final.pdf).
 
 The repository retains all the exploration records and experimental results from the process of writing the paper.
 
